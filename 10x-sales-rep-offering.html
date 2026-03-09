@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>10x Sales Rep — Forecom</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #07070f;
+      --purple: #8b6ec7;
+      --purple-light: #a98de0;
+      --purple-dim: rgba(139, 110, 199, 0.15);
+      --purple-border: rgba(139, 110, 199, 0.3);
+      --white: #ffffff;
+      --grey: #b0adc8;
+      --grey-dim: #6e6b82;
+      --green: #6ee7b7;
+      --green-dim: rgba(110, 231, 183, 0.1);
+      --amber: #fbbf24;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--white);
+      line-height: 1.6;
+    }
+
+    /* ── NEBULAS ── */
+    .n1 {
+      background:
+        radial-gradient(ellipse 80% 60% at 75% 25%, rgba(103,58,183,0.4) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 40% at 15% 75%, rgba(63,81,181,0.2) 0%, transparent 60%),
+        radial-gradient(ellipse 30% 30% at 88% 80%, rgba(156,39,176,0.2) 0%, transparent 50%),
+        var(--bg);
+    }
+    .n2 {
+      background:
+        radial-gradient(ellipse 60% 50% at 25% 40%, rgba(121,70,200,0.3) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 35% at 80% 65%, rgba(48,63,159,0.25) 0%, transparent 60%),
+        var(--bg);
+    }
+    .n3 {
+      background:
+        radial-gradient(ellipse 70% 55% at 65% 45%, rgba(90,50,170,0.3) 0%, transparent 65%),
+        radial-gradient(ellipse 35% 35% at 10% 30%, rgba(156,39,176,0.2) 0%, transparent 55%),
+        var(--bg);
+    }
+    .n4 {
+      background:
+        radial-gradient(ellipse 55% 50% at 70% 35%, rgba(103,58,183,0.35) 0%, transparent 65%),
+        radial-gradient(ellipse 45% 40% at 20% 70%, rgba(48,63,159,0.2) 0%, transparent 55%),
+        var(--bg);
+    }
+    .n5 {
+      background:
+        radial-gradient(ellipse 65% 50% at 35% 40%, rgba(120,60,190,0.3) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 40% at 85% 65%, rgba(80,40,160,0.2) 0%, transparent 55%),
+        var(--bg);
+    }
+    .n6 {
+      background:
+        radial-gradient(ellipse 75% 55% at 60% 30%, rgba(100,45,180,0.35) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 40% at 15% 70%, rgba(63,81,181,0.2) 0%, transparent 55%),
+        var(--bg);
+    }
+
+    .section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,0.55) 1px, transparent 1px),
+        radial-gradient(circle, rgba(255,255,255,0.35) 1px, transparent 1px),
+        radial-gradient(circle, rgba(255,255,255,0.25) 1px, transparent 1px);
+      background-size: 220px 220px, 370px 370px, 530px 530px;
+      background-position: 0 0, 110px 55px, 55px 110px;
+      opacity: 0.22;
+      pointer-events: none;
+    }
+
+    /* ── LAYOUT ── */
+    .section {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 64px 80px 48px;
+      border-top: 1px solid var(--purple-border);
+      overflow: hidden;
+    }
+    .section:first-child { border-top: none; }
+
+    .section-content {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* ── LOGO ── */
+    .logo {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 32px;
+    }
+    .logo svg { height: 22px; width: auto; opacity: 0.85; }
+
+    /* ── TYPE ── */
+    .label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      color: var(--purple);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    h1.title {
+      font-size: clamp(48px, 7vw, 88px);
+      font-weight: 900;
+      line-height: 0.95;
+      letter-spacing: -2px;
+      margin-bottom: 28px;
+    }
+
+    h1.title em {
+      font-style: normal;
+      color: var(--purple-light);
+    }
+
+    h2.title {
+      font-size: clamp(28px, 3.5vw, 46px);
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .intro {
+      font-size: 16px;
+      color: var(--grey);
+      max-width: 620px;
+      line-height: 1.75;
+      margin-bottom: 40px;
+    }
+
+    /* ── COVER ── */
+    .cover .section-content { justify-content: flex-start; padding-top: 48px; }
+
+    .cover-meta {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .meta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--purple-dim);
+      border: 1px solid var(--purple-border);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--purple-light);
+    }
+
+    .meta-pill::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--purple);
+    }
+
+    /* ── WHAT IT IS ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .body-text {
+      font-size: 15px;
+      color: var(--grey);
+      line-height: 1.8;
+    }
+
+    .body-text + .body-text { margin-top: 16px; }
+
+    .highlight-text {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+
+    .key-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--purple-light);
+      letter-spacing: 0.5px;
+      margin-bottom: 16px;
+    }
+
+    .bullet-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .bullet-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--grey);
+      line-height: 1.6;
+    }
+
+    .bullet-list li::before {
+      content: '•';
+      color: var(--purple);
+      font-size: 16px;
+      line-height: 1.4;
+      flex-shrink: 0;
+    }
+
+    /* ── 6 CATEGORIES ── */
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .cat-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--purple-border);
+      border-radius: 12px;
+      padding: 24px 22px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cat-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--purple), transparent);
+    }
+
+    .cat-num {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--purple);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .cat-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .cat-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .cat-list li {
+      font-size: 12px;
+      color: var(--grey-dim);
+      line-height: 1.5;
+      padding-left: 14px;
+      position: relative;
+    }
+
+    .cat-list li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--purple);
+      font-size: 11px;
+    }
+
+    /* ── PACKAGES ── */
+    .pkg-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 8px;
+    }
+
+    .pkg-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--purple-border);
+      border-radius: 14px;
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pkg-card.featured {
+      background: var(--purple-dim);
+      border-color: rgba(139, 110, 199, 0.6);
+      position: relative;
+    }
+
+    .pkg-card.featured::before {
+      content: 'MOST POPULAR';
+      position: absolute;
+      top: -1px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--purple);
+      color: var(--white);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      padding: 4px 14px;
+      border-radius: 0 0 8px 8px;
+    }
+
+    .pkg-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      color: var(--purple-light);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .pkg-name {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .pkg-target {
+      font-size: 12px;
+      color: var(--grey-dim);
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .pkg-divider {
+      height: 1px;
+      background: var(--purple-border);
+      margin-bottom: 20px;
+    }
+
+    .pkg-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      flex: 1;
+    }
+
+    .pkg-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--grey);
+      line-height: 1.5;
+    }
+
+    .pkg-list li::before {
+      content: '✓';
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .pkg-list li.inherited {
+      color: var(--grey-dim);
+    }
+
+    .pkg-list li.inherited::before {
+      color: var(--grey-dim);
+    }
+
+    .pkg-cta {
+      margin-top: 24px;
+      display: block;
+      text-align: center;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      border: 1px solid var(--purple-border);
+      color: var(--purple-light);
+      transition: all 0.2s;
+    }
+
+    .pkg-card.featured .pkg-cta {
+      background: var(--purple);
+      border-color: var(--purple);
+      color: var(--white);
+    }
+
+    /* ── REVENUE MODEL ── */
+    .rev-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+
+    .rev-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--purple-border);
+      border-radius: 12px;
+      padding: 32px 28px;
+    }
+
+    .rev-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      color: var(--purple-light);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .rev-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .rev-body {
+      font-size: 14px;
+      color: var(--grey);
+      line-height: 1.7;
+    }
+
+    .note-box {
+      background: var(--purple-dim);
+      border: 1px solid var(--purple-border);
+      border-radius: 10px;
+      padding: 20px 24px;
+      font-size: 14px;
+      color: var(--grey);
+      line-height: 1.65;
+    }
+
+    .note-box strong { color: var(--white); }
+
+    /* ── CTA SECTION ── */
+    .cta-wrap {
+      margin-top: 48px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background: var(--purple);
+      color: var(--white);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+    }
+
+    .cta-note {
+      font-size: 13px;
+      color: var(--grey-dim);
+    }
+
+    /* ── STAT ROW ── */
+    .stat-row {
+      display: flex;
+      gap: 48px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+
+    .stat-item {}
+
+    .stat-num {
+      font-size: 40px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .stat-num span { color: var(--purple); }
+
+    .stat-desc {
+      font-size: 12px;
+      color: var(--grey-dim);
+      margin-top: 4px;
+      max-width: 140px;
+      line-height: 1.5;
+    }
+
+    /* ── STEPS ── */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .step-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--purple-border);
+      border-radius: 12px;
+      padding: 24px 20px;
+    }
+
+    .step-num {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--purple);
+      opacity: 0.4;
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+
+    .step-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .step-body {
+      font-size: 12px;
+      color: var(--grey-dim);
+      line-height: 1.6;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .section { padding: 48px 32px 40px; }
+      .two-col { grid-template-columns: 1fr; gap: 32px; }
+      .cat-grid { grid-template-columns: 1fr 1fr; }
+      .pkg-grid { grid-template-columns: 1fr; }
+      .rev-grid { grid-template-columns: 1fr; }
+      .steps-grid { grid-template-columns: 1fr 1fr; }
+      .stat-row { gap: 32px; }
+    }
+
+    @media print {
+      .section { page-break-after: always; min-height: auto; padding: 48px 64px 40px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════ 1. COVER ═══════════════════ -->
+<section class="section n1 cover">
+  <div class="section-content">
+    <p class="label">Service Offering · 2026</p>
+    <h1 class="title"><em>10x</em><br>Sales Rep</h1>
+    <p class="intro">
+      AI-powered sales systém postavený na Claude Code, který jednomu obchodníkovi dá výkon pěti. Zvládá vše repetitivní — tak aby se člověk soustředil na to, co AI nedokáže: vztahy a closing.
+    </p>
+    <div class="cover-meta">
+      <span class="meta-pill">Founders & CEO</span>
+      <span class="meta-pill">Hvězdní obchodníci</span>
+      <span class="meta-pill">Solopreneuři</span>
+    </div>
+    <div class="stat-row">
+      <div class="stat-item">
+        <div class="stat-num">5<span>×</span></div>
+        <p class="stat-desc">výkon jednoho obchodníka</p>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">6</div>
+        <p class="stat-desc">kategorií pokrytého sales cyklu</p>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">24<span>/7</span></div>
+        <p class="stat-desc">pipeline nikdy nespí</p>
+      </div>
+    </div>
+  </div>
+  <div class="logo">
+    <svg width="110" height="28" viewBox="0 0 110 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23.7743 0.322449C21.8178 0.322449 20.2218 1.66106 19.7584 3.41156H18.1624C17.699 1.60958 16.103 0.322449 14.1465 0.322449C12.1901 0.322449 10.5941 1.66106 10.1307 3.41156H8.53465C8.07129 1.60958 6.47525 0.322449 4.51881 0.322449C2.25346 0.322449 0.399994 2.17591 0.399994 4.44126C0.399994 6.3977 1.73861 7.99374 3.48911 8.4571V10.0531C1.68712 10.5165 0.399994 12.1125 0.399994 14.069C0.399994 16.0254 1.73861 17.6215 3.48911 18.0848V19.6809C1.68712 20.1442 0.399994 21.7403 0.399994 23.6967C0.399994 25.9621 2.25346 27.8155 4.51881 27.8155C6.78416 27.8155 8.63762 25.9621 8.63762 23.6967C8.63762 21.7403 7.29901 20.1442 5.54851 19.6809V18.0848C6.9901 17.7244 8.17426 16.5403 8.53465 15.0987H10.1307C10.5941 16.9007 12.1901 18.1878 14.1465 18.1878C16.4119 18.1878 18.2654 16.3343 18.2654 14.069C18.2654 11.8036 16.4119 9.95017 14.1465 9.95017C12.1901 9.95017 10.5941 11.2888 10.1307 13.0393H8.53465C8.17426 11.5977 6.9901 10.4135 5.54851 10.0531V8.4571C6.9901 8.09671 8.17426 6.91255 8.53465 5.47096H10.1307C10.5941 7.27294 12.1901 8.56007 14.1465 8.56007C16.103 8.56007 17.699 7.22146 18.1624 5.47096H19.7584C20.2218 7.27294 21.8178 8.56007 23.7743 8.56007C26.0396 8.56007 27.8931 6.70661 27.8931 4.44126C27.8931 2.17591 26.0911 0.322449 23.7743 0.322449Z" fill="#9167FF"/><path d="M30.4661 24.5719H27.8918V13.1422H35.2542V15.562H30.4661V17.9818H33.9671V20.2986H30.5176V24.5719H30.4661Z" fill="white"/><path d="M36.6949 18.8571C36.6949 17.1066 37.2612 15.665 38.4454 14.5323C39.5781 13.4511 41.0197 12.8848 42.6672 12.8848C44.3147 12.8848 45.7048 13.4511 46.889 14.5323C48.0217 15.6135 48.588 17.0551 48.588 18.8056C48.588 20.5561 48.0217 21.9977 46.889 23.0789C45.7563 24.16 44.3662 24.7264 42.6672 24.7264C41.0197 24.7264 39.6296 24.16 38.4454 23.0789C37.3127 22.0492 36.6949 20.6076 36.6949 18.8571ZM40.3504 16.2828C39.6811 16.9006 39.3721 17.7244 39.3721 18.8571C39.3721 19.9897 39.6811 20.8135 40.3504 21.4313C41.0197 21.9977 41.7919 22.3066 42.6672 22.3066C43.5424 22.3066 44.3147 21.9977 44.984 21.4313C45.6533 20.865 45.9623 19.9897 45.9623 18.8571C45.9623 17.7244 45.6533 16.9006 44.984 16.2828C44.3147 15.665 43.5424 15.4076 42.6672 15.4076C41.7919 15.4076 41.0197 15.665 40.3504 16.2828Z" fill="white"/><path d="M56.2593 24.5717L54.1999 20.3499H53.2732V24.5717H50.7504V13.142H55.2811C56.3623 13.142 57.289 13.5024 57.9583 14.1717C58.6276 14.841 58.988 15.7163 58.988 16.746C58.988 17.5183 58.7821 18.1876 58.3702 18.7539C57.9583 19.3202 57.4435 19.7321 56.7227 19.9896L59.0395 24.6232H56.2593V24.5717ZM53.3247 18.1361H54.8177C55.3326 18.1361 55.7445 18.0331 56.0019 17.7757C56.2593 17.5183 56.4138 17.2094 56.4138 16.746C56.4138 16.3341 56.2593 15.9737 56.0019 15.7163C55.7445 15.4589 55.3326 15.3559 54.8177 15.3559H53.3247V18.1361Z" fill="white"/><path d="M68.566 24.5717H61.3066V13.142H68.5145V15.5618H63.8294V17.7242H68.0512V19.9381H63.8294V22.1004H68.5145V24.5717H68.566Z" fill="white"/><path d="M82.6206 18.8571C82.6206 17.1066 83.187 15.665 84.3711 14.5323C85.5038 13.4511 86.9454 12.8848 88.5929 12.8848C90.2404 12.8848 91.6305 13.4511 92.8147 14.5323C93.9474 15.6135 94.5137 17.0551 94.5137 18.8056C94.5137 20.5561 93.9474 21.9977 92.8147 23.0789C91.682 24.16 90.2919 24.7264 88.5929 24.7264C86.9454 24.7264 85.5553 24.16 84.3711 23.0789C83.187 22.0492 82.6206 20.6076 82.6206 18.8571ZM86.2246 16.2828C85.5553 16.9006 85.2464 17.7244 85.2464 18.8571C85.2464 19.9897 85.5553 20.8135 86.2246 21.4313C86.8939 21.9977 87.6662 22.3066 88.5414 22.3066C89.4167 22.3066 90.189 21.9977 90.8583 21.4313C91.5276 20.865 91.8365 19.9897 91.8365 18.8571C91.8365 17.7244 91.5276 16.9006 90.8583 16.2828C90.189 15.665 89.4167 15.4076 88.5414 15.4076C87.6662 15.4076 86.8939 15.665 86.2246 16.2828Z" fill="white"/><path d="M109.599 24.5719H107.127V17.0036L104.141 24.5719H102.082L99.0958 17.1066V24.5719H96.676V13.1422H99.971L103.112 20.865L106.098 13.1422H109.599V24.5719Z" fill="white"/><path d="M79.1202 20.6591C78.9657 21.0194 78.7083 21.3284 78.3994 21.5858C77.936 22.0492 77.2152 22.2551 76.34 22.2551C75.4132 22.2551 74.6409 21.9462 74.0231 21.3284C73.4053 20.7105 73.0449 19.8868 73.0449 18.8571C73.0449 17.7244 73.3538 16.9006 74.0231 16.2828C74.6924 15.665 75.4132 15.3561 76.2885 15.3561C76.7518 15.3561 77.1637 15.4076 77.5756 15.562C77.936 15.7165 78.2449 15.8709 78.4508 16.1284C78.6568 16.3343 78.8112 16.5917 78.9657 16.7977C78.9657 16.8492 79.0172 16.9006 79.0172 16.9521L81.0766 15.4076C80.8192 14.9957 80.5103 14.5838 80.0984 14.2234C79.6865 13.8115 79.1716 13.5026 78.5023 13.2452C77.833 12.9878 77.1122 12.8848 76.2885 12.8848C74.6409 12.8848 73.2508 13.4511 72.1182 14.5838C70.9855 15.7165 70.4192 17.1581 70.4192 18.8571C70.4192 20.6076 70.9855 22.0492 72.1182 23.1303C73.2508 24.2115 74.6409 24.7779 76.34 24.7779C77.1637 24.7779 77.936 24.6234 78.6053 24.366C79.2746 24.1086 79.8409 23.7482 80.2528 23.3363C80.6647 22.9244 80.9736 22.5125 81.231 22.0492L79.1202 20.6591Z" fill="white"/></svg>
+  </div>
+</section>
+
+<!-- ═══════════════════ 2. CO TO JE ═══════════════════ -->
+<section class="section n2">
+  <div class="section-content">
+    <div class="two-col">
+      <div>
+        <p class="label">O službě</p>
+        <h2 class="title">AI, která prodává.<br>Člověk, který zavírá.</h2>
+        <p class="body-text">
+          10x Sales Rep je managed AI systém, který přebírá repetitivní část sales procesu — od hledání leadů přes outreach, follow-upy, přípravu na schůzky až po deal coaching a upsell triggery.
+        </p>
+        <p class="body-text" style="margin-top: 14px;">
+          Obchodník se místo mailů a výzkumu soustředí na to jediné, v čem AI nestačí: budování důvěry, lidský úsudek a closing.
+        </p>
+      </div>
+      <div>
+        <p class="key-label">Cílovka — pro koho to je:</p>
+        <ul class="bullet-list">
+          <li><strong style="color:var(--white)">Founders a CEO</strong> vedoucí sales osobně — bez kapacity budovat tým</li>
+          <li><strong style="color:var(--white)">Hvězdní obchodníci</strong> kteří chtějí 5× víc aktivit při stejném čase</li>
+          <li><strong style="color:var(--white)">Solopreneuři</strong> prodávající high-ticket B2B služby</li>
+          <li><strong style="color:var(--white)">Malé týmy</strong> kde jeden člověk táhne celý pipeline</li>
+        </ul>
+        <div style="margin-top: 28px; background: var(--purple-dim); border: 1px solid var(--purple-border); border-radius: 10px; padding: 20px 22px;">
+          <p style="font-size: 13px; color: var(--grey); line-height: 1.7;">
+            <strong style="color: var(--white)">Není to software-as-a-service.</strong> Je to managed service — Forecom nastavuje, spravuje a průběžně vylepšuje celý systém. Klient dostane výsledky, ne nástroj.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="logo">
+    <svg width="110" height="28" viewBox="0 0 110 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23.7743 0.322449C21.8178 0.322449 20.2218 1.66106 19.7584 3.41156H18.1624C17.699 1.60958 16.103 0.322449 14.1465 0.322449C12.1901 0.322449 10.5941 1.66106 10.1307 3.41156H8.53465C8.07129 1.60958 6.47525 0.322449 4.51881 0.322449C2.25346 0.322449 0.399994 2.17591 0.399994 4.44126C0.399994 6.3977 1.73861 7.99374 3.48911 8.4571V10.0531C1.68712 10.5165 0.399994 12.1125 0.399994 14.069C0.399994 16.0254 1.73861 17.6215 3.48911 18.0848V19.6809C1.68712 20.1442 0.399994 21.7403 0.399994 23.6967C0.399994 25.9621 2.25346 27.8155 4.51881 27.8155C6.78416 27.8155 8.63762 25.9621 8.63762 23.6967C8.63762 21.7403 7.29901 20.1442 5.54851 19.6809V18.0848C6.9901 17.7244 8.17426 16.5403 8.53465 15.0987H10.1307C10.5941 16.9007 12.1901 18.1878 14.1465 18.1878C16.4119 18.1878 18.2654 16.3343 18.2654 14.069C18.2654 11.8036 16.4119 9.95017 14.1465 9.95017C12.1901 9.95017 10.5941 11.2888 10.1307 13.0393H8.53465C8.17426 11.5977 6.9901 10.4135 5.54851 10.0531V8.4571C6.9901 8.09671 8.17426 6.91255 8.53465 5.47096H10.1307C10.5941 7.27294 12.1901 8.56007 14.1465 8.56007C16.103 8.56007 17.699 7.22146 18.1624 5.47096H19.7584C20.2218 7.27294 21.8178 8.56007 23.7743 8.56007C26.0396 8.56007 27.8931 6.70661 27.8931 4.44126C27.8931 2.17591 26.0911 0.322449 23.7743 0.322449Z" fill="#9167FF"/><path d="M30.4661 24.5719H27.8918V13.1422H35.2542V15.562H30.4661V17.9818H33.9671V20.2986H30.5176V24.5719H30.4661Z" fill="white"/><path d="M36.6949 18.8571C36.6949 17.1066 37.2612 15.665 38.4454 14.5323C39.5781 13.4511 41.0197 12.8848 42.6672 12.8848C44.3147 12.8848 45.7048 13.4511 46.889 14.5323C48.0217 15.6135 48.588 17.0551 48.588 18.8056C48.588 20.5561 48.0217 21.9977 46.889 23.0789C45.7563 24.16 44.3662 24.7264 42.6672 24.7264C41.0197 24.7264 39.6296 24.16 38.4454 23.0789C37.3127 22.0492 36.6949 20.6076 36.6949 18.8571ZM40.3504 16.2828C39.6811 16.9006 39.3721 17.7244 39.3721 18.8571C39.3721 19.9897 39.6811 20.8135 40.3504 21.4313C41.0197 21.9977 41.7919 22.3066 42.6672 22.3066C43.5424 22.3066 44.3147 21.9977 44.984 21.4313C45.6533 20.865 45.9623 19.9897 45.9623 18.8571C45.9623 17.7244 45.6533 16.9006 44.984 16.2828C44.3147 15.665 43.5424 15.4076 42.6672 15.4076C41.7919 15.4076 41.0197 15.665 40.3504 16.2828Z" fill="white"/><path d="M56.2593 24.5717L54.1999 20.3499H53.2732V24.5717H50.7504V13.142H55.2811C56.3623 13.142 57.289 13.5024 57.9583 14.1717C58.6276 14.841 58.988 15.7163 58.988 16.746C58.988 17.5183 58.7821 18.1876 58.3702 18.7539C57.9583 19.3202 57.4435 19.7321 56.7227 19.9896L59.0395 24.6232H56.2593V24.5717ZM53.3247 18.1361H54.8177C55.3326 18.1361 55.7445 18.0331 56.0019 17.7757C56.2593 17.5183 56.4138 17.2094 56.4138 16.746C56.4138 16.3341 56.2593 15.9737 56.0019 15.7163C55.7445 15.4589 55.3326 15.3559 54.8177 15.3559H53.3247V18.1361Z" fill="white"/><path d="M68.566 24.5717H61.3066V13.142H68.5145V15.5618H63.8294V17.7242H68.0512V19.9381H63.8294V22.1004H68.5145V24.5717H68.566Z" fill="white"/><path d="M82.6206 18.8571C82.6206 17.1066 83.187 15.665 84.3711 14.5323C85.5038 13.4511 86.9454 12.8848 88.5929 12.8848C90.2404 12.8848 91.6305 13.4511 92.8147 14.5323C93.9474 15.6135 94.5137 17.0551 94.5137 18.8056C94.5137 20.5561 93.9474 21.9977 92.8147 23.0789C91.682 24.16 90.2919 24.7264 88.5929 24.7264C86.9454 24.7264 85.5553 24.16 84.3711 23.0789C83.187 22.0492 82.6206 20.6076 82.6206 18.8571ZM86.2246 16.2828C85.5553 16.9006 85.2464 17.7244 85.2464 18.8571C85.2464 19.9897 85.5553 20.8135 86.2246 21.4313C86.8939 21.9977 87.6662 22.3066 88.5414 22.3066C89.4167 22.3066 90.189 21.9977 90.8583 21.4313C91.5276 20.865 91.8365 19.9897 91.8365 18.8571C91.8365 17.7244 91.5276 16.9006 90.8583 16.2828C90.189 15.665 89.4167 15.4076 88.5414 15.4076C87.6662 15.4076 86.8939 15.665 86.2246 16.2828Z" fill="white"/><path d="M109.599 24.5719H107.127V17.0036L104.141 24.5719H102.082L99.0958 17.1066V24.5719H96.676V13.1422H99.971L103.112 20.865L106.098 13.1422H109.599V24.5719Z" fill="white"/><path d="M79.1202 20.6591C78.9657 21.0194 78.7083 21.3284 78.3994 21.5858C77.936 22.0492 77.2152 22.2551 76.34 22.2551C75.4132 22.2551 74.6409 21.9462 74.0231 21.3284C73.4053 20.7105 73.0449 19.8868 73.0449 18.8571C73.0449 17.7244 73.3538 16.9006 74.0231 16.2828C74.6924 15.665 75.4132 15.3561 76.2885 15.3561C76.7518 15.3561 77.1637 15.4076 77.5756 15.562C77.936 15.7165 78.2449 15.8709 78.4508 16.1284C78.6568 16.3343 78.8112 16.5917 78.9657 16.7977C78.9657 16.8492 79.0172 16.9006 79.0172 16.9521L81.0766 15.4076C80.8192 14.9957 80.5103 14.5838 80.0984 14.2234C79.6865 13.8115 79.1716 13.5026 78.5023 13.2452C77.833 12.9878 77.1122 12.8848 76.2885 12.8848C74.6409 12.8848 73.2508 13.4511 72.1182 14.5838C70.9855 15.7165 70.4192 17.1581 70.4192 18.8571C70.4192 20.6076 70.9855 22.0492 72.1182 23.1303C73.2508 24.2115 74.6409 24.7779 76.34 24.7779C77.1637 24.7779 77.936 24.6234 78.6053 24.366C79.2746 24.1086 79.8409 23.7482 80.2528 23.3363C80.6647 22.9244 80.9736 22.5125 81.231 22.0492L79.1202 20.6591Z" fill="white"/></svg>
+  </div>
+</section>
+
+<!-- ═══════════════════ 3. 6 KATEGORIÍ ═══════════════════ -->
+<section class="section n3">
+  <div class="section-content">
+    <p class="label">Co systém umí</p>
+    <h2 class="title" style="margin-bottom: 32px;">6 kategorií.<br>Celý sales cyklus.</h2>
+    <div class="cat-grid">
+      <div class="cat-card">
+        <p class="cat-num">01</p>
+        <h3 class="cat-title">Budování pipeline</h3>
+        <ul class="cat-list">
+          <li>Generování leadů (ICP-based, enriched data)</li>
+          <li>AI výzkum každého prospektu — hyper-personalizace</li>
+          <li>Monitoring intent signálů: fundraising, povýšení, zmínka o konkurenci</li>
+          <li>Nastavení kampaní v Smartlead / Leadspicker</li>
+        </ul>
+      </div>
+      <div class="cat-card">
+        <p class="cat-num">02</p>
+        <h3 class="cat-title">Outreach & engagement</h3>
+        <ul class="cat-list">
+          <li>AI zpracovává příchozí odpovědi a kvalifikuje leady</li>
+          <li>Automatické follow-up sekvence (multi-touch, multi-channel)</li>
+          <li>Komentářová strategie na LinkedIn</li>
+          <li>Re-engagement studených leadů (3–12 měsíců)</li>
+        </ul>
+      </div>
+      <div class="cat-card">
+        <p class="cat-num">03</p>
+        <h3 class="cat-title">Příprava na schůzku</h3>
+        <ul class="cat-list">
+          <li>Pre-meeting brief: firma, člověk, news, pain pointy</li>
+          <li>Nahrávka callu → transkript → AI feedback</li>
+          <li>Co šlo dobře, co ne, jaké námitky zazněly</li>
+          <li>Živý objection playbook — aktualizuje se po každém callu</li>
+        </ul>
+      </div>
+      <div class="cat-card">
+        <p class="cat-num">04</p>
+        <h3 class="cat-title">Closing & deal management</h3>
+        <ul class="cat-list">
+          <li>Pipeline coaching — AI navrhuje next steps pro stagnující dealy</li>
+          <li>Frameworky pro cenové vyjednávání</li>
+          <li>Tvorba nabídky / SOW / první draft smlouvy</li>
+          <li>Synchronizace s CRM (Pipedrive / HubSpot)</li>
+        </ul>
+      </div>
+      <div class="cat-card">
+        <p class="cat-num">05</p>
+        <h3 class="cat-title">Social selling & brand</h3>
+        <ul class="cat-list">
+          <li>Tvorba obsahu na LinkedIn: posty, karusely, thought leadership</li>
+          <li>Autentické AI fotky pro LinkedIn obsah</li>
+          <li>Monitoring kde se pohybují cíloví zákazníci online</li>
+        </ul>
+      </div>
+      <div class="cat-card">
+        <p class="cat-num">06</p>
+        <h3 class="cat-title">Expanze & udržení výnosů</h3>
+        <ul class="cat-list">
+          <li>Upsell / cross-sell trigger systém pro stávající zákazníky</li>
+          <li>Win/loss analýza — systematické rozpoznávání vzorců</li>
+          <li>Automatizovaný sběr testimonialů a case study</li>
+          <li>Referral request workflows</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="logo">
+    <svg width="110" height="28" viewBox="0 0 110 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23.7743 0.322449C21.8178 0.322449 20.2218 1.66106 19.7584 3.41156H18.1624C17.699 1.60958 16.103 0.322449 14.1465 0.322449C12.1901 0.322449 10.5941 1.66106 10.1307 3.41156H8.53465C8.07129 1.60958 6.47525 0.322449 4.51881 0.322449C2.25346 0.322449 0.399994 2.17591 0.399994 4.44126C0.399994 6.3977 1.73861 7.99374 3.48911 8.4571V10.0531C1.68712 10.5165 0.399994 12.1125 0.399994 14.069C0.399994 16.0254 1.73861 17.6215 3.48911 18.0848V19.6809C1.68712 20.1442 0.399994 21.7403 0.399994 23.6967C0.399994 25.9621 2.25346 27.8155 4.51881 27.8155C6.78416 27.8155 8.63762 25.9621 8.63762 23.6967C8.63762 21.7403 7.29901 20.1442 5.54851 19.6809V18.0848C6.9901 17.7244 8.17426 16.5403 8.53465 15.0987H10.1307C10.5941 16.9007 12.1901 18.1878 14.1465 18.1878C16.4119 18.1878 18.2654 16.3343 18.2654 14.069C18.2654 11.8036 16.4119 9.95017 14.1465 9.95017C12.1901 9.95017 10.5941 11.2888 10.1307 13.0393H8.53465C8.17426 11.5977 6.9901 10.4135 5.54851 10.0531V8.4571C6.9901 8.09671 8.17426 6.91255 8.53465 5.47096H10.1307C10.5941 7.27294 12.1901 8.56007 14.1465 8.56007C16.103 8.56007 17.699 7.22146 18.1624 5.47096H19.7584C20.2218 7.27294 21.8178 8.56007 23.7743 8.56007C26.0396 8.56007 27.8931 6.70661 27.8931 4.44126C27.8931 2.17591 26.0911 0.322449 23.7743 0.322449Z" fill="#9167FF"/><path d="M30.4661 24.5719H27.8918V13.1422H35.2542V15.562H30.4661V17.9818H33.9671V20.2986H30.5176V24.5719H30.4661Z" fill="white"/><path d="M36.6949 18.8571C36.6949 17.1066 37.2612 15.665 38.4454 14.5323C39.5781 13.4511 41.0197 12.8848 42.6672 12.8848C44.3147 12.8848 45.7048 13.4511 46.889 14.5323C48.0217 15.6135 48.588 17.0551 48.588 18.8056C48.588 20.5561 48.0217 21.9977 46.889 23.0789C45.7563 24.16 44.3662 24.7264 42.6672 24.7264C41.0197 24.7264 39.6296 24.16 38.4454 23.0789C37.3127 22.0492 36.6949 20.6076 36.6949 18.8571ZM40.3504 16.2828C39.6811 16.9006 39.3721 17.7244 39.3721 18.8571C39.3721 19.9897 39.6811 20.8135 40.3504 21.4313C41.0197 21.9977 41.7919 22.3066 42.6672 22.3066C43.5424 22.3066 44.3147 21.9977 44.984 21.4313C45.6533 20.865 45.9623 19.9897 45.9623 18.8571C45.9623 17.7244 45.6533 16.9006 44.984 16.2828C44.3147 15.665 43.5424 15.4076 42.6672 15.4076C41.7919 15.4076 41.0197 15.665 40.3504 16.2828Z" fill="white"/><path d="M56.2593 24.5717L54.1999 20.3499H53.2732V24.5717H50.7504V13.142H55.2811C56.3623 13.142 57.289 13.5024 57.9583 14.1717C58.6276 14.841 58.988 15.7163 58.988 16.746C58.988 17.5183 58.7821 18.1876 58.3702 18.7539C57.9583 19.3202 57.4435 19.7321 56.7227 19.9896L59.0395 24.6232H56.2593V24.5717ZM53.3247 18.1361H54.8177C55.3326 18.1361 55.7445 18.0331 56.0019 17.7757C56.2593 17.5183 56.4138 17.2094 56.4138 16.746C56.4138 16.3341 56.2593 15.9737 56.0019 15.7163C55.7445 15.4589 55.3326 15.3559 54.8177 15.3559H53.3247V18.1361Z" fill="white"/><path d="M68.566 24.5717H61.3066V13.142H68.5145V15.5618H63.8294V17.7242H68.0512V19.9381H63.8294V22.1004H68.5145V24.5717H68.566Z" fill="white"/><path d="M82.6206 18.8571C82.6206 17.1066 83.187 15.665 84.3711 14.5323C85.5038 13.4511 86.9454 12.8848 88.5929 12.8848C90.2404 12.8848 91.6305 13.4511 92.8147 14.5323C93.9474 15.6135 94.5137 17.0551 94.5137 18.8056C94.5137 20.5561 93.9474 21.9977 92.8147 23.0789C91.682 24.16 90.2919 24.7264 88.5929 24.7264C86.9454 24.7264 85.5553 24.16 84.3711 23.0789C83.187 22.0492 82.6206 20.6076 82.6206 18.8571ZM86.2246 16.2828C85.5553 16.9006 85.2464 17.7244 85.2464 18.8571C85.2464 19.9897 85.5553 20.8135 86.2246 21.4313C86.8939 21.9977 87.6662 22.3066 88.5414 22.3066C89.4167 22.3066 90.189 21.9977 90.8583 21.4313C91.5276 20.865 91.8365 19.9897 91.8365 18.8571C91.8365 17.7244 91.5276 16.9006 90.8583 16.2828C90.189 15.665 89.4167 15.4076 88.5414 15.4076C87.6662 15.4076 86.8939 15.665 86.2246 16.2828Z" fill="white"/><path d="M109.599 24.5719H107.127V17.0036L104.141 24.5719H102.082L99.0958 17.1066V24.5719H96.676V13.1422H99.971L103.112 20.865L106.098 13.1422H109.599V24.5719Z" fill="white"/><path d="M79.1202 20.6591C78.9657 21.0194 78.7083 21.3284 78.3994 21.5858C77.936 22.0492 77.2152 22.2551 76.34 22.2551C75.4132 22.2551 74.6409 21.9462 74.0231 21.3284C73.4053 20.7105 73.0449 19.8868 73.0449 18.8571C73.0449 17.7244 73.3538 16.9006 74.0231 16.2828C74.6924 15.665 75.4132 15.3561 76.2885 15.3561C76.7518 15.3561 77.1637 15.4076 77.5756 15.562C77.936 15.7165 78.2449 15.8709 78.4508 16.1284C78.6568 16.3343 78.8112 16.5917 78.9657 16.7977C78.9657 16.8492 79.0172 16.9006 79.0172 16.9521L81.0766 15.4076C80.8192 14.9957 80.5103 14.5838 80.0984 14.2234C79.6865 13.8115 79.1716 13.5026 78.5023 13.2452C77.833 12.9878 77.1122 12.8848 76.2885 12.8848C74.6409 12.8848 73.2508 13.4511 72.1182 14.5838C70.9855 15.7165 70.4192 17.1581 70.4192 18.8571C70.4192 20.6076 70.9855 22.0492 72.1182 23.1303C73.2508 24.2115 74.6409 24.7779 76.34 24.7779C77.1637 24.7779 77.936 24.6234 78.6053 24.366C79.2746 24.1086 79.8409 23.7482 80.2528 23.3363C80.6647 22.9244 80.9736 22.5125 81.231 22.0492L79.1202 20.6591Z" fill="white"/></svg>
+  </div>
+</section>
+
+<!-- ═══════════════════ 4. BALÍČKY ═══════════════════ -->
+<section class="section n4">
+  <div class="section-content">
+    <p class="label">Balíčky</p>
+    <h2 class="title" style="margin-bottom: 32px;">Vyberte úroveň.<br>Škálujte kdykoli.</h2>
+    <div class="pkg-grid">
+
+      <div class="pkg-card">
+        <p class="pkg-label">Starter</p>
+        <h3 class="pkg-name">Cold Outreach</h3>
+        <p class="pkg-target">Pro solopreneurey a freelancery kteří chtějí automatizovaný cold outreach na email i LinkedIn.</p>
+        <div class="pkg-divider"></div>
+        <ul class="pkg-list">
+          <li>Tvorba cold outreach kampaní automaticky</li>
+          <li>Email outreach — Smartlead kampaně</li>
+          <li>LinkedIn outreach kampaně</li>
+        </ul>
+        <a href="mailto:tomas.vrbka@forecom-solutions.com" class="pkg-cta">Zjistit více →</a>
+      </div>
+
+      <div class="pkg-card featured">
+        <p class="pkg-label">Pro</p>
+        <h3 class="pkg-name">Sales Execution</h3>
+        <p class="pkg-target">Pro founders a obchodníky kteří chtějí AI asistenci od první schůzky až po podpis smlouvy.</p>
+        <div class="pkg-divider"></div>
+        <ul class="pkg-list">
+          <li>Pre-meeting brief: firma, člověk, news, pain pointy</li>
+          <li>Nahrávka callu → transkript → AI feedback</li>
+          <li>Živý objection playbook — aktualizuje se po každém callu</li>
+          <li>Pipeline coaching — next steps pro stagnující dealy</li>
+          <li>Podpora při cenovém vyjednávání</li>
+          <li>Tvorba nabídky / offeru</li>
+          <li>První draft smlouvy nebo SOW</li>
+          <li>Synchronizace s CRM (Pipedrive / HubSpot)</li>
+        </ul>
+        <a href="mailto:tomas.vrbka@forecom-solutions.com" class="pkg-cta">Zjistit více →</a>
+      </div>
+
+      <div class="pkg-card">
+        <p class="pkg-label">Full Stack</p>
+        <h3 class="pkg-name">Celý sales cyklus</h3>
+        <p class="pkg-target">Pro CEO a founder-led sales kde AI pokrývá vše — od prvního leadu po upsell a referraly.</p>
+        <div class="pkg-divider"></div>
+        <ul class="pkg-list">
+          <li class="inherited">Vše ze Starteru + Pro</li>
+          <li>AI výzkum prospektů — hyper-personalizace</li>
+          <li>Intent monitoring: fundraising, povýšení, konkurence</li>
+          <li>LinkedIn obsah — posty, karusely, thought leadership</li>
+          <li>Re-engagement studených leadů</li>
+          <li>Upsell / cross-sell trigger systém</li>
+          <li>Win/loss analýza & vzorce</li>
+          <li>Automatizovaný sběr testimonialů & referral workflows</li>
+        </ul>
+        <a href="mailto:tomas.vrbka@forecom-solutions.com" class="pkg-cta">Zjistit více →</a>
+      </div>
+
+    </div>
+  </div>
+  <div class="logo">
+    <svg width="110" height="28" viewBox="0 0 110 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23.7743 0.322449C21.8178 0.322449 20.2218 1.66106 19.7584 3.41156H18.1624C17.699 1.60958 16.103 0.322449 14.1465 0.322449C12.1901 0.322449 10.5941 1.66106 10.1307 3.41156H8.53465C8.07129 1.60958 6.47525 0.322449 4.51881 0.322449C2.25346 0.322449 0.399994 2.17591 0.399994 4.44126C0.399994 6.3977 1.73861 7.99374 3.48911 8.4571V10.0531C1.68712 10.5165 0.399994 12.1125 0.399994 14.069C0.399994 16.0254 1.73861 17.6215 3.48911 18.0848V19.6809C1.68712 20.1442 0.399994 21.7403 0.399994 23.6967C0.399994 25.9621 2.25346 27.8155 4.51881 27.8155C6.78416 27.8155 8.63762 25.9621 8.63762 23.6967C8.63762 21.7403 7.29901 20.1442 5.54851 19.6809V18.0848C6.9901 17.7244 8.17426 16.5403 8.53465 15.0987H10.1307C10.5941 16.9007 12.1901 18.1878 14.1465 18.1878C16.4119 18.1878 18.2654 16.3343 18.2654 14.069C18.2654 11.8036 16.4119 9.95017 14.1465 9.95017C12.1901 9.95017 10.5941 11.2888 10.1307 13.0393H8.53465C8.17426 11.5977 6.9901 10.4135 5.54851 10.0531V8.4571C6.9901 8.09671 8.17426 6.91255 8.53465 5.47096H10.1307C10.5941 7.27294 12.1901 8.56007 14.1465 8.56007C16.103 8.56007 17.699 7.22146 18.1624 5.47096H19.7584C20.2218 7.27294 21.8178 8.56007 23.7743 8.56007C26.0396 8.56007 27.8931 6.70661 27.8931 4.44126C27.8931 2.17591 26.0911 0.322449 23.7743 0.322449Z" fill="#9167FF"/><path d="M30.4661 24.5719H27.8918V13.1422H35.2542V15.562H30.4661V17.9818H33.9671V20.2986H30.5176V24.5719H30.4661Z" fill="white"/><path d="M36.6949 18.8571C36.6949 17.1066 37.2612 15.665 38.4454 14.5323C39.5781 13.4511 41.0197 12.8848 42.6672 12.8848C44.3147 12.8848 45.7048 13.4511 46.889 14.5323C48.0217 15.6135 48.588 17.0551 48.588 18.8056C48.588 20.5561 48.0217 21.9977 46.889 23.0789C45.7563 24.16 44.3662 24.7264 42.6672 24.7264C41.0197 24.7264 39.6296 24.16 38.4454 23.0789C37.3127 22.0492 36.6949 20.6076 36.6949 18.8571ZM40.3504 16.2828C39.6811 16.9006 39.3721 17.7244 39.3721 18.8571C39.3721 19.9897 39.6811 20.8135 40.3504 21.4313C41.0197 21.9977 41.7919 22.3066 42.6672 22.3066C43.5424 22.3066 44.3147 21.9977 44.984 21.4313C45.6533 20.865 45.9623 19.9897 45.9623 18.8571C45.9623 17.7244 45.6533 16.9006 44.984 16.2828C44.3147 15.665 43.5424 15.4076 42.6672 15.4076C41.7919 15.4076 41.0197 15.665 40.3504 16.2828Z" fill="white"/><path d="M56.2593 24.5717L54.1999 20.3499H53.2732V24.5717H50.7504V13.142H55.2811C56.3623 13.142 57.289 13.5024 57.9583 14.1717C58.6276 14.841 58.988 15.7163 58.988 16.746C58.988 17.5183 58.7821 18.1876 58.3702 18.7539C57.9583 19.3202 57.4435 19.7321 56.7227 19.9896L59.0395 24.6232H56.2593V24.5717ZM53.3247 18.1361H54.8177C55.3326 18.1361 55.7445 18.0331 56.0019 17.7757C56.2593 17.5183 56.4138 17.2094 56.4138 16.746C56.4138 16.3341 56.2593 15.9737 56.0019 15.7163C55.7445 15.4589 55.3326 15.3559 54.8177 15.3559H53.3247V18.1361Z" fill="white"/><path d="M68.566 24.5717H61.3066V13.142H68.5145V15.5618H63.8294V17.7242H68.0512V19.9381H63.8294V22.1004H68.5145V24.5717H68.566Z" fill="white"/><path d="M82.6206 18.8571C82.6206 17.1066 83.187 15.665 84.3711 14.5323C85.5038 13.4511 86.9454 12.8848 88.5929 12.8848C90.2404 12.8848 91.6305 13.4511 92.8147 14.5323C93.9474 15.6135 94.5137 17.0551 94.5137 18.8056C94.5137 20.5561 93.9474 21.9977 92.8147 23.0789C91.682 24.16 90.2919 24.7264 88.5929 24.7264C86.9454 24.7264 85.5553 24.16 84.3711 23.0789C83.187 22.0492 82.6206 20.6076 82.6206 18.8571ZM86.2246 16.2828C85.5553 16.9006 85.2464 17.7244 85.2464 18.8571C85.2464 19.9897 85.5553 20.8135 86.2246 21.4313C86.8939 21.9977 87.6662 22.3066 88.5414 22.3066C89.4167 22.3066 90.189 21.9977 90.8583 21.4313C91.5276 20.865 91.8365 19.9897 91.8365 18.8571C91.8365 17.7244 91.5276 16.9006 90.8583 16.2828C90.189 15.665 89.4167 15.4076 88.5414 15.4076C87.6662 15.4076 86.8939 15.665 86.2246 16.2828Z" fill="white"/><path d="M109.599 24.5719H107.127V17.0036L104.141 24.5719H102.082L99.0958 17.1066V24.5719H96.676V13.1422H99.971L103.112 20.865L106.098 13.1422H109.599V24.5719Z" fill="white"/><path d="M79.1202 20.6591C78.9657 21.0194 78.7083 21.3284 78.3994 21.5858C77.936 22.0492 77.2152 22.2551 76.34 22.2551C75.4132 22.2551 74.6409 21.9462 74.0231 21.3284C73.4053 20.7105 73.0449 19.8868 73.0449 18.8571C73.0449 17.7244 73.3538 16.9006 74.0231 16.2828C74.6924 15.665 75.4132 15.3561 76.2885 15.3561C76.7518 15.3561 77.1637 15.4076 77.5756 15.562C77.936 15.7165 78.2449 15.8709 78.4508 16.1284C78.6568 16.3343 78.8112 16.5917 78.9657 16.7977C78.9657 16.8492 79.0172 16.9006 79.0172 16.9521L81.0766 15.4076C80.8192 14.9957 80.5103 14.5838 80.0984 14.2234C79.6865 13.8115 79.1716 13.5026 78.5023 13.2452C77.833 12.9878 77.1122 12.8848 76.2885 12.8848C74.6409 12.8848 73.2508 13.4511 72.1182 14.5838C70.9855 15.7165 70.4192 17.1581 70.4192 18.8571C70.4192 20.6076 70.9855 22.0492 72.1182 23.1303C73.2508 24.2115 74.6409 24.7779 76.34 24.7779C77.1637 24.7779 77.936 24.6234 78.6053 24.366C79.2746 24.1086 79.8409 23.7482 80.2528 23.3363C80.6647 22.9244 80.9736 22.5125 81.231 22.0492L79.1202 20.6591Z" fill="white"/></svg>
+  </div>
+</section>
+
+<!-- ═══════════════════ 5. REVENUE MODEL ═══════════════════ -->
+<section class="section n5">
+  <div class="section-content">
+    <p class="label">Revenue Model</p>
+    <h2 class="title" style="margin-bottom: 32px;">Jednorázový setup.<br>Měsíční partnerství.</h2>
+    <div class="rev-grid">
+      <div class="rev-card">
+        <p class="rev-label">Setup Fee · Jednorázový</p>
+        <h3 class="rev-title">Nastavení systému</h3>
+        <p class="rev-body">
+          Pokrývá kompletní onboarding, integraci nástrojů, první kampaň a konfiguraci AI workflow. Platí se jednou na začátku spolupráce.
+        </p>
+        <ul class="bullet-list" style="margin-top: 16px;">
+          <li>Audit současného sales procesu a ICP</li>
+          <li>Nastavení všech integrací (CRM, email, LinkedIn)</li>
+          <li>Spuštění první kampaně a kalibrace AI</li>
+          <li>Onboarding call a dokumentace</li>
+        </ul>
+      </div>
+      <div class="rev-card">
+        <p class="rev-label">Měsíční Retainer · Průběžný</p>
+        <h3 class="rev-title">Správa & optimalizace</h3>
+        <p class="rev-body">
+          Forecom průběžně spravuje systém, spouští nové kampaně, aktualizuje skills a provádí měsíční review výkonu.
+        </p>
+        <ul class="bullet-list" style="margin-top: 16px;">
+          <li>Nové kampaně a lead listy každý měsíc</li>
+          <li>Aktualizace AI skills podle výsledků</li>
+          <li>Měsíční performance review & doporučení</li>
+          <li>Prioritní podpora a rychlé úpravy</li>
+        </ul>
+      </div>
+    </div>
+    <div class="note-box">
+      <strong>Ceny se odvíjí od zvoleného balíčku a rozsahu.</strong> Konkrétní nabídku připravíme po úvodním discovery callu — potřebujeme pochopit váš sales proces, cílové trhy a aktuální stack. Schůzka trvá 30 minut.
+    </div>
+  </div>
+  <div class="logo">
+    <svg width="110" height="28" viewBox="0 0 110 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23.7743 0.322449C21.8178 0.322449 20.2218 1.66106 19.7584 3.41156H18.1624C17.699 1.60958 16.103 0.322449 14.1465 0.322449C12.1901 0.322449 10.5941 1.66106 10.1307 3.41156H8.53465C8.07129 1.60958 6.47525 0.322449 4.51881 0.322449C2.25346 0.322449 0.399994 2.17591 0.399994 4.44126C0.399994 6.3977 1.73861 7.99374 3.48911 8.4571V10.0531C1.68712 10.5165 0.399994 12.1125 0.399994 14.069C0.399994 16.0254 1.73861 17.6215 3.48911 18.0848V19.6809C1.68712 20.1442 0.399994 21.7403 0.399994 23.6967C0.399994 25.9621 2.25346 27.8155 4.51881 27.8155C6.78416 27.8155 8.63762 25.9621 8.63762 23.6967C8.63762 21.7403 7.29901 20.1442 5.54851 19.6809V18.0848C6.9901 17.7244 8.17426 16.5403 8.53465 15.0987H10.1307C10.5941 16.9007 12.1901 18.1878 14.1465 18.1878C16.4119 18.1878 18.2654 16.3343 18.2654 14.069C18.2654 11.8036 16.4119 9.95017 14.1465 9.95017C12.1901 9.95017 10.5941 11.2888 10.1307 13.0393H8.53465C8.17426 11.5977 6.9901 10.4135 5.54851 10.0531V8.4571C6.9901 8.09671 8.17426 6.91255 8.53465 5.47096H10.1307C10.5941 7.27294 12.1901 8.56007 14.1465 8.56007C16.103 8.56007 17.699 7.22146 18.1624 5.47096H19.7584C20.2218 7.27294 21.8178 8.56007 23.7743 8.56007C26.0396 8.56007 27.8931 6.70661 27.8931 4.44126C27.8931 2.17591 26.0911 0.322449 23.7743 0.322449Z" fill="#9167FF"/><path d="M30.4661 24.5719H27.8918V13.1422H35.2542V15.562H30.4661V17.9818H33.9671V20.2986H30.5176V24.5719H30.4661Z" fill="white"/><path d="M36.6949 18.8571C36.6949 17.1066 37.2612 15.665 38.4454 14.5323C39.5781 13.4511 41.0197 12.8848 42.6672 12.8848C44.3147 12.8848 45.7048 13.4511 46.889 14.5323C48.0217 15.6135 48.588 17.0551 48.588 18.8056C48.588 20.5561 48.0217 21.9977 46.889 23.0789C45.7563 24.16 44.3662 24.7264 42.6672 24.7264C41.0197 24.7264 39.6296 24.16 38.4454 23.0789C37.3127 22.0492 36.6949 20.6076 36.6949 18.8571ZM40.3504 16.2828C39.6811 16.9006 39.3721 17.7244 39.3721 18.8571C39.3721 19.9897 39.6811 20.8135 40.3504 21.4313C41.0197 21.9977 41.7919 22.3066 42.6672 22.3066C43.5424 22.3066 44.3147 21.9977 44.984 21.4313C45.6533 20.865 45.9623 19.9897 45.9623 18.8571C45.9623 17.7244 45.6533 16.9006 44.984 16.2828C44.3147 15.665 43.5424 15.4076 42.6672 15.4076C41.7919 15.4076 41.0197 15.665 40.3504 16.2828Z" fill="white"/><path d="M56.2593 24.5717L54.1999 20.3499H53.2732V24.5717H50.7504V13.142H55.2811C56.3623 13.142 57.289 13.5024 57.9583 14.1717C58.6276 14.841 58.988 15.7163 58.988 16.746C58.988 17.5183 58.7821 18.1876 58.3702 18.7539C57.9583 19.3202 57.4435 19.7321 56.7227 19.9896L59.0395 24.6232H56.2593V24.5717ZM53.3247 18.1361H54.8177C55.3326 18.1361 55.7445 18.0331 56.0019 17.7757C56.2593 17.5183 56.4138 17.2094 56.4138 16.746C56.4138 16.3341 56.2593 15.9737 56.0019 15.7163C55.7445 15.4589 55.3326 15.3559 54.8177 15.3559H53.3247V18.1361Z" fill="white"/><path d="M68.566 24.5717H61.3066V13.142H68.5145V15.5618H63.8294V17.7242H68.0512V19.9381H63.8294V22.1004H68.5145V24.5717H68.566Z" fill="white"/><path d="M82.6206 18.8571C82.6206 17.1066 83.187 15.665 84.3711 14.5323C85.5038 13.4511 86.9454 12.8848 88.5929 12.8848C90.2404 12.8848 91.6305 13.4511 92.8147 14.5323C93.9474 15.6135 94.5137 17.0551 94.5137 18.8056C94.5137 20.5561 93.9474 21.9977 92.8147 23.0789C91.682 24.16 90.2919 24.7264 88.5929 24.7264C86.9454 24.7264 85.5553 24.16 84.3711 23.0789C83.187 22.0492 82.6206 20.6076 82.6206 18.8571ZM86.2246 16.2828C85.5553 16.9006 85.2464 17.7244 85.2464 18.8571C85.2464 19.9897 85.5553 20.8135 86.2246 21.4313C86.8939 21.9977 87.6662 22.3066 88.5414 22.3066C89.4167 22.3066 90.189 21.9977 90.8583 21.4313C91.5276 20.865 91.8365 19.9897 91.8365 18.8571C91.8365 17.7244 91.5276 16.9006 90.8583 16.2828C90.189 15.665 89.4167 15.4076 88.5414 15.4076C87.6662 15.4076 86.8939 15.665 86.2246 16.2828Z" fill="white"/><path d="M109.599 24.5719H107.127V17.0036L104.141 24.5719H102.082L99.0958 17.1066V24.5719H96.676V13.1422H99.971L103.112 20.865L106.098 13.1422H109.599V24.5719Z" fill="white"/><path d="M79.1202 20.6591C78.9657 21.0194 78.7083 21.3284 78.3994 21.5858C77.936 22.0492 77.2152 22.2551 76.34 22.2551C75.4132 22.2551 74.6409 21.9462 74.0231 21.3284C73.4053 20.7105 73.0449 19.8868 73.0449 18.8571C73.0449 17.7244 73.3538 16.9006 74.0231 16.2828C74.6924 15.665 75.4132 15.3561 76.2885 15.3561C76.7518 15.3561 77.1637 15.4076 77.5756 15.562C77.936 15.7165 78.2449 15.8709 78.4508 16.1284C78.6568 16.3343 78.8112 16.5917 78.9657 16.7977C78.9657 16.8492 79.0172 16.9006 79.0172 16.9521L81.0766 15.4076C80.8192 14.9957 80.5103 14.5838 80.0984 14.2234C79.6865 13.8115 79.1716 13.5026 78.5023 13.2452C77.833 12.9878 77.1122 12.8848 76.2885 12.8848C74.6409 12.8848 73.2508 13.4511 72.1182 14.5838C70.9855 15.7165 70.4192 17.1581 70.4192 18.8571C70.4192 20.6076 70.9855 22.0492 72.1182 23.1303C73.2508 24.2115 74.6409 24.7779 76.34 24.7779C77.1637 24.7779 77.936 24.6234 78.6053 24.366C79.2746 24.1086 79.8409 23.7482 80.2528 23.3363C80.6647 22.9244 80.9736 22.5125 81.231 22.0492L79.1202 20.6591Z" fill="white"/></svg>
+  </div>
+</section>
+
+<!-- ═══════════════════ 6. NEXT STEPS ═══════════════════ -->
+<section class="section n6">
+  <div class="section-content">
+    <p class="label">Jak začít</p>
+    <h2 class="title" style="margin-bottom: 32px;">Od prvního kontaktu<br>po živý systém.</h2>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <h4 class="step-title">Discovery call</h4>
+        <p class="step-body">30 min. Projdeme váš sales proces, ICP, aktuální stack a cíle. Doporučíme správný balíček.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <h4 class="step-title">Návrh & onboarding</h4>
+        <p class="step-body">Připravíme konkrétní nabídku s rozsahem a cenou. Po schválení začíná setup — integrace, první kampaň, kalibrace AI.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <h4 class="step-title">Spuštění</h4>
+        <p class="step-body">Systém jede. Sledujeme výsledky prvních 30 dní a ladíme kampaně podle reálné odezvy trhu.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">04</div>
+        <h4 class="step-title">Průběžná správa</h4>
+        <p class="step-body">Každý měsíc nové kampaně, report výkonu, aktualizace AI. Systém se zlepšuje s každou iterací.</p>
+      </div>
+    </div>
+    <div class="cta-wrap">
+      <a href="mailto:tomas.vrbka@forecom-solutions.com" class="cta-btn">Domluvit discovery call →</a>
+      <p class="cta-note">tomas.vrbka@forecom-solutions.com</p>
+    </div>
+  </div>
+  <div class="logo">
+    <svg width="110" height="28" viewBox="0 0 110 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23.7743 0.322449C21.8178 0.322449 20.2218 1.66106 19.7584 3.41156H18.1624C17.699 1.60958 16.103 0.322449 14.1465 0.322449C12.1901 0.322449 10.5941 1.66106 10.1307 3.41156H8.53465C8.07129 1.60958 6.47525 0.322449 4.51881 0.322449C2.25346 0.322449 0.399994 2.17591 0.399994 4.44126C0.399994 6.3977 1.73861 7.99374 3.48911 8.4571V10.0531C1.68712 10.5165 0.399994 12.1125 0.399994 14.069C0.399994 16.0254 1.73861 17.6215 3.48911 18.0848V19.6809C1.68712 20.1442 0.399994 21.7403 0.399994 23.6967C0.399994 25.9621 2.25346 27.8155 4.51881 27.8155C6.78416 27.8155 8.63762 25.9621 8.63762 23.6967C8.63762 21.7403 7.29901 20.1442 5.54851 19.6809V18.0848C6.9901 17.7244 8.17426 16.5403 8.53465 15.0987H10.1307C10.5941 16.9007 12.1901 18.1878 14.1465 18.1878C16.4119 18.1878 18.2654 16.3343 18.2654 14.069C18.2654 11.8036 16.4119 9.95017 14.1465 9.95017C12.1901 9.95017 10.5941 11.2888 10.1307 13.0393H8.53465C8.17426 11.5977 6.9901 10.4135 5.54851 10.0531V8.4571C6.9901 8.09671 8.17426 6.91255 8.53465 5.47096H10.1307C10.5941 7.27294 12.1901 8.56007 14.1465 8.56007C16.103 8.56007 17.699 7.22146 18.1624 5.47096H19.7584C20.2218 7.27294 21.8178 8.56007 23.7743 8.56007C26.0396 8.56007 27.8931 6.70661 27.8931 4.44126C27.8931 2.17591 26.0911 0.322449 23.7743 0.322449Z" fill="#9167FF"/><path d="M30.4661 24.5719H27.8918V13.1422H35.2542V15.562H30.4661V17.9818H33.9671V20.2986H30.5176V24.5719H30.4661Z" fill="white"/><path d="M36.6949 18.8571C36.6949 17.1066 37.2612 15.665 38.4454 14.5323C39.5781 13.4511 41.0197 12.8848 42.6672 12.8848C44.3147 12.8848 45.7048 13.4511 46.889 14.5323C48.0217 15.6135 48.588 17.0551 48.588 18.8056C48.588 20.5561 48.0217 21.9977 46.889 23.0789C45.7563 24.16 44.3662 24.7264 42.6672 24.7264C41.0197 24.7264 39.6296 24.16 38.4454 23.0789C37.3127 22.0492 36.6949 20.6076 36.6949 18.8571ZM40.3504 16.2828C39.6811 16.9006 39.3721 17.7244 39.3721 18.8571C39.3721 19.9897 39.6811 20.8135 40.3504 21.4313C41.0197 21.9977 41.7919 22.3066 42.6672 22.3066C43.5424 22.3066 44.3147 21.9977 44.984 21.4313C45.6533 20.865 45.9623 19.9897 45.9623 18.8571C45.9623 17.7244 45.6533 16.9006 44.984 16.2828C44.3147 15.665 43.5424 15.4076 42.6672 15.4076C41.7919 15.4076 41.0197 15.665 40.3504 16.2828Z" fill="white"/><path d="M56.2593 24.5717L54.1999 20.3499H53.2732V24.5717H50.7504V13.142H55.2811C56.3623 13.142 57.289 13.5024 57.9583 14.1717C58.6276 14.841 58.988 15.7163 58.988 16.746C58.988 17.5183 58.7821 18.1876 58.3702 18.7539C57.9583 19.3202 57.4435 19.7321 56.7227 19.9896L59.0395 24.6232H56.2593V24.5717ZM53.3247 18.1361H54.8177C55.3326 18.1361 55.7445 18.0331 56.0019 17.7757C56.2593 17.5183 56.4138 17.2094 56.4138 16.746C56.4138 16.3341 56.2593 15.9737 56.0019 15.7163C55.7445 15.4589 55.3326 15.3559 54.8177 15.3559H53.3247V18.1361Z" fill="white"/><path d="M68.566 24.5717H61.3066V13.142H68.5145V15.5618H63.8294V17.7242H68.0512V19.9381H63.8294V22.1004H68.5145V24.5717H68.566Z" fill="white"/><path d="M82.6206 18.8571C82.6206 17.1066 83.187 15.665 84.3711 14.5323C85.5038 13.4511 86.9454 12.8848 88.5929 12.8848C90.2404 12.8848 91.6305 13.4511 92.8147 14.5323C93.9474 15.6135 94.5137 17.0551 94.5137 18.8056C94.5137 20.5561 93.9474 21.9977 92.8147 23.0789C91.682 24.16 90.2919 24.7264 88.5929 24.7264C86.9454 24.7264 85.5553 24.16 84.3711 23.0789C83.187 22.0492 82.6206 20.6076 82.6206 18.8571ZM86.2246 16.2828C85.5553 16.9006 85.2464 17.7244 85.2464 18.8571C85.2464 19.9897 85.5553 20.8135 86.2246 21.4313C86.8939 21.9977 87.6662 22.3066 88.5414 22.3066C89.4167 22.3066 90.189 21.9977 90.8583 21.4313C91.5276 20.865 91.8365 19.9897 91.8365 18.8571C91.8365 17.7244 91.5276 16.9006 90.8583 16.2828C90.189 15.665 89.4167 15.4076 88.5414 15.4076C87.6662 15.4076 86.8939 15.665 86.2246 16.2828Z" fill="white"/><path d="M109.599 24.5719H107.127V17.0036L104.141 24.5719H102.082L99.0958 17.1066V24.5719H96.676V13.1422H99.971L103.112 20.865L106.098 13.1422H109.599V24.5719Z" fill="white"/><path d="M79.1202 20.6591C78.9657 21.0194 78.7083 21.3284 78.3994 21.5858C77.936 22.0492 77.2152 22.2551 76.34 22.2551C75.4132 22.2551 74.6409 21.9462 74.0231 21.3284C73.4053 20.7105 73.0449 19.8868 73.0449 18.8571C73.0449 17.7244 73.3538 16.9006 74.0231 16.2828C74.6924 15.665 75.4132 15.3561 76.2885 15.3561C76.7518 15.3561 77.1637 15.4076 77.5756 15.562C77.936 15.7165 78.2449 15.8709 78.4508 16.1284C78.6568 16.3343 78.8112 16.5917 78.9657 16.7977C78.9657 16.8492 79.0172 16.9006 79.0172 16.9521L81.0766 15.4076C80.8192 14.9957 80.5103 14.5838 80.0984 14.2234C79.6865 13.8115 79.1716 13.5026 78.5023 13.2452C77.833 12.9878 77.1122 12.8848 76.2885 12.8848C74.6409 12.8848 73.2508 13.4511 72.1182 14.5838C70.9855 15.7165 70.4192 17.1581 70.4192 18.8571C70.4192 20.6076 70.9855 22.0492 72.1182 23.1303C73.2508 24.2115 74.6409 24.7779 76.34 24.7779C77.1637 24.7779 77.936 24.6234 78.6053 24.366C79.2746 24.1086 79.8409 23.7482 80.2528 23.3363C80.6647 22.9244 80.9736 22.5125 81.231 22.0492L79.1202 20.6591Z" fill="white"/></svg>
+  </div>
+</section>
+
+</body>
+</html>

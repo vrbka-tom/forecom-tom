@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Reply Automation — Navmatix × Forecom</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #07070f;
+      --purple: #8b6ec7;
+      --purple-light: #a98de0;
+      --purple-dim: rgba(139, 110, 199, 0.15);
+      --purple-border: rgba(139, 110, 199, 0.3);
+      --white: #ffffff;
+      --grey: #b0adc8;
+      --grey-dim: #6e6b82;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--white);
+      line-height: 1.6;
+    }
+
+    /* ── NEBULA BACKGROUNDS ── */
+    .nebula-1 {
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 30%, rgba(103, 58, 183, 0.35) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 20% 70%, rgba(63, 81, 181, 0.2) 0%, transparent 60%),
+        radial-gradient(ellipse 30% 30% at 85% 80%, rgba(156, 39, 176, 0.2) 0%, transparent 50%),
+        var(--bg);
+    }
+    .nebula-2 {
+      background:
+        radial-gradient(ellipse 60% 50% at 30% 40%, rgba(121, 70, 200, 0.3) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 35% at 80% 60%, rgba(48, 63, 159, 0.25) 0%, transparent 60%),
+        var(--bg);
+    }
+    .nebula-3 {
+      background:
+        radial-gradient(ellipse 70% 55% at 60% 50%, rgba(90, 50, 170, 0.28) 0%, transparent 65%),
+        radial-gradient(ellipse 35% 35% at 15% 30%, rgba(156, 39, 176, 0.2) 0%, transparent 55%),
+        var(--bg);
+    }
+    .nebula-4 {
+      background:
+        radial-gradient(ellipse 55% 45% at 75% 40%, rgba(103, 58, 183, 0.32) 0%, transparent 65%),
+        radial-gradient(ellipse 45% 40% at 25% 65%, rgba(48, 63, 159, 0.2) 0%, transparent 55%),
+        var(--bg);
+    }
+    .nebula-5 {
+      background:
+        radial-gradient(ellipse 65% 50% at 40% 35%, rgba(120, 60, 190, 0.3) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 40% at 80% 70%, rgba(80, 40, 160, 0.2) 0%, transparent 55%),
+        var(--bg);
+    }
+
+    /* Stars overlay effect */
+    .section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,0.6) 1px, transparent 1px),
+        radial-gradient(circle, rgba(255,255,255,0.4) 1px, transparent 1px),
+        radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px);
+      background-size: 200px 200px, 350px 350px, 500px 500px;
+      background-position: 0 0, 100px 50px, 50px 100px;
+      opacity: 0.25;
+      pointer-events: none;
+    }
+
+    /* ── SECTION BASE ── */
+    .section {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 64px 80px 48px;
+      border-top: 1px solid var(--purple-border);
+      overflow: hidden;
+    }
+
+    .section:first-child { border-top: none; }
+
+    .section-content {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* ── LOGO ── */
+    .logo {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 32px;
+    }
+
+    .logo svg {
+      height: 22px;
+      width: auto;
+      opacity: 0.85;
+    }
+
+    /* ── COVER ── */
+    .cover .section-content {
+      justify-content: flex-start;
+      padding-top: 40px;
+    }
+
+    .cover-tag {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      color: var(--purple);
+      text-transform: uppercase;
+      margin-bottom: 32px;
+    }
+
+    .cover-title {
+      font-size: clamp(42px, 6vw, 72px);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -1px;
+      margin-bottom: 24px;
+      max-width: 700px;
+    }
+
+    .cover-subtitle {
+      font-size: 16px;
+      color: var(--grey);
+      max-width: 540px;
+      line-height: 1.7;
+      margin-bottom: 48px;
+    }
+
+    .cover-meta {
+      display: flex;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .cover-client {
+      font-size: 13px;
+      color: var(--grey-dim);
+      letter-spacing: 1px;
+    }
+
+    .cover-client span {
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    .divider {
+      width: 1px;
+      height: 24px;
+      background: var(--purple-border);
+    }
+
+    /* ── INTRO FORECOM ── */
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .intro-body {
+      font-size: 15px;
+      color: var(--grey);
+      line-height: 1.75;
+    }
+
+    /* ── SECTION HEADERS ── */
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      color: var(--purple);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    h1.section-title {
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+
+    h2.section-title {
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+
+    .section-intro {
+      font-size: 15px;
+      color: var(--grey);
+      max-width: 620px;
+      line-height: 1.75;
+      margin-bottom: 48px;
+    }
+
+    /* ── KEY POINTS LIST ── */
+    .key-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--purple-light);
+      margin-bottom: 16px;
+      letter-spacing: 0.5px;
+    }
+
+    .bullet-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .bullet-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--grey);
+      line-height: 1.6;
+    }
+
+    .bullet-list li::before {
+      content: '•';
+      color: var(--purple);
+      font-size: 16px;
+      line-height: 1.4;
+      flex-shrink: 0;
+    }
+
+    /* ── CATEGORY CARDS ── */
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 8px;
+    }
+
+    .category-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--purple-border);
+      border-radius: 12px;
+      padding: 28px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .category-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--purple);
+      opacity: 0.6;
+    }
+
+    .category-card.priority::before {
+      background: linear-gradient(90deg, var(--purple), #c084fc);
+      opacity: 1;
+    }
+
+    .card-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--purple);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .card-who {
+      font-size: 12px;
+      color: var(--grey-dim);
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    .card-action {
+      font-size: 13px;
+      color: var(--grey);
+      line-height: 1.6;
+      border-top: 1px solid var(--purple-border);
+      padding-top: 16px;
+    }
+
+    .card-action strong {
+      color: var(--white);
+    }
+
+    /* ── TIM'S EXPERIENCE ── */
+    .experience-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 8px;
+    }
+
+    .exp-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--purple-border);
+      border-radius: 12px;
+      padding: 32px 28px;
+    }
+
+    .exp-card.highlight {
+      background: var(--purple-dim);
+      border-color: rgba(139, 110, 199, 0.5);
+    }
+
+    .exp-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--purple-light);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .exp-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .exp-body {
+      font-size: 14px;
+      color: var(--grey);
+      line-height: 1.7;
+    }
+
+    .exp-body strong {
+      color: var(--white);
+    }
+
+    .quote-box {
+      background: rgba(139, 110, 199, 0.1);
+      border-left: 3px solid var(--purple);
+      border-radius: 0 8px 8px 0;
+      padding: 16px 20px;
+      margin-top: 16px;
+      font-size: 13px;
+      color: var(--grey);
+      line-height: 1.7;
+      font-style: italic;
+    }
+
+    /* ── REQUIREMENTS ── */
+    .req-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .req-item {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .req-number {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1.5px solid var(--purple);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--purple);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .req-text h4 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .req-text p {
+      font-size: 13px;
+      color: var(--grey);
+      line-height: 1.6;
+    }
+
+    /* ── TOOLS TABLE ── */
+    .tools-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+
+    .tools-table th {
+      text-align: left;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--purple);
+      padding: 12px 20px;
+      border-bottom: 1px solid var(--purple-border);
+    }
+
+    .tools-table td {
+      padding: 16px 20px;
+      font-size: 14px;
+      color: var(--grey);
+      border-bottom: 1px solid rgba(139, 110, 199, 0.1);
+    }
+
+    .tools-table td:first-child {
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    .tools-table td:last-child {
+      color: #6ee7b7;
+      font-weight: 500;
+    }
+
+    .tools-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .zero-tag {
+      display: inline-block;
+      background: rgba(110, 231, 183, 0.1);
+      border: 1px solid rgba(110, 231, 183, 0.3);
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #6ee7b7;
+    }
+
+    .note-box {
+      background: var(--purple-dim);
+      border: 1px solid var(--purple-border);
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin-top: 28px;
+      font-size: 14px;
+      color: var(--grey);
+      line-height: 1.65;
+    }
+
+    .note-box strong {
+      color: var(--white);
+    }
+
+    /* ── INVESTMENT ── */
+    .investment-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+
+    .investment-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--purple-border);
+      border-radius: 14px;
+      padding: 36px 32px;
+    }
+
+    .investment-card.featured {
+      background: var(--purple-dim);
+      border-color: rgba(139, 110, 199, 0.5);
+    }
+
+    .inv-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: var(--purple-light);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .inv-hours {
+      font-size: 56px;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -2px;
+      margin-bottom: 4px;
+    }
+
+    .inv-hours span {
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--grey);
+      letter-spacing: 0;
+    }
+
+    .inv-by {
+      font-size: 13px;
+      color: var(--purple-light);
+      font-weight: 600;
+      margin-bottom: 28px;
+    }
+
+    .inv-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .inv-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--grey);
+      line-height: 1.5;
+    }
+
+    .inv-list li::before {
+      content: '→';
+      color: var(--purple);
+      flex-shrink: 0;
+    }
+
+    .optional-box {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(139, 110, 199, 0.2);
+      border-radius: 10px;
+      padding: 24px 28px;
+    }
+
+    .optional-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: var(--grey-dim);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .optional-title {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .optional-body {
+      font-size: 13px;
+      color: var(--grey);
+      line-height: 1.65;
+    }
+
+    /* ── NEXT STEPS ── */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 8px;
+    }
+
+    .step-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--purple-border);
+      border-radius: 12px;
+      padding: 24px 20px;
+    }
+
+    .step-num {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--purple);
+      opacity: 0.5;
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+
+    .step-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .step-body {
+      font-size: 12px;
+      color: var(--grey-dim);
+      line-height: 1.6;
+    }
+
+    .cta-section {
+      margin-top: 48px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background: var(--purple);
+      color: var(--white);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      letter-spacing: 0.3px;
+    }
+
+    .cta-note {
+      font-size: 13px;
+      color: var(--grey-dim);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .section { padding: 48px 32px 40px; }
+      .category-grid { grid-template-columns: 1fr; }
+      .experience-grid { grid-template-columns: 1fr; }
+      .investment-grid { grid-template-columns: 1fr; }
+      .steps-grid { grid-template-columns: 1fr 1fr; }
+      .intro-grid { grid-template-columns: 1fr; }
+      .req-grid { grid-template-columns: 1fr; }
+    }
+
+    @media print {
+      .section { page-break-after: always; min-height: auto; padding: 48px 64px 40px; }
+      body { background: var(--bg); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- 1. COVER -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="section nebula-1 cover">
+  <div class="section-content">
+    <p class="cover-tag">Proposal · 2026</p>
+    <h1 class="cover-title">AI Reply<br>Automation</h1>
+    <p class="cover-subtitle">
+      An intelligent system that reads every inbound reply to your Glopos campaign, classifies it, and either responds automatically — or prepares a ready-to-send draft for your review.
+    </p>
+    <div class="cover-meta">
+      <p class="cover-client">For <span>Navmatix · Tim Van den Eede</span></p>
+      <div class="divider"></div>
+      <p class="cover-client">By <span>Forecom Agency</span></p>
+    </div>
+  </div>
+  <div class="logo">
+    <svg width="110" height="28" viewBox="0 0 110 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23.7743 0.322449C21.8178 0.322449 20.2218 1.66106 19.7584 3.41156H18.1624C17.699 1.60958 16.103 0.322449 14.1465 0.322449C12.1901 0.322449 10.5941 1.66106 10.1307 3.41156H8.53465C8.07129 1.60958 6.47525 0.322449 4.51881 0.322449C2.25346 0.322449 0.399994 2.17591 0.399994 4.44126C0.399994 6.3977 1.73861 7.99374 3.48911 8.4571V10.0531C1.68712 10.5165 0.399994 12.1125 0.399994 14.069C0.399994 16.0254 1.73861 17.6215 3.48911 18.0848V19.6809C1.68712 20.1442 0.399994 21.7403 0.399994 23.6967C0.399994 25.9621 2.25346 27.8155 4.51881 27.8155C6.78416 27.8155 8.63762 25.9621 8.63762 23.6967C8.63762 21.7403 7.29901 20.1442 5.54851 19.6809V18.0848C6.9901 17.7244 8.17426 16.5403 8.53465 15.0987H10.1307C10.5941 16.9007 12.1901 18.1878 14.1465 18.1878C16.4119 18.1878 18.2654 16.3343 18.2654 14.069C18.2654 11.8036 16.4119 9.95017 14.1465 9.95017C12.1901 9.95017 10.5941 11.2888 10.1307 13.0393H8.53465C8.17426 11.5977 6.9901 10.4135 5.54851 10.0531V8.4571C6.9901 8.09671 8.17426 6.91255 8.53465 5.47096H10.1307C10.5941 7.27294 12.1901 8.56007 14.1465 8.56007C16.103 8.56007 17.699 7.22146 18.1624 5.47096H19.7584C20.2218 7.27294 21.8178 8.56007 23.7743 8.56007C26.0396 8.56007 27.8931 6.70661 27.8931 4.44126C27.8931 2.17591 26.0911 0.322449 23.7743 0.322449Z" fill="#9167FF"/><path d="M30.4661 24.5719H27.8918V13.1422H35.2542V15.562H30.4661V17.9818H33.9671V20.2986H30.5176V24.5719H30.4661Z" fill="white"/><path d="M36.6949 18.8571C36.6949 17.1066 37.2612 15.665 38.4454 14.5323C39.5781 13.4511 41.0197 12.8848 42.6672 12.8848C44.3147 12.8848 45.7048 13.4511 46.889 14.5323C48.0217 15.6135 48.588 17.0551 48.588 18.8056C48.588 20.5561 48.0217 21.9977 46.889 23.0789C45.7563 24.16 44.3662 24.7264 42.6672 24.7264C41.0197 24.7264 39.6296 24.16 38.4454 23.0789C37.3127 22.0492 36.6949 20.6076 36.6949 18.8571ZM40.3504 16.2828C39.6811 16.9006 39.3721 17.7244 39.3721 18.8571C39.3721 19.9897 39.6811 20.8135 40.3504 21.4313C41.0197 21.9977 41.7919 22.3066 42.6672 22.3066C43.5424 22.3066 44.3147 21.9977 44.984 21.4313C45.6533 20.865 45.9623 19.9897 45.9623 18.8571C45.9623 17.7244 45.6533 16.9006 44.984 16.2828C44.3147 15.665 43.5424 15.4076 42.6672 15.4076C41.7919 15.4076 41.0197 15.665 40.3504 16.2828Z" fill="white"/><path d="M56.2593 24.5717L54.1999 20.3499H53.2732V24.5717H50.7504V13.142H55.2811C56.3623 13.142 57.289 13.5024 57.9583 14.1717C58.6276 14.841 58.988 15.7163 58.988 16.746C58.988 17.5183 58.7821 18.1876 58.3702 18.7539C57.9583 19.3202 57.4435 19.7321 56.7227 19.9896L59.0395 24.6232H56.2593V24.5717ZM53.3247 18.1361H54.8177C55.3326 18.1361 55.7445 18.0331 56.0019 17.7757C56.2593 17.5183 56.4138 17.2094 56.4138 16.746C56.4138 16.3341 56.2593 15.9737 56.0019 15.7163C55.7445 15.4589 55.3326 15.3559 54.8177 15.3559H53.3247V18.1361Z" fill="white"/><path d="M68.566 24.5717H61.3066V13.142H68.5145V15.5618H63.8294V17.7242H68.0512V19.9381H63.8294V22.1004H68.5145V24.5717H68.566Z" fill="white"/><path d="M82.6206 18.8571C82.6206 17.1066 83.187 15.665 84.3711 14.5323C85.5038 13.4511 86.9454 12.8848 88.5929 12.8848C90.2404 12.8848 91.6305 13.4511 92.8147 14.5323C93.9474 15.6135 94.5137 17.0551 94.5137 18.8056C94.5137 20.5561 93.9474 21.9977 92.8147 23.0789C91.682 24.16 90.2919 24.7264 88.5929 24.7264C86.9454 24.7264 85.5553 24.16 84.3711 23.0789C83.187 22.0492 82.6206 20.6076 82.6206 18.8571ZM86.2246 16.2828C85.5553 16.9006 85.2464 17.7244 85.2464 18.8571C85.2464 19.9897 85.5553 20.8135 86.2246 21.4313C86.8939 21.9977 87.6662 22.3066 88.5414 22.3066C89.4167 22.3066 90.189 21.9977 90.8583 21.4313C91.5276 20.865 91.8365 19.9897 91.8365 18.8571C91.8365 17.7244 91.5276 16.9006 90.8583 16.2828C90.189 15.665 89.4167 15.4076 88.5414 15.4076C87.6662 15.4076 86.8939 15.665 86.2246 16.2828Z" fill="white"/><path d="M109.599 24.5719H107.127V17.0036L104.141 24.5719H102.082L99.0958 17.1066V24.5719H96.676V13.1422H99.971L103.112 20.865L106.098 13.1422H109.599V24.5719Z" fill="white"/><path d="M79.1202 20.6591C78.9657 21.0194 78.7083 21.3284 78.3994 21.5858C77.936 22.0492 77.2152 22.2551 76.34 22.2551C75.4132 22.2551 74.6409 21.9462 74.0231 21.3284C73.4053 20.7105 73.0449 19.8868 73.0449 18.8571C73.0449 17.7244 73.3538 16.9006 74.0231 16.2828C74.6924 15.665 75.4132 15.3561 76.2885 15.3561C76.7518 15.3561 77.1637 15.4076 77.5756 15.562C77.936 15.7165 78.2449 15.8709 78.4508 16.1284C78.6568 16.3343 78.8112 16.5917 78.9657 16.7977C78.9657 16.8492 79.0172 16.9006 79.0172 16.9521L81.0766 15.4076C80.8192 14.9957 80.5103 14.5838 80.0984 14.2234C79.6865 13.8115 79.1716 13.5026 78.5023 13.2452C77.833 12.9878 77.1122 12.8848 76.2885 12.8848C74.6409 12.8848 73.2508 13.4511 72.1182 14.5838C70.9855 15.7165 70.4192 17.1581 70.4192 18.8571C70.4192 20.6076 70.9855 22.0492 72.1182 23.1303C73.2508 24.2115 74.6409 24.7779 76.34 24.7779C77.1637 24.7779 77.936 24.6234 78.6053 24.366C79.2746 24.1086 79.8409 23.7482 80.2528 23.3363C80.6647 22.9244 80.9736 22.5125 81.231 22.0492L79.1202 20.6591Z" fill="white"/></svg>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- 2. ABOUT FORECOM -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="section nebula-2">
+  <div class="section-content">
+    <div class="intro-grid">
+      <div>
+        <p class="section-label">About</p>
+        <h2 class="section-title">Forecom Agency</h2>
+        <p class="intro-body">
+          We are a growth services provider specialising in complex digitalisation, marketing, and sales process automation. With 5+ years on the market and a team of 40+ experts, we help B2B companies scale outreach and close more deals — without adding headcount.
+        </p>
+        <br>
+        <p class="intro-body">
+          For Navmatix, we run the Smartlead cold email infrastructure across 55 sending accounts. This proposal outlines how we extend that infrastructure with AI-driven reply handling.
+        </p>
+      </div>
+      <div>
+        <p class="key-label">Our advantages:</p>
+        <ul class="bullet-list">
+          <li>5 years on the market with proven B2B outreach results</li>
+          <li>Unique combination of technical know-how and sales strategy</li>
+          <li>Remote-first team of 40+ specialists across multiple verticals</li>
+          <li>Own AI tooling built on top of Anthropic Claude infrastructure</li>
+          <li>We grow our own revenue 100%+ year-over-year — we use what we sell</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="logo">
+    <svg width="110" height="28" viewBox="0 0 110 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23.7743 0.322449C21.8178 0.322449 20.2218 1.66106 19.7584 3.41156H18.1624C17.699 1.60958 16.103 0.322449 14.1465 0.322449C12.1901 0.322449 10.5941 1.66106 10.1307 3.41156H8.53465C8.07129 1.60958 6.47525 0.322449 4.51881 0.322449C2.25346 0.322449 0.399994 2.17591 0.399994 4.44126C0.399994 6.3977 1.73861 7.99374 3.48911 8.4571V10.0531C1.68712 10.5165 0.399994 12.1125 0.399994 14.069C0.399994 16.0254 1.73861 17.6215 3.48911 18.0848V19.6809C1.68712 20.1442 0.399994 21.7403 0.399994 23.6967C0.399994 25.9621 2.25346 27.8155 4.51881 27.8155C6.78416 27.8155 8.63762 25.9621 8.63762 23.6967C8.63762 21.7403 7.29901 20.1442 5.54851 19.6809V18.0848C6.9901 17.7244 8.17426 16.5403 8.53465 15.0987H10.1307C10.5941 16.9007 12.1901 18.1878 14.1465 18.1878C16.4119 18.1878 18.2654 16.3343 18.2654 14.069C18.2654 11.8036 16.4119 9.95017 14.1465 9.95017C12.1901 9.95017 10.5941 11.2888 10.1307 13.0393H8.53465C8.17426 11.5977 6.9901 10.4135 5.54851 10.0531V8.4571C6.9901 8.09671 8.17426 6.91255 8.53465 5.47096H10.1307C10.5941 7.27294 12.1901 8.56007 14.1465 8.56007C16.103 8.56007 17.699 7.22146 18.1624 5.47096H19.7584C20.2218 7.27294 21.8178 8.56007 23.7743 8.56007C26.0396 8.56007 27.8931 6.70661 27.8931 4.44126C27.8931 2.17591 26.0911 0.322449 23.7743 0.322449Z" fill="#9167FF"/><path d="M30.4661 24.5719H27.8918V13.1422H35.2542V15.562H30.4661V17.9818H33.9671V20.2986H30.5176V24.5719H30.4661Z" fill="white"/><path d="M36.6949 18.8571C36.6949 17.1066 37.2612 15.665 38.4454 14.5323C39.5781 13.4511 41.0197 12.8848 42.6672 12.8848C44.3147 12.8848 45.7048 13.4511 46.889 14.5323C48.0217 15.6135 48.588 17.0551 48.588 18.8056C48.588 20.5561 48.0217 21.9977 46.889 23.0789C45.7563 24.16 44.3662 24.7264 42.6672 24.7264C41.0197 24.7264 39.6296 24.16 38.4454 23.0789C37.3127 22.0492 36.6949 20.6076 36.6949 18.8571ZM40.3504 16.2828C39.6811 16.9006 39.3721 17.7244 39.3721 18.8571C39.3721 19.9897 39.6811 20.8135 40.3504 21.4313C41.0197 21.9977 41.7919 22.3066 42.6672 22.3066C43.5424 22.3066 44.3147 21.9977 44.984 21.4313C45.6533 20.865 45.9623 19.9897 45.9623 18.8571C45.9623 17.7244 45.6533 16.9006 44.984 16.2828C44.3147 15.665 43.5424 15.4076 42.6672 15.4076C41.7919 15.4076 41.0197 15.665 40.3504 16.2828Z" fill="white"/><path d="M56.2593 24.5717L54.1999 20.3499H53.2732V24.5717H50.7504V13.142H55.2811C56.3623 13.142 57.289 13.5024 57.9583 14.1717C58.6276 14.841 58.988 15.7163 58.988 16.746C58.988 17.5183 58.7821 18.1876 58.3702 18.7539C57.9583 19.3202 57.4435 19.7321 56.7227 19.9896L59.0395 24.6232H56.2593V24.5717ZM53.3247 18.1361H54.8177C55.3326 18.1361 55.7445 18.0331 56.0019 17.7757C56.2593 17.5183 56.4138 17.2094 56.4138 16.746C56.4138 16.3341 56.2593 15.9737 56.0019 15.7163C55.7445 15.4589 55.3326 15.3559 54.8177 15.3559H53.3247V18.1361Z" fill="white"/><path d="M68.566 24.5717H61.3066V13.142H68.5145V15.5618H63.8294V17.7242H68.0512V19.9381H63.8294V22.1004H68.5145V24.5717H68.566Z" fill="white"/><path d="M82.6206 18.8571C82.6206 17.1066 83.187 15.665 84.3711 14.5323C85.5038 13.4511 86.9454 12.8848 88.5929 12.8848C90.2404 12.8848 91.6305 13.4511 92.8147 14.5323C93.9474 15.6135 94.5137 17.0551 94.5137 18.8056C94.5137 20.5561 93.9474 21.9977 92.8147 23.0789C91.682 24.16 90.2919 24.7264 88.5929 24.7264C86.9454 24.7264 85.5553 24.16 84.3711 23.0789C83.187 22.0492 82.6206 20.6076 82.6206 18.8571ZM86.2246 16.2828C85.5553 16.9006 85.2464 17.7244 85.2464 18.8571C85.2464 19.9897 85.5553 20.8135 86.2246 21.4313C86.8939 21.9977 87.6662 22.3066 88.5414 22.3066C89.4167 22.3066 90.189 21.9977 90.8583 21.4313C91.5276 20.865 91.8365 19.9897 91.8365 18.8571C91.8365 17.7244 91.5276 16.9006 90.8583 16.2828C90.189 15.665 89.4167 15.4076 88.5414 15.4076C87.6662 15.4076 86.8939 15.665 86.2246 16.2828Z" fill="white"/><path d="M109.599 24.5719H107.127V17.0036L104.141 24.5719H102.082L99.0958 17.1066V24.5719H96.676V13.1422H99.971L103.112 20.865L106.098 13.1422H109.599V24.5719Z" fill="white"/><path d="M79.1202 20.6591C78.9657 21.0194 78.7083 21.3284 78.3994 21.5858C77.936 22.0492 77.2152 22.2551 76.34 22.2551C75.4132 22.2551 74.6409 21.9462 74.0231 21.3284C73.4053 20.7105 73.0449 19.8868 73.0449 18.8571C73.0449 17.7244 73.3538 16.9006 74.0231 16.2828C74.6924 15.665 75.4132 15.3561 76.2885 15.3561C76.7518 15.3561 77.1637 15.4076 77.5756 15.562C77.936 15.7165 78.2449 15.8709 78.4508 16.1284C78.6568 16.3343 78.8112 16.5917 78.9657 16.7977C78.9657 16.8492 79.0172 16.9006 79.0172 16.9521L81.0766 15.4076C80.8192 14.9957 80.5103 14.5838 80.0984 14.2234C79.6865 13.8115 79.1716 13.5026 78.5023 13.2452C77.833 12.9878 77.1122 12.8848 76.2885 12.8848C74.6409 12.8848 73.2508 13.4511 72.1182 14.5838C70.9855 15.7165 70.4192 17.1581 70.4192 18.8571C70.4192 20.6076 70.9855 22.0492 72.1182 23.1303C73.2508 24.2115 74.6409 24.7779 76.34 24.7779C77.1637 24.7779 77.936 24.6234 78.6053 24.366C79.2746 24.1086 79.8409 23.7482 80.2528 23.3363C80.6647 22.9244 80.9736 22.5125 81.231 22.0492L79.1202 20.6591Z" fill="white"/></svg>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- 3. THE PROBLEM -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="section nebula-3">
+  <div class="section-content">
+    <p class="section-label">The Problem</p>
+    <h2 class="section-title">Warm leads are going cold<br>in your inbox</h2>
+    <p class="section-intro">
+      Your Smartlead campaign runs across 55 email accounts and generates consistent replies. But handling them manually — from a single forwarded inbox — isn't sustainable.
+    </p>
+    <ul class="bullet-list" style="max-width: 620px; gap: 16px;">
+      <li>Every reply gets forwarded to one inbox — volume is hard to triage manually at scale</li>
+      <li>Not every reply deserves the same energy — but you can't tell at a glance without reading them all</li>
+      <li>Delayed responses signal disinterest to warm prospects — reply speed directly impacts conversion</li>
+      <li>Replying from the Smartlead master inbox breaks your personal outreach feel</li>
+      <li>Hours spent on "not relevant" replies that could be handled automatically</li>
+    </ul>
+  </div>
+  <div class="logo">
+    <svg width="110" height="28" viewBox="0 0 110 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23.7743 0.322449C21.8178 0.322449 20.2218 1.66106 19.7584 3.41156H18.1624C17.699 1.60958 16.103 0.322449 14.1465 0.322449C12.1901 0.322449 10.5941 1.66106 10.1307 3.41156H8.53465C8.07129 1.60958 6.47525 0.322449 4.51881 0.322449C2.25346 0.322449 0.399994 2.17591 0.399994 4.44126C0.399994 6.3977 1.73861 7.99374 3.48911 8.4571V10.0531C1.68712 10.5165 0.399994 12.1125 0.399994 14.069C0.399994 16.0254 1.73861 17.6215 3.48911 18.0848V19.6809C1.68712 20.1442 0.399994 21.7403 0.399994 23.6967C0.399994 25.9621 2.25346 27.8155 4.51881 27.8155C6.78416 27.8155 8.63762 25.9621 8.63762 23.6967C8.63762 21.7403 7.29901 20.1442 5.54851 19.6809V18.0848C6.9901 17.7244 8.17426 16.5403 8.53465 15.0987H10.1307C10.5941 16.9007 12.1901 18.1878 14.1465 18.1878C16.4119 18.1878 18.2654 16.3343 18.2654 14.069C18.2654 11.8036 16.4119 9.95017 14.1465 9.95017C12.1901 9.95017 10.5941 11.2888 10.1307 13.0393H8.53465C8.17426 11.5977 6.9901 10.4135 5.54851 10.0531V8.4571C6.9901 8.09671 8.17426 6.91255 8.53465 5.47096H10.1307C10.5941 7.27294 12.1901 8.56007 14.1465 8.56007C16.103 8.56007 17.699 7.22146 18.1624 5.47096H19.7584C20.2218 7.27294 21.8178 8.56007 23.7743 8.56007C26.0396 8.56007 27.8931 6.70661 27.8931 4.44126C27.8931 2.17591 26.0911 0.322449 23.7743 0.322449Z" fill="#9167FF"/><path d="M30.4661 24.5719H27.8918V13.1422H35.2542V15.562H30.4661V17.9818H33.9671V20.2986H30.5176V24.5719H30.4661Z" fill="white"/><path d="M36.6949 18.8571C36.6949 17.1066 37.2612 15.665 38.4454 14.5323C39.5781 13.4511 41.0197 12.8848 42.6672 12.8848C44.3147 12.8848 45.7048 13.4511 46.889 14.5323C48.0217 15.6135 48.588 17.0551 48.588 18.8056C48.588 20.5561 48.0217 21.9977 46.889 23.0789C45.7563 24.16 44.3662 24.7264 42.6672 24.7264C41.0197 24.7264 39.6296 24.16 38.4454 23.0789C37.3127 22.0492 36.6949 20.6076 36.6949 18.8571ZM40.3504 16.2828C39.6811 16.9006 39.3721 17.7244 39.3721 18.8571C39.3721 19.9897 39.6811 20.8135 40.3504 21.4313C41.0197 21.9977 41.7919 22.3066 42.6672 22.3066C43.5424 22.3066 44.3147 21.9977 44.984 21.4313C45.6533 20.865 45.9623 19.9897 45.9623 18.8571C45.9623 17.7244 45.6533 16.9006 44.984 16.2828C44.3147 15.665 43.5424 15.4076 42.6672 15.4076C41.7919 15.4076 41.0197 15.665 40.3504 16.2828Z" fill="white"/><path d="M56.2593 24.5717L54.1999 20.3499H53.2732V24.5717H50.7504V13.142H55.2811C56.3623 13.142 57.289 13.5024 57.9583 14.1717C58.6276 14.841 58.988 15.7163 58.988 16.746C58.988 17.5183 58.7821 18.1876 58.3702 18.7539C57.9583 19.3202 57.4435 19.7321 56.7227 19.9896L59.0395 24.6232H56.2593V24.5717ZM53.3247 18.1361H54.8177C55.3326 18.1361 55.7445 18.0331 56.0019 17.7757C56.2593 17.5183 56.4138 17.2094 56.4138 16.746C56.4138 16.3341 56.2593 15.9737 56.0019 15.7163C55.7445 15.4589 55.3326 15.3559 54.8177 15.3559H53.3247V18.1361Z" fill="white"/><path d="M68.566 24.5717H61.3066V13.142H68.5145V15.5618H63.8294V17.7242H68.0512V19.9381H63.8294V22.1004H68.5145V24.5717H68.566Z" fill="white"/><path d="M82.6206 18.8571C82.6206 17.1066 83.187 15.665 84.3711 14.5323C85.5038 13.4511 86.9454 12.8848 88.5929 12.8848C90.2404 12.8848 91.6305 13.4511 92.8147 14.5323C93.9474 15.6135 94.5137 17.0551 94.5137 18.8056C94.5137 20.5561 93.9474 21.9977 92.8147 23.0789C91.682 24.16 90.2919 24.7264 88.5929 24.7264C86.9454 24.7264 85.5553 24.16 84.3711 23.0789C83.187 22.0492 82.6206 20.6076 82.6206 18.8571ZM86.2246 16.2828C85.5553 16.9006 85.2464 17.7244 85.2464 18.8571C85.2464 19.9897 85.5553 20.8135 86.2246 21.4313C86.8939 21.9977 87.6662 22.3066 88.5414 22.3066C89.4167 22.3066 90.189 21.9977 90.8583 21.4313C91.5276 20.865 91.8365 19.9897 91.8365 18.8571C91.8365 17.7244 91.5276 16.9006 90.8583 16.2828C90.189 15.665 89.4167 15.4076 88.5414 15.4076C87.6662 15.4076 86.8939 15.665 86.2246 16.2828Z" fill="white"/><path d="M109.599 24.5719H107.127V17.0036L104.141 24.5719H102.082L99.0958 17.1066V24.5719H96.676V13.1422H99.971L103.112 20.865L106.098 13.1422H109.599V24.5719Z" fill="white"/><path d="M79.1202 20.6591C78.9657 21.0194 78.7083 21.3284 78.3994 21.5858C77.936 22.0492 77.2152 22.2551 76.34 22.2551C75.4132 22.2551 74.6409 21.9462 74.0231 21.3284C73.4053 20.7105 73.0449 19.8868 73.0449 18.8571C73.0449 17.7244 73.3538 16.9006 74.0231 16.2828C74.6924 15.665 75.4132 15.3561 76.2885 15.3561C76.7518 15.3561 77.1637 15.4076 77.5756 15.562C77.936 15.7165 78.2449 15.8709 78.4508 16.1284C78.6568 16.3343 78.8112 16.5917 78.9657 16.7977C78.9657 16.8492 79.0172 16.9006 79.0172 16.9521L81.0766 15.4076C80.8192 14.9957 80.5103 14.5838 80.0984 14.2234C79.6865 13.8115 79.1716 13.5026 78.5023 13.2452C77.833 12.9878 77.1122 12.8848 76.2885 12.8848C74.6409 12.8848 73.2508 13.4511 72.1182 14.5838C70.9855 15.7165 70.4192 17.1581 70.4192 18.8571C70.4192 20.6076 70.9855 22.0492 72.1182 23.1303C73.2508 24.2115 74.6409 24.7779 76.34 24.7779C77.1637 24.7779 77.936 24.6234 78.6053 24.366C79.2746 24.1086 79.8409 23.7482 80.2528 23.3363C80.6647 22.9244 80.9736 22.5125 81.231 22.0492L79.1202 20.6591Z" fill="white"/></svg>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- 4. THE SOLUTION -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="section nebula-4">
+  <div class="section-content">
+    <p class="section-label">The Solution</p>
+    <h2 class="section-title">Three categories.<br>One automated pipeline.</h2>
+    <p class="section-intro">
+      The moment a reply lands in Smartlead, an AI reads the full thread, classifies the intent, and takes the right action — instantly.
+    </p>
+    <div class="category-grid">
+      <div class="category-card">
+        <p class="card-tag">Category A</p>
+        <h3 class="card-title">Not Relevant</h3>
+        <p class="card-who">End users only, wrong person, unsubscribe requests, out-of-office replies</p>
+        <p class="card-action">
+          <strong>Auto-reply sent immediately.</strong> Polite, professional close. Lead removed from follow-up. You never see it.
+        </p>
+      </div>
+      <div class="category-card">
+        <p class="card-tag">Category B</p>
+        <h3 class="card-title">Somewhat Relevant</h3>
+        <p class="card-who">Curious but unclear role, uses NTRIP internally, wants more information about Glopos</p>
+        <p class="card-action">
+          <strong>Auto-reply sent immediately.</strong> Light Glopos context, soft CTA. Keeps the door open without your effort.
+        </p>
+      </div>
+      <div class="category-card priority">
+        <p class="card-tag">Category C</p>
+        <h3 class="card-title">Priority</h3>
+        <p class="card-who">Runs an RTK corrections service, operates a caster, wants to book a call, asks about Glopos features or migration</p>
+        <p class="card-action">
+          <strong>Draft created in your inbox.</strong> You receive a notification. Review 5 lines, hit Send. Done in 30 seconds.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="logo">
+    <svg width="110" height="28" viewBox="0 0 110 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23.7743 0.322449C21.8178 0.322449 20.2218 1.66106 19.7584 3.41156H18.1624C17.699 1.60958 16.103 0.322449 14.1465 0.322449C12.1901 0.322449 10.5941 1.66106 10.1307 3.41156H8.53465C8.07129 1.60958 6.47525 0.322449 4.51881 0.322449C2.25346 0.322449 0.399994 2.17591 0.399994 4.44126C0.399994 6.3977 1.73861 7.99374 3.48911 8.4571V10.0531C1.68712 10.5165 0.399994 12.1125 0.399994 14.069C0.399994 16.0254 1.73861 17.6215 3.48911 18.0848V19.6809C1.68712 20.1442 0.399994 21.7403 0.399994 23.6967C0.399994 25.9621 2.25346 27.8155 4.51881 27.8155C6.78416 27.8155 8.63762 25.9621 8.63762 23.6967C8.63762 21.7403 7.29901 20.1442 5.54851 19.6809V18.0848C6.9901 17.7244 8.17426 16.5403 8.53465 15.0987H10.1307C10.5941 16.9007 12.1901 18.1878 14.1465 18.1878C16.4119 18.1878 18.2654 16.3343 18.2654 14.069C18.2654 11.8036 16.4119 9.95017 14.1465 9.95017C12.1901 9.95017 10.5941 11.2888 10.1307 13.0393H8.53465C8.17426 11.5977 6.9901 10.4135 5.54851 10.0531V8.4571C6.9901 8.09671 8.17426 6.91255 8.53465 5.47096H10.1307C10.5941 7.27294 12.1901 8.56007 14.1465 8.56007C16.103 8.56007 17.699 7.22146 18.1624 5.47096H19.7584C20.2218 7.27294 21.8178 8.56007 23.7743 8.56007C26.0396 8.56007 27.8931 6.70661 27.8931 4.44126C27.8931 2.17591 26.0911 0.322449 23.7743 0.322449Z" fill="#9167FF"/><path d="M30.4661 24.5719H27.8918V13.1422H35.2542V15.562H30.4661V17.9818H33.9671V20.2986H30.5176V24.5719H30.4661Z" fill="white"/><path d="M36.6949 18.8571C36.6949 17.1066 37.2612 15.665 38.4454 14.5323C39.5781 13.4511 41.0197 12.8848 42.6672 12.8848C44.3147 12.8848 45.7048 13.4511 46.889 14.5323C48.0217 15.6135 48.588 17.0551 48.588 18.8056C48.588 20.5561 48.0217 21.9977 46.889 23.0789C45.7563 24.16 44.3662 24.7264 42.6672 24.7264C41.0197 24.7264 39.6296 24.16 38.4454 23.0789C37.3127 22.0492 36.6949 20.6076 36.6949 18.8571ZM40.3504 16.2828C39.6811 16.9006 39.3721 17.7244 39.3721 18.8571C39.3721 19.9897 39.6811 20.8135 40.3504 21.4313C41.0197 21.9977 41.7919 22.3066 42.6672 22.3066C43.5424 22.3066 44.3147 21.9977 44.984 21.4313C45.6533 20.865 45.9623 19.9897 45.9623 18.8571C45.9623 17.7244 45.6533 16.9006 44.984 16.2828C44.3147 15.665 43.5424 15.4076 42.6672 15.4076C41.7919 15.4076 41.0197 15.665 40.3504 16.2828Z" fill="white"/><path d="M56.2593 24.5717L54.1999 20.3499H53.2732V24.5717H50.7504V13.142H55.2811C56.3623 13.142 57.289 13.5024 57.9583 14.1717C58.6276 14.841 58.988 15.7163 58.988 16.746C58.988 17.5183 58.7821 18.1876 58.3702 18.7539C57.9583 19.3202 57.4435 19.7321 56.7227 19.9896L59.0395 24.6232H56.2593V24.5717ZM53.3247 18.1361H54.8177C55.3326 18.1361 55.7445 18.0331 56.0019 17.7757C56.2593 17.5183 56.4138 17.2094 56.4138 16.746C56.4138 16.3341 56.2593 15.9737 56.0019 15.7163C55.7445 15.4589 55.3326 15.3559 54.8177 15.3559H53.3247V18.1361Z" fill="white"/><path d="M68.566 24.5717H61.3066V13.142H68.5145V15.5618H63.8294V17.7242H68.0512V19.9381H63.8294V22.1004H68.5145V24.5717H68.566Z" fill="white"/><path d="M82.6206 18.8571C82.6206 17.1066 83.187 15.665 84.3711 14.5323C85.5038 13.4511 86.9454 12.8848 88.5929 12.8848C90.2404 12.8848 91.6305 13.4511 92.8147 14.5323C93.9474 15.6135 94.5137 17.0551 94.5137 18.8056C94.5137 20.5561 93.9474 21.9977 92.8147 23.0789C91.682 24.16 90.2919 24.7264 88.5929 24.7264C86.9454 24.7264 85.5553 24.16 84.3711 23.0789C83.187 22.0492 82.6206 20.6076 82.6206 18.8571ZM86.2246 16.2828C85.5553 16.9006 85.2464 17.7244 85.2464 18.8571C85.2464 19.9897 85.5553 20.8135 86.2246 21.4313C86.8939 21.9977 87.6662 22.3066 88.5414 22.3066C89.4167 22.3066 90.189 21.9977 90.8583 21.4313C91.5276 20.865 91.8365 19.9897 91.8365 18.8571C91.8365 17.7244 91.5276 16.9006 90.8583 16.2828C90.189 15.665 89.4167 15.4076 88.5414 15.4076C87.6662 15.4076 86.8939 15.665 86.2246 16.2828Z" fill="white"/><path d="M109.599 24.5719H107.127V17.0036L104.141 24.5719H102.082L99.0958 17.1066V24.5719H96.676V13.1422H99.971L103.112 20.865L106.098 13.1422H109.599V24.5719Z" fill="white"/><path d="M79.1202 20.6591C78.9657 21.0194 78.7083 21.3284 78.3994 21.5858C77.936 22.0492 77.2152 22.2551 76.34 22.2551C75.4132 22.2551 74.6409 21.9462 74.0231 21.3284C73.4053 20.7105 73.0449 19.8868 73.0449 18.8571C73.0449 17.7244 73.3538 16.9006 74.0231 16.2828C74.6924 15.665 75.4132 15.3561 76.2885 15.3561C76.7518 15.3561 77.1637 15.4076 77.5756 15.562C77.936 15.7165 78.2449 15.8709 78.4508 16.1284C78.6568 16.3343 78.8112 16.5917 78.9657 16.7977C78.9657 16.8492 79.0172 16.9006 79.0172 16.9521L81.0766 15.4076C80.8192 14.9957 80.5103 14.5838 80.0984 14.2234C79.6865 13.8115 79.1716 13.5026 78.5023 13.2452C77.833 12.9878 77.1122 12.8848 76.2885 12.8848C74.6409 12.8848 73.2508 13.4511 72.1182 14.5838C70.9855 15.7165 70.4192 17.1581 70.4192 18.8571C70.4192 20.6076 70.9855 22.0492 72.1182 23.1303C73.2508 24.2115 74.6409 24.7779 76.34 24.7779C77.1637 24.7779 77.936 24.6234 78.6053 24.366C79.2746 24.1086 79.8409 23.7482 80.2528 23.3363C80.6647 22.9244 80.9736 22.5125 81.231 22.0492L79.1202 20.6591Z" fill="white"/></svg>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- 5. TIM'S EXPERIENCE -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="section nebula-1">
+  <div class="section-content">
+    <p class="section-label">Your Experience</p>
+    <h2 class="section-title">What this looks like<br>for you, Tim</h2>
+    <p class="section-intro">
+      After a one-time setup, your daily interaction with incoming replies changes completely.
+    </p>
+    <div class="experience-grid">
+      <div class="exp-card">
+        <p class="exp-label">Categories A + B · Automatic</p>
+        <h3 class="exp-title">You do nothing.</h3>
+        <p class="exp-body">
+          The AI reads the reply, classifies it, and sends the appropriate response — all within seconds. <strong>No action needed from you.</strong> The reply goes out from your email, in your name, in your tone.
+        </p>
+        <p class="exp-body" style="margin-top: 12px;">
+          You can optionally review a weekly digest of what was sent, but there's no obligation to act on it.
+        </p>
+      </div>
+      <div class="exp-card highlight">
+        <p class="exp-label">Category C · 30 seconds</p>
+        <h3 class="exp-title">You get a notification.</h3>
+        <p class="exp-body">
+          When a high-priority reply arrives, you receive an email:
+        </p>
+        <div class="quote-box">
+          "Priority reply from Jan Novák at CzechGNSS — draft ready in your inbox."
+        </div>
+        <p class="exp-body" style="margin-top: 16px;">
+          You open your email, read the prepared draft, make any edits you want, and hit <strong>Send</strong>. That's it. The AI has already done the work of writing a personalized, context-aware reply.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="logo">
+    <svg width="110" height="28" viewBox="0 0 110 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23.7743 0.322449C21.8178 0.322449 20.2218 1.66106 19.7584 3.41156H18.1624C17.699 1.60958 16.103 0.322449 14.1465 0.322449C12.1901 0.322449 10.5941 1.66106 10.1307 3.41156H8.53465C8.07129 1.60958 6.47525 0.322449 4.51881 0.322449C2.25346 0.322449 0.399994 2.17591 0.399994 4.44126C0.399994 6.3977 1.73861 7.99374 3.48911 8.4571V10.0531C1.68712 10.5165 0.399994 12.1125 0.399994 14.069C0.399994 16.0254 1.73861 17.6215 3.48911 18.0848V19.6809C1.68712 20.1442 0.399994 21.7403 0.399994 23.6967C0.399994 25.9621 2.25346 27.8155 4.51881 27.8155C6.78416 27.8155 8.63762 25.9621 8.63762 23.6967C8.63762 21.7403 7.29901 20.1442 5.54851 19.6809V18.0848C6.9901 17.7244 8.17426 16.5403 8.53465 15.0987H10.1307C10.5941 16.9007 12.1901 18.1878 14.1465 18.1878C16.4119 18.1878 18.2654 16.3343 18.2654 14.069C18.2654 11.8036 16.4119 9.95017 14.1465 9.95017C12.1901 9.95017 10.5941 11.2888 10.1307 13.0393H8.53465C8.17426 11.5977 6.9901 10.4135 5.54851 10.0531V8.4571C6.9901 8.09671 8.17426 6.91255 8.53465 5.47096H10.1307C10.5941 7.27294 12.1901 8.56007 14.1465 8.56007C16.103 8.56007 17.699 7.22146 18.1624 5.47096H19.7584C20.2218 7.27294 21.8178 8.56007 23.7743 8.56007C26.0396 8.56007 27.8931 6.70661 27.8931 4.44126C27.8931 2.17591 26.0911 0.322449 23.7743 0.322449Z" fill="#9167FF"/><path d="M30.4661 24.5719H27.8918V13.1422H35.2542V15.562H30.4661V17.9818H33.9671V20.2986H30.5176V24.5719H30.4661Z" fill="white"/><path d="M36.6949 18.8571C36.6949 17.1066 37.2612 15.665 38.4454 14.5323C39.5781 13.4511 41.0197 12.8848 42.6672 12.8848C44.3147 12.8848 45.7048 13.4511 46.889 14.5323C48.0217 15.6135 48.588 17.0551 48.588 18.8056C48.588 20.5561 48.0217 21.9977 46.889 23.0789C45.7563 24.16 44.3662 24.7264 42.6672 24.7264C41.0197 24.7264 39.6296 24.16 38.4454 23.0789C37.3127 22.0492 36.6949 20.6076 36.6949 18.8571ZM40.3504 16.2828C39.6811 16.9006 39.3721 17.7244 39.3721 18.8571C39.3721 19.9897 39.6811 20.8135 40.3504 21.4313C41.0197 21.9977 41.7919 22.3066 42.6672 22.3066C43.5424 22.3066 44.3147 21.9977 44.984 21.4313C45.6533 20.865 45.9623 19.9897 45.9623 18.8571C45.9623 17.7244 45.6533 16.9006 44.984 16.2828C44.3147 15.665 43.5424 15.4076 42.6672 15.4076C41.7919 15.4076 41.0197 15.665 40.3504 16.2828Z" fill="white"/><path d="M56.2593 24.5717L54.1999 20.3499H53.2732V24.5717H50.7504V13.142H55.2811C56.3623 13.142 57.289 13.5024 57.9583 14.1717C58.6276 14.841 58.988 15.7163 58.988 16.746C58.988 17.5183 58.7821 18.1876 58.3702 18.7539C57.9583 19.3202 57.4435 19.7321 56.7227 19.9896L59.0395 24.6232H56.2593V24.5717ZM53.3247 18.1361H54.8177C55.3326 18.1361 55.7445 18.0331 56.0019 17.7757C56.2593 17.5183 56.4138 17.2094 56.4138 16.746C56.4138 16.3341 56.2593 15.9737 56.0019 15.7163C55.7445 15.4589 55.3326 15.3559 54.8177 15.3559H53.3247V18.1361Z" fill="white"/><path d="M68.566 24.5717H61.3066V13.142H68.5145V15.5618H63.8294V17.7242H68.0512V19.9381H63.8294V22.1004H68.5145V24.5717H68.566Z" fill="white"/><path d="M82.6206 18.8571C82.6206 17.1066 83.187 15.665 84.3711 14.5323C85.5038 13.4511 86.9454 12.8848 88.5929 12.8848C90.2404 12.8848 91.6305 13.4511 92.8147 14.5323C93.9474 15.6135 94.5137 17.0551 94.5137 18.8056C94.5137 20.5561 93.9474 21.9977 92.8147 23.0789C91.682 24.16 90.2919 24.7264 88.5929 24.7264C86.9454 24.7264 85.5553 24.16 84.3711 23.0789C83.187 22.0492 82.6206 20.6076 82.6206 18.8571ZM86.2246 16.2828C85.5553 16.9006 85.2464 17.7244 85.2464 18.8571C85.2464 19.9897 85.5553 20.8135 86.2246 21.4313C86.8939 21.9977 87.6662 22.3066 88.5414 22.3066C89.4167 22.3066 90.189 21.9977 90.8583 21.4313C91.5276 20.865 91.8365 19.9897 91.8365 18.8571C91.8365 17.7244 91.5276 16.9006 90.8583 16.2828C90.189 15.665 89.4167 15.4076 88.5414 15.4076C87.6662 15.4076 86.8939 15.665 86.2246 16.2828Z" fill="white"/><path d="M109.599 24.5719H107.127V17.0036L104.141 24.5719H102.082L99.0958 17.1066V24.5719H96.676V13.1422H99.971L103.112 20.865L106.098 13.1422H109.599V24.5719Z" fill="white"/><path d="M79.1202 20.6591C78.9657 21.0194 78.7083 21.3284 78.3994 21.5858C77.936 22.0492 77.2152 22.2551 76.34 22.2551C75.4132 22.2551 74.6409 21.9462 74.0231 21.3284C73.4053 20.7105 73.0449 19.8868 73.0449 18.8571C73.0449 17.7244 73.3538 16.9006 74.0231 16.2828C74.6924 15.665 75.4132 15.3561 76.2885 15.3561C76.7518 15.3561 77.1637 15.4076 77.5756 15.562C77.936 15.7165 78.2449 15.8709 78.4508 16.1284C78.6568 16.3343 78.8112 16.5917 78.9657 16.7977C78.9657 16.8492 79.0172 16.9006 79.0172 16.9521L81.0766 15.4076C80.8192 14.9957 80.5103 14.5838 80.0984 14.2234C79.6865 13.8115 79.1716 13.5026 78.5023 13.2452C77.833 12.9878 77.1122 12.8848 76.2885 12.8848C74.6409 12.8848 73.2508 13.4511 72.1182 14.5838C70.9855 15.7165 70.4192 17.1581 70.4192 18.8571C70.4192 20.6076 70.9855 22.0492 72.1182 23.1303C73.2508 24.2115 74.6409 24.7779 76.34 24.7779C77.1637 24.7779 77.936 24.6234 78.6053 24.366C79.2746 24.1086 79.8409 23.7482 80.2528 23.3363C80.6647 22.9244 80.9736 22.5125 81.231 22.0492L79.1202 20.6591Z" fill="white"/></svg>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- 6. TRIAL PERIOD -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="section nebula-5">
+  <div class="section-content">
+    <p class="section-label">How We Start</p>
+    <h2 class="section-title">Trial period — all drafts,<br>zero auto-sends</h2>
+    <p class="section-intro">
+      Before the system sends anything automatically, we run a controlled trial. Every reply — across all three categories — is prepared as a draft first. You review, approve, and we calibrate.
+    </p>
+    <div class="experience-grid">
+      <div class="exp-card highlight">
+        <p class="exp-label">Days 1–30 · Trial Mode</p>
+        <h3 class="exp-title">Everything goes to drafts.</h3>
+        <p class="exp-body">
+          During the trial, <strong>no reply is sent automatically.</strong> Every classified message — A, B, or C — lands in your inbox as a prepared draft. You see exactly how the AI would respond, in your voice, for every type of reply.
+        </p>
+        <p class="exp-body" style="margin-top: 12px;">
+          You review, send what looks good, and flag anything that needs adjusting. We use that feedback to fine-tune the classification and reply quality in real-time.
+        </p>
+      </div>
+      <div class="exp-card">
+        <p class="exp-label">After Trial · Live Mode</p>
+        <h3 class="exp-title">Switch to auto — on your terms.</h3>
+        <p class="exp-body">
+          Once you're confident in the output quality, we flip categories A and B to auto-send. Category C always stays as a draft for your approval — that never changes.
+        </p>
+        <p class="exp-body" style="margin-top: 12px;">
+          You decide when you're ready. There's no pressure to switch before you're comfortable. And if you want to keep categories A or B in draft mode longer, that's completely fine too.
+        </p>
+        <div class="quote-box" style="margin-top: 16px;">
+          Trial length is flexible — 14 days if the volume is high and you feel ready, or a full 30 days at a more relaxed pace. Your call.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="logo">
+    <svg width="110" height="28" viewBox="0 0 110 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23.7743 0.322449C21.8178 0.322449 20.2218 1.66106 19.7584 3.41156H18.1624C17.699 1.60958 16.103 0.322449 14.1465 0.322449C12.1901 0.322449 10.5941 1.66106 10.1307 3.41156H8.53465C8.07129 1.60958 6.47525 0.322449 4.51881 0.322449C2.25346 0.322449 0.399994 2.17591 0.399994 4.44126C0.399994 6.3977 1.73861 7.99374 3.48911 8.4571V10.0531C1.68712 10.5165 0.399994 12.1125 0.399994 14.069C0.399994 16.0254 1.73861 17.6215 3.48911 18.0848V19.6809C1.68712 20.1442 0.399994 21.7403 0.399994 23.6967C0.399994 25.9621 2.25346 27.8155 4.51881 27.8155C6.78416 27.8155 8.63762 25.9621 8.63762 23.6967C8.63762 21.7403 7.29901 20.1442 5.54851 19.6809V18.0848C6.9901 17.7244 8.17426 16.5403 8.53465 15.0987H10.1307C10.5941 16.9007 12.1901 18.1878 14.1465 18.1878C16.4119 18.1878 18.2654 16.3343 18.2654 14.069C18.2654 11.8036 16.4119 9.95017 14.1465 9.95017C12.1901 9.95017 10.5941 11.2888 10.1307 13.0393H8.53465C8.17426 11.5977 6.9901 10.4135 5.54851 10.0531V8.4571C6.9901 8.09671 8.17426 6.91255 8.53465 5.47096H10.1307C10.5941 7.27294 12.1901 8.56007 14.1465 8.56007C16.103 8.56007 17.699 7.22146 18.1624 5.47096H19.7584C20.2218 7.27294 21.8178 8.56007 23.7743 8.56007C26.0396 8.56007 27.8931 6.70661 27.8931 4.44126C27.8931 2.17591 26.0911 0.322449 23.7743 0.322449Z" fill="#9167FF"/><path d="M30.4661 24.5719H27.8918V13.1422H35.2542V15.562H30.4661V17.9818H33.9671V20.2986H30.5176V24.5719H30.4661Z" fill="white"/><path d="M36.6949 18.8571C36.6949 17.1066 37.2612 15.665 38.4454 14.5323C39.5781 13.4511 41.0197 12.8848 42.6672 12.8848C44.3147 12.8848 45.7048 13.4511 46.889 14.5323C48.0217 15.6135 48.588 17.0551 48.588 18.8056C48.588 20.5561 48.0217 21.9977 46.889 23.0789C45.7563 24.16 44.3662 24.7264 42.6672 24.7264C41.0197 24.7264 39.6296 24.16 38.4454 23.0789C37.3127 22.0492 36.6949 20.6076 36.6949 18.8571ZM40.3504 16.2828C39.6811 16.9006 39.3721 17.7244 39.3721 18.8571C39.3721 19.9897 39.6811 20.8135 40.3504 21.4313C41.0197 21.9977 41.7919 22.3066 42.6672 22.3066C43.5424 22.3066 44.3147 21.9977 44.984 21.4313C45.6533 20.865 45.9623 19.9897 45.9623 18.8571C45.9623 17.7244 45.6533 16.9006 44.984 16.2828C44.3147 15.665 43.5424 15.4076 42.6672 15.4076C41.7919 15.4076 41.0197 15.665 40.3504 16.2828Z" fill="white"/><path d="M56.2593 24.5717L54.1999 20.3499H53.2732V24.5717H50.7504V13.142H55.2811C56.3623 13.142 57.289 13.5024 57.9583 14.1717C58.6276 14.841 58.988 15.7163 58.988 16.746C58.988 17.5183 58.7821 18.1876 58.3702 18.7539C57.9583 19.3202 57.4435 19.7321 56.7227 19.9896L59.0395 24.6232H56.2593V24.5717ZM53.3247 18.1361H54.8177C55.3326 18.1361 55.7445 18.0331 56.0019 17.7757C56.2593 17.5183 56.4138 17.2094 56.4138 16.746C56.4138 16.3341 56.2593 15.9737 56.0019 15.7163C55.7445 15.4589 55.3326 15.3559 54.8177 15.3559H53.3247V18.1361Z" fill="white"/><path d="M68.566 24.5717H61.3066V13.142H68.5145V15.5618H63.8294V17.7242H68.0512V19.9381H63.8294V22.1004H68.5145V24.5717H68.566Z" fill="white"/><path d="M82.6206 18.8571C82.6206 17.1066 83.187 15.665 84.3711 14.5323C85.5038 13.4511 86.9454 12.8848 88.5929 12.8848C90.2404 12.8848 91.6305 13.4511 92.8147 14.5323C93.9474 15.6135 94.5137 17.0551 94.5137 18.8056C94.5137 20.5561 93.9474 21.9977 92.8147 23.0789C91.682 24.16 90.2919 24.7264 88.5929 24.7264C86.9454 24.7264 85.5553 24.16 84.3711 23.0789C83.187 22.0492 82.6206 20.6076 82.6206 18.8571ZM86.2246 16.2828C85.5553 16.9006 85.2464 17.7244 85.2464 18.8571C85.2464 19.9897 85.5553 20.8135 86.2246 21.4313C86.8939 21.9977 87.6662 22.3066 88.5414 22.3066C89.4167 22.3066 90.189 21.9977 90.8583 21.4313C91.5276 20.865 91.8365 19.9897 91.8365 18.8571C91.8365 17.7244 91.5276 16.9006 90.8583 16.2828C90.189 15.665 89.4167 15.4076 88.5414 15.4076C87.6662 15.4076 86.8939 15.665 86.2246 16.2828Z" fill="white"/><path d="M109.599 24.5719H107.127V17.0036L104.141 24.5719H102.082L99.0958 17.1066V24.5719H96.676V13.1422H99.971L103.112 20.865L106.098 13.1422H109.599V24.5719Z" fill="white"/><path d="M79.1202 20.6591C78.9657 21.0194 78.7083 21.3284 78.3994 21.5858C77.936 22.0492 77.2152 22.2551 76.34 22.2551C75.4132 22.2551 74.6409 21.9462 74.0231 21.3284C73.4053 20.7105 73.0449 19.8868 73.0449 18.8571C73.0449 17.7244 73.3538 16.9006 74.0231 16.2828C74.6924 15.665 75.4132 15.3561 76.2885 15.3561C76.7518 15.3561 77.1637 15.4076 77.5756 15.562C77.936 15.7165 78.2449 15.8709 78.4508 16.1284C78.6568 16.3343 78.8112 16.5917 78.9657 16.7977C78.9657 16.8492 79.0172 16.9006 79.0172 16.9521L81.0766 15.4076C80.8192 14.9957 80.5103 14.5838 80.0984 14.2234C79.6865 13.8115 79.1716 13.5026 78.5023 13.2452C77.833 12.9878 77.1122 12.8848 76.2885 12.8848C74.6409 12.8848 73.2508 13.4511 72.1182 14.5838C70.9855 15.7165 70.4192 17.1581 70.4192 18.8571C70.4192 20.6076 70.9855 22.0492 72.1182 23.1303C73.2508 24.2115 74.6409 24.7779 76.34 24.7779C77.1637 24.7779 77.936 24.6234 78.6053 24.366C79.2746 24.1086 79.8409 23.7482 80.2528 23.3363C80.6647 22.9244 80.9736 22.5125 81.231 22.0492L79.1202 20.6591Z" fill="white"/></svg>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- 7. WHAT WE NEED FROM TIM -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="section nebula-2">
+  <div class="section-content">
+    <p class="section-label">Requirements</p>
+    <h2 class="section-title">What we need<br>from you</h2>
+    <p class="section-intro">
+      Just two things. We handle Smartlead entirely — you don't need to touch it.
+    </p>
+    <div class="req-grid">
+      <div class="req-item">
+        <div class="req-number">1</div>
+        <div class="req-text">
+          <h4>Email account access (one-time)</h4>
+          <p>We connect your Microsoft 365 / Outlook account so the system can send auto-replies and create drafts on your behalf. This is a one-time OAuth authorisation — no password shared, revocable at any time from your account settings.</p>
+        </div>
+      </div>
+      <div class="req-item">
+        <div class="req-number">2</div>
+        <div class="req-text">
+          <h4>Examples of replies you've already sent</h4>
+          <p>Forward us a handful of email threads where you personally replied to a campaign lead. We'll use these to calibrate the AI to your exact voice, tone, and style — so every auto-reply sounds like you wrote it.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="logo">
+    <svg width="110" height="28" viewBox="0 0 110 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23.7743 0.322449C21.8178 0.322449 20.2218 1.66106 19.7584 3.41156H18.1624C17.699 1.60958 16.103 0.322449 14.1465 0.322449C12.1901 0.322449 10.5941 1.66106 10.1307 3.41156H8.53465C8.07129 1.60958 6.47525 0.322449 4.51881 0.322449C2.25346 0.322449 0.399994 2.17591 0.399994 4.44126C0.399994 6.3977 1.73861 7.99374 3.48911 8.4571V10.0531C1.68712 10.5165 0.399994 12.1125 0.399994 14.069C0.399994 16.0254 1.73861 17.6215 3.48911 18.0848V19.6809C1.68712 20.1442 0.399994 21.7403 0.399994 23.6967C0.399994 25.9621 2.25346 27.8155 4.51881 27.8155C6.78416 27.8155 8.63762 25.9621 8.63762 23.6967C8.63762 21.7403 7.29901 20.1442 5.54851 19.6809V18.0848C6.9901 17.7244 8.17426 16.5403 8.53465 15.0987H10.1307C10.5941 16.9007 12.1901 18.1878 14.1465 18.1878C16.4119 18.1878 18.2654 16.3343 18.2654 14.069C18.2654 11.8036 16.4119 9.95017 14.1465 9.95017C12.1901 9.95017 10.5941 11.2888 10.1307 13.0393H8.53465C8.17426 11.5977 6.9901 10.4135 5.54851 10.0531V8.4571C6.9901 8.09671 8.17426 6.91255 8.53465 5.47096H10.1307C10.5941 7.27294 12.1901 8.56007 14.1465 8.56007C16.103 8.56007 17.699 7.22146 18.1624 5.47096H19.7584C20.2218 7.27294 21.8178 8.56007 23.7743 8.56007C26.0396 8.56007 27.8931 6.70661 27.8931 4.44126C27.8931 2.17591 26.0911 0.322449 23.7743 0.322449Z" fill="#9167FF"/><path d="M30.4661 24.5719H27.8918V13.1422H35.2542V15.562H30.4661V17.9818H33.9671V20.2986H30.5176V24.5719H30.4661Z" fill="white"/><path d="M36.6949 18.8571C36.6949 17.1066 37.2612 15.665 38.4454 14.5323C39.5781 13.4511 41.0197 12.8848 42.6672 12.8848C44.3147 12.8848 45.7048 13.4511 46.889 14.5323C48.0217 15.6135 48.588 17.0551 48.588 18.8056C48.588 20.5561 48.0217 21.9977 46.889 23.0789C45.7563 24.16 44.3662 24.7264 42.6672 24.7264C41.0197 24.7264 39.6296 24.16 38.4454 23.0789C37.3127 22.0492 36.6949 20.6076 36.6949 18.8571ZM40.3504 16.2828C39.6811 16.9006 39.3721 17.7244 39.3721 18.8571C39.3721 19.9897 39.6811 20.8135 40.3504 21.4313C41.0197 21.9977 41.7919 22.3066 42.6672 22.3066C43.5424 22.3066 44.3147 21.9977 44.984 21.4313C45.6533 20.865 45.9623 19.9897 45.9623 18.8571C45.9623 17.7244 45.6533 16.9006 44.984 16.2828C44.3147 15.665 43.5424 15.4076 42.6672 15.4076C41.7919 15.4076 41.0197 15.665 40.3504 16.2828Z" fill="white"/><path d="M56.2593 24.5717L54.1999 20.3499H53.2732V24.5717H50.7504V13.142H55.2811C56.3623 13.142 57.289 13.5024 57.9583 14.1717C58.6276 14.841 58.988 15.7163 58.988 16.746C58.988 17.5183 58.7821 18.1876 58.3702 18.7539C57.9583 19.3202 57.4435 19.7321 56.7227 19.9896L59.0395 24.6232H56.2593V24.5717ZM53.3247 18.1361H54.8177C55.3326 18.1361 55.7445 18.0331 56.0019 17.7757C56.2593 17.5183 56.4138 17.2094 56.4138 16.746C56.4138 16.3341 56.2593 15.9737 56.0019 15.7163C55.7445 15.4589 55.3326 15.3559 54.8177 15.3559H53.3247V18.1361Z" fill="white"/><path d="M68.566 24.5717H61.3066V13.142H68.5145V15.5618H63.8294V17.7242H68.0512V19.9381H63.8294V22.1004H68.5145V24.5717H68.566Z" fill="white"/><path d="M82.6206 18.8571C82.6206 17.1066 83.187 15.665 84.3711 14.5323C85.5038 13.4511 86.9454 12.8848 88.5929 12.8848C90.2404 12.8848 91.6305 13.4511 92.8147 14.5323C93.9474 15.6135 94.5137 17.0551 94.5137 18.8056C94.5137 20.5561 93.9474 21.9977 92.8147 23.0789C91.682 24.16 90.2919 24.7264 88.5929 24.7264C86.9454 24.7264 85.5553 24.16 84.3711 23.0789C83.187 22.0492 82.6206 20.6076 82.6206 18.8571ZM86.2246 16.2828C85.5553 16.9006 85.2464 17.7244 85.2464 18.8571C85.2464 19.9897 85.5553 20.8135 86.2246 21.4313C86.8939 21.9977 87.6662 22.3066 88.5414 22.3066C89.4167 22.3066 90.189 21.9977 90.8583 21.4313C91.5276 20.865 91.8365 19.9897 91.8365 18.8571C91.8365 17.7244 91.5276 16.9006 90.8583 16.2828C90.189 15.665 89.4167 15.4076 88.5414 15.4076C87.6662 15.4076 86.8939 15.665 86.2246 16.2828Z" fill="white"/><path d="M109.599 24.5719H107.127V17.0036L104.141 24.5719H102.082L99.0958 17.1066V24.5719H96.676V13.1422H99.971L103.112 20.865L106.098 13.1422H109.599V24.5719Z" fill="white"/><path d="M79.1202 20.6591C78.9657 21.0194 78.7083 21.3284 78.3994 21.5858C77.936 22.0492 77.2152 22.2551 76.34 22.2551C75.4132 22.2551 74.6409 21.9462 74.0231 21.3284C73.4053 20.7105 73.0449 19.8868 73.0449 18.8571C73.0449 17.7244 73.3538 16.9006 74.0231 16.2828C74.6924 15.665 75.4132 15.3561 76.2885 15.3561C76.7518 15.3561 77.1637 15.4076 77.5756 15.562C77.936 15.7165 78.2449 15.8709 78.4508 16.1284C78.6568 16.3343 78.8112 16.5917 78.9657 16.7977C78.9657 16.8492 79.0172 16.9006 79.0172 16.9521L81.0766 15.4076C80.8192 14.9957 80.5103 14.5838 80.0984 14.2234C79.6865 13.8115 79.1716 13.5026 78.5023 13.2452C77.833 12.9878 77.1122 12.8848 76.2885 12.8848C74.6409 12.8848 73.2508 13.4511 72.1182 14.5838C70.9855 15.7165 70.4192 17.1581 70.4192 18.8571C70.4192 20.6076 70.9855 22.0492 72.1182 23.1303C73.2508 24.2115 74.6409 24.7779 76.34 24.7779C77.1637 24.7779 77.936 24.6234 78.6053 24.366C79.2746 24.1086 79.8409 23.7482 80.2528 23.3363C80.6647 22.9244 80.9736 22.5125 81.231 22.0492L79.1202 20.6591Z" fill="white"/></svg>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- 7. TOOLS & INFRASTRUCTURE -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="section nebula-3">
+  <div class="section-content">
+    <p class="section-label">Tools & Infrastructure</p>
+    <h2 class="section-title">No new tools.<br>One transparent cost.</h2>
+    <p class="section-intro">
+      Everything runs on Forecom's infrastructure. The only ongoing cost to you is the AI API usage — billed by actual consumption, not a flat subscription.
+    </p>
+    <table class="tools-table">
+      <thead>
+        <tr>
+          <th>What</th>
+          <th>Who owns it</th>
+          <th>Cost to you</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Smartlead (55 accounts)</td>
+          <td style="color: var(--grey);">You already have it</td>
+          <td><span class="zero-tag">€0 · existing</span></td>
+        </tr>
+        <tr>
+          <td>Your email (Microsoft 365 / Outlook)</td>
+          <td style="color: var(--grey);">You already have it</td>
+          <td><span class="zero-tag">€0 · existing</span></td>
+        </tr>
+        <tr>
+          <td>Claude AI — Anthropic API (pay as you go)</td>
+          <td style="color: var(--grey);">Hosted by Forecom, billed to you</td>
+          <td style="color: #fbbf24; font-weight: 500;">~$8–20 / month</td>
+        </tr>
+        <tr>
+          <td>Modal cloud hosting & webhook server</td>
+          <td style="color: var(--grey);">Forecom infrastructure</td>
+          <td><span class="zero-tag">Included</span></td>
+        </tr>
+        <tr>
+          <td>Reply classification & draft generation logic</td>
+          <td style="color: var(--grey);">Forecom infrastructure</td>
+          <td><span class="zero-tag">Included</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="note-box">
+      <strong>How is $8–20/month calculated?</strong> Based on 20–50 replies/day (600–1,500/month). Each reply costs ~$0.013 in AI processing (Claude Sonnet, pay-per-token). You only pay for what's actually processed — if there are fewer replies, the cost is lower. Forecom passes through the exact Anthropic invoice with no markup.
+    </div>
+  </div>
+  <div class="logo">
+    <svg width="110" height="28" viewBox="0 0 110 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23.7743 0.322449C21.8178 0.322449 20.2218 1.66106 19.7584 3.41156H18.1624C17.699 1.60958 16.103 0.322449 14.1465 0.322449C12.1901 0.322449 10.5941 1.66106 10.1307 3.41156H8.53465C8.07129 1.60958 6.47525 0.322449 4.51881 0.322449C2.25346 0.322449 0.399994 2.17591 0.399994 4.44126C0.399994 6.3977 1.73861 7.99374 3.48911 8.4571V10.0531C1.68712 10.5165 0.399994 12.1125 0.399994 14.069C0.399994 16.0254 1.73861 17.6215 3.48911 18.0848V19.6809C1.68712 20.1442 0.399994 21.7403 0.399994 23.6967C0.399994 25.9621 2.25346 27.8155 4.51881 27.8155C6.78416 27.8155 8.63762 25.9621 8.63762 23.6967C8.63762 21.7403 7.29901 20.1442 5.54851 19.6809V18.0848C6.9901 17.7244 8.17426 16.5403 8.53465 15.0987H10.1307C10.5941 16.9007 12.1901 18.1878 14.1465 18.1878C16.4119 18.1878 18.2654 16.3343 18.2654 14.069C18.2654 11.8036 16.4119 9.95017 14.1465 9.95017C12.1901 9.95017 10.5941 11.2888 10.1307 13.0393H8.53465C8.17426 11.5977 6.9901 10.4135 5.54851 10.0531V8.4571C6.9901 8.09671 8.17426 6.91255 8.53465 5.47096H10.1307C10.5941 7.27294 12.1901 8.56007 14.1465 8.56007C16.103 8.56007 17.699 7.22146 18.1624 5.47096H19.7584C20.2218 7.27294 21.8178 8.56007 23.7743 8.56007C26.0396 8.56007 27.8931 6.70661 27.8931 4.44126C27.8931 2.17591 26.0911 0.322449 23.7743 0.322449Z" fill="#9167FF"/><path d="M30.4661 24.5719H27.8918V13.1422H35.2542V15.562H30.4661V17.9818H33.9671V20.2986H30.5176V24.5719H30.4661Z" fill="white"/><path d="M36.6949 18.8571C36.6949 17.1066 37.2612 15.665 38.4454 14.5323C39.5781 13.4511 41.0197 12.8848 42.6672 12.8848C44.3147 12.8848 45.7048 13.4511 46.889 14.5323C48.0217 15.6135 48.588 17.0551 48.588 18.8056C48.588 20.5561 48.0217 21.9977 46.889 23.0789C45.7563 24.16 44.3662 24.7264 42.6672 24.7264C41.0197 24.7264 39.6296 24.16 38.4454 23.0789C37.3127 22.0492 36.6949 20.6076 36.6949 18.8571ZM40.3504 16.2828C39.6811 16.9006 39.3721 17.7244 39.3721 18.8571C39.3721 19.9897 39.6811 20.8135 40.3504 21.4313C41.0197 21.9977 41.7919 22.3066 42.6672 22.3066C43.5424 22.3066 44.3147 21.9977 44.984 21.4313C45.6533 20.865 45.9623 19.9897 45.9623 18.8571C45.9623 17.7244 45.6533 16.9006 44.984 16.2828C44.3147 15.665 43.5424 15.4076 42.6672 15.4076C41.7919 15.4076 41.0197 15.665 40.3504 16.2828Z" fill="white"/><path d="M56.2593 24.5717L54.1999 20.3499H53.2732V24.5717H50.7504V13.142H55.2811C56.3623 13.142 57.289 13.5024 57.9583 14.1717C58.6276 14.841 58.988 15.7163 58.988 16.746C58.988 17.5183 58.7821 18.1876 58.3702 18.7539C57.9583 19.3202 57.4435 19.7321 56.7227 19.9896L59.0395 24.6232H56.2593V24.5717ZM53.3247 18.1361H54.8177C55.3326 18.1361 55.7445 18.0331 56.0019 17.7757C56.2593 17.5183 56.4138 17.2094 56.4138 16.746C56.4138 16.3341 56.2593 15.9737 56.0019 15.7163C55.7445 15.4589 55.3326 15.3559 54.8177 15.3559H53.3247V18.1361Z" fill="white"/><path d="M68.566 24.5717H61.3066V13.142H68.5145V15.5618H63.8294V17.7242H68.0512V19.9381H63.8294V22.1004H68.5145V24.5717H68.566Z" fill="white"/><path d="M82.6206 18.8571C82.6206 17.1066 83.187 15.665 84.3711 14.5323C85.5038 13.4511 86.9454 12.8848 88.5929 12.8848C90.2404 12.8848 91.6305 13.4511 92.8147 14.5323C93.9474 15.6135 94.5137 17.0551 94.5137 18.8056C94.5137 20.5561 93.9474 21.9977 92.8147 23.0789C91.682 24.16 90.2919 24.7264 88.5929 24.7264C86.9454 24.7264 85.5553 24.16 84.3711 23.0789C83.187 22.0492 82.6206 20.6076 82.6206 18.8571ZM86.2246 16.2828C85.5553 16.9006 85.2464 17.7244 85.2464 18.8571C85.2464 19.9897 85.5553 20.8135 86.2246 21.4313C86.8939 21.9977 87.6662 22.3066 88.5414 22.3066C89.4167 22.3066 90.189 21.9977 90.8583 21.4313C91.5276 20.865 91.8365 19.9897 91.8365 18.8571C91.8365 17.7244 91.5276 16.9006 90.8583 16.2828C90.189 15.665 89.4167 15.4076 88.5414 15.4076C87.6662 15.4076 86.8939 15.665 86.2246 16.2828Z" fill="white"/><path d="M109.599 24.5719H107.127V17.0036L104.141 24.5719H102.082L99.0958 17.1066V24.5719H96.676V13.1422H99.971L103.112 20.865L106.098 13.1422H109.599V24.5719Z" fill="white"/><path d="M79.1202 20.6591C78.9657 21.0194 78.7083 21.3284 78.3994 21.5858C77.936 22.0492 77.2152 22.2551 76.34 22.2551C75.4132 22.2551 74.6409 21.9462 74.0231 21.3284C73.4053 20.7105 73.0449 19.8868 73.0449 18.8571C73.0449 17.7244 73.3538 16.9006 74.0231 16.2828C74.6924 15.665 75.4132 15.3561 76.2885 15.3561C76.7518 15.3561 77.1637 15.4076 77.5756 15.562C77.936 15.7165 78.2449 15.8709 78.4508 16.1284C78.6568 16.3343 78.8112 16.5917 78.9657 16.7977C78.9657 16.8492 79.0172 16.9006 79.0172 16.9521L81.0766 15.4076C80.8192 14.9957 80.5103 14.5838 80.0984 14.2234C79.6865 13.8115 79.1716 13.5026 78.5023 13.2452C77.833 12.9878 77.1122 12.8848 76.2885 12.8848C74.6409 12.8848 73.2508 13.4511 72.1182 14.5838C70.9855 15.7165 70.4192 17.1581 70.4192 18.8571C70.4192 20.6076 70.9855 22.0492 72.1182 23.1303C73.2508 24.2115 74.6409 24.7779 76.34 24.7779C77.1637 24.7779 77.936 24.6234 78.6053 24.366C79.2746 24.1086 79.8409 23.7482 80.2528 23.3363C80.6647 22.9244 80.9736 22.5125 81.231 22.0492L79.1202 20.6591Z" fill="white"/></svg>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- 8. INVESTMENT -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="section nebula-4">
+  <div class="section-content">
+    <p class="section-label">Investment</p>
+    <h2 class="section-title">Setup & delivery</h2>
+    <p class="section-intro">
+      A one-time build — no recurring platform cost from Forecom.
+    </p>
+    <div class="investment-grid">
+      <div class="investment-card featured">
+        <p class="inv-label">Setup Package</p>
+        <div class="inv-hours">10–14 <span>hours</span></div>
+        <p class="inv-by">Forecom Agency</p>
+        <ul class="inv-list">
+          <li>Smartlead webhook integration & configuration</li>
+          <li>AI classification logic for 3 reply categories</li>
+          <li>Email account OAuth connection (Microsoft 365 / Outlook)</li>
+          <li>Knowledge base setup — Glopos context, Tim's voice & tone</li>
+          <li>End-to-end testing across all three reply categories</li>
+          <li>Documentation & handover call</li>
+        </ul>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        <div class="optional-box">
+          <p class="optional-label">Optional Add-on</p>
+          <h4 class="optional-title">Monthly Monitoring & Maintenance</h4>
+          <p class="optional-body">
+            We review classification accuracy monthly, tune reply quality based on real thread outcomes, and update the knowledge base as Glopos evolves. Recommended for campaigns running 3+ months.
+          </p>
+        </div>
+        <div class="optional-box">
+          <p class="optional-label">Included at no extra cost</p>
+          <h4 class="optional-title">First 30-day quality review</h4>
+          <p class="optional-body">
+            After launch, we monitor the first 30 days of replies to verify classification accuracy and reply quality. Any tuning needed is included in the setup package.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="logo">
+    <svg width="110" height="28" viewBox="0 0 110 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23.7743 0.322449C21.8178 0.322449 20.2218 1.66106 19.7584 3.41156H18.1624C17.699 1.60958 16.103 0.322449 14.1465 0.322449C12.1901 0.322449 10.5941 1.66106 10.1307 3.41156H8.53465C8.07129 1.60958 6.47525 0.322449 4.51881 0.322449C2.25346 0.322449 0.399994 2.17591 0.399994 4.44126C0.399994 6.3977 1.73861 7.99374 3.48911 8.4571V10.0531C1.68712 10.5165 0.399994 12.1125 0.399994 14.069C0.399994 16.0254 1.73861 17.6215 3.48911 18.0848V19.6809C1.68712 20.1442 0.399994 21.7403 0.399994 23.6967C0.399994 25.9621 2.25346 27.8155 4.51881 27.8155C6.78416 27.8155 8.63762 25.9621 8.63762 23.6967C8.63762 21.7403 7.29901 20.1442 5.54851 19.6809V18.0848C6.9901 17.7244 8.17426 16.5403 8.53465 15.0987H10.1307C10.5941 16.9007 12.1901 18.1878 14.1465 18.1878C16.4119 18.1878 18.2654 16.3343 18.2654 14.069C18.2654 11.8036 16.4119 9.95017 14.1465 9.95017C12.1901 9.95017 10.5941 11.2888 10.1307 13.0393H8.53465C8.17426 11.5977 6.9901 10.4135 5.54851 10.0531V8.4571C6.9901 8.09671 8.17426 6.91255 8.53465 5.47096H10.1307C10.5941 7.27294 12.1901 8.56007 14.1465 8.56007C16.103 8.56007 17.699 7.22146 18.1624 5.47096H19.7584C20.2218 7.27294 21.8178 8.56007 23.7743 8.56007C26.0396 8.56007 27.8931 6.70661 27.8931 4.44126C27.8931 2.17591 26.0911 0.322449 23.7743 0.322449Z" fill="#9167FF"/><path d="M30.4661 24.5719H27.8918V13.1422H35.2542V15.562H30.4661V17.9818H33.9671V20.2986H30.5176V24.5719H30.4661Z" fill="white"/><path d="M36.6949 18.8571C36.6949 17.1066 37.2612 15.665 38.4454 14.5323C39.5781 13.4511 41.0197 12.8848 42.6672 12.8848C44.3147 12.8848 45.7048 13.4511 46.889 14.5323C48.0217 15.6135 48.588 17.0551 48.588 18.8056C48.588 20.5561 48.0217 21.9977 46.889 23.0789C45.7563 24.16 44.3662 24.7264 42.6672 24.7264C41.0197 24.7264 39.6296 24.16 38.4454 23.0789C37.3127 22.0492 36.6949 20.6076 36.6949 18.8571ZM40.3504 16.2828C39.6811 16.9006 39.3721 17.7244 39.3721 18.8571C39.3721 19.9897 39.6811 20.8135 40.3504 21.4313C41.0197 21.9977 41.7919 22.3066 42.6672 22.3066C43.5424 22.3066 44.3147 21.9977 44.984 21.4313C45.6533 20.865 45.9623 19.9897 45.9623 18.8571C45.9623 17.7244 45.6533 16.9006 44.984 16.2828C44.3147 15.665 43.5424 15.4076 42.6672 15.4076C41.7919 15.4076 41.0197 15.665 40.3504 16.2828Z" fill="white"/><path d="M56.2593 24.5717L54.1999 20.3499H53.2732V24.5717H50.7504V13.142H55.2811C56.3623 13.142 57.289 13.5024 57.9583 14.1717C58.6276 14.841 58.988 15.7163 58.988 16.746C58.988 17.5183 58.7821 18.1876 58.3702 18.7539C57.9583 19.3202 57.4435 19.7321 56.7227 19.9896L59.0395 24.6232H56.2593V24.5717ZM53.3247 18.1361H54.8177C55.3326 18.1361 55.7445 18.0331 56.0019 17.7757C56.2593 17.5183 56.4138 17.2094 56.4138 16.746C56.4138 16.3341 56.2593 15.9737 56.0019 15.7163C55.7445 15.4589 55.3326 15.3559 54.8177 15.3559H53.3247V18.1361Z" fill="white"/><path d="M68.566 24.5717H61.3066V13.142H68.5145V15.5618H63.8294V17.7242H68.0512V19.9381H63.8294V22.1004H68.5145V24.5717H68.566Z" fill="white"/><path d="M82.6206 18.8571C82.6206 17.1066 83.187 15.665 84.3711 14.5323C85.5038 13.4511 86.9454 12.8848 88.5929 12.8848C90.2404 12.8848 91.6305 13.4511 92.8147 14.5323C93.9474 15.6135 94.5137 17.0551 94.5137 18.8056C94.5137 20.5561 93.9474 21.9977 92.8147 23.0789C91.682 24.16 90.2919 24.7264 88.5929 24.7264C86.9454 24.7264 85.5553 24.16 84.3711 23.0789C83.187 22.0492 82.6206 20.6076 82.6206 18.8571ZM86.2246 16.2828C85.5553 16.9006 85.2464 17.7244 85.2464 18.8571C85.2464 19.9897 85.5553 20.8135 86.2246 21.4313C86.8939 21.9977 87.6662 22.3066 88.5414 22.3066C89.4167 22.3066 90.189 21.9977 90.8583 21.4313C91.5276 20.865 91.8365 19.9897 91.8365 18.8571C91.8365 17.7244 91.5276 16.9006 90.8583 16.2828C90.189 15.665 89.4167 15.4076 88.5414 15.4076C87.6662 15.4076 86.8939 15.665 86.2246 16.2828Z" fill="white"/><path d="M109.599 24.5719H107.127V17.0036L104.141 24.5719H102.082L99.0958 17.1066V24.5719H96.676V13.1422H99.971L103.112 20.865L106.098 13.1422H109.599V24.5719Z" fill="white"/><path d="M79.1202 20.6591C78.9657 21.0194 78.7083 21.3284 78.3994 21.5858C77.936 22.0492 77.2152 22.2551 76.34 22.2551C75.4132 22.2551 74.6409 21.9462 74.0231 21.3284C73.4053 20.7105 73.0449 19.8868 73.0449 18.8571C73.0449 17.7244 73.3538 16.9006 74.0231 16.2828C74.6924 15.665 75.4132 15.3561 76.2885 15.3561C76.7518 15.3561 77.1637 15.4076 77.5756 15.562C77.936 15.7165 78.2449 15.8709 78.4508 16.1284C78.6568 16.3343 78.8112 16.5917 78.9657 16.7977C78.9657 16.8492 79.0172 16.9006 79.0172 16.9521L81.0766 15.4076C80.8192 14.9957 80.5103 14.5838 80.0984 14.2234C79.6865 13.8115 79.1716 13.5026 78.5023 13.2452C77.833 12.9878 77.1122 12.8848 76.2885 12.8848C74.6409 12.8848 73.2508 13.4511 72.1182 14.5838C70.9855 15.7165 70.4192 17.1581 70.4192 18.8571C70.4192 20.6076 70.9855 22.0492 72.1182 23.1303C73.2508 24.2115 74.6409 24.7779 76.34 24.7779C77.1637 24.7779 77.936 24.6234 78.6053 24.366C79.2746 24.1086 79.8409 23.7482 80.2528 23.3363C80.6647 22.9244 80.9736 22.5125 81.231 22.0492L79.1202 20.6591Z" fill="white"/></svg>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- 9. NEXT STEPS -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="section nebula-5">
+  <div class="section-content">
+    <p class="section-label">Next Steps</p>
+    <h2 class="section-title">From approval to live<br>in under a week</h2>
+    <p class="section-intro">
+      Once you give the green light, here's how we get it running.
+    </p>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <h4 class="step-title">Kickoff call</h4>
+        <p class="step-body">30 min. We collect your example replies and align on reply tone and Glopos knowledge base content.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <h4 class="step-title">OAuth setup</h4>
+        <p class="step-body">We send you an authorisation link. One click grants access. No password shared — revocable any time from your account settings.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <h4 class="step-title">Build & test</h4>
+        <p class="step-body">We build and test the full pipeline with sample replies across all three categories. You review the draft quality before anything goes live.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">04</div>
+        <h4 class="step-title">Go live</h4>
+        <p class="step-body">Webhook activated in Smartlead. System starts handling replies automatically. You receive your first priority draft notification within the day.</p>
+      </div>
+    </div>
+    <div class="cta-section">
+      <a href="mailto:tomas.vrbka@forecom-solutions.com" class="cta-btn">Let's get started →</a>
+      <p class="cta-note">Questions? Reply to this proposal or book a call directly.</p>
+    </div>
+  </div>
+  <div class="logo">
+    <svg width="110" height="28" viewBox="0 0 110 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23.7743 0.322449C21.8178 0.322449 20.2218 1.66106 19.7584 3.41156H18.1624C17.699 1.60958 16.103 0.322449 14.1465 0.322449C12.1901 0.322449 10.5941 1.66106 10.1307 3.41156H8.53465C8.07129 1.60958 6.47525 0.322449 4.51881 0.322449C2.25346 0.322449 0.399994 2.17591 0.399994 4.44126C0.399994 6.3977 1.73861 7.99374 3.48911 8.4571V10.0531C1.68712 10.5165 0.399994 12.1125 0.399994 14.069C0.399994 16.0254 1.73861 17.6215 3.48911 18.0848V19.6809C1.68712 20.1442 0.399994 21.7403 0.399994 23.6967C0.399994 25.9621 2.25346 27.8155 4.51881 27.8155C6.78416 27.8155 8.63762 25.9621 8.63762 23.6967C8.63762 21.7403 7.29901 20.1442 5.54851 19.6809V18.0848C6.9901 17.7244 8.17426 16.5403 8.53465 15.0987H10.1307C10.5941 16.9007 12.1901 18.1878 14.1465 18.1878C16.4119 18.1878 18.2654 16.3343 18.2654 14.069C18.2654 11.8036 16.4119 9.95017 14.1465 9.95017C12.1901 9.95017 10.5941 11.2888 10.1307 13.0393H8.53465C8.17426 11.5977 6.9901 10.4135 5.54851 10.0531V8.4571C6.9901 8.09671 8.17426 6.91255 8.53465 5.47096H10.1307C10.5941 7.27294 12.1901 8.56007 14.1465 8.56007C16.103 8.56007 17.699 7.22146 18.1624 5.47096H19.7584C20.2218 7.27294 21.8178 8.56007 23.7743 8.56007C26.0396 8.56007 27.8931 6.70661 27.8931 4.44126C27.8931 2.17591 26.0911 0.322449 23.7743 0.322449Z" fill="#9167FF"/><path d="M30.4661 24.5719H27.8918V13.1422H35.2542V15.562H30.4661V17.9818H33.9671V20.2986H30.5176V24.5719H30.4661Z" fill="white"/><path d="M36.6949 18.8571C36.6949 17.1066 37.2612 15.665 38.4454 14.5323C39.5781 13.4511 41.0197 12.8848 42.6672 12.8848C44.3147 12.8848 45.7048 13.4511 46.889 14.5323C48.0217 15.6135 48.588 17.0551 48.588 18.8056C48.588 20.5561 48.0217 21.9977 46.889 23.0789C45.7563 24.16 44.3662 24.7264 42.6672 24.7264C41.0197 24.7264 39.6296 24.16 38.4454 23.0789C37.3127 22.0492 36.6949 20.6076 36.6949 18.8571ZM40.3504 16.2828C39.6811 16.9006 39.3721 17.7244 39.3721 18.8571C39.3721 19.9897 39.6811 20.8135 40.3504 21.4313C41.0197 21.9977 41.7919 22.3066 42.6672 22.3066C43.5424 22.3066 44.3147 21.9977 44.984 21.4313C45.6533 20.865 45.9623 19.9897 45.9623 18.8571C45.9623 17.7244 45.6533 16.9006 44.984 16.2828C44.3147 15.665 43.5424 15.4076 42.6672 15.4076C41.7919 15.4076 41.0197 15.665 40.3504 16.2828Z" fill="white"/><path d="M56.2593 24.5717L54.1999 20.3499H53.2732V24.5717H50.7504V13.142H55.2811C56.3623 13.142 57.289 13.5024 57.9583 14.1717C58.6276 14.841 58.988 15.7163 58.988 16.746C58.988 17.5183 58.7821 18.1876 58.3702 18.7539C57.9583 19.3202 57.4435 19.7321 56.7227 19.9896L59.0395 24.6232H56.2593V24.5717ZM53.3247 18.1361H54.8177C55.3326 18.1361 55.7445 18.0331 56.0019 17.7757C56.2593 17.5183 56.4138 17.2094 56.4138 16.746C56.4138 16.3341 56.2593 15.9737 56.0019 15.7163C55.7445 15.4589 55.3326 15.3559 54.8177 15.3559H53.3247V18.1361Z" fill="white"/><path d="M68.566 24.5717H61.3066V13.142H68.5145V15.5618H63.8294V17.7242H68.0512V19.9381H63.8294V22.1004H68.5145V24.5717H68.566Z" fill="white"/><path d="M82.6206 18.8571C82.6206 17.1066 83.187 15.665 84.3711 14.5323C85.5038 13.4511 86.9454 12.8848 88.5929 12.8848C90.2404 12.8848 91.6305 13.4511 92.8147 14.5323C93.9474 15.6135 94.5137 17.0551 94.5137 18.8056C94.5137 20.5561 93.9474 21.9977 92.8147 23.0789C91.682 24.16 90.2919 24.7264 88.5929 24.7264C86.9454 24.7264 85.5553 24.16 84.3711 23.0789C83.187 22.0492 82.6206 20.6076 82.6206 18.8571ZM86.2246 16.2828C85.5553 16.9006 85.2464 17.7244 85.2464 18.8571C85.2464 19.9897 85.5553 20.8135 86.2246 21.4313C86.8939 21.9977 87.6662 22.3066 88.5414 22.3066C89.4167 22.3066 90.189 21.9977 90.8583 21.4313C91.5276 20.865 91.8365 19.9897 91.8365 18.8571C91.8365 17.7244 91.5276 16.9006 90.8583 16.2828C90.189 15.665 89.4167 15.4076 88.5414 15.4076C87.6662 15.4076 86.8939 15.665 86.2246 16.2828Z" fill="white"/><path d="M109.599 24.5719H107.127V17.0036L104.141 24.5719H102.082L99.0958 17.1066V24.5719H96.676V13.1422H99.971L103.112 20.865L106.098 13.1422H109.599V24.5719Z" fill="white"/><path d="M79.1202 20.6591C78.9657 21.0194 78.7083 21.3284 78.3994 21.5858C77.936 22.0492 77.2152 22.2551 76.34 22.2551C75.4132 22.2551 74.6409 21.9462 74.0231 21.3284C73.4053 20.7105 73.0449 19.8868 73.0449 18.8571C73.0449 17.7244 73.3538 16.9006 74.0231 16.2828C74.6924 15.665 75.4132 15.3561 76.2885 15.3561C76.7518 15.3561 77.1637 15.4076 77.5756 15.562C77.936 15.7165 78.2449 15.8709 78.4508 16.1284C78.6568 16.3343 78.8112 16.5917 78.9657 16.7977C78.9657 16.8492 79.0172 16.9006 79.0172 16.9521L81.0766 15.4076C80.8192 14.9957 80.5103 14.5838 80.0984 14.2234C79.6865 13.8115 79.1716 13.5026 78.5023 13.2452C77.833 12.9878 77.1122 12.8848 76.2885 12.8848C74.6409 12.8848 73.2508 13.4511 72.1182 14.5838C70.9855 15.7165 70.4192 17.1581 70.4192 18.8571C70.4192 20.6076 70.9855 22.0492 72.1182 23.1303C73.2508 24.2115 74.6409 24.7779 76.34 24.7779C77.1637 24.7779 77.936 24.6234 78.6053 24.366C79.2746 24.1086 79.8409 23.7482 80.2528 23.3363C80.6647 22.9244 80.9736 22.5125 81.231 22.0492L79.1202 20.6591Z" fill="white"/></svg>
+  </div>
+</section>
+
+</body>
+</html>
