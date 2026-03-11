@@ -95,6 +95,14 @@
     table { width: 100%; border-collapse: collapse; margin: 24px 0; }
     thead th { color: #a78bfa; font-size: 0.73rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; border-bottom: 1px solid rgba(167,139,250,0.25); padding: 10px 14px; text-align: left; }
     tbody td { padding: 13px 14px; border-bottom: 1px solid rgba(255,255,255,0.05); color: rgba(232,224,240,0.8); font-size: 0.9rem; }
+    tbody tr.subtotal-row td {
+      border-bottom: none;
+      font-weight: 600;
+      color: rgba(232,224,240,0.9);
+      border-top: 1px solid rgba(167,139,250,0.12);
+      background: rgba(167,139,250,0.04);
+      font-size: 0.88rem;
+    }
     tbody tr.total-row td { border-bottom: none; font-weight: 600; color: #fff; border-top: 1px solid rgba(167,139,250,0.2); }
     .phase-label { font-size: 0.75rem; color: rgba(167,139,250,0.5); text-transform: uppercase; letter-spacing: 0.08em; display: block; }
     .optional-row td { color: rgba(232,224,240,0.5); font-style: italic; }
@@ -274,77 +282,210 @@
     <table>
       <thead>
         <tr>
-          <th>Oblast</th>
-          <th>Deliverable</th>
-          <th style="text-align:right; white-space:nowrap;">Rozsah (hod)</th>
+          <th style="width:52%">Aktivita / Deliverable</th>
+          <th style="text-align:right; white-space:nowrap;">Min. hod.</th>
+          <th style="text-align:right; white-space:nowrap;">Max. hod.</th>
           <th style="text-align:right; white-space:nowrap;">Stred</th>
         </tr>
       </thead>
       <tbody>
+        <!-- FAZE 1 -->
         <tr>
-          <td><span class="phase-label">Fáze 1</span>Discovery &amp; Understanding</td>
-          <td>Příprava workshopu, understanding workshop, analýza výstupů + AS-IS dokumentace</td>
-          <td style="text-align:right; white-space:nowrap;">28-51</td>
-          <td style="text-align:right; white-space:nowrap;">39,5</td>
+          <td colspan="4" style="padding: 14px 14px 6px; font-size:0.72rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:#a78bfa; background:rgba(167,139,250,0.05);">Fáze 1 - Discovery &amp; Understanding</td>
         </tr>
         <tr>
-          <td><span class="phase-label">Fáze 2</span>Data Audit</td>
-          <td>Audit kontaktů, firem, lifecycle, properties, pipeline + písemná zpráva</td>
-          <td style="text-align:right; white-space:nowrap;">13-25</td>
-          <td style="text-align:right; white-space:nowrap;">19</td>
+          <td>Příprava workshopu</td>
+          <td style="text-align:right;">2</td>
+          <td style="text-align:right;">5</td>
+          <td style="text-align:right;">3,5</td>
         </tr>
         <tr>
-          <td><span class="phase-label">Fáze 3</span>Návrh řešení &amp; roadmapa</td>
-          <td>Segmentace, lead scoring, dashboardy, workflow šablony, dedup logika, roadmapa</td>
-          <td style="text-align:right; white-space:nowrap;">28-64</td>
-          <td style="text-align:right; white-space:nowrap;">46</td>
+          <td>Understanding workshop</td>
+          <td style="text-align:right;">6</td>
+          <td style="text-align:right;">16</td>
+          <td style="text-align:right;">11</td>
         </tr>
         <tr>
-          <td><span class="phase-label">Fáze 4</span>Implementační podpora</td>
-          <td>Konzultační hovory, šablony hygieny, ukázkové workflow, finální review</td>
-          <td style="text-align:right; white-space:nowrap;">13-21</td>
-          <td style="text-align:right; white-space:nowrap;">17</td>
+          <td>Analýza výstupů workshopu + dokumentace AS-IS stavu</td>
+          <td style="text-align:right;">20</td>
+          <td style="text-align:right;">30</td>
+          <td style="text-align:right;">25</td>
         </tr>
+        <tr class="subtotal-row">
+          <td><strong>Mezisoučet fáze 1</strong></td>
+          <td style="text-align:right;"><strong>28</strong></td>
+          <td style="text-align:right;"><strong>51</strong></td>
+          <td style="text-align:right;"><strong>39,5</strong></td>
+        </tr>
+        <!-- FAZE 2 -->
+        <tr>
+          <td colspan="4" style="padding: 14px 14px 6px; font-size:0.72rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:#a78bfa; background:rgba(167,139,250,0.05);">Fáze 2 - Data Audit (HubSpot CRM)</td>
+        </tr>
+        <tr>
+          <td>Audit kontaktů (60-70k) - duplicity, chybějící pole, relevance</td>
+          <td style="text-align:right;">4</td>
+          <td style="text-align:right;">8</td>
+          <td style="text-align:right;">6</td>
+        </tr>
+        <tr>
+          <td>Audit firem (10k) - duplicity, provázanost s kontakty</td>
+          <td style="text-align:right;">2</td>
+          <td style="text-align:right;">4</td>
+          <td style="text-align:right;">3</td>
+        </tr>
+        <tr>
+          <td>Audit životních cyklů (Lifecycle Stage) a lead statusů</td>
+          <td style="text-align:right;">1</td>
+          <td style="text-align:right;">2</td>
+          <td style="text-align:right;">1,5</td>
+        </tr>
+        <tr>
+          <td>Audit properties - custom vs. default, nevyužité</td>
+          <td style="text-align:right;">1</td>
+          <td style="text-align:right;">3</td>
+          <td style="text-align:right;">2</td>
+        </tr>
+        <tr>
+          <td>Audit deal pipeline a obchodních procesů v CRM</td>
+          <td style="text-align:right;">2</td>
+          <td style="text-align:right;">3</td>
+          <td style="text-align:right;">2,5</td>
+        </tr>
+        <tr>
+          <td>Zpráva z datového auditu + prioritizovaný seznam doporučení</td>
+          <td style="text-align:right;">3</td>
+          <td style="text-align:right;">5</td>
+          <td style="text-align:right;">4</td>
+        </tr>
+        <tr class="subtotal-row">
+          <td><strong>Mezisoučet fáze 2</strong></td>
+          <td style="text-align:right;"><strong>13</strong></td>
+          <td style="text-align:right;"><strong>25</strong></td>
+          <td style="text-align:right;"><strong>19</strong></td>
+        </tr>
+        <!-- FAZE 3 -->
+        <tr>
+          <td colspan="4" style="padding: 14px 14px 6px; font-size:0.72rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:#a78bfa; background:rgba(167,139,250,0.05);">Fáze 3 - Návrh řešení &amp; roadmapa</td>
+        </tr>
+        <tr>
+          <td>Návrh struktury dat - segmentace, vlastnosti, lifecycle stages</td>
+          <td style="text-align:right;">8</td>
+          <td style="text-align:right;">16</td>
+          <td style="text-align:right;">12</td>
+        </tr>
+        <tr>
+          <td>Návrh lead scoringu (bez Marketing Hub - manuální / basic)</td>
+          <td style="text-align:right;">4</td>
+          <td style="text-align:right;">8</td>
+          <td style="text-align:right;">6</td>
+        </tr>
+        <tr>
+          <td>Návrh dashboardů pro Sales (KPI: budget, revenue)</td>
+          <td style="text-align:right;">4</td>
+          <td style="text-align:right;">8</td>
+          <td style="text-align:right;">6</td>
+        </tr>
+        <tr>
+          <td>Návrh workflow automatizací (Sales Hub) - šablony procesů</td>
+          <td style="text-align:right;">4</td>
+          <td style="text-align:right;">8</td>
+          <td style="text-align:right;">6</td>
+        </tr>
+        <tr>
+          <td>Implementace dlouhodobé deduplikační logiky (Data Hub / Koalify)</td>
+          <td style="text-align:right;">4</td>
+          <td style="text-align:right;">16</td>
+          <td style="text-align:right;">10</td>
+        </tr>
+        <tr>
+          <td>Prioritizovaná roadmapa implementace</td>
+          <td style="text-align:right;">4</td>
+          <td style="text-align:right;">8</td>
+          <td style="text-align:right;">6</td>
+        </tr>
+        <tr class="subtotal-row">
+          <td><strong>Mezisoučet fáze 3</strong></td>
+          <td style="text-align:right;"><strong>28</strong></td>
+          <td style="text-align:right;"><strong>64</strong></td>
+          <td style="text-align:right;"><strong>46</strong></td>
+        </tr>
+        <!-- FAZE 4 -->
+        <tr>
+          <td colspan="4" style="padding: 14px 14px 6px; font-size:0.72rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:#a78bfa; background:rgba(167,139,250,0.05);">Fáze 4 - Implementační podpora &amp; konzultace</td>
+        </tr>
+        <tr>
+          <td>Konzultační hovory / review sessions (á 60 min, est. 3-4×)</td>
+          <td style="text-align:right;">3</td>
+          <td style="text-align:right;">4</td>
+          <td style="text-align:right;">3,5</td>
+        </tr>
+        <tr>
+          <td>Šablony a návody pro opakovanou datovou hygienu</td>
+          <td style="text-align:right;">4</td>
+          <td style="text-align:right;">6</td>
+          <td style="text-align:right;">5</td>
+        </tr>
+        <tr>
+          <td>Nastavení ukázkového workflow v HubSpot (1-2 příklady)</td>
+          <td style="text-align:right;">2</td>
+          <td style="text-align:right;">3</td>
+          <td style="text-align:right;">2,5</td>
+        </tr>
+        <tr>
+          <td>Finální review a handover dokumentace</td>
+          <td style="text-align:right;">4</td>
+          <td style="text-align:right;">8</td>
+          <td style="text-align:right;">6</td>
+        </tr>
+        <tr class="subtotal-row">
+          <td><strong>Mezisoučet fáze 4</strong></td>
+          <td style="text-align:right;"><strong>13</strong></td>
+          <td style="text-align:right;"><strong>21</strong></td>
+          <td style="text-align:right;"><strong>17</strong></td>
+        </tr>
+        <!-- CELKEM -->
         <tr class="total-row">
-          <td colspan="2"><strong>Celkový rozsah (Fáze 1-4)</strong></td>
-          <td style="text-align:right; white-space:nowrap;"><strong>82-161 hod</strong></td>
-          <td style="text-align:right; white-space:nowrap;"><strong>121,5 hod</strong></td>
+          <td><strong>Celkový odhad (bez volitelného rozšíření)</strong></td>
+          <td style="text-align:right;"><strong>82</strong></td>
+          <td style="text-align:right;"><strong>161</strong></td>
+          <td style="text-align:right;"><strong>121,5</strong></td>
         </tr>
       </tbody>
     </table>
 
-    <table style="margin-top:8px;">
+    <table style="margin-top:24px;">
       <thead>
         <tr>
-          <th>Volitelné rozšíření</th>
-          <th>Poznamka</th>
-          <th style="text-align:right; white-space:nowrap;">Rozsah (hod)</th>
-          <th style="text-align:right; white-space:nowrap;">Stred</th>
+          <th style="width:52%">Volitelné rozšíření (mimo základní scope)</th>
+          <th style="text-align:right; white-space:nowrap;">Min. hod.</th>
+          <th style="text-align:right; white-space:nowrap;">Max. hod.</th>
+          <th style="text-align:right; white-space:nowrap;">Střed</th>
         </tr>
       </thead>
       <tbody>
         <tr class="optional-row">
-          <td>Podpora pri vyberu / nakupu Marketing Hub Professional</td>
-          <td>Porovnání plánů, vyjednávání s HubSpotem, nejlepší cena</td>
-          <td style="text-align:right;">2-4</td>
+          <td>Podpora při výběru / nákupu Marketing Hub Professional</td>
+          <td style="text-align:right;">2</td>
+          <td style="text-align:right;">4</td>
           <td style="text-align:right;">3</td>
         </tr>
         <tr class="optional-row">
           <td>Migrace e-mail marketingu z Ecomailu do Marketing Hub</td>
-          <td>Segmenty, šablony, opt-in databáze; závisí na rozsahu</td>
-          <td style="text-align:right;">8-20</td>
+          <td style="text-align:right;">8</td>
+          <td style="text-align:right;">20</td>
           <td style="text-align:right;">14</td>
         </tr>
         <tr class="optional-row">
-          <td>Zaskoleni marketingoveho tymu (Marketing Hub basics)</td>
-          <td>Workshop pro tým, který s MH zatím nepracoval</td>
-          <td style="text-align:right;">4-8</td>
+          <td>Zaškolení marketingového týmu (Marketing Hub basics)</td>
+          <td style="text-align:right;">4</td>
+          <td style="text-align:right;">8</td>
           <td style="text-align:right;">6</td>
         </tr>
         <tr class="total-row">
-          <td colspan="2"><strong>Celkem volitelné</strong></td>
-          <td style="text-align:right;"><strong>14-32 hod</strong></td>
-          <td style="text-align:right;"><strong>23 hod</strong></td>
+          <td><strong>Mezisoučet volitelné</strong></td>
+          <td style="text-align:right;"><strong>14</strong></td>
+          <td style="text-align:right;"><strong>32</strong></td>
+          <td style="text-align:right;"><strong>23</strong></td>
         </tr>
       </tbody>
     </table>
@@ -352,26 +493,26 @@
     <div class="investment-box">
       <div class="investment-item">
         <span class="investment-label">Fáze 1 - Discovery &amp; Understanding</span>
-        <span class="investment-value">28-51 hod (stred 39,5)</span>
+        <span class="investment-value">28-51 hod (střed 39,5)</span>
       </div>
       <div class="investment-item">
         <span class="investment-label">Fáze 2 - Data Audit</span>
-        <span class="investment-value">13-25 hod (stred 19)</span>
+        <span class="investment-value">13-25 hod (střed 19)</span>
       </div>
       <div class="investment-item">
         <span class="investment-label">Fáze 3 - Návrh řešení &amp; roadmapa</span>
-        <span class="investment-value">28-64 hod (stred 46)</span>
+        <span class="investment-value">28-64 hod (střed 46)</span>
       </div>
       <div class="investment-item">
         <span class="investment-label">Fáze 4 - Implementační podpora</span>
-        <span class="investment-value">13-21 hod (stred 17)</span>
+        <span class="investment-value">13-21 hod (střed 17)</span>
       </div>
       <div class="investment-item investment-total">
         <span class="investment-label">Celkový rozsah projektu (Fáze 1-4)</span>
         <span class="investment-value">82-161 hod</span>
       </div>
-      <p class="investment-note">Fakturace dle skutecne odpracovanych hodin. Hodinova sazba bude upresnena na zaklade dohodnuteho rozsahu spoluprace. Projekt lze realizovat po fazich - vzdy s jasne definovanymi vystupy a pevnou cenou na fazi.<br><br>Volitelné rozšíření (Marketing Hub, migrace z Ecomailu, skoleni) neni soucasti zakladniho scope a bude predmetem samostatne nabidky.</p>
-    </div>
+      <p class="investment-note">Fakturace dle skutečně odpracovaných hodin. Hodinová sazba bude upřesněna na základě dohodnutého rozsahu spolupráce. Projekt lze realizovat po fázích - vždy s jasně definovanými výstupy a pevnou cenou na fázi.<br><br>Volitelné rozšíření (Marketing Hub, migrace z Ecomailu, školení) není součástí základního scope a bude předmětem samostatné nabídky.</p>
+    </div></div>
 
     <hr class="divider">
 
