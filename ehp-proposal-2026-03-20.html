@@ -465,6 +465,122 @@
 
     .cover > * { position: relative; z-index: 1; }
 
+    
+    @media (max-width: 600px) {
+      body {
+        font-size: 14px;
+      }
+
+      .page-wrapper {
+        padding: 12px 8px 40px;
+      }
+
+      .proposal-card {
+        padding: 32px 20px;
+        border-radius: 12px;
+      }
+
+      /* Cover */
+      .cover {
+        padding: 24px 0 48px;
+        margin-bottom: 40px;
+      }
+
+      .cover .forecom-logo svg {
+        width: 100px;
+      }
+
+      .cover .proposal-badge {
+        font-size: 0.65rem;
+      }
+
+      .cover .client-company {
+        font-size: 1.8rem !important;
+        line-height: 1.2;
+      }
+
+      .cover .proposal-title {
+        font-size: 0.95rem !important;
+      }
+
+      .cover .meta {
+        flex-direction: column;
+        gap: 4px;
+        font-size: 0.78rem;
+      }
+
+      .cover .meta span::before {
+        display: none;
+      }
+
+      /* Section headers */
+      .section-header {
+        margin: 40px 0 20px;
+      }
+
+      /* Challenge & solution blocks */
+      .challenge-block {
+        padding-left: 14px;
+      }
+
+      .solution-block {
+        padding: 18px 16px;
+      }
+
+      /* Scope table - make it scrollable */
+      .scope-table-wrap {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      table {
+        min-width: 480px;
+      }
+
+      thead th,
+      tbody td {
+        padding: 10px 12px;
+        font-size: 0.82rem;
+      }
+
+      /* Investment box - stack vertically */
+      .investment-box {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+      }
+
+      .investment-item {
+        width: 100%;
+      }
+
+      .inv-amount {
+        font-size: 1.35rem !important;
+      }
+
+      /* Contact card - stack vertically */
+      .contact-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 20px;
+      }
+
+      .contact-details {
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      /* Ref tags */
+      .ref-tags {
+        gap: 6px;
+      }
+
+      .ref-tag {
+        font-size: 0.75rem;
+      }
+    }
+
     @media print {
       body {
         background: #080114 !important;
