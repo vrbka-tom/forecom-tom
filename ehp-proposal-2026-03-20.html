@@ -483,7 +483,8 @@
       /* Cover */
       .cover {
         padding: 24px 0 48px;
-        margin-bottom: 40px;
+        margin: 0 0 40px !important;
+        border-radius: 0;
       }
 
       .cover .forecom-logo svg {
@@ -500,7 +501,13 @@
       }
 
       .cover .proposal-title {
-        font-size: 0.95rem !important;
+        font-size: 0.85rem !important;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0 8px;
+        max-width: 100%;
       }
 
       .cover .meta {
