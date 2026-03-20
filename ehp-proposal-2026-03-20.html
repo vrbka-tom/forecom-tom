@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FORECOM — Návrh spolupráce: Outbound Lead Generation - Proof of Concept</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -19,7 +19,7 @@
         linear-gradient(160deg, #060010 0%, #0d051e 35%, #130828 65%, #1a0c35 100%);
       min-height: 100vh;
       color: #e8e0f0;
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
       font-size: 15px;
       line-height: 1.75;
     }
@@ -579,6 +579,125 @@
       .ref-tag {
         font-size: 0.75rem;
       }
+
+      /* Cover mobile */
+      .cover .client-company {
+        font-size: 1.6rem !important;
+        word-break: break-word;
+      }
+      .cover .proposal-title {
+        font-size: 0.88rem !important;
+        line-height: 1.5;
+      }
+      .cover .meta {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        align-items: center;
+      }
+      .cover .meta span + span::before {
+        content: none;
+      }
+
+      /* Investment items on mobile */
+      .investment-item .inv-label {
+        font-size: 0.65rem;
+        letter-spacing: 0.06em;
+      }
+      .investment-item .inv-amount {
+        font-size: 1.3rem !important;
+      }
+      .investment-item .inv-note {
+        font-size: 0.72rem;
+      }
+
+    }
+
+
+    /* ── ROI Section ── */
+    .roi-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 24px 0 28px;
+    }
+
+    .roi-scenario {
+      border-radius: 12px;
+      padding: 22px 20px;
+      position: relative;
+    }
+
+    .roi-scenario.pessimistic {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .roi-scenario.optimistic {
+      background: rgba(167,139,250,0.07);
+      border: 1px solid rgba(167,139,250,0.25);
+    }
+
+    .scenario-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 14px;
+    }
+
+    .roi-scenario.optimistic .scenario-label {
+      color: rgba(167,139,250,0.7);
+    }
+
+    .scenario-meetings {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .roi-scenario.optimistic .scenario-meetings {
+      color: #c4b5fd;
+    }
+
+    .scenario-sub {
+      font-size: 0.78rem;
+      color: rgba(232,224,240,0.5);
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+
+    .scenario-roi {
+      display: inline-block;
+      margin-top: 12px;
+      background: rgba(167,139,250,0.15);
+      border: 1px solid rgba(167,139,250,0.3);
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #a78bfa;
+    }
+
+    .roi-scenario.optimistic .scenario-roi {
+      background: rgba(167,139,250,0.25);
+      color: #c4b5fd;
+    }
+
+    .roi-note {
+      font-size: 0.85rem;
+      color: rgba(232,224,240,0.55);
+      text-align: justify;
+      margin-top: 4px;
+    }
+
+    @media (max-width: 600px) {
+      .roi-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     @media print {
@@ -684,7 +803,7 @@
 <div class="solution-block">
   <span class="service-tag">Full Service - podmínkový přechod</span>
   <h3>Úspěšný PoC otevírá plnohodnotnou spolupráci</h3>
-  <p>PoC má jasný a měřitelný cíl: dodat alespoň <strong>10 předkvalifikovaných schůzek nebo poptávek</strong> z minimálně 1 000 oslovených kontaktů. Pokud tohoto cíle dosáhneme, přejdeme společně do měsíčního retaineru zahrnujícího rozšíření na další segmenty - hutnictví, ocelárny, automotive, ABM cílené přímo na konkrétní firmy s terminálovou technikou - plus průběžnou správu, optimalizaci a reporting.</p>
+  <p>PoC má jasný a měřitelný cíl: dodat alespoň <strong style="color:#c4b5fd;">10 předkvalifikovaných schůzek nebo poptávek</strong> z minimálně 1 000 oslovených kontaktů. Pokud tohoto cíle dosáhneme, přejdeme společně do měsíčního retaineru zahrnujícího rozšíření na další segmenty - hutnictví, ocelárny, automotive, ABM cílené přímo na konkrétní firmy s terminálovou technikou - plus průběžnou správu, optimalizaci a reporting.</p>
 </div>
 
       <!-- Example structure (Claude fills in):
@@ -798,7 +917,30 @@
         -->
       </div>
 
+
       <hr class="divider">
+
+      <div class="section-header">
+        <div class="section-number">ROI</div>
+        <h2>Návratnost investice</h2>
+        <div class="h2-sub">Return on Investment</div>
+      </div>
+
+      <div class="roi-grid">
+        <div class="roi-scenario pessimistic">
+          <div class="scenario-label">Pesimistická varianta</div>
+          <div class="scenario-meetings">5 schůzek</div>
+          <div class="scenario-sub">1 uzavřený deal<br>průměrná hodnota zakázky 3 mil. Kč</div>
+          <div class="scenario-roi">ROI: 60×</div>
+        </div>
+        <div class="roi-scenario optimistic">
+          <div class="scenario-label">Optimistická varianta</div>
+          <div class="scenario-meetings">15 schůzek</div>
+          <div class="scenario-sub">3 uzavřené dealy<br>průměrná hodnota zakázky 10 mil. Kč</div>
+          <div class="scenario-roi">ROI: 600×</div>
+        </div>
+      </div>
+      <p class="roi-note">Kampaň stojí 50 000 Kč jednorázově. I v pesimistickém scénáři - jediný uzavřený obchod - se investice vrátí mnohonásobně. Průměrná hodnota stroje Kalmar se pohybuje v jednotkách až desítkách milionů korun. Každá schůzka má tedy reálnou obchodní váhu.</p>
 
       <!-- ══ SECTION 4: WHY FORECOM ══ -->
       <div class="section-header">
