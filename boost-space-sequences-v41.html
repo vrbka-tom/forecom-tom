@@ -1,0 +1,2009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boost.space - Improved Cold Outreach Sequences v4.1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Serif+Display&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --bg: #FAFAF8; --surface: #FFFFFF; --text: #1A1A2E; --text-secondary: #5C5C7A;
+  --text-muted: #8E8EA0; --border: #E8E8EE; --border-light: #F0F0F5;
+  --accent-1: #4F46E5; --accent-1-light: #EEF2FF;
+  --accent-2: #059669; --accent-2-light: #ECFDF5;
+  --accent-3: #D97706; --accent-3-light: #FFFBEB;
+  --accent-4: #DC2626; --accent-4-light: #FEF2F2;
+  --accent-5: #7C3AED; --accent-5-light: #F5F3FF;
+  --linkedin: #0A66C2; --linkedin-light: #EDF4FE;
+  --email-bg: #F7F7FB;
+  --shadow-sm: 0 1px 2px rgba(26,26,46,0.04);
+  --shadow-md: 0 4px 12px rgba(26,26,46,0.06);
+  --radius: 10px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'DM Serif Display', serif;
+  line-height: 1.3;
+}
+
+code, .mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Header */
+.header {
+  background: linear-gradient(135deg, #1A1A2E 0%, #2D2B55 100%);
+  color: #fff;
+  padding: 60px 0 50px;
+  text-align: center;
+}
+.header-label {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: rgba(255,255,255,0.12);
+  padding: 6px 16px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  color: rgba(255,255,255,0.85);
+}
+.header h1 {
+  font-size: 2.4rem;
+  margin-bottom: 12px;
+  font-weight: 400;
+}
+.header .subtitle {
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 20px;
+}
+.header-meta {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+}
+.header-meta span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Cards */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  margin: 32px 0;
+  overflow: hidden;
+}
+.card-header {
+  padding: 24px 32px;
+  border-bottom: 1px solid var(--border-light);
+}
+.card-header h2 {
+  font-size: 1.5rem;
+  color: var(--text);
+}
+.card-body {
+  padding: 24px 32px;
+}
+.card-body h4 {
+  font-size: 1rem;
+  color: var(--text);
+  margin: 20px 0 10px;
+}
+.card-body h4:first-child { margin-top: 0; }
+.card-body ul, .card-body ol {
+  padding-left: 24px;
+  margin: 8px 0;
+}
+.card-body li {
+  margin: 6px 0;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+.card-body li strong { color: var(--text); }
+
+/* Variables table */
+.var-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+.var-table th {
+  text-align: left;
+  padding: 12px 16px;
+  background: var(--bg);
+  border-bottom: 2px solid var(--border);
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+}
+.var-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text-secondary);
+}
+.var-table td:first-child {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.88rem;
+  color: var(--accent-1);
+  font-weight: 500;
+}
+
+/* Sequence card */
+.seq-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  margin: 40px 0;
+  overflow: hidden;
+}
+.seq-header {
+  padding: 28px 32px;
+  color: #fff;
+  position: relative;
+}
+.seq-header .seq-number {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  opacity: 0.8;
+  margin-bottom: 8px;
+}
+.seq-header h2 {
+  font-size: 1.6rem;
+  font-weight: 400;
+  margin-bottom: 16px;
+}
+.seq-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.seq-meta-tag {
+  font-size: 12px;
+  font-weight: 500;
+  background: rgba(255,255,255,0.18);
+  padding: 4px 12px;
+  border-radius: 16px;
+}
+
+/* Version tabs */
+.version-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+}
+.version-tab {
+  flex: 1;
+  padding: 14px 24px;
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  color: var(--text-muted);
+  transition: all 0.2s;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  font-family: 'DM Sans', sans-serif;
+}
+.version-tab:hover {
+  color: var(--text);
+  background: var(--bg);
+}
+.version-tab.active {
+  color: var(--accent-1);
+  border-bottom-color: var(--accent-1);
+}
+.version-content { display: none; }
+.version-content.active { display: block; }
+
+/* Email block */
+.email-block {
+  margin: 24px 32px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.email-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  background: var(--email-bg);
+  border-bottom: 1px solid var(--border-light);
+}
+.email-label {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+.email-timing {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 12px;
+  background: var(--accent-1-light);
+  color: var(--accent-1);
+}
+.email-subjects {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-light);
+  background: #FBFBFD;
+}
+.email-subjects .subject-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.subject-line {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.88rem;
+  color: var(--text);
+  padding: 6px 12px;
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  margin: 4px 0;
+  display: block;
+}
+.subject-line .variant-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-right: 8px;
+}
+.email-body {
+  padding: 20px 20px;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+.email-body p { margin: 10px 0; }
+.email-body p:first-child { margin-top: 0; }
+.email-body ol, .email-body ul {
+  padding-left: 24px;
+  margin: 10px 0;
+}
+.email-body li { margin: 4px 0; }
+.email-body .abc-options { margin: 12px 0; }
+.email-body .abc-option {
+  padding: 6px 0;
+  font-weight: 500;
+  color: var(--text);
+}
+.email-body .ps-line {
+  color: var(--text-muted);
+  font-style: italic;
+  font-size: 0.9rem;
+  margin-top: 16px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-light);
+}
+.email-body .mobile-sig {
+  color: var(--text-muted);
+  font-style: italic;
+  font-size: 0.85rem;
+  opacity: 0.7;
+  margin-top: 8px;
+}
+.email-body .sender-sig {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-top: 12px;
+}
+
+/* Variable highlight */
+code.var {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85em;
+  background: var(--accent-1-light);
+  color: var(--accent-1);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+/* LinkedIn block */
+.linkedin-block {
+  margin: 24px 32px;
+  border: 2px solid var(--linkedin);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.linkedin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  background: var(--linkedin-light);
+  border-bottom: 1px solid rgba(10, 102, 194, 0.15);
+}
+.linkedin-label {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--linkedin);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.linkedin-label svg {
+  width: 18px;
+  height: 18px;
+  fill: var(--linkedin);
+}
+.linkedin-timing {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 12px;
+  background: rgba(10, 102, 194, 0.1);
+  color: var(--linkedin);
+}
+.linkedin-body {
+  padding: 20px;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+.linkedin-body p { margin: 10px 0; }
+.linkedin-body p:first-child { margin-top: 0; }
+
+.linkedin-empty {
+  padding: 20px;
+  font-style: italic;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.version-b-note {
+  padding: 16px 32px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border-light);
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* Changes table */
+.changes-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+.changes-table th {
+  text-align: left;
+  padding: 12px 16px;
+  background: var(--bg);
+  border-bottom: 2px solid var(--border);
+  font-weight: 600;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+}
+.changes-table td {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text-secondary);
+  vertical-align: top;
+}
+.changes-table tr.highlight td {
+  font-weight: 600;
+  color: var(--text);
+  background: var(--accent-5-light);
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 40px 0;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  border-top: 1px solid var(--border-light);
+  margin-top: 40px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header h1 { font-size: 1.6rem; }
+  .header-meta { flex-direction: column; gap: 8px; }
+  .seq-header { padding: 20px; }
+  .seq-meta { flex-direction: column; }
+  .email-block, .linkedin-block { margin: 16px; }
+  .card-body, .card-header { padding: 16px 20px; }
+  .seq-header h2 { font-size: 1.2rem; }
+  .version-tab { padding: 12px 8px; font-size: 0.85rem; }
+  .email-header { flex-direction: column; gap: 8px; align-items: flex-start; }
+  .container { padding: 0 12px; }
+  .var-table, .changes-table { font-size: 0.82rem; }
+  .var-table th, .var-table td,
+  .changes-table th, .changes-table td { padding: 8px 10px; }
+}
+
+/* Print */
+@media print {
+  .version-content { display: block !important; }
+  .version-tabs { display: none; }
+  .seq-card, .card { break-inside: avoid; }
+  .email-block, .linkedin-block { break-inside: avoid; }
+  body { background: #fff; }
+  .header { background: #1A1A2E !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+</style>
+</head>
+<body>
+
+
+<div class="header">
+  <div class="container">
+    <div class="header-label">FORECOM x Boost.space</div>
+    <h1>Improved Cold Outreach Sequences</h1>
+    <div class="subtitle">France + Suisse Romande - Wave 1 - 7 Angles, 14 Sequence Versions</div>
+    <div class="header-meta">
+      <span>Version 4.1</span>
+      <span>&middot;</span>
+      <span>April 2026</span>
+      <span>&middot;</span>
+      <span>7 Sequences</span>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h2>French Market Insights</h2>
+    </div>
+    <div class="card-body">
+      <h4>Tone &amp; Formality</h4><ul><li>Understated confidence over enthusiasm. Lead with evidence, not energy.</li><li>No superlatives (&quot;revolutionary,&quot; &quot;game-changing,&quot; &quot;#1&quot;) - French professionals find these unsophisticated.</li><li>No artificial urgency (&quot;window is closing,&quot; &quot;competitors are moving now&quot;) - seen as manipulation.</li></ul>
+<h4>Structure &amp; Cadence</h4><ul><li>80-150 words per email</li><li>Logical progression: observation - problem - proof - soft CTA</li><li><strong>5 email touches, spaced 4-5 days apart</strong></li><li><strong>3 LinkedIn DMs</strong> (DM 1 substantive, DMs 2-3 soft)</li><li><strong>Total sequence: ~21 days</strong></li><li>Each follow-up must add genuinely new value</li><li><strong>Email 5 is always the ABC close</strong> - prospect self-selects: interested / later / not relevant</li></ul>
+<h4>Subject Lines</h4><ul><li>Under 40 characters</li><li>Company-specific, direct, relevant</li></ul>
+<h4>CTAs</h4><ul><li>Soft, permission-based (&quot;Would it be useful?&quot; / &quot;Is this relevant?&quot;)</li><li>No booking links until after reply</li></ul>
+<h4>Cultural Red Flags</h4><ul><li>No credential dumping (15,000 teams, 7 years, ISO 27001 in one paragraph = bragging)</li><li>No overselling - one proof point beats five statistics</li><li>Boost.space appears in Email 1 as a one-sentence credibility line with Decathlon reference - no credential dump</li></ul>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h2>Revised Copy Rules</h2>
+    </div>
+    <div class="card-body">
+      <h4>Rules Carried Forward (unchanged)</h4>
+<ol start="1"><li>Revenue over cost savings</li>
+<li>Permission-based CTA - &quot;Want to see it?&quot; / &quot;Is this useful?&quot;</li>
+<li>No booking link in messages</li>
+<li>First person &quot;I&quot; - never &quot;we&quot; or &quot;our team&quot;</li>
+<li>Company name in subjects, not <code class="var">{FirstName}</code></li>
+<li>LinkedIn connection requests are empty</li>
+<li>Top 20 research framing</li>
+<li>Short emails - under 130 words ideally, 150 max</li>
+<li>One idea per email</li>
+<li>No em dashes - use hyphens only</li>
+</ol>
+<h4>Rules Modified for France</h4>
+<ol start="11"><li><strong>Spacing: 4-5 days</strong> between emails (was 3)</li>
+<li><strong>Total emails: 5</strong> - each must add genuinely new value</li>
+<li><strong>LinkedIn DMs: 3</strong> - DM 1 substantive, DMs 2-3 soft</li>
+<li><strong>Total sequence duration: ~21 days</strong> (was 13)</li>
+<li><strong>Email 5: ABC close format</strong> - &quot;A: interested, no time / B: get back to me later / C: not relevant&quot;</li>
+<li><strong>Decathlon: always in Email 1</strong> as a one-sentence credibility anchor alongside Boost.space.</li>
+<li><strong>Boost.space: one sentence in Email 1</strong> with Decathlon reference. No credential dump. Can appear again briefly in Email 3 or 4.</li>
+<li><strong>No credential dump.</strong> One specific proof point per sequence max.</li>
+<li><strong>No artificial urgency.</strong> Let competitive data create urgency naturally.</li>
+<li><strong>One concrete finding in Email 1.</strong> Or a self-serve test they can run in 60 seconds.</li>
+</ol>
+<h4>Behavioral Nudge Rules (NEW in v4.1)</h4>
+<ol start="21"><li><strong>Email 1: full signature (<code class="var">{SenderName}</code>).</strong> First impression = credibility. No mobile sig.</li>
+<li><strong>Emails 2-5: first name only (<code class="var">{SenderFirstName}</code>).</strong> Shifts tone to &quot;we&#x27;re in a conversation.&quot;</li>
+<li><strong>Emails 2-5: mobile signature.</strong> <code>Envoyé depuis mon iPad</code> - signals personal message, justifies brevity, kills mass-email perception.</li>
+<li><strong>Emails 2 and 4: PS line.</strong> Highest-read part of email. Second hook without adding body length. Must be a concrete data point or self-serve test.</li>
+<li><strong>Emails 3-4: &quot;just reply X&quot; friction reducer.</strong> One-word reply is psychologically easier than composing a sentence.</li>
+<li><strong>Email 5: shortened ABC options.</strong> Punchier, less formal - matches the conversational tone built through the sequence.</li>
+<li><strong>LinkedIn DMs: no nudges.</strong> LinkedIn is inherently informal - nudges would be redundant.</li>
+</ol>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h2>Personalization Variables</h2>
+    </div>
+    <div class="card-body" style="padding:0;">
+      <table class="var-table">
+        <thead>
+          <tr>
+            <th>Variable</th>
+            <th>Source</th>
+            <th>Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+  <td>{FirstName}</td>
+  <td>CRM / lead list</td>
+  <td>Sophie</td>
+</tr>
+<tr>
+  <td>{Company}</td>
+  <td>CRM / lead list</td>
+  <td>Maisons du Monde</td>
+</tr>
+<tr>
+  <td>{ProductCategory}</td>
+  <td>Catalog / website research</td>
+  <td>home decor</td>
+</tr>
+<tr>
+  <td>{ProductCount}</td>
+  <td>Store Leads / BuiltWith</td>
+  <td>12,000</td>
+</tr>
+<tr>
+  <td>{CompetitorName}</td>
+  <td>Competitive research</td>
+  <td>La Redoute</td>
+</tr>
+<tr>
+  <td>{Marketplace}</td>
+  <td>Channel mapping</td>
+  <td>Cdiscount</td>
+</tr>
+<tr>
+  <td>{Vertical}</td>
+  <td>ICP segmentation</td>
+  <td>Home &amp; Living</td>
+</tr>
+<tr>
+  <td>{BenchmarkBrand}</td>
+  <td>Top 20 research</td>
+  <td>Habitat</td>
+</tr>
+<tr>
+  <td>{SenderName}</td>
+  <td>Sender full name</td>
+  <td>Thomas Vrbka</td>
+</tr>
+<tr>
+  <td>{SenderFirstName}</td>
+  <td>Sender first name</td>
+  <td>Thomas</td>
+</tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="seq-card">
+    <div class="seq-header" style="background: linear-gradient(135deg, #4F46E5 0%, #4F46E5dd 100%);">
+      <div class="seq-number">Sequence 1</div>
+      <h2>GEO Benchmark Report</h2>
+      <div class="seq-meta">
+        <span class="seq-meta-tag">Angle: AI search visibility gap - competitor appears, you don&#x27;t.</span>
+        <span class="seq-meta-tag">Target: CMO / Marketing Director / Head of Digital</span>
+        <span class="seq-meta-tag">Segment: Primarily Segment A</span>
+      </div>
+    </div>
+
+    <div class="version-tabs">
+      <button class="version-tab active" onclick="switchTab('seq-1', 'a')">Version A: Email Only</button>
+      <button class="version-tab" onclick="switchTab('seq-1', 'b')">Version B: LinkedIn + Email</button>
+    </div>
+
+    <div id="seq-1-a" class="version-content active">
+      
+<div class="email-block">
+  <div class="email-header">
+    <span class="email-label">Email 1 - The Test</span>
+    <span class="email-timing">Day 1</span>
+  </div>
+  <div class="email-subjects">
+    <div class="subject-label">Subject Lines</div>
+    <div class="subject-line"><span class="variant-label">V1</span><code class="var">{Company}</code> - missing from AI results</div>
+<div class="subject-line"><span class="variant-label">V2</span><code class="var">{Company}</code> in ChatGPT vs <code class="var">{CompetitorName}</code></div>
+
+  </div>
+  <div class="email-body">
+    <p><code class="var">{FirstName}</code>,</p>
+<p>Quick test worth running: ask ChatGPT &quot;best <code class="var">{ProductCategory}</code> brands in France&quot; and see if <code class="var">{Company}</code> appears.</p>
+<p>I did this across 10 shopping queries in your category. <code class="var">{CompetitorName}</code> showed up consistently. <code class="var">{Company}</code> didn&#x27;t appear in most of them.</p>
+<p>The gap isn&#x27;t about brand strength - it&#x27;s about how your product data is structured. AI systems pull from metadata and attributes, not brand awareness. When that data is incomplete, AI skips you entirely.</p>
+<p>I put together a detailed analysis showing which queries surface your competitors instead of you - and what&#x27;s causing it. The analysis is powered by Boost.space - the product data platform Decathlon uses for their global catalog operations.</p>
+<p>Would it be useful to see?</p>
+<p class="sender-sig"><code class="var">{SenderName}</code></p>
+  </div>
+</div>
+
+<div class="email-block">
+  <div class="email-header">
+    <span class="email-label">Email 2 - The Revenue Bridge</span>
+    <span class="email-timing">Day 5</span>
+  </div>
+  <div class="email-subjects">
+    <div class="subject-label">Subject Lines</div>
+    <div class="subject-line"><span class="variant-label">V1</span><code class="var">{Company}</code> - the numbers behind the gap</div>
+<div class="subject-line"><span class="variant-label">V2</span>why <code class="var">{Company}</code>&#x27;s CPCs keep rising</div>
+
+  </div>
+  <div class="email-body">
+    <p><code class="var">{FirstName}</code>,</p>
+<p>Following up on the AI search analysis.</p>
+<p>Here&#x27;s what makes this worth paying attention to: as more buyers start product research in ChatGPT and Google AI Overviews, the high-intent queries that used to go through Google are being intercepted. You can&#x27;t buy your way back in with ads - which is one reason CPCs keep rising across <code class="var">{Vertical}</code>.</p>
+<p><code class="var">{Company}</code> appeared in <code class="var">{X}</code>% of priority shopping queries. <code class="var">{CompetitorName}</code> appeared in <code class="var">{Y}</code>%. This is based on research across the top 20 <code class="var">{Vertical}</code> brands in France - <code class="var">{Company}</code> included.</p>
+<p>The fix is typically 60-90 days of structured data work. I can show you where the gaps are.</p>
+<p>Interested in the details?</p>
+<p class="sender-sig"><code class="var">{SenderFirstName}</code></p>
+<p class="ps-line">PS: The test from my last email takes 60 seconds - ask ChatGPT &quot;best <code class="var">{ProductCategory}</code> brands in France&quot; and see if <code class="var">{Company}</code> shows up.</p>
+<p class="mobile-sig">Envoyé depuis mon iPad</p>
+  </div>
+</div>
+
+<div class="email-block">
+  <div class="email-header">
+    <span class="email-label">Email 3 - The Competitive Picture</span>
+    <span class="email-timing">Day 10</span>
+  </div>
+  <div class="email-subjects">
+    <div class="subject-label">Subject Lines</div>
+    <div class="subject-line"><span class="variant-label">V1</span>who AI recommends in <code class="var">{Vertical}</code></div>
+<div class="subject-line"><span class="variant-label">V2</span><code class="var">{Company}</code> vs <code class="var">{CompetitorName}</code> - AI visibility</div>
+
+  </div>
+  <div class="email-body">
+    <p><code class="var">{FirstName}</code>,</p>
+<p>One more finding from the research.</p>
+<p>The brands showing up in AI recommendations in <code class="var">{Vertical}</code> didn&#x27;t get there through ad spend or brand awareness. They got there because their product data is structured in a way AI systems can parse - not through marketing spend.</p>
+<p><code class="var">{CompetitorName}</code> has this in place. Most of the top 20 <code class="var">{Vertical}</code> brands in France don&#x27;t. The gap is fixable - typically 60-90 days of structured data work. Boost.space handles this without changes to your existing setup.</p>
+<p>The analysis for <code class="var">{Company}</code> shows the specific attributes that need attention.</p>
+<p>Just reply &quot;send it&quot; and I&#x27;ll share it.</p>
+<p class="sender-sig"><code class="var">{SenderFirstName}</code></p>
+<p class="mobile-sig">Envoyé depuis mon iPad</p>
+  </div>
+</div>
+
+<div class="email-block">
+  <div class="email-header">
+    <span class="email-label">Email 4 - The Self-Serve Test</span>
+    <span class="email-timing">Day 15</span>
+  </div>
+  <div class="email-subjects">
+    <div class="subject-label">Subject Lines</div>
+    <div class="subject-line"><span class="variant-label">V1</span><code class="var">{Company}</code> - 60-second AI test</div>
+<div class="subject-line"><span class="variant-label">V2</span>test this yourself - <code class="var">{Company}</code></div>
+
+  </div>
+  <div class="email-body">
+    <p><code class="var">{FirstName}</code>,</p>
+<p>Here&#x27;s a quick way to see the gap yourself:</p>
+<p>Ask ChatGPT &quot;best <code class="var">{ProductCategory}</code> brands in France.&quot; Then try &quot;top <code class="var">{ProductCategory}</code> to buy in France.&quot; Run 3-4 variations.</p>
+<p>If <code class="var">{Company}</code> doesn&#x27;t appear, that&#x27;s the same pattern our analysis found across your priority shopping queries. The fix isn&#x27;t about SEO or ads - it&#x27;s about how your product data is structured for AI systems.</p>
+<p>Just reply and I&#x27;ll send the analysis.</p>
+<p class="sender-sig"><code class="var">{SenderFirstName}</code></p>
+<p class="ps-line">PS: <code class="var">{CompetitorName}</code> appeared in <code class="var">{Y}</code>% of the queries I tested. <code class="var">{Company}</code> appeared in <code class="var">{X}</code>%.</p>
+<p class="mobile-sig">Envoyé depuis mon iPad</p>
+  </div>
+</div>
+
+<div class="email-block">
+  <div class="email-header">
+    <span class="email-label">Email 5 - ABC Close</span>
+    <span class="email-timing">Day 21</span>
+  </div>
+  <div class="email-subjects">
+    <div class="subject-label">Subject Lines</div>
+    <div class="subject-line"><code class="var">{Company}</code> - should I keep reaching out?</div>
+  </div>
+  <div class="email-body">
+    <p><code class="var">{FirstName}</code>,</p>
+<p>I&#x27;ve sent a few notes about AI search visibility for <code class="var">{Company}</code>. I don&#x27;t want to keep emailing if it&#x27;s not relevant.</p>
+<p>Can you let me know which applies?</p>
+<div class="abc-options"><div class="abc-option">A - Interested, just haven&#x27;t had a chance to reply</div><div class="abc-option">B - Not the right time. Get back to me later.</div><div class="abc-option">C - Not relevant for us.</div></div>
+<p>Either way, I appreciate your time.</p>
+<p class="sender-sig"><code class="var">{SenderFirstName}</code></p>
+<p class="mobile-sig">Envoyé depuis mon iPad</p>
+  </div>
+</div>
+
+    </div>
+
+    <div id="seq-1-b" class="version-content">
+      <div class="version-b-note">Same 5 emails as Version A, plus:</div>
+      
+<div class="linkedin-block">
+  <div class="linkedin-header">
+    <span class="linkedin-label">
+      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      Connection Request
+    </span>
+    <span class="linkedin-timing">Day 1</span>
+  </div>
+  <div class="linkedin-empty">Empty connection request</div>
+</div>
+
+<div class="linkedin-block">
+  <div class="linkedin-header">
+    <span class="linkedin-label">
+      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn DM 1 - After Connection Accepted
+    </span>
+    <span class="linkedin-timing">Day 3 (or upon acceptance)</span>
+  </div>
+  <div class="linkedin-body">
+    <p>Thanks for connecting, <code class="var">{FirstName}</code>. I ran a quick test - asked ChatGPT to recommend <code class="var">{ProductCategory}</code> brands in France. <code class="var">{CompetitorName}</code> showed up. <code class="var">{Company}</code> didn&#x27;t.</p>
+<p>I put together a short analysis showing where the gaps are. Want me to share it?</p>
+  </div>
+</div>
+
+<div class="linkedin-block">
+  <div class="linkedin-header">
+    <span class="linkedin-label">
+      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn DM 2 - Soft Nudge
+    </span>
+    <span class="linkedin-timing">Day 12</span>
+  </div>
+  <div class="linkedin-body">
+    <p><code class="var">{FirstName}</code>, if your team is seeing CPCs rise in <code class="var">{Vertical}</code>, the AI search shift might be part of why. Happy to share what I found about <code class="var">{Company}</code>&#x27;s visibility - no pressure either way.</p>
+  </div>
+</div>
+
+<div class="linkedin-block">
+  <div class="linkedin-header">
+    <span class="linkedin-label">
+      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn DM 3 - Soft Close
+    </span>
+    <span class="linkedin-timing">Day 18</span>
+  </div>
+  <div class="linkedin-body">
+    <p><code class="var">{FirstName}</code>, last note from me here. The AI search analysis for <code class="var">{Company}</code> is ready whenever timing works. No rush.</p>
+  </div>
+</div>
+
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="seq-card">
+    <div class="seq-header" style="background: linear-gradient(135deg, #059669 0%, #059669dd 100%);">
+      <div class="seq-number">Sequence 2</div>
+      <h2>Failed AI Initiatives</h2>
+      <div class="seq-meta">
+        <span class="seq-meta-tag">Angle: Before you invest another euro in AI tools, fix the data they depend on.</span>
+        <span class="seq-meta-tag">Target: CMO / CDO / CTO / VP Digital Transformation</span>
+        <span class="seq-meta-tag">Segment: Both segments</span>
+      </div>
+    </div>
+
+    <div class="version-tabs">
+      <button class="version-tab active" onclick="switchTab('seq-2', 'a')">Version A: Email Only</button>
+      <button class="version-tab" onclick="switchTab('seq-2', 'b')">Version B: LinkedIn + Email</button>
+    </div>
+
+    <div id="seq-2-a" class="version-content active">
+      
+<div class="email-block">
+  <div class="email-header">
+    <span class="email-label">Email 1 - The Pattern</span>
+    <span class="email-timing">Day 1</span>
+  </div>
+  <div class="email-subjects">
+    <div class="subject-label">Subject Lines</div>
+    <div class="subject-line"><span class="variant-label">V1</span>before <code class="var">{Company}</code> invests more in AI</div>
+<div class="subject-line"><span class="variant-label">V2</span>why AI tools fail at <code class="var">{Vertical}</code> companies</div>
+
+  </div>
+  <div class="email-body">
+    <p><code class="var">{FirstName}</code>,</p>
+<p>Here&#x27;s the pattern I see at <code class="var">{Vertical}</code> companies your size: an AI tool gets deployed for content generation or catalog enrichment. It works great on a demo with 50 products. Then they connect it to the real catalog - <code class="var">{ProductCount}</code>+ SKUs, multiple supplier formats, inconsistent attributes, missing data - and it falls apart.</p>
+<p>The AI doesn&#x27;t fail because it&#x27;s bad. It fails because it&#x27;s working from incomplete inputs.</p>
+<p>I analyzed <code class="var">{Company}</code>&#x27;s product data structure against what major AI tools require. Based on publicly available catalog data, your attribute completeness sits below the threshold where most AI tools produce reliable output. The report shows the specific gaps and what fixing them would unlock. The analysis is powered by Boost.space - the product data infrastructure Decathlon uses to make their AI tools work at scale.</p>
+<p>Would it be useful to see where <code class="var">{Company}</code>&#x27;s data stands?</p>
+<p class="sender-sig"><code class="var">{SenderName}</code></p>
+  </div>
+</div>
+
+<div class="email-block">
+  <div class="email-header">
+    <span class="email-label">Email 2 - The Timeline</span>
+    <span class="email-timing">Day 5</span>
+  </div>
+  <div class="email-subjects">
+    <div class="subject-label">Subject Lines</div>
+    <div class="subject-line"><span class="variant-label">V1</span><code class="var">{Company}</code> - the AI readiness gap</div>
+<div class="subject-line"><span class="variant-label">V2</span>fixing AI data in weeks, not quarters</div>
+
+  </div>
+  <div class="email-body">
+    <p><code class="var">{FirstName}</code>,</p>
+<p>One thing worth knowing: fixing the data layer that AI depends on is not a 12-month IT project. For companies with <code class="var">{ProductCount}</code>+ SKUs, it&#x27;s typically measured in weeks - connecting existing tools to a centralized data layer that handles normalization and enrichment automatically.</p>
+<p>In our experience with catalogs of similar size, the path from 40% attribute completeness to AI-ready data is typically 6-8 weeks. Once the data layer is live, content generation tools start producing accurate, channel-specific output within days.</p>
+<p>The analysis I prepared for <code class="var">{Company}</code> shows your specific starting point and what that path looks like. No commitment - just data about where your gaps are.</p>
+<p>Interested?</p>
+<p class="sender-sig"><code class="var">{SenderFirstName}</code></p>
+<p class="ps-line">PS: Try this yourself - pick 10 products from your catalog and check how many have complete attributes across channels. If more than 3 have gaps, that&#x27;s the pattern I found.</p>
+<p class="mobile-sig">Envoyé depuis mon iPad</p>
+  </div>
+</div>
+
+<div class="email-block">
+  <div class="email-header">
+    <span class="email-label">Email 3 - The Operational Reality</span>
+    <span class="email-timing">Day 10</span>
+  </div>
+  <div class="email-subjects">
+    <div class="subject-label">Subject Lines</div>
+    <div class="subject-line"><span class="variant-label">V1</span>what &quot;AI-ready data&quot; actually means</div>
+<div class="subject-line"><span class="variant-label">V2</span><code class="var">{Company}</code> - the data gap beneath AI</div>
+
+  </div>
+  <div class="email-body">
+    <p><code class="var">{FirstName}</code>,</p>
+<p>When I say &quot;data gaps,&quot; here&#x27;s what I mean specifically:</p>
+<p>Most <code class="var">{Vertical}</code> catalogs have products with inconsistent naming, missing attributes, and supplier data arriving in different formats. An AI tool asked to generate descriptions or recommendations from that data produces generic, sometimes wrong output - because it&#x27;s working from incomplete inputs.</p>
+<p>The fix isn&#x27;t manual cleanup. It&#x27;s connecting your existing product data sources to a centralized layer - Boost.space handles the normalization automatically. It connects to your current <code class="var">{Platform}</code> setup and existing tools - nothing changes in your stack.</p>
+<p>The analysis for <code class="var">{Company}</code> shows exactly which data gaps would cause AI to underperform and what automated normalization would unlock.</p>
+<p>Just reply &quot;send it&quot; and I&#x27;ll share it.</p>
+<p class="sender-sig"><code class="var">{SenderFirstName}</code></p>
+<p class="mobile-sig">Envoyé depuis mon iPad</p>
+  </div>
+</div>
+
+<div class="email-block">
+  <div class="email-header">
+    <span class="email-label">Email 4 - Quick Diagnostic</span>
+    <span class="email-timing">Day 15</span>
+  </div>
+  <div class="email-subjects">
+    <div class="subject-label">Subject Lines</div>
+    <div class="subject-line"><span class="variant-label">V1</span><code class="var">{Company}</code> - quick AI readiness check</div>
+<div class="subject-line"><span class="variant-label">V2</span>a 5-minute diagnostic for <code class="var">{Company}</code></div>
+
+  </div>
+  <div class="email-body">
+    <p><code class="var">{FirstName}</code>,</p>
+<p>Here&#x27;s a quick way to check your own AI readiness:</p>
+<p>Pick 10 products from your catalog. For each one, check: does it have complete attributes? A structured description? Consistent formatting across channels? If more than 3 out of 10 have gaps, that&#x27;s the pattern our analysis found across your full catalog.</p>
+<p>Most <code class="var">{Vertical}</code> companies find that 40-60% of their catalog has gaps that would cause AI tools to underperform. The analysis I prepared for <code class="var">{Company}</code> quantifies this precisely and shows the fastest path to fix it.</p>
+<p>Just reply and I&#x27;ll send it over.</p>
+<p class="sender-sig"><code class="var">{SenderFirstName}</code></p>
+<p class="ps-line">PS: The path from 40% attribute completeness to AI-ready data is typically 6-8 weeks - not 12 months.</p>
+<p class="mobile-sig">Envoyé depuis mon iPad</p>
+  </div>
+</div>
+
+<div class="email-block">
+  <div class="email-header">
+    <span class="email-label">Email 5 - ABC Close</span>
+    <span class="email-timing">Day 21</span>
+  </div>
+  <div class="email-subjects">
+    <div class="subject-label">Subject Lines</div>
+    <div class="subject-line"><code class="var">{Company}</code> - should I keep reaching out?</div>
+  </div>
+  <div class="email-body">
+    <p><code class="var">{FirstName}</code>,</p>
+<p>I&#x27;ve sent a few notes about AI readiness for <code class="var">{Company}</code>. I don&#x27;t want to keep emailing if it&#x27;s not relevant.</p>
+<p>Can you let me know which applies?</p>
+<div class="abc-options"><div class="abc-option">A - Interested, just haven&#x27;t had a chance to reply</div><div class="abc-option">B - Not the right time. Get back to me later.</div><div class="abc-option">C - Not relevant for us.</div></div>
+<p>Either way, I appreciate your time.</p>
+<p class="sender-sig"><code class="var">{SenderFirstName}</code></p>
+<p class="mobile-sig">Envoyé depuis mon iPad</p>
+  </div>
+</div>
+
+    </div>
+
+    <div id="seq-2-b" class="version-content">
+      <div class="version-b-note">Same 5 emails as Version A, plus:</div>
+      
+<div class="linkedin-block">
+  <div class="linkedin-header">
+    <span class="linkedin-label">
+      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      Connection Request
+    </span>
+    <span class="linkedin-timing">Day 1</span>
+  </div>
+  <div class="linkedin-empty">Empty connection request</div>
+</div>
+
+<div class="linkedin-block">
+  <div class="linkedin-header">
+    <span class="linkedin-label">
+      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn DM 1 - After Connection Accepted
+    </span>
+    <span class="linkedin-timing">Day 3 (or upon acceptance)</span>
+  </div>
+  <div class="linkedin-body">
+    <p>Thanks for connecting, <code class="var">{FirstName}</code>. I&#x27;ve been researching AI readiness across <code class="var">{Vertical}</code> brands in France. The pattern is consistent - AI tools fail because of data, not because of AI.</p>
+<p>I ran an analysis on <code class="var">{Company}</code>&#x27;s data infrastructure. The findings show where gaps would undermine AI performance. Want me to share?</p>
+  </div>
+</div>
+
+<div class="linkedin-block">
+  <div class="linkedin-header">
+    <span class="linkedin-label">
+      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn DM 2 - Soft Nudge
+    </span>
+    <span class="linkedin-timing">Day 12</span>
+  </div>
+  <div class="linkedin-body">
+    <p><code class="var">{FirstName}</code>, if <code class="var">{Company}</code> is evaluating AI tools this year, the data layer is worth looking at first. Happy to share what I found - no pressure either way.</p>
+  </div>
+</div>
+
+<div class="linkedin-block">
+  <div class="linkedin-header">
+    <span class="linkedin-label">
+      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn DM 3 - Soft Close
+    </span>
+    <span class="linkedin-timing">Day 18</span>
+  </div>
+  <div class="linkedin-body">
+    <p><code class="var">{FirstName}</code>, last note from me. The AI readiness analysis for <code class="var">{Company}</code> is ready whenever timing works. No rush at all.</p>
+  </div>
+</div>
+
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="seq-card">
+    <div class="seq-header" style="background: linear-gradient(135deg, #D97706 0%, #D97706dd 100%);">
+      <div class="seq-number">Sequence 3</div>
+      <h2>AI Enrichment at Scale</h2>
+      <div class="seq-meta">
+        <span class="seq-meta-tag">Angle: Your product pages are holding you back. I found specific gaps.</span>
+        <span class="seq-meta-tag">Target: Product/Catalog Manager, E-commerce Manager</span>
+        <span class="seq-meta-tag">Segment: Both segments - especially 10K+ SKU with multiple suppliers</span>
+      </div>
+    </div>
+
+    <div class="version-tabs">
+      <button class="version-tab active" onclick="switchTab('seq-3', 'a')">Version A: Email Only</button>
+      <button class="version-tab" onclick="switchTab('seq-3', 'b')">Version B: LinkedIn + Email</button>
+    </div>
+
+    <div id="seq-3-a" class="version-content active">
+      
+<div class="email-block">
+  <div class="email-header">
+    <span class="email-label">Email 1 - The Catalog Gap</span>
+    <span class="email-timing">Day 1</span>
+  </div>
+  <div class="email-subjects">
+    <div class="subject-label">Subject Lines</div>
+    <div class="subject-line"><span class="variant-label">V1</span><code class="var">{Company}</code> - <code class="var">{ProductCount}</code> products, how many are complete?</div>
+<div class="subject-line"><span class="variant-label">V2</span><code class="var">{Company}</code> - catalog gaps on <code class="var">{Marketplace}</code></div>
+
+  </div>
+  <div class="email-body">
+    <p><code class="var">{FirstName}</code>,</p>
+<p>I ran a quick analysis on <code class="var">{Company}</code>&#x27;s product catalog on <code class="var">{Marketplace}</code>. Your <code class="var">{ProductCategory}</code> listings are missing structured attributes that <code class="var">{Marketplace}</code> now requires for full visibility - the kind of gaps that get listings pushed down or filtered out.</p>
+<p>This is common when managing <code class="var">{ProductCount}</code>+ SKUs from multiple suppliers. Each one sends data in a different format. Your team normalizes it manually. And marketplace requirements keep tightening.</p>
+<p>I put together a short analysis showing where <code class="var">{Company}</code>&#x27;s catalog has the biggest gaps and what fixing them would mean for listing visibility and revenue. The analysis is powered by Boost.space - the product data platform Decathlon uses to manage catalog quality across channels.</p>
+<p>Would it be useful to see the findings?</p>
+<p class="sender-sig"><code class="var">{SenderName}</code></p>
+  </div>
+</div>
+
+<div class="email-block">
+  <div class="email-header">
+    <span class="email-label">Email 2 - The Operational Reality</span>
+    <span class="email-timing">Day 5</span>
+  </div>
+  <div class="email-subjects">
+    <div class="subject-label">Subject Lines</div>
+    <div class="subject-line"><span class="variant-label">V1</span><code class="var">{Company}</code> - what catalog cleanup actually costs</div>
+<div class="subject-line"><span class="variant-label">V2</span><code class="var">{Company}</code> - supplier data, 8 formats, 1 problem</div>
+
+  </div>
+  <div class="email-body">
+    <p><code class="var">{FirstName}</code>,</p>
+<p>One thing that stood out in the research: companies managing <code class="var">{ProductCount}</code>+ SKUs from multiple suppliers typically spend 120-160 hours per month on catalog maintenance. Cleaning feeds, normalizing attributes, fixing rejected listings, reformatting for each channel.</p>
+<p>The fix isn&#x27;t hiring more people. It&#x27;s connecting your existing <code class="var">{Platform}</code> setup to a data layer that normalizes supplier data automatically - it fills missing product attributes automatically using verified databases. No-code, and it integrates directly with tools like Lengow.</p>
+<p>The analysis I prepared shows what this would look like for <code class="var">{Company}</code>&#x27;s specific catalog.</p>
+<p>Interested?</p>
+<p class="sender-sig"><code class="var">{SenderFirstName}</code></p>
+<p class="ps-line">PS: How many supplier formats does your team normalize manually? Most <code class="var">{Vertical}</code> companies I&#x27;ve analyzed deal with 5-8 different ones.</p>
+<p class="mobile-sig">Envoyé depuis mon iPad</p>
+  </div>
+</div>
+
+<div class="email-block">
+  <div class="email-header">
+    <span class="email-label">Email 3 - The Pain-Point Check</span>
+    <span class="email-timing">Day 10</span>
+  </div>
+  <div class="email-subjects">
+    <div class="subject-label">Subject Lines</div>
+    <div class="subject-line"><span class="variant-label">V1</span><code class="var">{Company}</code> - does any of this sound familiar?</div>
+<div class="subject-line"><span class="variant-label">V2</span>catalog management at <code class="var">{ProductCount}</code>+ SKUs</div>
+
+  </div>
+  <div class="email-body">
+    <p><code class="var">{FirstName}</code>,</p>
+<p>If any of these sound familiar, the analysis might be worth 10 minutes:</p>
+<ul><li>Suppliers send product data in different formats every time</li><li>Marketplace listings get rejected for missing attributes</li><li>Seasonal catalog updates take weeks instead of days</li><li>New supplier onboarding takes days of manual formatting work</li></ul>
+<p>These are the exact problems the analysis covers for <code class="var">{Company}</code>. It shows which attribute gaps have the biggest revenue impact and what automated enrichment would fix.</p>
+<p>Just reply &quot;send it&quot; and I&#x27;ll share it.</p>
+<p class="sender-sig"><code class="var">{SenderFirstName}</code></p>
+<p class="mobile-sig">Envoyé depuis mon iPad</p>
+  </div>
+</div>
+
+<div class="email-block">
+  <div class="email-header">
+    <span class="email-label">Email 4 - The Integration Angle</span>
+    <span class="email-timing">Day 15</span>
+  </div>
+  <div class="email-subjects">
+    <div class="subject-label">Subject Lines</div>
+    <div class="subject-line"><span class="variant-label">V1</span><code class="var">{Company}</code> - no rip-and-replace</div>
+<div class="subject-line"><span class="variant-label">V2</span>connecting <code class="var">{Platform}</code> to automated enrichment</div>
+
+  </div>
+  <div class="email-body">
+    <p><code class="var">{FirstName}</code>,</p>
+<p>One thing worth clarifying: fixing catalog quality at <code class="var">{ProductCount}</code>+ SKUs doesn&#x27;t mean replacing your current setup.</p>
+<p>A platform like Boost.space sits between your supplier data and your channels - normalizing, enriching, and distributing automatically. It connects to your existing <code class="var">{Platform}</code> and feed management tools like Lengow. Your team keeps their current workflow. The difference is that the manual cleanup step disappears.</p>
+<p>In similar-sized catalogs, the manual cleanup step typically drops by 70-80% once automated normalization is in place - without replacing the existing platform.</p>
+<p>The analysis shows what that path looks like for <code class="var">{Company}</code>. Just reply and I&#x27;ll share it.</p>
+<p class="sender-sig"><code class="var">{SenderFirstName}</code></p>
+<p class="ps-line">PS: No rip-and-replace. Your existing <code class="var">{Platform}</code> stays - the data layer sits on top.</p>
+<p class="mobile-sig">Envoyé depuis mon iPad</p>
+  </div>
+</div>
+
+<div class="email-block">
+  <div class="email-header">
+    <span class="email-label">Email 5 - ABC Close</span>
+    <span class="email-timing">Day 21</span>
+  </div>
+  <div class="email-subjects">
+    <div class="subject-label">Subject Lines</div>
+    <div class="subject-line"><code class="var">{Company}</code> - should I keep reaching out?</div>
+  </div>
+  <div class="email-body">
+    <p><code class="var">{FirstName}</code>,</p>
+<p>I&#x27;ve sent a few notes about catalog quality for <code class="var">{Company}</code>. I don&#x27;t want to keep emailing if it&#x27;s not relevant.</p>
+<p>Can you let me know which applies?</p>
+<div class="abc-options"><div class="abc-option">A - Interested, just haven&#x27;t had a chance to reply</div><div class="abc-option">B - Not the right time. Get back to me later.</div><div class="abc-option">C - Not relevant for us.</div></div>
+<p>Either way, I appreciate your time.</p>
+<p class="sender-sig"><code class="var">{SenderFirstName}</code></p>
+<p class="mobile-sig">Envoyé depuis mon iPad</p>
+  </div>
+</div>
+
+    </div>
+
+    <div id="seq-3-b" class="version-content">
+      <div class="version-b-note">Same 5 emails as Version A, plus:</div>
+      
+<div class="linkedin-block">
+  <div class="linkedin-header">
+    <span class="linkedin-label">
+      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      Connection Request
+    </span>
+    <span class="linkedin-timing">Day 1</span>
+  </div>
+  <div class="linkedin-empty">Empty connection request</div>
+</div>
+
+<div class="linkedin-block">
+  <div class="linkedin-header">
+    <span class="linkedin-label">
+      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn DM 1 - After Connection Accepted
+    </span>
+    <span class="linkedin-timing">Day 3 (or upon acceptance)</span>
+  </div>
+  <div class="linkedin-body">
+    <p>Thanks for connecting, <code class="var">{FirstName}</code>. I&#x27;ve been analyzing catalog quality across <code class="var">{Vertical}</code> brands in France. Found attribute gaps on <code class="var">{Company}</code>&#x27;s <code class="var">{Marketplace}</code> listings that are likely costing visibility.</p>
+<p>I have the details in a short analysis. Want me to share?</p>
+  </div>
+</div>
+
+<div class="linkedin-block">
+  <div class="linkedin-header">
+    <span class="linkedin-label">
+      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn DM 2 - Soft Nudge
+    </span>
+    <span class="linkedin-timing">Day 12</span>
+  </div>
+  <div class="linkedin-body">
+    <p><code class="var">{FirstName}</code>, if managing supplier data across <code class="var">{ProductCount}</code>+ SKUs is keeping your team busy, the analysis covers exactly that. Happy to share whenever useful.</p>
+  </div>
+</div>
+
+<div class="linkedin-block">
+  <div class="linkedin-header">
+    <span class="linkedin-label">
+      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn DM 3 - Soft Close
+    </span>
+    <span class="linkedin-timing">Day 18</span>
+  </div>
+  <div class="linkedin-body">
+    <p><code class="var">{FirstName}</code>, last note from me. The catalog analysis for <code class="var">{Company}</code> is ready whenever timing works. No rush at all.</p>
+  </div>
+</div>
+
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="seq-card">
+    <div class="seq-header" style="background: linear-gradient(135deg, #DC2626 0%, #DC2626dd 100%);">
+      <div class="seq-number">Sequence 4</div>
+      <h2>Use Case Selection Play</h2>
+      <div class="seq-meta">
+        <span class="seq-meta-tag">Angle: Self-qualification - let the prospect choose which area matters most.</span>
+        <span class="seq-meta-tag">Target: Any persona</span>
+        <span class="seq-meta-tag">Segment: Both segments - default for weak signal data</span>
+      </div>
+    </div>
+
+    <div class="version-tabs">
+      <button class="version-tab active" onclick="switchTab('seq-4', 'a')">Version A: Email Only</button>
+      <button class="version-tab" onclick="switchTab('seq-4', 'b')">Version B: LinkedIn + Email</button>
+    </div>
+
+    <div id="seq-4-a" class="version-content active">
+      
+<div class="email-block">
+  <div class="email-header">
+    <span class="email-label">Email 1 - The Choice</span>
+    <span class="email-timing">Day 1</span>
+  </div>
+  <div class="email-subjects">
+    <div class="subject-label">Subject Lines</div>
+    <div class="subject-line"><span class="variant-label">V1</span><code class="var">{Company}</code> - quick question</div>
+<div class="subject-line"><span class="variant-label">V2</span>5 areas we analyzed for <code class="var">{Vertical}</code> brands</div>
+
+  </div>
+  <div class="email-body">
+    <p><code class="var">{FirstName}</code>,</p>
+<p>I ran a quick competitive scan of <code class="var">{Vertical}</code> brands in France. One data point: I asked ChatGPT to recommend <code class="var">{ProductCategory}</code> in France - <code class="var">{CompetitorName}</code> appeared, <code class="var">{Company}</code> didn&#x27;t. That&#x27;s just one of 5 areas I&#x27;ve been analyzing. Which is the biggest headache for your team right now?</p>
+<ol><li>AI search visibility - do your products show up when shoppers ask ChatGPT?</li><li>Dynamic pricing - are you reacting fast enough to competitor price changes?</li><li>Marketplace expansion - are there channels where competitors are listed and you&#x27;re not?</li><li>Product catalog quality - are incomplete descriptions hurting conversions?</li><li>Supplier data cleanup - are you spending hours normalizing supplier formats?</li></ol>
+<p>These audits are powered by Boost.space - the product data platform Decathlon uses for their global e-commerce operations. Just reply with a number and I&#x27;ll prepare a personalized analysis for <code class="var">{Company}</code>. Takes about a day.</p>
+<p class="sender-sig"><code class="var">{SenderName}</code></p>
+  </div>
+</div>
+
+<div class="email-block">
+  <div class="email-header">
+    <span class="email-label">Email 2 - The Preview</span>
+    <span class="email-timing">Day 5</span>
+  </div>
+  <div class="email-subjects">
+    <div class="subject-label">Subject Lines</div>
+    <div class="subject-line"><span class="variant-label">V1</span><code class="var">{Company}</code> in AI search - a finding</div>
+<div class="subject-line"><span class="variant-label">V2</span>a quick test for <code class="var">{Company}</code></div>
+
+  </div>
+  <div class="email-body">
+    <p><code class="var">{FirstName}</code>,</p>
+<p>Since I had <code class="var">{Company}</code> on my list anyway - here&#x27;s more detail on area #1.</p>
+<p>I asked ChatGPT to recommend <code class="var">{ProductCategory}</code> brands in France. <code class="var">{CompetitorName}</code> appeared. <code class="var">{Company}</code> didn&#x27;t.</p>
+<p>That&#x27;s one example of what these audits uncover. If a different area from my previous email matters more, just reply with the number - the analysis will be specific to <code class="var">{Company}</code>&#x27;s competitive landscape.</p>
+<p class="sender-sig"><code class="var">{SenderFirstName}</code></p>
+<p class="ps-line">PS: The ChatGPT test takes 60 seconds - try &quot;best <code class="var">{ProductCategory}</code> brands in France&quot; and see who shows up.</p>
+<p class="mobile-sig">Envoyé depuis mon iPad</p>
+  </div>
+</div>
+
+<div class="email-block">
+  <div class="email-header">
+    <span class="email-label">Email 3 - A Different Angle</span>
+    <span class="email-timing">Day 10</span>
+  </div>
+  <div class="email-subjects">
+    <div class="subject-label">Subject Lines</div>
+    <div class="subject-line"><span class="variant-label">V1</span><code class="var">{Company}</code> - marketplace gaps worth seeing</div>
+<div class="subject-line"><span class="variant-label">V2</span>a different finding for <code class="var">{Company}</code></div>
+
+  </div>
+  <div class="email-body">
+    <p><code class="var">{FirstName}</code>,</p>
+<p>Here&#x27;s a finding from area #3 - marketplace expansion.</p>
+<p>When I mapped <code class="var">{Vertical}</code> brands in France, <code class="var">{CompetitorName}</code> is active on 4+ French marketplaces. Some brands are generating meaningful revenue on channels like Cdiscount and Fnac where direct competitors aren&#x27;t listed at all.</p>
+<p>With <code class="var">{ProductCount}</code>+ products, the blocker is usually feed management, not strategy. The analysis covers what expanding would look like operationally - including the incremental revenue potential on each channel.</p>
+<p>If this area - or any of the other 5 - matters more, just reply with the number.</p>
+<p class="sender-sig"><code class="var">{SenderFirstName}</code></p>
+<p class="mobile-sig">Envoyé depuis mon iPad</p>
+  </div>
+</div>
+
+<div class="email-block">
+  <div class="email-header">
+    <span class="email-label">Email 4 - Simplified Choice</span>
+    <span class="email-timing">Day 15</span>
+  </div>
+  <div class="email-subjects">
+    <div class="subject-label">Subject Lines</div>
+    <div class="subject-line"><span class="variant-label">V1</span><code class="var">{Company}</code> - making it simpler</div>
+<div class="subject-line"><span class="variant-label">V2</span>simpler question for <code class="var">{Company}</code></div>
+
+  </div>
+  <div class="email-body">
+    <p><code class="var">{FirstName}</code>,</p>
+<p>Wanted to make this as easy as possible.</p>
+<p>If you could understand one thing about <code class="var">{Company}</code>&#x27;s competitive position right now, would it be:</p>
+<div class="abc-options"><div class="abc-option">A - Where you appear (and don&#x27;t) in AI search results</div><div class="abc-option">B - Where competitors are listed on marketplaces and you&#x27;re not</div></div>
+<p>Just reply A or B. Takes about a day to prepare, no commitment.</p>
+<p class="sender-sig"><code class="var">{SenderFirstName}</code></p>
+<p class="ps-line">PS: Either analysis is specific to <code class="var">{Company}</code> - not a generic industry report.</p>
+<p class="mobile-sig">Envoyé depuis mon iPad</p>
+  </div>
+</div>
+
+<div class="email-block">
+  <div class="email-header">
+    <span class="email-label">Email 5 - ABC Close</span>
+    <span class="email-timing">Day 21</span>
+  </div>
+  <div class="email-subjects">
+    <div class="subject-label">Subject Lines</div>
+    <div class="subject-line"><code class="var">{Company}</code> - should I keep reaching out?</div>
+  </div>
+  <div class="email-body">
+    <p><code class="var">{FirstName}</code>,</p>
+<p>I&#x27;ve sent a few notes about running an analysis for <code class="var">{Company}</code>. I don&#x27;t want to keep emailing if it&#x27;s not relevant.</p>
+<p>Can you let me know which applies?</p>
+<div class="abc-options"><div class="abc-option">A - Interested, just haven&#x27;t had a chance to reply</div><div class="abc-option">B - Not the right time. Get back to me later.</div><div class="abc-option">C - Not relevant for us.</div></div>
+<p>Either way, I appreciate your time.</p>
+<p class="sender-sig"><code class="var">{SenderFirstName}</code></p>
+<p class="mobile-sig">Envoyé depuis mon iPad</p>
+  </div>
+</div>
+
+    </div>
+
+    <div id="seq-4-b" class="version-content">
+      <div class="version-b-note">Same 5 emails as Version A, plus:</div>
+      
+<div class="linkedin-block">
+  <div class="linkedin-header">
+    <span class="linkedin-label">
+      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      Connection Request
+    </span>
+    <span class="linkedin-timing">Day 1</span>
+  </div>
+  <div class="linkedin-empty">Empty connection request</div>
+</div>
+
+<div class="linkedin-block">
+  <div class="linkedin-header">
+    <span class="linkedin-label">
+      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn DM 1 - After Connection Accepted
+    </span>
+    <span class="linkedin-timing">Day 3 (or upon acceptance)</span>
+  </div>
+  <div class="linkedin-body">
+    <p>Thanks for connecting, <code class="var">{FirstName}</code>. Quick question: if you could understand one thing about <code class="var">{Company}</code>&#x27;s competitive position right now, would it be (A) AI search visibility or (B) marketplace gaps?</p>
+<p>Happy to run the analysis on whichever matters more.</p>
+  </div>
+</div>
+
+<div class="linkedin-block">
+  <div class="linkedin-header">
+    <span class="linkedin-label">
+      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn DM 2 - Soft Nudge
+    </span>
+    <span class="linkedin-timing">Day 12</span>
+  </div>
+  <div class="linkedin-body">
+    <p><code class="var">{FirstName}</code>, if just one area stands out - AI search visibility or marketplace gaps - that&#x27;s enough for me to run a useful analysis for <code class="var">{Company}</code>. No pressure either way.</p>
+  </div>
+</div>
+
+<div class="linkedin-block">
+  <div class="linkedin-header">
+    <span class="linkedin-label">
+      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn DM 3 - Soft Close
+    </span>
+    <span class="linkedin-timing">Day 18</span>
+  </div>
+  <div class="linkedin-body">
+    <p><code class="var">{FirstName}</code>, last note from me. The analysis offer for <code class="var">{Company}</code> stands whenever timing works. No rush at all.</p>
+  </div>
+</div>
+
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="seq-card">
+    <div class="seq-header" style="background: linear-gradient(135deg, #7C3AED 0%, #7C3AEDdd 100%);">
+      <div class="seq-number">Sequence 5</div>
+      <h2>Marketplace Expansion Gap</h2>
+      <div class="seq-meta">
+        <span class="seq-meta-tag">Angle: Your competitors are on marketplaces where you&#x27;re not - and the blocker isn&#x27;t strategy, it&#x27;s feed management.</span>
+        <span class="seq-meta-tag">Target: Head of E-commerce / E-commerce Manager</span>
+        <span class="seq-meta-tag">Segment: Both segments</span>
+      </div>
+    </div>
+
+    <div class="version-tabs">
+      <button class="version-tab active" onclick="switchTab('seq-5', 'a')">Version A: Email Only</button>
+      <button class="version-tab" onclick="switchTab('seq-5', 'b')">Version B: LinkedIn + Email</button>
+    </div>
+
+    <div id="seq-5-a" class="version-content active">
+      
+<div class="email-block">
+  <div class="email-header">
+    <span class="email-label">Email 1 - The Gap</span>
+    <span class="email-timing">Day 1</span>
+  </div>
+  <div class="email-subjects">
+    <div class="subject-label">Subject Lines</div>
+    <div class="subject-line"><span class="variant-label">V1</span><code class="var">{Company}</code> - marketplace presence in France</div>
+<div class="subject-line"><span class="variant-label">V2</span><code class="var">{Company}</code> vs <code class="var">{CompetitorName}</code> on <code class="var">{Marketplace}</code></div>
+
+  </div>
+  <div class="email-body">
+    <p><code class="var">{FirstName}</code>,</p>
+<p>I&#x27;ve been mapping marketplace coverage for <code class="var">{Vertical}</code> brands in France. Quick test you can run: search for your top 5 products on Cdiscount and Fnac.fr. If competitors show up and you don&#x27;t - that&#x27;s revenue going elsewhere.</p>
+<p>When I mapped <code class="var">{Company}</code>&#x27;s competitive landscape, <code class="var">{CompetitorName}</code> is active on 4+ French marketplaces. The gap is quantifiable - I can show the estimated volume for <code class="var">{Company}</code>&#x27;s category on each channel you&#x27;re not on yet.</p>
+<p>I put together a short analysis showing the specific marketplace opportunities for <code class="var">{Company}</code> - including what it would take to expand without drowning your team in feed management. The analysis is powered by Boost.space - the product data platform Decathlon uses to manage feeds across their global marketplace network.</p>
+<p>Would it be useful to see the findings?</p>
+<p class="sender-sig"><code class="var">{SenderName}</code></p>
+  </div>
+</div>
+
+<div class="email-block">
+  <div class="email-header">
+    <span class="email-label">Email 2 - The Operational Fix</span>
+    <span class="email-timing">Day 5</span>
+  </div>
+  <div class="email-subjects">
+    <div class="subject-label">Subject Lines</div>
+    <div class="subject-line"><span class="variant-label">V1</span><code class="var">{Company}</code> - expanding without adding headcount</div>
+<div class="subject-line"><span class="variant-label">V2</span>how <code class="var">{Vertical}</code> brands scale to 4+ marketplaces</div>
+
+  </div>
+  <div class="email-body">
+    <p><code class="var">{FirstName}</code>,</p>
+<p>With <code class="var">{ProductCount}</code>+ products and a <code class="var">{Platform}</code> setup, the path to 4+ marketplaces is usually clearer than teams expect - especially when the feed infrastructure is already partially in place.</p>
+<p>A <code class="var">{Vertical}</code> brand with a similar catalog size went from 2 to 4 marketplaces in 5 weeks. They layered a product data platform on top of their existing stack to handle attribute mapping and feed compliance for each new channel - so expansion didn&#x27;t mean rebuilding what already worked.</p>
+<p>The analysis I prepared shows what that path looks like specifically for <code class="var">{Company}</code>&#x27;s catalog and tech stack.</p>
+<p>Interested?</p>
+<p class="sender-sig"><code class="var">{SenderFirstName}</code></p>
+<p class="ps-line">PS: The test from my first email still works - search your top products on Cdiscount and count how many competitors appear versus you.</p>
+<p class="mobile-sig">Envoyé depuis mon iPad</p>
+  </div>
+</div>
+
+<div class="email-block">
+  <div class="email-header">
+    <span class="email-label">Email 3 - The Revenue Math</span>
+    <span class="email-timing">Day 10</span>
+  </div>
+  <div class="email-subjects">
+    <div class="subject-label">Subject Lines</div>
+    <div class="subject-line"><span class="variant-label">V1</span><code class="var">{Company}</code> - what 4+ marketplaces means</div>
+<div class="subject-line"><span class="variant-label">V2</span>the revenue case for expanding</div>
+
+  </div>
+  <div class="email-body">
+    <p><code class="var">{FirstName}</code>,</p>
+<p>One data point from the research: <code class="var">{Vertical}</code> brands that expand from 2 to 4+ French marketplaces typically see 25-40% incremental revenue within 6 months. The volume is there - the blocker is usually feed management, not demand.</p>
+<p>For <code class="var">{Company}</code> specifically, the analysis shows estimated category volume on each marketplace where <code class="var">{CompetitorName}</code> is listed and you&#x27;re not. The operational path is simpler than most teams expect - a product data layer like Boost.space sits on top of existing tools and handles the attribute mapping and compliance gaps that each new marketplace requires.</p>
+<p>Just reply &quot;interested&quot; and I&#x27;ll send the analysis.</p>
+<p class="sender-sig"><code class="var">{SenderFirstName}</code></p>
+<p class="mobile-sig">Envoyé depuis mon iPad</p>
+  </div>
+</div>
+
+<div class="email-block">
+  <div class="email-header">
+    <span class="email-label">Email 4 - The Self-Serve Test</span>
+    <span class="email-timing">Day 15</span>
+  </div>
+  <div class="email-subjects">
+    <div class="subject-label">Subject Lines</div>
+    <div class="subject-line"><span class="variant-label">V1</span><code class="var">{Company}</code> - quick marketplace check</div>
+<div class="subject-line"><span class="variant-label">V2</span>test this yourself - <code class="var">{Company}</code></div>
+
+  </div>
+  <div class="email-body">
+    <p><code class="var">{FirstName}</code>,</p>
+<p>One way to see the scale: pick any product category where <code class="var">{Company}</code> has strong volume. Search it on Cdiscount. Count how many competitor products appear versus yours.</p>
+<p>If the ratio is off - that&#x27;s the pattern our analysis quantifies across your full catalog. The analysis also covers the revenue opportunity by channel and what the expansion path looks like.</p>
+<p>Just reply and I&#x27;ll send it over.</p>
+<p class="sender-sig"><code class="var">{SenderFirstName}</code></p>
+<p class="ps-line">PS: <code class="var">{CompetitorName}</code> is active on 4+ French marketplaces. The analysis shows which ones and what the category volume looks like.</p>
+<p class="mobile-sig">Envoyé depuis mon iPad</p>
+  </div>
+</div>
+
+<div class="email-block">
+  <div class="email-header">
+    <span class="email-label">Email 5 - ABC Close</span>
+    <span class="email-timing">Day 21</span>
+  </div>
+  <div class="email-subjects">
+    <div class="subject-label">Subject Lines</div>
+    <div class="subject-line"><code class="var">{Company}</code> - should I keep reaching out?</div>
+  </div>
+  <div class="email-body">
+    <p><code class="var">{FirstName}</code>,</p>
+<p>I&#x27;ve sent a few notes about marketplace expansion for <code class="var">{Company}</code>. I don&#x27;t want to keep emailing if it&#x27;s not relevant.</p>
+<p>Can you let me know which applies?</p>
+<div class="abc-options"><div class="abc-option">A - Interested, just haven&#x27;t had a chance to reply</div><div class="abc-option">B - Not the right time. Get back to me later.</div><div class="abc-option">C - Not relevant for us.</div></div>
+<p>Either way, I appreciate your time.</p>
+<p class="sender-sig"><code class="var">{SenderFirstName}</code></p>
+<p class="mobile-sig">Envoyé depuis mon iPad</p>
+  </div>
+</div>
+
+    </div>
+
+    <div id="seq-5-b" class="version-content">
+      <div class="version-b-note">Same 5 emails as Version A, plus:</div>
+      
+<div class="linkedin-block">
+  <div class="linkedin-header">
+    <span class="linkedin-label">
+      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      Connection Request
+    </span>
+    <span class="linkedin-timing">Day 1</span>
+  </div>
+  <div class="linkedin-empty">Empty connection request</div>
+</div>
+
+<div class="linkedin-block">
+  <div class="linkedin-header">
+    <span class="linkedin-label">
+      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn DM 1 - After Connection Accepted
+    </span>
+    <span class="linkedin-timing">Day 3 (or upon acceptance)</span>
+  </div>
+  <div class="linkedin-body">
+    <p>Thanks for connecting, <code class="var">{FirstName}</code>. I&#x27;ve been researching marketplace coverage in <code class="var">{Vertical}</code> - <code class="var">{CompetitorName}</code> is active on 4+ French marketplaces. I mapped the specific channels where they&#x27;re listed and <code class="var">{Company}</code> isn&#x27;t - the category volume is worth seeing.</p>
+<p>Want me to share the analysis?</p>
+  </div>
+</div>
+
+<div class="linkedin-block">
+  <div class="linkedin-header">
+    <span class="linkedin-label">
+      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn DM 2 - Soft Nudge
+    </span>
+    <span class="linkedin-timing">Day 12</span>
+  </div>
+  <div class="linkedin-body">
+    <p><code class="var">{FirstName}</code>, if marketplace expansion is on your roadmap, the analysis covers <code class="var">{Company}</code>&#x27;s specific opportunities and what it takes operationally. Happy to share whenever useful.</p>
+  </div>
+</div>
+
+<div class="linkedin-block">
+  <div class="linkedin-header">
+    <span class="linkedin-label">
+      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn DM 3 - Soft Close
+    </span>
+    <span class="linkedin-timing">Day 18</span>
+  </div>
+  <div class="linkedin-body">
+    <p><code class="var">{FirstName}</code>, last note from me. The marketplace analysis for <code class="var">{Company}</code> is ready whenever timing works. No rush at all.</p>
+  </div>
+</div>
+
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="seq-card">
+    <div class="seq-header" style="background: linear-gradient(135deg, #4F46E5 0%, #4F46E5dd 100%);">
+      <div class="seq-number">Sequence 6</div>
+      <h2>Top 20 Curated List</h2>
+      <div class="seq-meta">
+        <span class="seq-meta-tag">Angle: We benchmarked the top 20 brands in your vertical. You&#x27;re on the list. Want to see your position?</span>
+        <span class="seq-meta-tag">Target: CMO / CRO / CEO/Founder</span>
+        <span class="seq-meta-tag">Segment: Primarily Segment A</span>
+      </div>
+    </div>
+
+    <div class="version-tabs">
+      <button class="version-tab active" onclick="switchTab('seq-6', 'a')">Version A: Email Only</button>
+      <button class="version-tab" onclick="switchTab('seq-6', 'b')">Version B: LinkedIn + Email</button>
+    </div>
+
+    <div id="seq-6-a" class="version-content active">
+      
+<div class="email-block">
+  <div class="email-header">
+    <span class="email-label">Email 1 - You&#x27;re on the List</span>
+    <span class="email-timing">Day 1</span>
+  </div>
+  <div class="email-subjects">
+    <div class="subject-label">Subject Lines</div>
+    <div class="subject-line"><span class="variant-label">V1</span><code class="var">{Company}</code> - included in our <code class="var">{Vertical}</code> benchmark</div>
+<div class="subject-line"><span class="variant-label">V2</span>top 20 <code class="var">{Vertical}</code> brands in France - <code class="var">{Company}</code></div>
+
+  </div>
+  <div class="email-body">
+    <p><code class="var">{FirstName}</code>,</p>
+<p>I selected the top 20 French <code class="var">{Vertical}</code> e-commerce brands and benchmarked their AI search readiness, marketplace coverage, and product data quality.</p>
+<p><code class="var">{Company}</code> is on the list - alongside brands like <code class="var">{CompetitorName}</code>.</p>
+<p>A few headline findings: only 3 out of 20 appear consistently in AI product recommendations. Marketplace coverage varies dramatically - some are on 5+ French channels, others are Amazon-only.</p>
+<p>I can share <code class="var">{Company}</code>&#x27;s specific results and how you compare to the other 19 brands. The benchmark is powered by Boost.space - the product data platform Decathlon uses for their global catalog operations.</p>
+<p>Would that be useful?</p>
+<p class="sender-sig"><code class="var">{SenderName}</code></p>
+  </div>
+</div>
+
+<div class="email-block">
+  <div class="email-header">
+    <span class="email-label">Email 2 - The Surprising Finding</span>
+    <span class="email-timing">Day 5</span>
+  </div>
+  <div class="email-subjects">
+    <div class="subject-label">Subject Lines</div>
+    <div class="subject-line"><span class="variant-label">V1</span>what separates the top 5 from the bottom 15</div>
+<div class="subject-line"><span class="variant-label">V2</span><code class="var">{Company}</code> vs competitors - the data gap</div>
+
+  </div>
+  <div class="email-body">
+    <p><code class="var">{FirstName}</code>,</p>
+<p>The most surprising finding from the benchmark: brand awareness doesn&#x27;t predict AI visibility. Some of the most well-known <code class="var">{Vertical}</code> brands in France scored poorly - because their product data isn&#x27;t structured for AI systems.</p>
+<p>Meanwhile, smaller brands with clean, enriched catalogs are showing up in AI recommendations and capturing demand that used to go to bigger names. The gap comes down to how product data is structured - not marketing spend.</p>
+<p>The benchmark shows exactly where <code class="var">{Company}</code> falls. Happy to share the details.</p>
+<p class="sender-sig"><code class="var">{SenderFirstName}</code></p>
+<p class="ps-line">PS: You can test this yourself - ask ChatGPT &quot;best <code class="var">{ProductCategory}</code> in France&quot; and see who shows up.</p>
+<p class="mobile-sig">Envoyé depuis mon iPad</p>
+  </div>
+</div>
+
+<div class="email-block">
+  <div class="email-header">
+    <span class="email-label">Email 3 - The Competitive Insight</span>
+    <span class="email-timing">Day 10</span>
+  </div>
+  <div class="email-subjects">
+    <div class="subject-label">Subject Lines</div>
+    <div class="subject-line"><span class="variant-label">V1</span>what the top brands do differently</div>
+<div class="subject-line"><span class="variant-label">V2</span>the AI readiness gap in <code class="var">{Vertical}</code></div>
+
+  </div>
+  <div class="email-body">
+    <p><code class="var">{FirstName}</code>,</p>
+<p>Here&#x27;s what separates the top-performing brands in the benchmark:</p>
+<p>The ones appearing in AI recommendations invested in product data structure - complete attributes, enriched descriptions, consistent formatting across channels. They structured their catalogs so AI systems can actually understand and recommend their products.</p>
+<p>The brands that haven&#x27;t done this are losing demand to smaller competitors with cleaner data. That shift is accelerating as more buyers start product research in ChatGPT and Google AI Overviews.</p>
+<p>The benchmark shows exactly where <code class="var">{Company}</code> stands. Just reply &quot;interested&quot; and I&#x27;ll send it over.</p>
+<p class="sender-sig"><code class="var">{SenderFirstName}</code></p>
+<p class="mobile-sig">Envoyé depuis mon iPad</p>
+  </div>
+</div>
+
+<div class="email-block">
+  <div class="email-header">
+    <span class="email-label">Email 4 - The Methodology</span>
+    <span class="email-timing">Day 15</span>
+  </div>
+  <div class="email-subjects">
+    <div class="subject-label">Subject Lines</div>
+    <div class="subject-line"><span class="variant-label">V1</span>how I built the <code class="var">{Vertical}</code> benchmark</div>
+<div class="subject-line"><span class="variant-label">V2</span><code class="var">{Company}</code> - what the benchmark covers</div>
+
+  </div>
+  <div class="email-body">
+    <p><code class="var">{FirstName}</code>,</p>
+<p>Here&#x27;s what the benchmark covers:</p>
+<p>I analyzed product feed structure, AI recommendation presence across ChatGPT, Perplexity, and Google AI Overviews, and marketplace distribution across Amazon.fr, Cdiscount, Fnac/Darty, La Redoute, and 8 other French channels. The analysis is powered by Boost.space - a product data platform used by fashion and lifestyle brands managing multi-channel catalog operations at scale.</p>
+<p><code class="var">{Company}</code>&#x27;s results are specific - not a generic industry report. I refresh these quarterly, so even if now isn&#x27;t the right time, I can send an updated version next quarter.</p>
+<p>Just reply and I&#x27;ll share <code class="var">{Company}</code>&#x27;s position.</p>
+<p class="sender-sig"><code class="var">{SenderFirstName}</code></p>
+<p class="ps-line">PS: The analysis is powered by Boost.space - a product data platform used by <code class="var">{Vertical}</code> brands managing multi-channel operations at scale.</p>
+<p class="mobile-sig">Envoyé depuis mon iPad</p>
+  </div>
+</div>
+
+<div class="email-block">
+  <div class="email-header">
+    <span class="email-label">Email 5 - ABC Close</span>
+    <span class="email-timing">Day 21</span>
+  </div>
+  <div class="email-subjects">
+    <div class="subject-label">Subject Lines</div>
+    <div class="subject-line"><code class="var">{Company}</code> - should I keep reaching out?</div>
+  </div>
+  <div class="email-body">
+    <p><code class="var">{FirstName}</code>,</p>
+<p>I&#x27;ve sent a few notes about the <code class="var">{Vertical}</code> benchmark including <code class="var">{Company}</code>. I don&#x27;t want to keep emailing if it&#x27;s not relevant.</p>
+<p>Can you let me know which applies?</p>
+<div class="abc-options"><div class="abc-option">A - Interested, just haven&#x27;t had a chance to reply</div><div class="abc-option">B - Not the right time. Get back to me later.</div><div class="abc-option">C - Not relevant for us.</div></div>
+<p>Either way, I appreciate your time.</p>
+<p class="sender-sig"><code class="var">{SenderFirstName}</code></p>
+<p class="mobile-sig">Envoyé depuis mon iPad</p>
+  </div>
+</div>
+
+    </div>
+
+    <div id="seq-6-b" class="version-content">
+      <div class="version-b-note">Same 5 emails as Version A, plus:</div>
+      
+<div class="linkedin-block">
+  <div class="linkedin-header">
+    <span class="linkedin-label">
+      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      Connection Request
+    </span>
+    <span class="linkedin-timing">Day 1</span>
+  </div>
+  <div class="linkedin-empty">Empty connection request</div>
+</div>
+
+<div class="linkedin-block">
+  <div class="linkedin-header">
+    <span class="linkedin-label">
+      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn DM 1 - After Connection Accepted
+    </span>
+    <span class="linkedin-timing">Day 3 (or upon acceptance)</span>
+  </div>
+  <div class="linkedin-body">
+    <p>Thanks for connecting, <code class="var">{FirstName}</code>. I benchmarked the top 20 <code class="var">{Vertical}</code> brands in France - including <code class="var">{Company}</code> and <code class="var">{CompetitorName}</code>. Only 3 out of 20 appear consistently in AI product recommendations. The other 17 are invisible to AI shoppers.</p>
+<p>Want to see where <code class="var">{Company}</code> stands?</p>
+  </div>
+</div>
+
+<div class="linkedin-block">
+  <div class="linkedin-header">
+    <span class="linkedin-label">
+      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn DM 2 - Soft Nudge
+    </span>
+    <span class="linkedin-timing">Day 12</span>
+  </div>
+  <div class="linkedin-body">
+    <p><code class="var">{FirstName}</code>, the benchmark covers AI visibility, marketplace coverage, and product data quality across your top 19 competitors. Happy to share <code class="var">{Company}</code>&#x27;s position whenever useful.</p>
+  </div>
+</div>
+
+<div class="linkedin-block">
+  <div class="linkedin-header">
+    <span class="linkedin-label">
+      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn DM 3 - Soft Close
+    </span>
+    <span class="linkedin-timing">Day 18</span>
+  </div>
+  <div class="linkedin-body">
+    <p><code class="var">{FirstName}</code>, last note from me. The <code class="var">{Vertical}</code> benchmark results for <code class="var">{Company}</code> are ready whenever timing works. I refresh these quarterly - no rush.</p>
+  </div>
+</div>
+
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="seq-card">
+    <div class="seq-header" style="background: linear-gradient(135deg, #059669 0%, #059669dd 100%);">
+      <div class="seq-number">Sequence 7</div>
+      <h2>Dynamic Pricing Gap</h2>
+      <div class="seq-meta">
+        <span class="seq-meta-tag">Angle: Your competitors react faster on pricing. I found specific gaps where you&#x27;re leaving margin on the table or losing the buy box.</span>
+        <span class="seq-meta-tag">Target: Head of E-commerce / Commercial Director / Category Manager</span>
+        <span class="seq-meta-tag">Segment: Both segments - especially competitive verticals</span>
+      </div>
+    </div>
+
+    <div class="version-tabs">
+      <button class="version-tab active" onclick="switchTab('seq-7', 'a')">Version A: Email Only</button>
+      <button class="version-tab" onclick="switchTab('seq-7', 'b')">Version B: LinkedIn + Email</button>
+    </div>
+
+    <div id="seq-7-a" class="version-content active">
+      
+<div class="email-block">
+  <div class="email-header">
+    <span class="email-label">Email 1 - The Gap</span>
+    <span class="email-timing">Day 1</span>
+  </div>
+  <div class="email-subjects">
+    <div class="subject-label">Subject Lines</div>
+    <div class="subject-line"><span class="variant-label">V1</span><code class="var">{Company}</code> vs <code class="var">{CompetitorName}</code> - pricing gaps</div>
+<div class="subject-line"><span class="variant-label">V2</span><code class="var">{Company}</code> - pricing on <code class="var">{Marketplace}</code></div>
+
+  </div>
+  <div class="email-body">
+    <p><code class="var">{FirstName}</code>,</p>
+<p>I compared pricing for top-selling <code class="var">{ProductCategory}</code> SKUs on <code class="var">{Marketplace}</code> - <code class="var">{Company}</code> against the top 3 competitors. Found gaps in both directions: products underpriced by 10-15%, and products overpriced against competitors winning the buy box. Both cost revenue, just differently.</p>
+<p>For a distributor managing <code class="var">{ProductCount}</code>+ SKUs across marketplaces, these gaps compound fast. I put together a short analysis with the specifics - where the gaps are and what margin-aware repricing would look like. The analysis is powered by Boost.space - the product data platform Decathlon uses to manage pricing across their marketplace network.</p>
+<p>Is this something your team would find useful?</p>
+<p class="sender-sig"><code class="var">{SenderName}</code></p>
+  </div>
+</div>
+
+<div class="email-block">
+  <div class="email-header">
+    <span class="email-label">Email 2 - The Speed Problem</span>
+    <span class="email-timing">Day 5</span>
+  </div>
+  <div class="email-subjects">
+    <div class="subject-label">Subject Lines</div>
+    <div class="subject-line"><span class="variant-label">V1</span>how fast do <code class="var">{Company}</code>&#x27;s competitors reprice?</div>
+<div class="subject-line"><span class="variant-label">V2</span><code class="var">{Company}</code> - the repricing speed gap</div>
+
+  </div>
+  <div class="email-body">
+    <p><code class="var">{FirstName}</code>,</p>
+<p>Here&#x27;s something most e-commerce teams don&#x27;t have visibility into: how frequently their competitors actually reprice. In <code class="var">{ProductCategory}</code> on <code class="var">{Marketplace}</code>, some top sellers adjust prices multiple times per day. Others update once a day - or once a week.</p>
+<p>With <code class="var">{ProductCount}</code>+ SKUs, manual pricing means gaps are hard to catch before they hit margin. The delay between competitor price changes and your response is where margin leaks. The analysis I prepared for <code class="var">{Company}</code> shows specifically where speed matters most in your product mix and what the revenue impact looks like.</p>
+<p>Interested in the details?</p>
+<p class="sender-sig"><code class="var">{SenderFirstName}</code></p>
+<p class="ps-line">PS: Try this - pick 10 top-selling SKUs on <code class="var">{Marketplace}</code> and compare your prices against the top 3 competitors. If you see 5%+ gaps on more than half, that&#x27;s the pattern.</p>
+<p class="mobile-sig">Envoyé depuis mon iPad</p>
+  </div>
+</div>
+
+<div class="email-block">
+  <div class="email-header">
+    <span class="email-label">Email 3 - The Margin Recovery</span>
+    <span class="email-timing">Day 10</span>
+  </div>
+  <div class="email-subjects">
+    <div class="subject-label">Subject Lines</div>
+    <div class="subject-line"><span class="variant-label">V1</span><code class="var">{Company}</code> - margin left on the table</div>
+<div class="subject-line"><span class="variant-label">V2</span>what repricing looks like at <code class="var">{ProductCount}</code>+ SKUs</div>
+
+  </div>
+  <div class="email-body">
+    <p><code class="var">{FirstName}</code>,</p>
+<p>One more angle from the analysis: distributors managing large catalogs often find recoverable margin on 3-8% of SKUs once they have visibility into competitor pricing patterns - products where pricing is misaligned with buy box dynamics. That&#x27;s not about racing to the bottom - it&#x27;s about identifying where you&#x27;re underpriced with no buy box benefit, and where a small adjustment wins back the buy box without sacrificing margin.</p>
+<p>That&#x27;s where pricing automation helps - monitoring competitor prices in real time and applying repricing rules you control, so you protect margins while staying competitive on the SKUs that matter. That&#x27;s the layer Boost.space adds for distributors managing catalogs at your scale.</p>
+<p>The analysis for <code class="var">{Company}</code> covers both sides. Just reply &quot;send it&quot; and I&#x27;ll share it.</p>
+<p class="sender-sig"><code class="var">{SenderFirstName}</code></p>
+<p class="mobile-sig">Envoyé depuis mon iPad</p>
+  </div>
+</div>
+
+<div class="email-block">
+  <div class="email-header">
+    <span class="email-label">Email 4 - The Self-Serve Test</span>
+    <span class="email-timing">Day 15</span>
+  </div>
+  <div class="email-subjects">
+    <div class="subject-label">Subject Lines</div>
+    <div class="subject-line"><span class="variant-label">V1</span><code class="var">{Company}</code> - quick pricing check</div>
+<div class="subject-line"><span class="variant-label">V2</span>test this yourself - <code class="var">{Company}</code></div>
+
+  </div>
+  <div class="email-body">
+    <p><code class="var">{FirstName}</code>,</p>
+<p>Here&#x27;s a quick way to see the gap yourself:</p>
+<p>Pick 10 of your top-selling SKUs on <code class="var">{Marketplace}</code>. Compare your prices against the top 3 competitors. Check who holds the buy box and at what price.</p>
+<p>If you see gaps of 5%+ in either direction on more than half of them - that&#x27;s the pattern our analysis quantifies across your full catalog. The full analysis shows the revenue impact and what margin-aware repricing would look like at scale.</p>
+<p>Just reply and I&#x27;ll send it over.</p>
+<p class="sender-sig"><code class="var">{SenderFirstName}</code></p>
+<p class="ps-line">PS: Some competitors in <code class="var">{ProductCategory}</code> reprice multiple times per day. The analysis shows where that speed gap hits <code class="var">{Company}</code> hardest.</p>
+<p class="mobile-sig">Envoyé depuis mon iPad</p>
+  </div>
+</div>
+
+<div class="email-block">
+  <div class="email-header">
+    <span class="email-label">Email 5 - ABC Close</span>
+    <span class="email-timing">Day 21</span>
+  </div>
+  <div class="email-subjects">
+    <div class="subject-label">Subject Lines</div>
+    <div class="subject-line"><code class="var">{Company}</code> - should I keep reaching out?</div>
+  </div>
+  <div class="email-body">
+    <p><code class="var">{FirstName}</code>,</p>
+<p>I&#x27;ve sent a few notes about pricing intelligence for <code class="var">{Company}</code>. I don&#x27;t want to keep emailing if it&#x27;s not relevant.</p>
+<p>Can you let me know which applies?</p>
+<div class="abc-options"><div class="abc-option">A - Interested, just haven&#x27;t had a chance to reply</div><div class="abc-option">B - Not the right time. Get back to me later.</div><div class="abc-option">C - Not relevant for us.</div></div>
+<p>Either way, I appreciate your time.</p>
+<p class="sender-sig"><code class="var">{SenderFirstName}</code></p>
+<p class="mobile-sig">Envoyé depuis mon iPad</p>
+  </div>
+</div>
+
+    </div>
+
+    <div id="seq-7-b" class="version-content">
+      <div class="version-b-note">Same 5 emails as Version A, plus:</div>
+      
+<div class="linkedin-block">
+  <div class="linkedin-header">
+    <span class="linkedin-label">
+      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      Connection Request
+    </span>
+    <span class="linkedin-timing">Day 1</span>
+  </div>
+  <div class="linkedin-empty">Empty connection request</div>
+</div>
+
+<div class="linkedin-block">
+  <div class="linkedin-header">
+    <span class="linkedin-label">
+      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn DM 1 - After Connection Accepted
+    </span>
+    <span class="linkedin-timing">Day 3 (or upon acceptance)</span>
+  </div>
+  <div class="linkedin-body">
+    <p>Thanks for connecting, <code class="var">{FirstName}</code>. I&#x27;ve been tracking repricing speed in <code class="var">{ProductCategory}</code> on <code class="var">{Marketplace}</code>. Some competitors adjust prices multiple times a day - with <code class="var">{ProductCount}</code>+ SKUs, that gap compounds fast.</p>
+<p>I have a short analysis showing where this hits <code class="var">{Company}</code> hardest. Interested?</p>
+  </div>
+</div>
+
+<div class="linkedin-block">
+  <div class="linkedin-header">
+    <span class="linkedin-label">
+      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn DM 2 - Soft Nudge
+    </span>
+    <span class="linkedin-timing">Day 12</span>
+  </div>
+  <div class="linkedin-body">
+    <p><code class="var">{FirstName}</code>, if pricing and buy box management is on your radar, the analysis covers <code class="var">{Company}</code>&#x27;s specific gaps. Happy to share whenever useful.</p>
+  </div>
+</div>
+
+<div class="linkedin-block">
+  <div class="linkedin-header">
+    <span class="linkedin-label">
+      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn DM 3 - Soft Close
+    </span>
+    <span class="linkedin-timing">Day 18</span>
+  </div>
+  <div class="linkedin-body">
+    <p><code class="var">{FirstName}</code>, last note from me. The pricing analysis for <code class="var">{Company}</code> is ready whenever timing works. No rush at all.</p>
+  </div>
+</div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h2>Key Structural Changes (v3 → v4 → v4.1)</h2>
+    </div>
+    <div class="card-body" style="padding:0; overflow-x:auto;">
+      <table class="changes-table">
+        <thead>
+          <tr>
+            <th>Element</th>
+            <th>v3 (Original)</th>
+            <th>v4 (France)</th>
+            <th>v4.1 (Nudges)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Total emails</td><td>5 (13-day span)</td><td>5 (21-day span)</td><td>5 (21-day span)</td></tr>
+<tr><td>LinkedIn DMs</td><td>3 (all substantive)</td><td>3 (DM 1 substantive, DMs 2-3 soft)</td><td>Same as v4</td></tr>
+<tr><td>Spacing</td><td>3 days</td><td>4-5 days</td><td>4-5 days</td></tr>
+<tr><td>Total duration</td><td>13 days</td><td>~21 days</td><td>~21 days</td></tr>
+<tr><td>Total touches</td><td>8 in 13 days</td><td>8 in 21 days</td><td>8 in 21 days</td></tr>
+<tr><td>Email 5 format</td><td>Generic soft close</td><td>ABC close (A/B/C self-select)</td><td>ABC close - shortened options</td></tr>
+<tr><td>Vendor in Email 1</td><td>Yes (all sequences)</td><td>Yes - one sentence with Decathlon reference</td><td>Same as v4</td></tr>
+<tr><td>Boost.space mention</td><td>Email 1 + credential dump</td><td>Email 1 (one sentence + Decathlon) + optionally Email 3/4 for operational detail</td><td>Same as v4</td></tr>
+<tr><td>Credential dump</td><td>Every Email 3</td><td>Never</td><td>Never</td></tr>
+<tr><td>Self-serve test</td><td>Email 5 only</td><td>Email 1 or 4</td><td>Email 1 or 4</td></tr>
+<tr><td>Concrete finding</td><td>Never shared</td><td>Email 1</td><td>Email 1</td></tr>
+<tr><td>Decathlon reference</td><td>2-3x per sequence</td><td>Always in Email 1 as credibility anchor</td><td>Same as v4</td></tr>
+<tr><td>Artificial urgency</td><td>Emails 3-4</td><td>Never</td><td>Never</td></tr>
+<tr class="highlight"><td><strong>Signature (Email 1)</strong></td><td>Full name + title</td><td>Full name</td><td><strong>Full name</strong></td></tr>
+<tr class="highlight"><td><strong>Signature (Emails 2-5)</strong></td><td>Full name + title</td><td>Full name</td><td><strong>First name only</strong></td></tr>
+<tr class="highlight"><td><strong>Mobile signature</strong></td><td>None</td><td>None</td><td><strong>Envoyé depuis mon iPad (Emails 2-5)</strong></td></tr>
+<tr class="highlight"><td><strong>PS lines</strong></td><td>None</td><td>None</td><td><strong>Emails 2 and 4 - concrete data hook</strong></td></tr>
+<tr class="highlight"><td><strong>Friction reducer</strong></td><td>None</td><td>None</td><td><strong>&quot;Just reply X&quot; in Emails 3-4</strong></td></tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<div class="footer">
+  <div class="container">
+    Boost.space x FORECOM - v4.1 - April 2026
+  </div>
+</div>
+
+
+<script>
+
+function switchTab(seqId, version) {
+  // Hide all versions for this sequence
+  document.getElementById(seqId + '-a').classList.remove('active');
+  document.getElementById(seqId + '-b').classList.remove('active');
+
+  // Show selected version
+  document.getElementById(seqId + '-' + version).classList.add('active');
+
+  // Update tab buttons
+  var tabs = document.getElementById(seqId + '-a').parentElement.querySelectorAll('.version-tab');
+  tabs.forEach(function(tab) { tab.classList.remove('active'); });
+  if (version === 'a') {
+    tabs[0].classList.add('active');
+  } else {
+    tabs[1].classList.add('active');
+  }
+}
+
+</script>
+
+</body>
+</html>
