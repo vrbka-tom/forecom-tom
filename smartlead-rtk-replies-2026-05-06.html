@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Smartlead RTK Reply Classification — Weekly Report</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: #f9fafb;
+    color: #111827;
+    margin: 0;
+    padding: 24px;
+    line-height: 1.5;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+  header h1 { margin: 0 0 4px 0; font-size: 28px; font-weight: 700; }
+  .subtitle { color: #6b7280; font-size: 14px; margin-bottom: 24px; }
+  .stats { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 32px; }
+  .stat { background: white; padding: 16px 20px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); flex: 1; min-width: 140px; }
+  .stat-label { font-size: 12px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; }
+  .stat-value { font-size: 24px; font-weight: 700; margin-top: 4px; }
+  h2 { margin: 32px 0 16px 0; font-size: 20px; font-weight: 600; }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 32px; }
+  .card { background: white; padding: 16px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+  .card-label { font-size: 13px; font-weight: 600; color: #374151; }
+  .card-value { font-size: 32px; font-weight: 700; margin: 4px 0 0 0; }
+  .card-pct { font-size: 13px; color: #6b7280; }
+  .card-desc { font-size: 11px; color: #9ca3af; margin-top: 6px; line-height: 1.3; }
+
+  .charts { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-bottom: 32px; }
+  .chart-box { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+  .chart-box h3 { margin: 0 0 12px 0; font-size: 14px; font-weight: 600; color: #374151; }
+  @media (max-width: 800px) { .charts { grid-template-columns: 1fr; } }
+
+  table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+  th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #f3f4f6; font-size: 14px; }
+  th { background: #f9fafb; font-weight: 600; color: #374151; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td.total, .total { font-weight: 600; color: #111827; }
+  td.week { font-family: ui-monospace, monospace; font-size: 13px; color: #6b7280; }
+  tr.totals-row { background: #f9fafb; }
+
+  .cat-section { background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); margin-bottom: 12px; padding: 12px 16px; }
+  .cat-section summary { cursor: pointer; font-size: 15px; padding: 4px 0; user-select: none; }
+  .cat-section summary:hover { color: #2563eb; }
+  .sample { margin: 12px 0 12px 16px; padding-left: 12px; border-left: 2px solid #e5e7eb; }
+  .sample-head { font-size: 14px; }
+  .sample-meta { font-size: 12px; color: #6b7280; margin-top: 2px; }
+  .sample-body { background: #f9fafb; padding: 10px 12px; border-radius: 4px; font-size: 13px; white-space: pre-wrap; word-wrap: break-word; max-height: 200px; overflow-y: auto; margin: 6px 0; font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif; }
+  .muted { color: #6b7280; }
+  .conf { font-size: 11px; padding: 2px 6px; background: #e5e7eb; border-radius: 4px; margin-left: 6px; }
+  .conf.low-conf { background: #fef3c7; color: #92400e; }
+
+  footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid #e5e7eb; font-size: 12px; color: #9ca3af; }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>Smartlead RTK Reply Classification</h1>
+    <div class="subtitle">Weekly breakdown of inbound replies · 2026-02-04 → Fri, 6 Mar</div>
+  </header>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-label">Total replies</div><div class="stat-value">501</div></div>
+    <div class="stat"><div class="stat-label">Weeks covered</div><div class="stat-value">14</div></div>
+    <div class="stat"><div class="stat-label">Campaigns</div><div class="stat-value">7</div></div>
+    <div class="stat"><div class="stat-label">Low-confidence (&lt;0.6)</div><div class="stat-value">4</div></div>
+  </div>
+
+  <h2>Category Breakdown</h2>
+  <div class="cards">
+        <div class="card" style="border-left: 4px solid #2563eb;">
+          <div class="card-label">RTK Provider</div>
+          <div class="card-value">31</div>
+          <div class="card-pct">6.2%</div>
+          <div class="card-desc">Works for an RTK corrections service provider</div>
+        </div>
+        
+        <div class="card" style="border-left: 4px solid #16a34a;">
+          <div class="card-label">Device Company</div>
+          <div class="card-value">72</div>
+          <div class="card-pct">14.4%</div>
+          <div class="card-desc">Operates or sells RTK-enabled devices (fleets, OEMs, robotics)</div>
+        </div>
+        
+        <div class="card" style="border-left: 4px solid #f59e0b;">
+          <div class="card-label">End User</div>
+          <div class="card-value">331</div>
+          <div class="card-pct">66.1%</div>
+          <div class="card-desc">End user with own RTK setup</div>
+        </div>
+        
+        <div class="card" style="border-left: 4px solid #9ca3af;">
+          <div class="card-label">Out of Office</div>
+          <div class="card-value">20</div>
+          <div class="card-pct">4.0%</div>
+          <div class="card-desc">Automatic out-of-office reply</div>
+        </div>
+        
+        <div class="card" style="border-left: 4px solid #dc2626;">
+          <div class="card-label">Other / Unclassified</div>
+          <div class="card-value">47</div>
+          <div class="card-pct">9.4%</div>
+          <div class="card-desc">Unsubscribe, wrong-person, off-topic, generic &#x27;not interested&#x27;</div>
+        </div>
+        </div>
+
+  <div class="charts">
+    <div class="chart-box"><h3>Replies per week (stacked by category)</h3><canvas id="weeklyChart" height="120"></canvas></div>
+    <div class="chart-box"><h3>Total distribution</h3><canvas id="pieChart"></canvas></div>
+  </div>
+
+  <h2>Weekly Pivot</h2>
+  <table>
+    <thead><tr><th>Week</th><th style="border-bottom: 3px solid #2563eb;">RTK Provider</th><th style="border-bottom: 3px solid #16a34a;">Device Company</th><th style="border-bottom: 3px solid #f59e0b;">End User</th><th style="border-bottom: 3px solid #9ca3af;">Out of Office</th><th style="border-bottom: 3px solid #dc2626;">Other / Unclassified</th><th class="num">Total</th></tr></thead>
+    <tbody><tr><td class="week">2026-W06</td><td class="num">2</td><td class="num">1</td><td class="num">3</td><td class="num">4</td><td class="num">5</td><td class="num total">15</td></tr><tr><td class="week">2026-W07</td><td class="num">1</td><td class="num"></td><td class="num"></td><td class="num">1</td><td class="num">1</td><td class="num total">3</td></tr><tr><td class="week">2026-W08</td><td class="num">4</td><td class="num">12</td><td class="num">6</td><td class="num">1</td><td class="num">3</td><td class="num total">26</td></tr><tr><td class="week">2026-W09</td><td class="num">2</td><td class="num">7</td><td class="num">10</td><td class="num">2</td><td class="num">1</td><td class="num total">22</td></tr><tr><td class="week">2026-W10</td><td class="num">4</td><td class="num">3</td><td class="num">49</td><td class="num">1</td><td class="num">6</td><td class="num total">63</td></tr><tr><td class="week">2026-W11</td><td class="num">6</td><td class="num">6</td><td class="num">40</td><td class="num">3</td><td class="num">8</td><td class="num total">63</td></tr><tr><td class="week">2026-W12</td><td class="num">4</td><td class="num">7</td><td class="num">34</td><td class="num">1</td><td class="num">3</td><td class="num total">49</td></tr><tr><td class="week">2026-W13</td><td class="num">1</td><td class="num">1</td><td class="num">45</td><td class="num"></td><td class="num">4</td><td class="num total">51</td></tr><tr><td class="week">2026-W14</td><td class="num">1</td><td class="num">6</td><td class="num">36</td><td class="num">1</td><td class="num">4</td><td class="num total">48</td></tr><tr><td class="week">2026-W15</td><td class="num">1</td><td class="num">4</td><td class="num">28</td><td class="num">2</td><td class="num">4</td><td class="num total">39</td></tr><tr><td class="week">2026-W16</td><td class="num">1</td><td class="num">5</td><td class="num">29</td><td class="num"></td><td class="num">2</td><td class="num total">37</td></tr><tr><td class="week">2026-W17</td><td class="num">1</td><td class="num">11</td><td class="num">23</td><td class="num">2</td><td class="num">4</td><td class="num total">41</td></tr><tr><td class="week">2026-W18</td><td class="num">3</td><td class="num">5</td><td class="num">21</td><td class="num">2</td><td class="num">2</td><td class="num total">33</td></tr><tr><td class="week">2026-W19</td><td class="num"></td><td class="num">4</td><td class="num">7</td><td class="num"></td><td class="num"></td><td class="num total">11</td></tr><tr class="totals-row"><td><strong>Total</strong></td><td class="num total">31</td><td class="num total">72</td><td class="num total">331</td><td class="num total">20</td><td class="num total">47</td><td class="num total"><strong>501</strong></td></tr></tbody>
+  </table>
+
+  <h2>Per Campaign</h2>
+  <table>
+    <thead><tr><th>Campaign ID</th><th>Name</th><th style="border-bottom: 3px solid #2563eb;">RTK Provider</th><th style="border-bottom: 3px solid #16a34a;">Device Company</th><th style="border-bottom: 3px solid #f59e0b;">End User</th><th style="border-bottom: 3px solid #9ca3af;">Out of Office</th><th style="border-bottom: 3px solid #dc2626;">Other / Unclassified</th><th class="num">Total</th></tr></thead>
+    <tbody><tr><td>2979414</td><td>Variant B with names</td><td class="num">15</td><td class="num">46</td><td class="num">242</td><td class="num">10</td><td class="num">24</td><td class="num total">337</td></tr><tr><td>2979493</td><td>Variant B no names</td><td class="num">8</td><td class="num">8</td><td class="num">54</td><td class="num">2</td><td class="num">6</td><td class="num total">78</td></tr><tr><td>2979272</td><td>Variant A campaign with name</td><td class="num">1</td><td class="num"></td><td class="num">24</td><td class="num">1</td><td class="num">7</td><td class="num total">33</td></tr><tr><td>2921348</td><td>ICP 2 - name available</td><td class="num">4</td><td class="num">15</td><td class="num">8</td><td class="num">2</td><td class="num">4</td><td class="num total">33</td></tr><tr><td>2861341</td><td>ICP1 - risky yes name</td><td class="num">2</td><td class="num">1</td><td class="num">3</td><td class="num">5</td><td class="num">5</td><td class="num total">16</td></tr><tr><td>2921477</td><td>ICP 2 - no name</td><td class="num"></td><td class="num">2</td><td class="num"></td><td class="num"></td><td class="num"></td><td class="num total">2</td></tr><tr><td>2842520</td><td>ICP1 - yes name</td><td class="num">1</td><td class="num"></td><td class="num"></td><td class="num"></td><td class="num">1</td><td class="num total">2</td></tr></tbody>
+  </table>
+
+  <h2>Sample Replies (click category to expand)</h2>
+  
+        <details class="cat-section" style="border-left: 4px solid #2563eb;">
+          <summary>
+            <strong>RTK Provider</strong> · 31 replies
+            <span class="muted">— Works for an RTK corrections service provider</span>
+          </summary>
+          
+            <div class="sample">
+              <div class="sample-head">
+                <strong>Kelly Snively</strong>
+                <span class="muted">— kbsnively1@gmail.com</span>
+                <span class="muted"> · 2026-04-30</span>
+                <span class="conf ">conf 1.00</span>
+              </div>
+              <div class="sample-meta">Variant B with names · <em>The reply indicates the sender works for an RTK corrections service provider.</em></div>
+              <pre class="sample-body">1
+On Wed, Apr 29, 2026, 10:33 PM Tim Van den Eede &lt;
+tim@try-ntrip.com
+Hi Kelly,
+I’m reaching out because you’ve used NtripChecker recently.
+I’m Tim Van den Eede and I work for Navmatix, the company who developed NtripChecker.
+We built the app mainly as a simple troubleshooting tool for RTK / NTRIP setups, and over time it’s also become a handy way for us to understand how people actually run and use RTK services in the real world.
+Quick question so I don’t waste your time: which of these best describes you?
+1. I work for an RTK corrections service provider
+2. I work for a company that operates…</pre>
+            </div>
+            
+            <div class="sample">
+              <div class="sample-head">
+                <strong>Jaanus Metsar</strong>
+                <span class="muted">— jaanusmetsar@gmail.com</span>
+                <span class="muted"> · 2026-04-28</span>
+                <span class="conf ">conf 0.90</span>
+              </div>
+              <div class="sample-meta">Variant B with names · <em>The sender works for a company that developed an RTK troubleshooting tool, indicating they provide RTK corrections services.</em></div>
+              <pre class="sample-body">1
+T, 28. aprill 2026, 08:32 Tim Van den Eede &lt;
+vandeneede.tim@navmatix-team.com
+Hi Jaanus,
+I’m reaching out because you’ve used NtripChecker recently.
+I’m Tim Van den Eede and I work for Navmatix, the company who developed NtripChecker.
+We built the app mainly as a simple troubleshooting tool for RTK / NTRIP setups, and over time it’s also become a handy way for us to understand how people actually run and use RTK services in the real world.
+Quick question so I don’t waste your time: which of these best describes you?
+1. I work for an RTK corrections service provider
+2. I work for a company th…</pre>
+            </div>
+            
+            <div class="sample">
+              <div class="sample-head">
+                <strong>Gjorgji Gjorgjiev</strong>
+                <span class="muted">— gorgi.gorgiev@gmail.com</span>
+                <span class="muted"> · 2026-04-27</span>
+                <span class="conf ">conf 0.90</span>
+              </div>
+              <div class="sample-meta">Variant B with names · <em>The sender operates a CORS network and uses NtriChecker for operational monitoring, indicating they provide RTK corrections.</em></div>
+              <pre class="sample-body">Dear Tim,
+Thank you for your email.
+We operate a CORS network, so I mainly use NtriChecker to check whether the stations and servers are functioning properly. My use of the system does not usually go beyond this operational monitoring.
+I am not sure whether this information will be helpful for your purposes, but I hope it provides at least some useful context.
+Best regards,
+Gjorgji
+On Mon, Apr 27, 2026 at 8:02 AM Tim Van den Eede &lt;
+tim.vandeneede@hello-navmatix.com
+Hi Gjorgji,
+Just following up in case this got buried.
+The reason I’m asking is that we’re trying to learn how different teams run…</pre>
+            </div>
+            
+            <div class="sample">
+              <div class="sample-head">
+                <strong>Iulian Cretu</strong>
+                <span class="muted">— iulian.plm.agc@gmail.com</span>
+                <span class="muted"> · 2026-04-20</span>
+                <span class="conf ">conf 0.90</span>
+              </div>
+              <div class="sample-meta">Variant B with names · <em>The sender works for a company that sells NTRIP subscriptions, indicating they provide RTK corrections.</em></div>
+              <pre class="sample-body">Hi
+I am using your mobile app for the following reasons: i work for a company that sales ntrip subscriptions to a VRS Network.
+I also have my own network with near base station stream. And my own base stations.
+I use to check if an user is still available, or expired.
+Also to see how far is a base station, or if the closest one is alive.
+That&#x27;s about it.
+Good luck!
+On Fri, Apr 17, 2026, 9:02 AM Tim Van den Eede &lt;
+vandeneede.tim@ntrip-by-navmatix.com
+Hi Iulian,
+Just following up in case this got buried.
+The reason I’m asking is that we’re trying to learn how different teams run and monitor RTK …</pre>
+            </div>
+            
+            <div class="sample">
+              <div class="sample-head">
+                <strong>Ken Bäckström</strong>
+                <span class="muted">— ken.backstrom@gmail.com</span>
+                <span class="muted"> · 2026-04-14</span>
+                <span class="conf ">conf 1.00</span>
+              </div>
+              <div class="sample-meta">Variant B with names · <em>The reply explicitly states &#x27;1&#x27;, indicating the sender works for an RTK corrections service provider.</em></div>
+              <pre class="sample-body">1
+Med bästa hälsningar,
+Ken Bäckström
+On Tue, 14 Apr 2026, 07:31 Tim Van den Eede, &lt;
+tim@get-glopos.com
+Hi Ken,
+I’m reaching out because you’ve used NtripChecker recently.
+I’m Tim Van den Eede and I work for Navmatix, the company who developed NtripChecker.
+We built the app mainly as a simple troubleshooting tool for RTK / NTRIP setups, and over time it’s also become a handy way for us to understand how people actually run and use RTK services in the real world.
+Quick question so I don’t waste your time: which of these best describes you?
+1. I work for an RTK corrections service provider
+2. I …</pre>
+            </div>
+            
+        </details>
+        
+        <details class="cat-section" style="border-left: 4px solid #16a34a;">
+          <summary>
+            <strong>Device Company</strong> · 72 replies
+            <span class="muted">— Operates or sells RTK-enabled devices (fleets, OEMs, robotics)</span>
+          </summary>
+          
+            <div class="sample">
+              <div class="sample-head">
+                <strong>Gavin Harris</strong>
+                <span class="muted">— gavin.harris@redlynchtractors.co.uk</span>
+                <span class="muted"> · 2026-05-05</span>
+                <span class="conf ">conf 1.00</span>
+              </div>
+              <div class="sample-meta">Variant B with names · <em>The sender explicitly stated they work for a company that operates/sells RTK-enabled devices.</em></div>
+              <pre class="sample-body">Hi Tim
+I would be a 2
+Many Thanks
+Gavin Harris
+Precision Farming Manager | Redlynch Agricultural Engineering Ltd
+M:
+07714 135878
+W:
+www.redlynchtractors.co.uk
+E:
+gavin.harris
+@redlynchtractors.co.uk
+A:
+Redlynch, Bruton, Somerset BA10 0NH</pre>
+            </div>
+            
+            <div class="sample">
+              <div class="sample-head">
+                <strong>Rupert Trübenbacher</strong>
+                <span class="muted">— rupert@truebenbacher.com</span>
+                <span class="muted"> · 2026-05-04</span>
+                <span class="conf ">conf 0.90</span>
+              </div>
+              <div class="sample-meta">Variant B with names · <em>The reply indicates involvement with RTK-enabled devices.</em></div>
+              <pre class="sample-body">2
+-------- Ursprüngliche Nachricht --------</pre>
+            </div>
+            
+            <div class="sample">
+              <div class="sample-head">
+                <strong>Jakob Knoppik</strong>
+                <span class="muted">— j.knoppik@landtechnik-koester.de</span>
+                <span class="muted"> · 2026-05-04</span>
+                <span class="conf ">conf 1.00</span>
+              </div>
+              <div class="sample-meta">Variant B with names · <em>The reply explicitly states they work for a company that operates or sells RTK-enabled devices.</em></div>
+              <pre class="sample-body">Hello,
+I work for a company that operates or sells RTK-enabled devices
+      (fleets, OEMs, robotics, etc.)
+It´s a Company for Tractors an Harvester.
+Best Regards
+Jakob Knoppik-Löffler
+Am 29.04.2026 um 07:32 schrieb Tim Van
+      den Eede:
+re: NtripChecker user
+Hi Jakob,
+I’m reaching out because you’ve used NtripChecker recently.
+I’m Tim Van den Eede and I work for Navmatix, the company who
+        developed NtripChecker.
+We built the app mainly as a simple troubleshooting tool for
+        RTK / NTRIP setups, and over time it’s also become a handy way
+        for us to understand how people ac…</pre>
+            </div>
+            
+            <div class="sample">
+              <div class="sample-head">
+                <strong>Kyriaki Constantinou</strong>
+                <span class="muted">— kyriakiconstantinou@eac.com.cy</span>
+                <span class="muted"> · 2026-05-04</span>
+                <span class="conf ">conf 0.90</span>
+              </div>
+              <div class="sample-meta">Variant B with names · <em>The sender works for a company that operates RTK-enabled devices and runs its own RTK network.</em></div>
+              <pre class="sample-body">NtripChecker follow up
+Hi Tim.
+For me it’s 1 &amp; 2
+I work for a company that operates RTK-enable devices, but runs its own RTK network, sending corrections to GPS survey instruments.
+I act as an end user and as an administrator of the RTK network as well.
+Quick question so I don’t waste your time: which of these best describes you?
+1. I work for an RTK corrections service provider
+2. I work for a company that operates or sells RTK-enabled devices (fleets, OEMs, robotics, etc.)
+3. I’m an end user, using RTK for my own setup</pre>
+            </div>
+            
+            <div class="sample">
+              <div class="sample-head">
+                <strong>David Lewis</strong>
+                <span class="muted">— david.lewis@claas.com</span>
+                <span class="muted"> · 2026-04-30</span>
+                <span class="conf ">conf 1.00</span>
+              </div>
+              <div class="sample-meta">Variant B with names · <em>The reply explicitly selects option 2, indicating they work for a company that operates/sells RTK-enabled devices.</em></div>
+              <pre class="sample-body">re: NtripChecker user
+Hi Tim,
+2
+Best regards
+________________________________________
+David Lewis
+IT Department
+CLAAS
+|
+GSO Region AW
+P
++44 1284 777 761
+M
++44
+7917 594 954
+E
+david.lewis@claas.com
+CLAAS UK Ltd, Saxham, Bury St Edmunds, Suffolk, IP28 6QZ
+claas.com
+Follow CLAAS:
+Instagram
+|
+Facebook
+|
+TikTok
+|
+YouTube
+|
+LinkedIn
+|
+X</pre>
+            </div>
+            
+        </details>
+        
+        <details class="cat-section" style="border-left: 4px solid #f59e0b;">
+          <summary>
+            <strong>End User</strong> · 331 replies
+            <span class="muted">— End user with own RTK setup</span>
+          </summary>
+          
+            <div class="sample">
+              <div class="sample-head">
+                <strong>Jukka Hollo</strong>
+                <span class="muted">— holloju@gmail.com</span>
+                <span class="muted"> · 2026-05-04</span>
+                <span class="conf ">conf 0.90</span>
+              </div>
+              <div class="sample-meta">Variant B with names · <em>The sender describes using an RTK connection in their tractor, indicating they are an end user.</em></div>
+              <pre class="sample-body">Hi Tim,
+Thanks for reaching out. To answer your question: I use an RTK connection in my tractor for automatic steering, and I currently rely on
+NtripChecker
+to verify that the signal is up and running correctly.
+Regarding your expertise, I have a specific use case I&#x27;m looking to solve: I would like to see my exact RTK-corrected position directly on my smartphone while standing in the field.
+Does Navmatix have a solution or a mobile app that allows me to bridge the RTK correction to a phone, or is this something you are currently looking into?
+Best regards,
+Jukka Hollo
+to 30.4.2026 klo 10.31 Ti…</pre>
+            </div>
+            
+            <div class="sample">
+              <div class="sample-head">
+                <strong>Carson Goossen</strong>
+                <span class="muted">— ctgoossen2004@gmail.com</span>
+                <span class="muted"> · 2026-05-04</span>
+                <span class="conf ">conf 0.95</span>
+              </div>
+              <div class="sample-meta">Variant B with names · <em>The reply explicitly states they are an end user and expresses satisfaction with the app.</em></div>
+              <pre class="sample-body">3. And I’m really liking the app. Very handy, good work!
+Carson
+On Mon, May 4, 2026 at 01:04 Tim Van den Eede &lt;
+vandeneede.tim@ntrip-tool.com
+Hi Carson,
+I’m reaching out because you’ve used NtripChecker recently.
+I’m Tim Van den Eede and I work for Navmatix, the company who developed NtripChecker.
+We built the app mainly as a simple troubleshooting tool for RTK / NTRIP setups, and over time it’s also become a handy way for us to understand how people actually run and use RTK services in the real world.
+Quick question so I don’t waste your time: which of these best describes you?
+1. I work for …</pre>
+            </div>
+            
+            <div class="sample">
+              <div class="sample-head">
+                <strong>Martin Vargas</strong>
+                <span class="muted">— mlv@33photo.com</span>
+                <span class="muted"> · 2026-05-04</span>
+                <span class="conf ">conf 1.00</span>
+              </div>
+              <div class="sample-meta">Variant B with names · <em>The reply explicitly states they are category #3, indicating they are an end user with their own RTK setup.</em></div>
+              <pre class="sample-body">Hey Tim!
+We are #3
+I’m around if you need any further information.
+Best,
+Martin.</pre>
+            </div>
+            
+            <div class="sample">
+              <div class="sample-head">
+                <strong>Werner Nienhüser</strong>
+                <span class="muted">— mail@wnienhueser.de</span>
+                <span class="muted"> · 2026-05-04</span>
+                <span class="conf ">conf 1.00</span>
+              </div>
+              <div class="sample-meta">Variant B with names · <em>The reply explicitly indicates the sender is an end user with their own RTK setup.</em></div>
+              <pre class="sample-body">3
+Werner Nienhüser
+Barenbreede 18
+49504 Lotte OT Halen
+mobil: 0172 5218518
+mail@wnienhueser.de
+Am 04.05.2026 um 09:01 schrieb Tim Van den Eede &lt;
+tim@navmatix-ntrip.com
+re: NtripChecker user
+Hi Werner,
+I’m reaching out because you’ve used NtripChecker recently.
+I’m Tim Van den Eede and I work for Navmatix, the company who developed NtripChecker.
+We built the app mainly as a simple troubleshooting tool for RTK / NTRIP setups, and over time it’s also become a handy way for us to understand how people actually run and use RTK services in the real world.
+Quick question so I don’t waste your time: w…</pre>
+            </div>
+            
+            <div class="sample">
+              <div class="sample-head">
+                <strong>Ákos Csergő</strong>
+                <span class="muted">— csergo.akos@mnm.hu</span>
+                <span class="muted"> · 2026-05-04</span>
+                <span class="conf ">conf 0.90</span>
+              </div>
+              <div class="sample-meta">Variant B with names · <em>The reply indicates the sender is using RTK services for their own setup in archaeological excavations.</em></div>
+              <pre class="sample-body">Hi Tim!
+The best from the 3 options is the 3
+rd
+one. I am trying to use RTK services for making digital drawings by GPS-GNSS devices on archaeological excavations.
+Sorry for the late answer,  but I am on fraternity leave in the next 2 weeks.
+Best regards,
+Csergő Ákos
+Régész
+|
+Terepi Régészeti Osztály/ Feltárási Főosztály, Nemzeti Régészeti Intézet
+Telefonszám: 00 36 30 436 0631
+Székhely: 1088 Budapest, Múzeum krt. 14-16.
+Az e-mail tartalma bizalmas és kizárólag a címzettnek szól. Tartalmazhat kizárólagos vagy szerzői jogvédelem
+ alá tartozó elemeket is. Amennyiben nem Ön az e-mail címzettje, k…</pre>
+            </div>
+            
+        </details>
+        
+        <details class="cat-section" style="border-left: 4px solid #9ca3af;">
+          <summary>
+            <strong>Out of Office</strong> · 20 replies
+            <span class="muted">— Automatic out-of-office reply</span>
+          </summary>
+          
+            <div class="sample">
+              <div class="sample-head">
+                <strong>julien seguin</strong>
+                <span class="muted">— delombois@gmail.com</span>
+                <span class="muted"> · 2026-04-27</span>
+                <span class="conf low-conf">conf 0.00</span>
+              </div>
+              <div class="sample-meta">Variant B with names · <em>The reply is a request to not be contacted again, indicating disinterest.</em></div>
+              <pre class="sample-body">Hello,
+Please don&#x27;t mail me again.
+Best regards,
+Julien S
+Le lun. 27 avr. 2026, 08:33, Tim Van den Eede &lt;
+tim@team-navmatix.com
+Hi julien,
+If you’re closer to #1 or #2 (provider, OEM, fleet operator):
+I’d love to do a short intro call to understand how you currently:
+• manage RTK infrastructure or suppliers
+• handle users, access, subscriptions, or support
+• deal with scaling across regions or partners
+We’re working on
+www.glopos.net
+, an NTRIP-caster-as-a-service platform, so the goal is mainly to learn and sanity-check what we’re building.
+If you’re open to a 15-min chat, just
+grab a slot in…</pre>
+            </div>
+            
+            <div class="sample">
+              <div class="sample-head">
+                <strong>Bernhard Galitzki</strong>
+                <span class="muted">— bgalitzki@gmx.de</span>
+                <span class="muted"> · 2026-04-21</span>
+                <span class="conf ">conf 0.90</span>
+              </div>
+              <div class="sample-meta">Variant B with names · <em>The sender indicates they are retired and not currently involved in the industry.</em></div>
+              <pre class="sample-body">Hi Tim,
+I’ve been retired for over a year now. Before that, I was part of
+      the SAPOS NRW team. The website is
+www.sapos.nrw.de
+, where you can
+      also find the contact information.
+Best regards and all the best,
+Bernhard Galitzki
+Am 21.04.2026 um 08:30 schrieb Tim Van
+      den Eede:
+re: user status
+Hi Bernhard,
+If you’re closer to #1 or #2 (provider, OEM, fleet operator):
+I’d love to do a short intro call to understand how you
+        currently:
+• manage RTK infrastructure or suppliers
+• handle users, access, subscriptions, or support
+• deal with scaling across regions or partners
+We’…</pre>
+            </div>
+            
+            <div class="sample">
+              <div class="sample-head">
+                <strong>Julian Burger</strong>
+                <span class="muted">— burger@fzi.de</span>
+                <span class="muted"> · 2026-04-20</span>
+                <span class="conf ">conf 1.00</span>
+              </div>
+              <div class="sample-meta">Variant B with names · <em>This is an automatic out-of-office reply.</em></div>
+              <pre class="sample-body">Sehr geehrte Damen und Herren,
+vielen Dank für Ihre E-Mail. Ich bin bis einschließlich Montag, den 20.04.2026, nicht am FZI. Ab Dienstag, den 21.04.2026, erreichen Sie mich wieder in meinem Büro. Ihre Anfrage werde ich gerne beantworten, sobald ich zurückgekehrt bin.
+Bei dringenden Anfragen im Rahmen des Projekts C2CBridge wenden Sie sich in der Zwischenzeit bitte an:
+Herrn Melih Yazgan: Tel. +49 721 9654-395, Yazgan@fzi.de
+Vielen Dank!
+Julian Burger
+--
+…………………………………………………
+Julian Burger
+Mitarbeiter | Staff
+Intelligent Systems and Production Engineering
+FZI Forschungszentrum Informatik
+Haid-und…</pre>
+            </div>
+            
+            <div class="sample">
+              <div class="sample-head">
+                <strong>Jannika Rolfs</strong>
+                <span class="muted">— jar@tf.uni-kiel.de</span>
+                <span class="muted"> · 2026-04-30</span>
+                <span class="conf ">conf 1.00</span>
+              </div>
+              <div class="sample-meta">Variant B with names · <em>The reply indicates a delivery failure due to spam rejection, not a relevant response.</em></div>
+              <pre class="sample-body">Message not delivered
+There was a problem delivering your message to
+jar@tf.uni-kiel.de
+. See the technical details below, or try resending in a few minutes.
+The response from the remote server was:
+554 5.7.0 Reject, id=200-1-05 - spam
+Reporting-MTA: dns;
+googlemail.com
+Received-From-MTA: dns;
+tim.vandeneede@navmatix-contact.com
+Arrival-Date: Wed, 29 Apr 2026 22:32:52 -0700 (PDT)
+X-Original-Message-ID: &lt;
+31d4f4c8-673e-sl11-47c7-b929-cad836c54a7a@navmatix-contact.com
+Final-Recipient: rfc822;
+jar@tf.uni-kiel.de
+Action: failed
+Status: 5.7.0
+Remote-MTA: dns;
+c2001.mx.srv.dfn.de
+. (2001:638:d:c303:…</pre>
+            </div>
+            
+            <div class="sample">
+              <div class="sample-head">
+                <strong>Isenmann Marc</strong>
+                <span class="muted">— m.isenmann@cbn-alpin.fr</span>
+                <span class="muted"> · 2026-04-10</span>
+                <span class="conf ">conf 1.00</span>
+              </div>
+              <div class="sample-meta">Variant B with names · <em>The reply is an automatic out-of-office message.</em></div>
+              <pre class="sample-body">Bonjour,
+Je suis en congés. Je prendrai connaissance de votre courriel à mon retour.
+Bien cordialement,
+Marc Isenmann - CBNA
+
+
+-- 
+
+
+*Marc Isenmann - Délégué pour les Alpes du Nord et l’Ain, Géomatique*
+
+*CBNA*
+
+Mobile pro. : 07 87 75 12 82</pre>
+            </div>
+            
+        </details>
+        
+        <details class="cat-section" style="border-left: 4px solid #dc2626;">
+          <summary>
+            <strong>Other / Unclassified</strong> · 47 replies
+            <span class="muted">— Unsubscribe, wrong-person, off-topic, generic &#x27;not interested&#x27;</span>
+          </summary>
+          
+            <div class="sample">
+              <div class="sample-head">
+                <strong>Jonas D</strong>
+                <span class="muted">— daeubler.jonas.karaceing@gmail.com</span>
+                <span class="muted"> · 2026-04-28</span>
+                <span class="conf ">conf 0.90</span>
+              </div>
+              <div class="sample-meta">Variant B with names · <em>The reply indicates they do not engage with RTK services and are not the target group.</em></div>
+              <pre class="sample-body">Hello,
+sorry I am very busy at the moment.
+We just needed the tool for a small side project. We normally don&#x27;t to anything regarding RTK.
+So probably we are not the target group you are searching for.
+Kind regards
+––
+Jonas Däubler
+Alumniratmitglied
+Technische Leitung - KIT23
+Elektronik - Sensorik, PDU (2022)
+KA-RaceIng e.V.
+Karlsruher Institut für Technologie (KIT)
+Rechnungs- und Lieferanschrift:
+Gebäude 70.03
+Rintheimer Querallee 2
+76131 Karlsruhe
+Mobil: +49 1520 1792023
+E-Mail:
+jonas.daeubler@ka-raceing.de
+Internet:
+www.ka-raceing.de
+Registergericht Mannheim VR 103249 - Steuernummer 35022/61…</pre>
+            </div>
+            
+            <div class="sample">
+              <div class="sample-head">
+                <strong>Dan Colbert</strong>
+                <span class="muted">— colbert.d.j@gmail.com</span>
+                <span class="muted"> · 2026-04-27</span>
+                <span class="conf ">conf 0.90</span>
+              </div>
+              <div class="sample-meta">Variant B with names · <em>The reply does not indicate a relevant role in RTK services, devices, or end-user setups.</em></div>
+              <pre class="sample-body">Hi Tim,
+Whenever I&#x27;ve used NTRIP Checker, it was just a very quick test to verify credentials and an active correction stream.
+I haven&#x27;t used it beyond that for anything else.
+Regards,
+Dan
+On Mon, Apr 27, 2026 at 12:02 AM Tim Van den Eede &lt;
+tim@glopos-global.com
+Hi Dan,
+Just following up in case this got buried.
+The reason I’m asking is that we’re trying to learn how different teams run and monitor RTK networks, manage multiple RTK correction providers or troubleshoot issues in the field.
+Even a short reply helps us a lot.
+Thank you,
+Tim Van den Eede
+Chief Commercial Officer
++420 770 606 602
+w…</pre>
+            </div>
+            
+            <div class="sample">
+              <div class="sample-head">
+                <strong>Ove Nordin</strong>
+                <span class="muted">— ove.nordin@gmail.com</span>
+                <span class="muted"> · 2026-04-24</span>
+                <span class="conf ">conf 0.90</span>
+              </div>
+              <div class="sample-meta">Variant B with names · <em>The reply indicates that the sender is not using RTK, which suggests they are not relevant to the inquiry.</em></div>
+              <pre class="sample-body">Hi,
+Sorry but I&#x27;m not using RTK.
+Best regards
+/Ove
+Den fre 24 apr. 2026 08:32Tim Van den Eede &lt;
+tim.vandeneede@check-ntrip.com
+Hi Ove,
+Just following up in case this got buried.
+The reason I’m asking is that we’re trying to learn how different teams run and monitor RTK networks, manage multiple RTK correction providers or troubleshoot issues in the field.
+Even a short reply helps us a lot.
+Thank you,
+Tim Van den Eede
+Chief Commercial Officer
++420 770 606 602
+www.navmatix.com
+If my message is not relevant for you, please let me know.</pre>
+            </div>
+            
+            <div class="sample">
+              <div class="sample-head">
+                <strong>Chris Elliott</strong>
+                <span class="muted">— elliottschrise@nrtco.net</span>
+                <span class="muted"> · Fri, 24 Ap</span>
+                <span class="conf ">conf 0.90</span>
+              </div>
+              <div class="sample-meta">Variant B with names · <em>The reply is about a change of email address and does not indicate any relevant category.</em></div>
+              <pre class="sample-body">Thank you for your message. Please note that my email address has recently changed.
+
+New Email Address: chris.elliott@elliottfarmequipment.com 
+
+This email account (elliottschrise@nrtco.net) is no longer monitored. Kindly update your records and direct all future communications to my new email address.
+
+I appreciate your understanding Chris Elliott</pre>
+            </div>
+            
+            <div class="sample">
+              <div class="sample-head">
+                <strong>Bruno Ringo</strong>
+                <span class="muted">— bruno.ringo@gmail.com</span>
+                <span class="muted"> · 2026-04-20</span>
+                <span class="conf ">conf 0.90</span>
+              </div>
+              <div class="sample-meta">Variant B with names · <em>The sender indicates they are not using the app and does not provide relevant information about RTK services or devices.</em></div>
+              <pre class="sample-body">NtripChecker follow up
+Hi,
+I tried your app but I’m not using it.
+Regards
+De :
+Tim Van den Eede &lt;tim@glopos-tech.com&gt;
+Envoyé :
+lundi 20 avril 2026 07:32
+À :
+bruno.ringo@gmail.com
+Objet :
+NtripChecker follow up
+Hi Bruno,
+Just following up in case this got buried.
+The reason I’m asking is that we’re trying to learn how different teams run and monitor RTK networks, manage multiple RTK correction providers or troubleshoot issues in the field.
+Even a short reply helps us a lot.
+Thank you,
+Tim Van den Eede
+Chief Commercial Officer
++420 770 606 602
+www.navmatix.com
+If my message is not relevant for y…</pre>
+            </div>
+            
+        </details>
+        
+
+  <footer>
+    Generated 2026-05-05 22:49:05 · Source: <code>.tmp/smartlead_rtk_replies_2026-05-05.csv</code><br>
+    Classification: OpenAI gpt-4o-mini · Self-contained HTML — viewable offline (Chart.js loaded from CDN)
+  </footer>
+</div>
+
+<script>
+const weeklyCtx = document.getElementById('weeklyChart').getContext('2d');
+new Chart(weeklyCtx, {
+  type: 'bar',
+  data: { labels: ["2026-W06", "2026-W07", "2026-W08", "2026-W09", "2026-W10", "2026-W11", "2026-W12", "2026-W13", "2026-W14", "2026-W15", "2026-W16", "2026-W17", "2026-W18", "2026-W19"], datasets: [{"label": "RTK Provider", "data": [2, 1, 4, 2, 4, 6, 4, 1, 1, 1, 1, 1, 3, 0], "backgroundColor": "#2563eb", "borderWidth": 0}, {"label": "Device Company", "data": [1, 0, 12, 7, 3, 6, 7, 1, 6, 4, 5, 11, 5, 4], "backgroundColor": "#16a34a", "borderWidth": 0}, {"label": "End User", "data": [3, 0, 6, 10, 49, 40, 34, 45, 36, 28, 29, 23, 21, 7], "backgroundColor": "#f59e0b", "borderWidth": 0}, {"label": "Out of Office", "data": [4, 1, 1, 2, 1, 3, 1, 0, 1, 2, 0, 2, 2, 0], "backgroundColor": "#9ca3af", "borderWidth": 0}, {"label": "Other / Unclassified", "data": [5, 1, 3, 1, 6, 8, 3, 4, 4, 4, 2, 4, 2, 0], "backgroundColor": "#dc2626", "borderWidth": 0}] },
+  options: {
+    responsive: true,
+    plugins: { legend: { position: 'bottom', labels: { font: { size: 12 } } } },
+    scales: {
+      x: { stacked: true, grid: { display: false } },
+      y: { stacked: true, beginAtZero: true, ticks: { precision: 0 } }
+    }
+  }
+});
+
+const pieData = {"labels": ["RTK Provider", "Device Company", "End User", "Out of Office", "Other / Unclassified"], "data": [31, 72, 331, 20, 47], "colors": ["#2563eb", "#16a34a", "#f59e0b", "#9ca3af", "#dc2626"]};
+new Chart(document.getElementById('pieChart').getContext('2d'), {
+  type: 'doughnut',
+  data: {
+    labels: pieData.labels,
+    datasets: [{ data: pieData.data, backgroundColor: pieData.colors, borderWidth: 2, borderColor: '#fff' }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, boxWidth: 12 } } }
+  }
+});
+</script>
+</body>
+</html>
