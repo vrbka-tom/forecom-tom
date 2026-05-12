@@ -1,0 +1,2358 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IXTENT × FORECOM - Finance Směr 1 - Preview kampaně</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', Roboto, sans-serif;
+    background: #f8fafc;
+    color: #0f172a;
+    line-height: 1.5;
+    font-size: 14px;
+  }
+
+  /* Watermark banner */
+  .watermark-banner {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #fbbf24;
+    color: #78350f;
+    padding: 10px 24px;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: center;
+    border-bottom: 1px solid #f59e0b;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+  }
+  .watermark-banner strong { color: #92400e; }
+
+  /* Layout */
+  .layout {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    min-height: calc(100vh - 50px);
+  }
+
+  /* Sidebar */
+  .sidebar {
+    background: #0f172a;
+    color: #e2e8f0;
+    padding: 20px 16px;
+    position: sticky;
+    top: 50px;
+    align-self: start;
+    max-height: calc(100vh - 50px);
+    overflow-y: auto;
+    font-size: 13px;
+  }
+  .sidebar h1 {
+    font-size: 16px;
+    margin: 0 0 4px 0;
+    color: #ffffff;
+    letter-spacing: 0.3px;
+  }
+  .sidebar .subtitle {
+    color: #94a3b8;
+    font-size: 11px;
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .sidebar h2 {
+    font-size: 11px;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin: 20px 0 8px 0;
+    font-weight: 600;
+  }
+  .sidebar-seq {
+    margin-bottom: 8px;
+    border-left: 3px solid transparent;
+    padding-left: 8px;
+  }
+  .sidebar-seq.active {
+    border-left-color: #60a5fa;
+    background: rgba(59, 130, 246, 0.08);
+  }
+  .sidebar-seq-link {
+    display: block;
+    color: #e2e8f0;
+    text-decoration: none;
+    padding: 6px 4px;
+    font-weight: 600;
+  }
+  .sidebar-seq-link:hover { color: #93c5fd; }
+  .sidebar-seq-size {
+    display: block;
+    color: #94a3b8;
+    font-size: 11px;
+    font-weight: 400;
+    margin-top: 2px;
+  }
+  .sidebar-clusters {
+    list-style: none;
+    padding: 0 0 6px 8px;
+    margin: 0;
+  }
+  .sidebar-cluster {
+    padding: 3px 0;
+    font-size: 12px;
+  }
+  .sidebar-cluster a {
+    color: #cbd5e1;
+    text-decoration: none;
+  }
+  .sidebar-cluster a:hover { color: #93c5fd; }
+
+  /* Controls */
+  .controls {
+    margin-top: 16px;
+    padding: 12px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 6px;
+  }
+  .control-group {
+    margin-bottom: 12px;
+  }
+  .control-group:last-child { margin-bottom: 0; }
+  .control-label {
+    font-size: 11px;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+  .toggle-group {
+    display: inline-flex;
+    background: #1e293b;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid #334155;
+  }
+  .toggle-btn {
+    background: transparent;
+    color: #cbd5e1;
+    border: none;
+    padding: 5px 12px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    transition: all 0.15s;
+  }
+  .toggle-btn.active {
+    background: #3b82f6;
+    color: #ffffff;
+  }
+  .toggle-btn:hover:not(.active) { background: #334155; }
+
+  /* Reply scenarios accordion */
+  .scenarios {
+    margin-top: 16px;
+    font-size: 12px;
+  }
+  .scenario {
+    background: rgba(255,255,255,0.03);
+    border-left: 2px solid #3b82f6;
+    padding: 8px 10px;
+    margin-bottom: 6px;
+    border-radius: 0 4px 4px 0;
+  }
+  .scenario-title {
+    font-weight: 600;
+    color: #93c5fd;
+    margin-bottom: 4px;
+  }
+  .scenario-text {
+    color: #cbd5e1;
+    font-size: 11px;
+    line-height: 1.45;
+  }
+
+  /* Main panel */
+  .main {
+    padding: 24px 32px 80px 32px;
+    max-width: 1100px;
+  }
+  .main h1.page-title {
+    font-size: 22px;
+    margin: 0 0 4px 0;
+    color: #0f172a;
+  }
+  .main .page-subtitle {
+    color: #64748b;
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+
+  .kpi-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .kpi {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: #475569;
+  }
+  .kpi-num {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1e40af;
+    margin-right: 6px;
+  }
+
+  /* Sequence */
+  .sequence {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    margin-bottom: 32px;
+    overflow: hidden;
+  }
+  .seq-header {
+    background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+    color: #ffffff;
+    padding: 22px 28px;
+  }
+  .seq-title {
+    font-size: 20px;
+    margin: 0 0 12px 0;
+    font-weight: 700;
+  }
+  .seq-meta {
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: #dbeafe;
+  }
+  .meta-row { margin: 3px 0; }
+  .meta-row strong { color: #ffffff; font-weight: 600; }
+  .meta-avoid { color: #fed7aa; }
+  .meta-avoid strong { color: #ffedd5; }
+  .seq-framing {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: rgba(255,255,255,0.08);
+    border-left: 3px solid #fbbf24;
+    border-radius: 0 4px 4px 0;
+    color: #fef3c7;
+  }
+  .seq-clusters {
+    margin: 4px 0 0 0;
+    padding-left: 22px;
+    color: #dbeafe;
+  }
+  .seq-clusters li { margin: 2px 0; }
+
+  /* Timeline */
+  .timeline {
+    position: relative;
+    margin-top: 18px;
+    padding: 14px 0 4px 0;
+  }
+  .timeline-line {
+    position: absolute;
+    top: 30px;
+    left: 24px;
+    right: 24px;
+    height: 2px;
+    background: rgba(255,255,255,0.25);
+  }
+  .timeline-nodes {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    z-index: 1;
+    padding: 0 12px;
+  }
+  .timeline-node {
+    text-align: center;
+    color: #ffffff;
+    text-decoration: none;
+    flex: 1;
+    font-size: 11px;
+  }
+  .node-circle {
+    width: 34px;
+    height: 34px;
+    background: #ffffff;
+    color: #1e40af;
+    border-radius: 50%;
+    margin: 0 auto 4px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    transition: transform 0.15s;
+  }
+  .timeline-node:hover .node-circle {
+    transform: scale(1.12);
+    background: #fef3c7;
+  }
+  .timeline-node.tp-linkedin .node-circle,
+  .timeline-node.tp-li_cr .node-circle {
+    background: #c7d2fe;
+    color: #312e81;
+  }
+  .node-day { color: #cbd5e1; font-size: 10px; }
+
+  /* Touchpoint */
+  .touchpoints { padding: 20px 28px 28px 28px; }
+  .touchpoint {
+    margin-bottom: 28px;
+    padding-bottom: 26px;
+    border-bottom: 1px dashed #e2e8f0;
+  }
+  .touchpoint:last-child { border-bottom: none; padding-bottom: 0; }
+  .tp-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .tp-day-badge {
+    background: #1e40af;
+    color: #ffffff;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+  .tp-linkedin .tp-day-badge, .tp-li_cr .tp-day-badge {
+    background: #4338ca;
+  }
+  .tp-title {
+    font-size: 17px;
+    margin: 0;
+    color: #0f172a;
+    font-weight: 600;
+  }
+  .tp-type {
+    color: #64748b;
+    font-size: 12px;
+    background: #f1f5f9;
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+  .tp-purpose {
+    color: #475569;
+    font-size: 12.5px;
+    margin: 0 0 14px 0;
+    font-style: italic;
+  }
+  .section-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #64748b;
+    font-weight: 600;
+    margin: 14px 0 8px 0;
+  }
+
+  /* Subject cards */
+  .subject-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .subject-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+  .subject-card.subject-live {
+    background: #ecfdf5;
+    border-color: #10b981;
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.1);
+  }
+  .subject-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  .subject-letter {
+    font-weight: 700;
+    color: #1e40af;
+    font-size: 12px;
+  }
+  .badge {
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+  .badge-live {
+    background: #10b981;
+    color: #ffffff;
+  }
+  .badge-test {
+    background: #e0e7ff;
+    color: #3730a3;
+  }
+  .badge-default {
+    background: #fef3c7;
+    color: #92400e;
+    border: 1px solid #fbbf24;
+  }
+  .subject-line, .subject-preview, .subject-audience {
+    margin: 4px 0;
+    font-size: 12px;
+    line-height: 1.45;
+  }
+  .subject-line strong, .subject-preview strong { color: #334155; font-weight: 600; }
+  .subject-audience { color: #64748b; font-size: 11px; font-style: italic; }
+
+  /* Body card */
+  .body-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  .body-head {
+    background: #f1f5f9;
+    padding: 8px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .body-cluster {
+    font-weight: 600;
+    color: #0f172a;
+    font-size: 13px;
+  }
+  .body-cta {
+    padding: 6px 14px;
+    background: #fafafa;
+    color: #475569;
+    font-size: 11.5px;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  .body-cta strong { color: #1e40af; }
+  .body-text {
+    padding: 18px 22px;
+    font-family: 'Charter', 'Georgia', 'Iowan Old Style', serif;
+    line-height: 1.65;
+    color: #1f2937;
+    font-size: 14px;
+    max-width: 680px;
+  }
+  .body-sk-missing { background: #fffbeb; color: #92400e; padding: 12px 22px; font-style: italic; }
+
+  /* Variable highlight */
+  .var {
+    background: #fef3c7;
+    border: 1px dashed #d97706;
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: #78350f;
+    font-family: 'Menlo', 'Monaco', monospace;
+    font-size: 0.88em;
+    cursor: help;
+  }
+  /* When data ON, vars are replaced with samples and rendered as inline subtle highlight */
+  body.data-on .var {
+    background: #dbeafe;
+    border: 1px solid #93c5fd;
+    color: #1e3a8a;
+    font-family: inherit;
+    font-size: 1em;
+    font-weight: 500;
+    padding: 0 4px;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 40px;
+    padding: 16px 32px;
+    background: #f1f5f9;
+    color: #64748b;
+    font-size: 11.5px;
+    border-top: 1px solid #e2e8f0;
+  }
+  .footer code { font-family: 'Menlo', monospace; color: #334155; background: #ffffff; padding: 1px 5px; border-radius: 3px; }
+
+  /* Mobile */
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; }
+    .sidebar { position: relative; top: 0; max-height: none; }
+    .subject-grid { grid-template-columns: 1fr; }
+    .main { padding: 20px 16px 60px 16px; }
+  }
+
+  /* Print */
+  @media print {
+    .sidebar, .watermark-banner, .controls, .scenarios { display: none !important; }
+    .layout { grid-template-columns: 1fr; }
+    .main { padding: 0; max-width: none; }
+    body { background: #ffffff; font-size: 11px; }
+    .sequence { box-shadow: none; page-break-after: always; border: 1px solid #cbd5e1; }
+    .seq-header { background: #1e3a8a !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .var { background: transparent !important; border: none !important; text-decoration: underline dotted #d97706; padding: 0 !important; color: inherit !important; }
+    .body-text { font-size: 11px; padding: 12px 16px; }
+    .touchpoint { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body class="lang-cz data-off">
+
+<div class="watermark-banner">
+    <strong>UKÁZKOVÁ DATA -</strong> proměnné <code>{firma}</code>, <code>{prijmeni_voc}</code> atd. jsou v náhledu nahrazeny demo hodnotami (Air Bank, Nováku). Reálné odeslané e-maily použijí data z CSV importu (Lemlist).
+</div>
+
+<div class="layout">
+    <aside class="sidebar">
+        <h1>FORECOM × IXTENT</h1>
+        <div class="subtitle">Finance kampaň - Směr 1</div>
+        <div style="color:#94a3b8; font-size: 11px; margin-bottom: 12px;">Generated: 12. 5. 2026 18:18</div>
+
+        <h2>Sekvence</h2>
+        
+            <div class="sidebar-seq active" data-seq="finance-leaders">
+                <a class="sidebar-seq-link" href="#seq-finance-leaders">
+                    <span class="sidebar-seq-title">Sekvence 1: Finance leaders</span>
+                    <span class="sidebar-seq-size">36 kontaktů (+ 3 SK)</span>
+                </a>
+                <ul class="sidebar-clusters"><li class="sidebar-cluster"><a href="#seq-finance-leaders">CFO / SAP (default)</a></li><li class="sidebar-cluster"><a href="#seq-finance-leaders">Banking compliance / Audit / Risk</a></li><li class="sidebar-cluster"><a href="#seq-finance-leaders">Insurance Compliance / Risk</a></li><li class="sidebar-cluster"><a href="#seq-finance-leaders">Leasing CFO</a></li><li class="sidebar-cluster"><a href="#seq-finance-leaders">Board CFO mimo FI</a></li></ul>
+            </div>
+        
+
+            <div class="sidebar-seq " data-seq="it-leaders">
+                <a class="sidebar-seq-link" href="#seq-it-leaders">
+                    <span class="sidebar-seq-title">Sekvence 2: IT/Security leaders</span>
+                    <span class="sidebar-seq-size">~25 kontaktů (~10-12 firem)</span>
+                </a>
+                <ul class="sidebar-clusters"><li class="sidebar-cluster"><a href="#seq-it-leaders">CIO / CTO / Head of IT (default)</a></li><li class="sidebar-cluster"><a href="#seq-it-leaders">CISO / Security Architect / Risk IT</a></li><li class="sidebar-cluster"><a href="#seq-it-leaders">IT Solutions Architect / App Manager</a></li><li class="sidebar-cluster"><a href="#seq-it-leaders">Mid-size IT ředitel</a></li><li class="sidebar-cluster"><a href="#seq-it-leaders">CTO telco/utility group</a></li></ul>
+            </div>
+        
+
+            <div class="sidebar-seq " data-seq="hr-leaders">
+                <a class="sidebar-seq-link" href="#seq-hr-leaders">
+                    <span class="sidebar-seq-title">Sekvence 3: HR leaders</span>
+                    <span class="sidebar-seq-size">~25 kontaktů (~18-20 firem)</span>
+                </a>
+                <ul class="sidebar-clusters"><li class="sidebar-cluster"><a href="#seq-hr-leaders">HR Director / Head of HR (default)</a></li><li class="sidebar-cluster"><a href="#seq-hr-leaders">Chief People &amp; Culture</a></li><li class="sidebar-cluster"><a href="#seq-hr-leaders">Senior HRBP / Lead HRBP</a></li><li class="sidebar-cluster"><a href="#seq-hr-leaders">HR Manager / Recruiting Teamleader</a></li><li class="sidebar-cluster"><a href="#seq-hr-leaders">HR Department Manager / mid-size</a></li></ul>
+            </div>
+        
+
+            <div class="sidebar-seq " data-seq="ops-leaders">
+                <a class="sidebar-seq-link" href="#seq-ops-leaders">
+                    <span class="sidebar-seq-title">Sekvence 4: Ops leaders</span>
+                    <span class="sidebar-seq-size">10 kontaktů (CZ × 9 + SK × 1)</span>
+                </a>
+                <ul class="sidebar-clusters"><li class="sidebar-cluster"><a href="#seq-ops-leaders">Executive Ops (COO, Director Group Finance Ops, Trade Finance)</a></li><li class="sidebar-cluster"><a href="#seq-ops-leaders">Change Manager / Change Mgmt Lead</a></li><li class="sidebar-cluster"><a href="#seq-ops-leaders">Process Analyst / Project Manager / ERP</a></li></ul>
+            </div>
+        
+
+        <div class="controls">
+            <div class="control-group">
+                <div class="control-label">Jazyk</div>
+                <div class="toggle-group" id="lang-toggle">
+                    <button class="toggle-btn active" data-lang="cz">CZ</button>
+                    <button class="toggle-btn" data-lang="sk">SK</button>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="control-label">Ukázková data</div>
+                <div class="toggle-group" id="data-toggle">
+                    <button class="toggle-btn" data-data="on">Vyplnit</button>
+                    <button class="toggle-btn active" data-data="off">Proměnné</button>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="control-label">Tisk</div>
+                <button class="toggle-btn" onclick="window.print()" style="width:100%; background:#3b82f6; color:#fff;">Tisk této stránky</button>
+            </div>
+        </div>
+
+        <h2>Reply scénáře</h2>
+        <div class="scenarios">
+            <div class="scenario">
+                <div class="scenario-title">Pozitivní reply</div>
+                <div class="scenario-text">Handoff Kateřině / Tomášovi do shared inboxu (Lemlist). Sekvence se zastaví.</div>
+            </div>
+            <div class="scenario">
+                <div class="scenario-title">Negativní reply</div>
+                <div class="scenario-text">Krátká reakce „v Q3 se ozvu znovu". Sekvence se zastaví, do Lemlist exclude listu.</div>
+            </div>
+            <div class="scenario">
+                <div class="scenario-title">Email 4 odpověď A</div>
+                <div class="scenario-text">Re-engagement do týdne - kratší follow-up s konkrétním pohledem.</div>
+            </div>
+            <div class="scenario">
+                <div class="scenario-title">Email 4 odpověď B</div>
+                <div class="scenario-text">Odložit do Q3 (3-6 měsíců) - re-engagement v listopadovém budgeting cyklu.</div>
+            </div>
+            <div class="scenario">
+                <div class="scenario-title">Email 4 odpověď C</div>
+                <div class="scenario-text">Opt-out - vyřadit z Lemlist, do suppression listu.</div>
+            </div>
+            <div class="scenario">
+                <div class="scenario-title">No-reply po E4</div>
+                <div class="scenario-text">Default: odložit do Q3 (čtení signál = B by default).</div>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main">
+        <h1 class="page-title">Finance kampaň, Směr 1 - klientský preview všech 4 sekvencí</h1>
+        <p class="page-subtitle">Cílovka: Finance firmy v ČR/SK (banky, pojišťovny, leasing, asset mgmt, finance group). 7 touchpointů × 4 sekvence = celá kampaň ve formě k review. Launch: 18. 5. 2026.</p>
+
+        
+        <div class="kpi-row">
+            <div class="kpi"><span class="kpi-num">4</span> sekvence</div>
+            <div class="kpi"><span class="kpi-num">28</span> touchpointů celkem</div>
+            <div class="kpi"><span class="kpi-num">18</span> cluster variant</div>
+            <div class="kpi"><span class="kpi-num">25</span> dní cadence</div>
+            <div class="kpi"><span class="kpi-num">96</span> kontaktů (CZ + SK)</div>
+        </div>
+    
+
+        
+        <section class="sequence" id="seq-finance-leaders" data-seq="finance-leaders">
+            <header class="seq-header">
+                <h2 class="seq-title">Sekvence 1: Finance leaders</h2>
+                <div class="seq-meta">
+                    <div class="meta-row"><strong>Cílovka:</strong> CFO, Finance Director, Compliance Director, CAE (Internal Audit), Risk Manager, board CFO mimo FI</div>
+                    <div class="meta-row"><strong>Velikost:</strong> 36 kontaktů (+ 3 SK) | <strong>Buckety:</strong> Bucket A + B</div>
+                    <div class="meta-row"><strong>Primary angle:</strong> DORA Art. 28(4) + Art. 29, audit-ready archivy, faktury v SAP, klientská složka</div>
+                    <div class="meta-row"><strong>Compliance angle:</strong> DORA, NIS2, eIDAS, GDPR, MOREQ</div>
+                    <div class="meta-row meta-avoid"><strong>NIKDY nepoužít:</strong> Hype, urgentní fráze, „digital transformation&quot;</div>
+                    
+                    <div class="meta-row"><strong>Clustery:</strong></div>
+                    <ul class="seq-clusters"><li>CFO / SAP (default)</li><li>Banking compliance / Audit / Risk</li><li>Insurance Compliance / Risk</li><li>Leasing CFO</li><li>Board CFO mimo FI</li></ul>
+                </div>
+                <div class="timeline"><div class="timeline-line"></div><div class="timeline-nodes">
+            <a class="timeline-node tp-email" href="#finance-leaders-e1" title="Email 1">
+                <div class="node-circle">@</div>
+                <div class="node-day">Den 0</div>
+            </a>
+        
+            <a class="timeline-node tp-li_cr" href="#finance-leaders-li_cr" title="LinkedIn Connection Request">
+                <div class="node-circle">+in</div>
+                <div class="node-day">Den 1-2</div>
+            </a>
+        
+            <a class="timeline-node tp-linkedin" href="#finance-leaders-li_msg" title="LinkedIn 1st message (po accept)">
+                <div class="node-circle">in</div>
+                <div class="node-day">Den 3</div>
+            </a>
+        
+            <a class="timeline-node tp-email" href="#finance-leaders-e2" title="Email 2">
+                <div class="node-circle">@</div>
+                <div class="node-day">Den 5</div>
+            </a>
+        
+            <a class="timeline-node tp-email" href="#finance-leaders-e3" title="Email 3 (CTA split)">
+                <div class="node-circle">@</div>
+                <div class="node-day">Den 10</div>
+            </a>
+        
+            <a class="timeline-node tp-linkedin" href="#finance-leaders-li_msg2" title="LinkedIn 2nd touch">
+                <div class="node-circle">in</div>
+                <div class="node-day">Den 18</div>
+            </a>
+        
+            <a class="timeline-node tp-email" href="#finance-leaders-e4" title="Email 4 (A/B/C poll)">
+                <div class="node-circle">@</div>
+                <div class="node-day">Den 25</div>
+            </a>
+        </div></div>
+            </header>
+            <div class="touchpoints">
+                
+        <section class="touchpoint tp-email" id="finance-leaders-e1">
+            <header class="tp-header">
+                <div class="tp-day-badge">Den 0</div>
+                <h3 class="tp-title">Email 1</h3>
+                <div class="tp-type">E-mail</div>
+            </header>
+            <p class="tp-purpose">First touch. Signál + hook + opt-in question. Default je CFO/SAP otázka. Banking compliance, Insurance, Leasing, Board mimo FI jsou dedicated cluster bodies.</p>
+            <div class="subjects-section"><div class="section-title">Subject varianty (A/B/C)</div><div class="subject-grid">
+        <div class="subject-card ">
+            <div class="subject-head">
+                <span class="subject-letter">Var. A</span>
+                <span class="badge badge-test">A/B test 33%</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> <span class="var" data-var="{firma}" title="Personalizační proměnná: {firma}">{firma}</span> - krátký pohled k regulačnímu roku</div>
+            <div class="subject-preview"><strong>Preview:</strong> Co vidíme u většiny českých FI 12 měsíců po nabytí účinnosti - pohled napříč trhem.</div>
+            <div class="subject-audience">Pro: Insurance, Asset Mgmt, Board (univerzální fallback)</div>
+        </div>
+    
+        <div class="subject-card ">
+            <div class="subject-head">
+                <span class="subject-letter">Var. B</span>
+                <span class="badge badge-test">A/B test 33%</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> DORA rok 1 - Register of Information a audit vrstva</div>
+            <div class="subject-preview"><strong>Preview:</strong> Register of Information, Art. 28(4) subcontracting chain - pohled na 12 měsíců dohledu.</div>
+            <div class="subject-audience">Pro: Compliance Director, CAE, Risk Manager</div>
+        </div>
+    
+        <div class="subject-card subject-live">
+            <div class="subject-head">
+                <span class="subject-letter">Var. C</span>
+                <span class="badge badge-live">● LIVE - odešle se</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> Jak dnes dohledáváte fakturu v SAP při auditu?</div>
+            <div class="subject-preview"><strong>Preview:</strong> Jeden opakovaný paradox auditní stopy - krátká otázka, žádný produkt.</div>
+            <div class="subject-audience">Pro: CFO, Head of Controlling, Head of Accounting (DEFAULT)</div>
+        </div>
+    </div></div>
+            <div class="bodies-section">
+                <div class="section-title">Body varianty (per cluster)</div>
+                
+        <div class="body-card" data-body-idx="0">
+            <div class="body-head">
+                <span class="body-cluster">CFO / SAP icebreaker (DEFAULT)</span>
+                <span class="badge badge-default">DEFAULT cluster</span>
+            </div>
+            <div class="body-cta"><strong>CTA:</strong> Opt-in otázka (žádná schůzka v E1)</div>
+            <div class="body-text body-cz" data-lang="cz"><span class="var" data-var="{salutation}" title="Personalizační proměnná: {salutation}">{salutation}</span> <span class="var" data-var="{prijmeni_voc}" title="Personalizační proměnná: {prijmeni_voc}">{prijmeni_voc}</span>,<br><br>jak dnes Váš controlling team dohledává konkrétní fakturu v SAP při<br>auditu - přes export, nebo přímo v SAP UI s kompletní stopou<br>(vytěžení → schválení → archiv)?<br><br>U finančních institucí srovnatelné velikosti v ČR vidíme, že právě<br>tato manuální vrstva spotřebovává nejvíc času ve fiskálním auditu i<br>v reakcích na ad-hoc regulatorní žádosti. Rok po DORA to navíc začíná<br>být audit téma, ne jen IT téma.<br><br>Pracujeme se 3 ze 4 největších českých bank a 2 z 5 největších<br>pojišťoven právě v této vrstvě (jména konkrétních projektů pod NDA).<br><br>Dávalo by Vám smysl se krátce spojit, abych s Vámi sdílel krátký<br>pohled napříč trhem na to, jak to dnes řeší srovnatelné finance týmy<br>v SAP, nebo to teď není priorita?<br><br>S pozdravem,</div>
+            <div class="body-text body-sk" data-lang="sk" hidden><span class="var" data-var="{salutation_sk}" title="Personalizační proměnná: {salutation_sk}">{salutation_sk}</span> <span class="var" data-var="{priezvisko_voc}" title="Personalizační proměnná: {priezvisko_voc}">{priezvisko_voc}</span>,<br><br>ako dnes Váš controlling team dohľadáva konkrétnu faktúru v SAP pri<br>audite - cez export, alebo priamo v SAP UI s kompletnou stopou<br>(vyťaženie → schválenie → archív)?<br><br>U finančných inštitúcií porovnateľnej veľkosti v SR/ČR vidíme, že<br>práve táto manuálna vrstva spotrebúva najviac času vo fiškálnom audite<br>aj v reakciách na ad-hoc regulačné žiadosti zo strany NBS. Rok po DORA<br>to navyše začína byť audit téma, nie len IT téma.<br><br>Pracujeme s viacerými veľkými slovenskými a českými FI práve v tejto<br>vrstve (mená konkrétnych projektov pod NDA).<br><br>Dávalo by Vám zmysel sa krátko spojiť, aby som s Vami zdieľal krátky<br>pohľad naprieč trhom na to, ako to dnes riešia porovnateľné finančné<br>tímy v SAP, alebo to teraz nie je priorita?<br><br>S pozdravom,</div>
+        </div>
+    
+        <div class="body-card" data-body-idx="1">
+            <div class="body-head">
+                <span class="body-cluster">Banking Compliance / Audit / Risk</span>
+                
+            </div>
+            <div class="body-cta"><strong>CTA:</strong> Opt-in otázka (žádná schůzka v E1)</div>
+            <div class="body-text body-cz" data-lang="cz"><span class="var" data-var="{salutation}" title="Personalizační proměnná: {salutation}">{salutation}</span> <span class="var" data-var="{prijmeni_voc}" title="Personalizační proměnná: {prijmeni_voc}">{prijmeni_voc}</span>,<br><br>12 měsíců po účinnosti DORA - Register of Information podle Art. 28(4)<br>je u většiny českých bank teď v prvním kole supervisory review ČNB,<br>zejména subcontracting chain pod ICT third-party providery.<br><br>Co u bank srovnatelné velikosti vidíme jako přehlížené téma 2026: ne<br>sám registr, ale jak rychle se dohledá kompletní auditní stopa nad<br>konkrétní třetí stranou - kdy nastoupila, kdo schválil, jaká je exit<br>strategie.<br><br>Pracujeme se 3 ze 4 největších českých bank právě na této vrstvě<br>(jména projektů pod NDA).<br><br>Dávalo by Vám smysl se krátce spojit, abych s Vámi sdílel krátký<br>pohled napříč trhem na to, jak jsou tyto Art. 28(4) subcontracting<br>chains dnes strukturovány u srovnatelných bank, nebo to teď není<br>priorita?<br><br>S pozdravem,</div>
+            <div class="body-text body-sk body-sk-missing" data-lang="sk" hidden><em>SK varianta není v této ukázce zachycena (default cluster použije CZ jako baseline; v Lemlist je SK plně lokalizováno).</em></div>
+        </div>
+    
+        <div class="body-card" data-body-idx="2">
+            <div class="body-head">
+                <span class="body-cluster">Insurance (Compliance / Risk / CFO)</span>
+                
+            </div>
+            <div class="body-cta"><strong>CTA:</strong> Opt-in otázka</div>
+            <div class="body-text body-cz" data-lang="cz"><span class="var" data-var="{salutation}" title="Personalizační proměnná: {salutation}">{salutation}</span> <span class="var" data-var="{prijmeni_voc}" title="Personalizační proměnná: {prijmeni_voc}">{prijmeni_voc}</span>,<br><br>v pojistném sektoru má rok 2026 hned tři audit vrstvy nad klientskou<br>složkou - DORA (ICT third-party), nový zákon o kybernetické<br>bezpečnosti (ZKB) transponující NIS2, a AML/KYC retence u smluvních<br>údajů pojistníka.<br><br>Co u pojišťoven v podobné situaci v ČR vidíme jako nenápadné téma 2026:<br>ne každá z těchto vrstev žije v samostatném systému - Compliance team<br>pak v auditu kombinuje výstupy ze 4-5 míst ručně.<br><br>Pracujeme se 2 z 5 největších českých pojišťoven právě na konsolidaci<br>této vrstvy (jména projektů pod NDA).<br><br>Dávalo by Vám smysl se krátce spojit, abych s Vámi sdílel krátký<br>pohled napříč trhem na to, jak tuto vrstvu řeší pojišťovny v podobné<br>situaci, nebo to teď není priorita?<br><br>S pozdravem,</div>
+            <div class="body-text body-sk body-sk-missing" data-lang="sk" hidden><em>SK varianta není v této ukázce zachycena (default cluster použije CZ jako baseline; v Lemlist je SK plně lokalizováno).</em></div>
+        </div>
+    
+        <div class="body-card" data-body-idx="3">
+            <div class="body-head">
+                <span class="body-cluster">Board mimo FI (HAVEX, Alza, STUDENT AGENCY, T-Mobile, O2)</span>
+                
+            </div>
+            <div class="body-cta"><strong>CTA:</strong> Opt-in + referral ask</div>
+            <div class="body-text body-cz" data-lang="cz"><span class="var" data-var="{salutation}" title="Personalizační proměnná: {salutation}">{salutation}</span> <span class="var" data-var="{prijmeni_voc}" title="Personalizační proměnná: {prijmeni_voc}">{prijmeni_voc}</span>,<br><br>růst <span class="var" data-var="{firma}" title="Personalizační proměnná: {firma}">{firma}</span> v posledních letech znamená i růst vendor portfolia -<br>typicky 5 až 10 systémů, které drží dokumenty, smlouvy, faktury,<br>archivy. Každý další vendor = další integrace, další audit, další<br>exit risk při změně.<br><br>Co u rostoucích firem na úrovni představenstva v ČR vidíme jako<br>strategické téma 2026: konsolidace dokumentové vrstvy pod jednu<br>platformu - TCO úspora se obvykle pohybuje v jednotkách až nižších<br>desítkách procent OPEX, větší dopad má snížení integration risku<br>při M&amp;A nebo při změně ERP/CRM.<br><br>Pracujeme s několika velkými českými firmami právě na této konsolidaci.<br><br>Dávalo by Vám smysl se krátce spojit, abych s Vámi sdílel krátký<br>pohled napříč trhem na to, jak rostoucí skupiny dnes konsolidují<br>dokumentovou vrstvu, nebo to teď není priorita?<br><br>Pokud toto téma u Vás aktuálně leží spíš na jiném kolegovi (CIO, COO,<br>Compliance Director), bude užitečné, když mi to napíšete - můžu se<br>obrátit přímo na něj/ni.<br><br>S pozdravem,</div>
+            <div class="body-text body-sk body-sk-missing" data-lang="sk" hidden><em>SK varianta není v této ukázce zachycena (default cluster použije CZ jako baseline; v Lemlist je SK plně lokalizováno).</em></div>
+        </div>
+    
+            </div>
+        </section>
+    
+        <section class="touchpoint tp-li_cr" id="finance-leaders-li_cr">
+            <header class="tp-header">
+                <div class="tp-day-badge">Den 1-2</div>
+                <h3 class="tp-title">LinkedIn Connection Request</h3>
+                <div class="tp-type">LinkedIn Connection Request</div>
+            </header>
+            <p class="tp-purpose">Po Emailu 1 (24-48h odstup). BLANK - bez textu. Blank CR má vyšší accept rate v ČR. Lemlist LinkedIn account = Jiří Jakeš.</p>
+            
+            <div class="bodies-section">
+                <div class="section-title">Body varianty (per cluster)</div>
+                
+        <div class="body-card" data-body-idx="0">
+            <div class="body-head">
+                <span class="body-cluster">Univerzální (všechny clustery)</span>
+                <span class="badge badge-default">DEFAULT cluster</span>
+            </div>
+            <div class="body-cta"><strong>CTA:</strong> Žádná - blank CR</div>
+            <div class="body-text body-cz" data-lang="cz">(BEZ ZPRÁVY - prázdný Connection Request)<br><br>Důvod: Blank CR v ČR/SK má vyšší accept rate než CR s prodejním textem. Touchpoint slouží k vícekanálovému efektu (e-mail + LinkedIn ikona u jména v inboxu).</div>
+            <div class="body-text body-sk body-sk-missing" data-lang="sk" hidden><em>SK varianta není v této ukázce zachycena (default cluster použije CZ jako baseline; v Lemlist je SK plně lokalizováno).</em></div>
+        </div>
+    
+            </div>
+        </section>
+    
+        <section class="touchpoint tp-linkedin" id="finance-leaders-li_msg">
+            <header class="tp-header">
+                <div class="tp-day-badge">Den 3</div>
+                <h3 class="tp-title">LinkedIn 1st message (po accept)</h3>
+                <div class="tp-type">LinkedIn zpráva</div>
+            </header>
+            <p class="tp-purpose">Navazuje na connection accept. Krátká, peer-to-peer, bez prodeje.</p>
+            
+            <div class="bodies-section">
+                <div class="section-title">Body varianty (per cluster)</div>
+                
+        <div class="body-card" data-body-idx="0">
+            <div class="body-head">
+                <span class="body-cluster">Univerzální (všechny clustery)</span>
+                <span class="badge badge-default">DEFAULT cluster</span>
+            </div>
+            <div class="body-cta"><strong>CTA:</strong> Opt-in (bez schůzky)</div>
+            <div class="body-text body-cz" data-lang="cz"><span class="var" data-var="{salutation}" title="Personalizační proměnná: {salutation}">{salutation}</span> <span class="var" data-var="{prijmeni_voc}" title="Personalizační proměnná: {prijmeni_voc}">{prijmeni_voc}</span>, díky za přijetí.<br><br>Krátký kontext - sledujeme, jak FI v ČR/SK 12 měsíců po DORA řeší audit-readiness dokumentové vrstvy. Pokud by Vás občasný zápisek z praxe zajímal (3-4 vzorce, žádný produkt), dejte vědět.<br><br>S pozdravem,<br>Jiří Jakeš</div>
+            <div class="body-text body-sk" data-lang="sk" hidden><span class="var" data-var="{salutation_sk}" title="Personalizační proměnná: {salutation_sk}">{salutation_sk}</span> <span class="var" data-var="{priezvisko_voc}" title="Personalizační proměnná: {priezvisko_voc}">{priezvisko_voc}</span>, ďakujem za prijatie.<br><br>Krátky kontext - sledujeme, ako FI v SR/ČR 12 mesiacov po DORA riešia audit-readiness dokumentovej vrstvy. Ak by Vás občasný zápisok z praxe zaujímal (3-4 vzorce, žiaden produkt), dajte vedieť.<br><br>S pozdravom,<br>Jiří Jakeš</div>
+        </div>
+    
+            </div>
+        </section>
+    
+        <section class="touchpoint tp-email" id="finance-leaders-e2">
+            <header class="tp-header">
+                <div class="tp-day-badge">Den 5</div>
+                <h3 class="tp-title">Email 2</h3>
+                <div class="tp-type">E-mail</div>
+            </header>
+            <p class="tp-purpose">Druhý angle. Default je CFO/SAP s konkrétním use case (faktury v SAP). Compliance a Asset Mgmt jsou alternativy.</p>
+            <div class="subjects-section"><div class="section-title">Subject varianty (A/B/C)</div><div class="subject-grid">
+        <div class="subject-card ">
+            <div class="subject-head">
+                <span class="subject-letter">Var. A</span>
+                <span class="badge badge-test">A/B test 33%</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> <span class="var" data-var="{firma}" title="Personalizační proměnná: {firma}">{firma}</span> - 3 vzorce, které vidíme u kolegů z oboru</div>
+            <div class="subject-preview"><strong>Preview:</strong> 2-stránkový pohled napříč trhem, žádná loga, žádný produkt.</div>
+            <div class="subject-audience">Pro: Compliance / Banking variant</div>
+        </div>
+    
+        <div class="subject-card ">
+            <div class="subject-head">
+                <span class="subject-letter">Var. B</span>
+                <span class="badge badge-test">A/B test 33%</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> Vendor registr a nenápadná konsolidace 2026</div>
+            <div class="subject-preview"><strong>Preview:</strong> Co vidíme u FI v ČR pod DORA Art. 28(4) - krátký přehled.</div>
+            <div class="subject-audience">Pro: Risk / Compliance</div>
+        </div>
+    
+        <div class="subject-card subject-live">
+            <div class="subject-head">
+                <span class="subject-letter">Var. C</span>
+                <span class="badge badge-live">● LIVE - odešle se</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> Jeden klientský šanon ve 4 systémech - vyřešitelný paradox?</div>
+            <div class="subject-preview"><strong>Preview:</strong> Klientská složka jako single source of truth - jak to řešily 3 banky v ČR.</div>
+            <div class="subject-audience">Pro: CFO best fit (DEFAULT)</div>
+        </div>
+    </div></div>
+            <div class="bodies-section">
+                <div class="section-title">Body varianty (per cluster)</div>
+                
+        <div class="body-card" data-body-idx="0">
+            <div class="body-head">
+                <span class="body-cluster">CFO / SAP fakturový default</span>
+                <span class="badge badge-default">DEFAULT cluster</span>
+            </div>
+            <div class="body-cta"><strong>CTA:</strong> Soft ask - PDF</div>
+            <div class="body-text body-cz" data-lang="cz"><span class="var" data-var="{salutation}" title="Personalizační proměnná: {salutation}">{salutation}</span> <span class="var" data-var="{prijmeni_voc}" title="Personalizační proměnná: {prijmeni_voc}">{prijmeni_voc}</span>,<br><br>krátké navázání - minulý e-mail byl o auditní otázce, dnes konkrétní<br>use case, který u CFO v regulovaném sektoru zaznívá nejčastěji.<br><br>Faktury v SAP. Klasický paradox: faktura přijde, někdo ji oskenuje,<br>někdo vytěží, jiný schválí, jiný archivuje. Při auditu se dohledává<br>v 5 systémech. End-to-end stopa přímo v SAP UI je dnes u většiny<br>velkých FI v ČR baseline - ne nice-to-have.<br><br>Mohu poslat 2-stránkový přehled (PDF), jak to řešily 3 české banky?<br>Bez jmen, bez produktu, jen mechanika a měřitelný dopad na audit prep.<br><br>S pozdravem,</div>
+            <div class="body-text body-sk" data-lang="sk" hidden><span class="var" data-var="{salutation_sk}" title="Personalizační proměnná: {salutation_sk}">{salutation_sk}</span> <span class="var" data-var="{priezvisko_voc}" title="Personalizační proměnná: {priezvisko_voc}">{priezvisko_voc}</span>,<br><br>krátke nadviazanie - minulý e-mail bol o auditnej otázke, dnes<br>konkrétny use case, ktorý u CFO v regulovanom sektore zaznieva<br>najčastejšie.<br><br>Faktúry v SAP. Klasický paradox: faktúra príde, niekto ju oskenuje,<br>niekto vyťaží, iný schváli, iný archivuje. Pri audite sa dohľadáva<br>v 5 systémoch. End-to-end stopa priamo v SAP UI je dnes u väčšiny<br>veľkých FI baseline - nie nice-to-have.<br><br>Môžem poslať 2-stranový prehľad (PDF), ako to riešili 3 banky v<br>SR/ČR? Bez mien, bez produktu, len mechanika a merateľný dopad na<br>audit prep.<br><br>S pozdravom,</div>
+        </div>
+    
+        <div class="body-card" data-body-idx="1">
+            <div class="body-head">
+                <span class="body-cluster">Compliance / vendor consolidation</span>
+                
+            </div>
+            <div class="body-cta"><strong>CTA:</strong> Soft ask - PDF</div>
+            <div class="body-text body-cz" data-lang="cz"><span class="var" data-var="{salutation}" title="Personalizační proměnná: {salutation}">{salutation}</span> <span class="var" data-var="{prijmeni_voc}" title="Personalizační proměnná: {prijmeni_voc}">{prijmeni_voc}</span>,<br><br>navazuji na předchozí e-mail - krátká doplňující věc.<br><br>Co u FI v ČR vidíme jako 3 nejčastější vzorce 12 měsíců po DORA<br>(z interní analýzy 12 implementačních projektů v ČR za 2024-2025):<br><br>  1) registr třetích stran v Register of Information se průběžně<br>     rozrůstá - typicky 5-10 dokumentových / archivních systémů jen<br>     v jedné FI,<br>  2) auditní stopa nad fakturami a klientskými složkami se hledá ručně<br>     napříč 3-5 systémy - bottleneck není data, ale jejich propojení,<br>  3) DORA Art. 28(4) subcontracting chain motivuje konsolidaci, ale<br>     rozhodnutí typicky padá až v listopadovém budgeting cyklu.<br><br>Mohu Vám poslat 2-stránkový přehled (PDF), jak tyto vzorce řeší 3<br>srovnatelné FI v ČR? Bez jmen, jen mechanika.<br><br>S pozdravem,</div>
+            <div class="body-text body-sk body-sk-missing" data-lang="sk" hidden><em>SK varianta není v této ukázce zachycena (default cluster použije CZ jako baseline; v Lemlist je SK plně lokalizováno).</em></div>
+        </div>
+    
+            </div>
+        </section>
+    
+        <section class="touchpoint tp-email" id="finance-leaders-e3">
+            <header class="tp-header">
+                <div class="tp-day-badge">Den 10</div>
+                <h3 class="tp-title">Email 3 (CTA split)</h3>
+                <div class="tp-type">E-mail</div>
+            </header>
+            <p class="tp-purpose">První místo, kde IXTENT/OpenText smí zaznít. Konkrétní social proof + ISAE/SOC2/ISO27001. CTA split: CFO → PDF, Compliance/Audit/Risk → senior expert hovor.</p>
+            <div class="subjects-section"><div class="section-title">Subject varianty (A/B/C)</div><div class="subject-grid">
+        <div class="subject-card subject-live">
+            <div class="subject-head">
+                <span class="subject-letter">Var. A</span>
+                <span class="badge badge-live">● LIVE - odešle se</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> Co dělají 3 ze 4 největších českých bank jinak</div>
+            <div class="subject-preview"><strong>Preview:</strong> Konkrétní social proof - 3 ze 4 největších bank, 2 z 5 největších pojišťoven.</div>
+            <div class="subject-audience">Pro: DEFAULT pro CFO + Board</div>
+        </div>
+    
+        <div class="subject-card ">
+            <div class="subject-head">
+                <span class="subject-letter">Var. B</span>
+                <span class="badge badge-test">A/B test 33%</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> DORA Art. 28(4) - jak to řeší 3 ze 4 největších bank</div>
+            <div class="subject-preview"><strong>Preview:</strong> Subcontracting chain pod Art. 28(4) - co vidíme u srovnatelných bank v praxi.</div>
+            <div class="subject-audience">Pro: Compliance / Risk / CAE</div>
+        </div>
+    
+        <div class="subject-card ">
+            <div class="subject-head">
+                <span class="subject-letter">Var. C</span>
+                <span class="badge badge-test">A/B test 33%</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> Otázka: jste s touto vrstvou v souladu s kolegy z oboru?</div>
+            <div class="subject-preview"><strong>Preview:</strong> 2-stránkový přehled (PDF) - bez schůzky, bez produktu.</div>
+            <div class="subject-audience">Pro: Univerzální fallback</div>
+        </div>
+    </div></div>
+            <div class="bodies-section">
+                <div class="section-title">Body varianty (per cluster)</div>
+                
+        <div class="body-card" data-body-idx="0">
+            <div class="body-head">
+                <span class="body-cluster">CFO cluster (PDF CTA)</span>
+                <span class="badge badge-default">DEFAULT cluster</span>
+            </div>
+            <div class="body-cta"><strong>CTA:</strong> PDF nabídka (bez schůzky, bez hovoru)</div>
+            <div class="body-text body-cz" data-lang="cz"><span class="var" data-var="{salutation}" title="Personalizační proměnná: {salutation}">{salutation}</span> <span class="var" data-var="{prijmeni_voc}" title="Personalizační proměnná: {prijmeni_voc}">{prijmeni_voc}</span>,<br><br>dnes pohled napříč trhem - to nejkonkrétnější z této série.<br><br>Krátká transparentní věc: pracujeme se 3 ze 4 největších českých bank<br>a 2 z 5 největších pojišťoven na dokumentové a audit vrstvě -<br>konkrétně na OpenText Content Management platformě.<br><br>IXTENT (Praha) je Platinum delivery partner OpenText v CEE -<br>23 let na trhu, 1 000+ projektů, 300+ klientů ve střední Evropě.<br>Jména konkrétních projektů pod NDA, referenční návštěvu dokážeme<br>zajistit jako poslední krok výběrového procesu.<br><br>Pro Vaši roli to znamená dvě věci:<br><br>  • při regulatorních žádostech ČNB / NBS argumentujete platformou,<br>    která má ISAE 3402 Type II, SOC 2 Type II i ISO 27001 - nepotřebujete<br>    obhajovat customizovanou cestu,<br>  • registr třetích stran (DORA Art. 28(4) subcontracting chain) se<br>    smršťuje - dokumentová a archivní vrstva pod jedním vendorem<br>    s lokální servisní podporou v Praze. Vendor concentration risk<br>    (Art. 29) adresujeme dual-region BCP a explicitní exit strategií<br>    zaznamenanou v RoI.<br><br>Je toto téma pro Vás aktuální? Pokud ano, rád Vám pošlu 2-stránkový<br>přehled (PDF), jak tuto vrstvu už vyřešili 3 srovnatelné finanční<br>instituce v ČR - mechanika konkrétně, bez produktové prezentace.<br><br>Pokud teď ne, naprosto v pořádku - v Q3 se ozvu znovu s aktuálním<br>pohledem.<br><br>S pozdravem,</div>
+            <div class="body-text body-sk" data-lang="sk" hidden><span class="var" data-var="{salutation_sk}" title="Personalizační proměnná: {salutation_sk}">{salutation_sk}</span> <span class="var" data-var="{priezvisko_voc}" title="Personalizační proměnná: {priezvisko_voc}">{priezvisko_voc}</span>,<br><br>dnes pohľad naprieč trhom - to najkonkrétnejšie z tejto série.<br><br>Krátka transparentná vec: pracujeme s 3 zo 4 najväčších českých bánk<br>a 2 z 5 najväčších poisťovní na dokumentovej a audit vrstve - konkrétne<br>na platforme OpenText Content Management.<br><br>IXTENT (Praha) je Platinum delivery partner OpenText v CEE -<br>23 rokov na trhu, 1 000+ projektov, 300+ klientov v strednej Európe.<br>Mená konkrétnych projektov pod NDA, referenčnú návštevu dokážeme<br>zabezpečiť ako posledný krok výberového procesu.<br><br>Pre Vašu rolu to znamená dve veci:<br><br>  • pri regulačných žiadostiach NBS / ČNB argumentujete platformou,<br>    ktorá má ISAE 3402 Type II, SOC 2 Type II aj ISO 27001 - nepotrebujete<br>    obhajovať customizovanú cestu,<br>  • register tretích strán (DORA Art. 28(4) subcontracting chain) sa<br>    zmršťuje - dokumentová a archívna vrstva pod jedným dodávateľom<br>    s lokálnou servisnou podporou v Prahe. Vendor concentration risk<br>    (Art. 29) adresujeme dual-region BCP a explicitnou exit stratégiou<br>    zaznamenanou v RoI.<br><br>Je táto téma pre Vás aktuálna? Ak áno, rád Vám pošlem 2-stranový<br>prehľad (PDF), ako túto vrstvu už vyriešili 3 porovnateľné finančné<br>inštitúcie v SR/ČR - mechanika konkrétne, bez produktovej prezentácie.<br><br>Ak teraz nie, úplne v poriadku - v Q3 sa ozvem znovu s aktuálnym<br>pohľadom.<br><br>S pozdravom,</div>
+        </div>
+    
+        <div class="body-card" data-body-idx="1">
+            <div class="body-head">
+                <span class="body-cluster">Compliance / Audit / Risk (Senior expert call CTA)</span>
+                
+            </div>
+            <div class="body-cta"><strong>CTA:</strong> Senior expert hovor (krátké spojení)</div>
+            <div class="body-text body-cz" data-lang="cz"><span class="var" data-var="{salutation}" title="Personalizační proměnná: {salutation}">{salutation}</span> <span class="var" data-var="{prijmeni_voc}" title="Personalizační proměnná: {prijmeni_voc}">{prijmeni_voc}</span>,<br><br>dnes pohled napříč trhem - to nejkonkrétnější z této série.<br><br>Krátká transparentní věc: pracujeme se 3 ze 4 největších českých bank<br>a 2 z 5 největších pojišťoven na dokumentové a audit vrstvě -<br>konkrétně na OpenText Content Management platformě.<br><br>IXTENT (Praha) je Platinum delivery partner OpenText v CEE -<br>23 let na trhu, 1 000+ projektů, 300+ klientů ve střední Evropě.<br><br>Pro Vaši roli to znamená dvě věci:<br><br>  • při regulatorních žádostech ČNB / NBS argumentujete platformou,<br>    která má ISAE 3402 Type II, SOC 2 Type II i ISO 27001,<br>  • registr třetích stran (DORA Art. 28(4) subcontracting chain) se<br>    smršťuje - DMS, archiv, OMS a capture pod jedním vendorem<br>    s lokální servisní podporou v Praze. Vendor concentration risk<br>    (Art. 29) adresujeme dual-region BCP a explicitní exit strategií.<br><br>Je toto téma pro Vás aktuální? Pokud ano, rád bych si s Vámi<br>krátce promluvil - ukážu Vám konkrétní mechaniku, jak tuto vrstvu<br>už vyřešily srovnatelné firmy v ČR (bez produktové prezentace).<br><br>Pokud teď ne, naprosto v pořádku - v Q3 se ozvu znovu.<br><br>S pozdravem,</div>
+            <div class="body-text body-sk body-sk-missing" data-lang="sk" hidden><em>SK varianta není v této ukázce zachycena (default cluster použije CZ jako baseline; v Lemlist je SK plně lokalizováno).</em></div>
+        </div>
+    
+            </div>
+        </section>
+    
+        <section class="touchpoint tp-linkedin" id="finance-leaders-li_msg2">
+            <header class="tp-header">
+                <div class="tp-day-badge">Den 18</div>
+                <h3 class="tp-title">LinkedIn 2nd touch</h3>
+                <div class="tp-type">LinkedIn zpráva</div>
+            </header>
+            <p class="tp-purpose">Soft poke s odkazem na Email 3. Sociální proof + long-tenure. Bez schůzky.</p>
+            
+            <div class="bodies-section">
+                <div class="section-title">Body varianty (per cluster)</div>
+                
+        <div class="body-card" data-body-idx="0">
+            <div class="body-head">
+                <span class="body-cluster">Univerzální (všechny clustery)</span>
+                <span class="badge badge-default">DEFAULT cluster</span>
+            </div>
+            <div class="body-cta"><strong>CTA:</strong> Soft poke (bez schůzky)</div>
+            <div class="body-text body-cz" data-lang="cz"><span class="var" data-var="{salutation}" title="Personalizační proměnná: {salutation}">{salutation}</span> <span class="var" data-var="{prijmeni_voc}" title="Personalizační proměnná: {prijmeni_voc}">{prijmeni_voc}</span>, krátká věc - minulý týden jsem Vám poslal pohled k tomu, jak řeší 3 ze 4 největších českých bank dokumentovou a audit vrstvu na OpenText. IXTENT je 23 let na trhu a Platinum delivery partner OpenText v CEE.<br><br>Bez tlaku - jen kdyby u Vás tato vrstva byla aktuálně na stole, rád bych si s Vámi krátce promluvil. Pokud teď ne, naprosto v pořádku.<br><br>S pozdravem,<br>Jiří Jakeš</div>
+            <div class="body-text body-sk body-sk-missing" data-lang="sk" hidden><em>SK varianta není v této ukázce zachycena (default cluster použije CZ jako baseline; v Lemlist je SK plně lokalizováno).</em></div>
+        </div>
+    
+            </div>
+        </section>
+    
+        <section class="touchpoint tp-email" id="finance-leaders-e4">
+            <header class="tp-header">
+                <div class="tp-day-badge">Den 25</div>
+                <h3 class="tp-title">Email 4 (A/B/C poll)</h3>
+                <div class="tp-type">E-mail</div>
+            </header>
+            <p class="tp-purpose">Měkká finální klasifikace. Žádný monolog o sales cyklu. Přímá otázka s 3 jednoznakovými odpověďmi.</p>
+            <div class="subjects-section"><div class="section-title">Subject varianty (A/B/C)</div><div class="subject-grid">
+        <div class="subject-card ">
+            <div class="subject-head">
+                <span class="subject-letter">Var. A</span>
+                <span class="badge badge-test">A/B test 33%</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> <span class="var" data-var="{firma}" title="Personalizační proměnná: {firma}">{firma}</span> - krátký dotaz na 1 znak</div>
+            <div class="subject-preview"><strong>Preview:</strong> A/B/C - vyberte jedno, žádný další e-mail tento měsíc.</div>
+            <div class="subject-audience">Pro: Jednoznaková otázka</div>
+        </div>
+    
+        <div class="subject-card subject-live">
+            <div class="subject-head">
+                <span class="subject-letter">Var. B</span>
+                <span class="badge badge-live">● LIVE - odešle se</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> Jak to s dokumentovou platformou ve Vaší firmě stojí?</div>
+            <div class="subject-preview"><strong>Preview:</strong> Aby měla naše další komunikace smysl - 1 znak v odpovědi stačí.</div>
+            <div class="subject-audience">Pro: DEFAULT</div>
+        </div>
+    
+        <div class="subject-card ">
+            <div class="subject-head">
+                <span class="subject-letter">Var. C</span>
+                <span class="badge badge-test">A/B test 33%</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> Stručná otázka - vaše situace?</div>
+            <div class="subject-preview"><strong>Preview:</strong> 2 vteřiny vašeho času, jasná klasifikace.</div>
+            <div class="subject-audience">Pro: Peer-to-peer</div>
+        </div>
+    </div></div>
+            <div class="bodies-section">
+                <div class="section-title">Body varianty (per cluster)</div>
+                
+        <div class="body-card" data-body-idx="0">
+            <div class="body-head">
+                <span class="body-cluster">Univerzální (Default - aplikuje se na všechny clustery)</span>
+                <span class="badge badge-default">DEFAULT cluster</span>
+            </div>
+            <div class="body-cta"><strong>CTA:</strong> A/B/C poll (1 znak v odpovědi)</div>
+            <div class="body-text body-cz" data-lang="cz"><span class="var" data-var="{salutation}" title="Personalizační proměnná: {salutation}">{salutation}</span> <span class="var" data-var="{prijmeni_voc}" title="Personalizační proměnná: {prijmeni_voc}">{prijmeni_voc}</span>,<br><br>posílal jsem několik zpráv k tématu audit-readiness dokumentové vrstvy<br>a DORA evoluci - chápu, že priority se mění a nemusí být důvod<br>reagovat.<br><br>Aby měla naše další komunikace smysl, prosím o jeden znak v odpovědi:<br><br>A) Téma je relevantní, nezbyl mi čas reagovat - ozvěte se prosím znovu<br>   příští týden.<br>B) Téma relevantní, ale ne teď - ozvěte se za 3-6 měsíců.<br>C) Téma pro nás aktuálně nerelevantní - vyřaďte mě z komunikace.<br><br>Děkuji za 2 vteřiny Vašeho času.<br><br>S pozdravem,</div>
+            <div class="body-text body-sk" data-lang="sk" hidden><span class="var" data-var="{salutation_sk}" title="Personalizační proměnná: {salutation_sk}">{salutation_sk}</span> <span class="var" data-var="{priezvisko_voc}" title="Personalizační proměnná: {priezvisko_voc}">{priezvisko_voc}</span>,<br><br>posielal som niekoľko správ k téme audit-readiness dokumentovej vrstvy<br>a DORA evolúcie - chápem, že priority sa menia a nemusí byť dôvod<br>reagovať.<br><br>Aby mala naša ďalšia komunikácia zmysel, prosím o jeden znak v odpovedi:<br><br>A) Téma je relevantná, nezostal mi čas reagovať - ozvite sa prosím znovu<br>   budúci týždeň.<br>B) Téma relevantná, ale nie teraz - ozvite sa za 3-6 mesiacov.<br>C) Téma pre nás aktuálne nerelevantná - vyraďte ma z komunikácie.<br><br>Ďakujem za 2 sekundy Vášho času.<br><br>S pozdravom,</div>
+        </div>
+    
+            </div>
+        </section>
+    
+            </div>
+        </section>
+    
+
+        <section class="sequence" id="seq-it-leaders" data-seq="it-leaders">
+            <header class="seq-header">
+                <h2 class="seq-title">Sekvence 2: IT/Security leaders</h2>
+                <div class="seq-meta">
+                    <div class="meta-row"><strong>Cílovka:</strong> CIO, CTO, CISO, Head of IT, IT Solutions Architect, IT Security Architect, IT Application Manager</div>
+                    <div class="meta-row"><strong>Velikost:</strong> ~25 kontaktů (~10-12 firem) | <strong>Buckety:</strong> Bucket A + B + C (IT roles)</div>
+                    <div class="meta-row"><strong>Primary angle:</strong> DORA Art. 6 + Art. 17, NIS2/ZKB transpozice, vendor consolidation, M&amp;A integrace, audit trail, BPM, M365/Purview governance</div>
+                    <div class="meta-row"><strong>Compliance angle:</strong> DORA, NIS2/ZKB, ISO 27001, SOC 2, AI Act</div>
+                    <div class="meta-row meta-avoid"><strong>NIKDY nepoužít:</strong> Produktové názvy v E1-E2</div>
+                    
+                    <div class="meta-row"><strong>Clustery:</strong></div>
+                    <ul class="seq-clusters"><li>CIO / CTO / Head of IT (default)</li><li>CISO / Security Architect / Risk IT</li><li>IT Solutions Architect / App Manager</li><li>Mid-size IT ředitel</li><li>CTO telco/utility group</li></ul>
+                </div>
+                <div class="timeline"><div class="timeline-line"></div><div class="timeline-nodes">
+            <a class="timeline-node tp-email" href="#it-leaders-e1" title="Email 1">
+                <div class="node-circle">@</div>
+                <div class="node-day">Den 0</div>
+            </a>
+        
+            <a class="timeline-node tp-li_cr" href="#it-leaders-li_cr" title="LinkedIn Connection Request">
+                <div class="node-circle">+in</div>
+                <div class="node-day">Den 1-2</div>
+            </a>
+        
+            <a class="timeline-node tp-linkedin" href="#it-leaders-li_msg" title="LinkedIn 1st message (po accept)">
+                <div class="node-circle">in</div>
+                <div class="node-day">Den 3</div>
+            </a>
+        
+            <a class="timeline-node tp-email" href="#it-leaders-e2" title="Email 2">
+                <div class="node-circle">@</div>
+                <div class="node-day">Den 5</div>
+            </a>
+        
+            <a class="timeline-node tp-email" href="#it-leaders-e3" title="Email 3 (CTA split)">
+                <div class="node-circle">@</div>
+                <div class="node-day">Den 10</div>
+            </a>
+        
+            <a class="timeline-node tp-linkedin" href="#it-leaders-li_msg2" title="LinkedIn 2nd touch">
+                <div class="node-circle">in</div>
+                <div class="node-day">Den 18</div>
+            </a>
+        
+            <a class="timeline-node tp-email" href="#it-leaders-e4" title="Email 4 (A/B/C poll)">
+                <div class="node-circle">@</div>
+                <div class="node-day">Den 25</div>
+            </a>
+        </div></div>
+            </header>
+            <div class="touchpoints">
+                
+        <section class="touchpoint tp-email" id="it-leaders-e1">
+            <header class="tp-header">
+                <div class="tp-day-badge">Den 0</div>
+                <h3 class="tp-title">Email 1</h3>
+                <div class="tp-type">E-mail</div>
+            </header>
+            <p class="tp-purpose">First touch. 6 cluster-specific bodies podle role (CIO, CISO, Solution Architect, Mid-size, Default, CTO group).</p>
+            <div class="subjects-section"><div class="section-title">Subject varianty (A/B/C)</div><div class="subject-grid">
+        <div class="subject-card ">
+            <div class="subject-head">
+                <span class="subject-letter">Var. A</span>
+                <span class="badge badge-test">A/B test 33%</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> <span class="var" data-var="{firma}" title="Personalizační proměnná: {firma}">{firma}</span> - krátký pohled k regulačnímu roku</div>
+            <div class="subject-preview"><strong>Preview:</strong> Co vidíme u většiny českých FI 12 měsíců po nabytí účinnosti - pohled napříč trhem.</div>
+            <div class="subject-audience">Pro: Univerzální fallback, mid-size IT ředitel, CTO commercial</div>
+        </div>
+    
+        <div class="subject-card subject-live">
+            <div class="subject-head">
+                <span class="subject-letter">Var. B</span>
+                <span class="badge badge-live">● LIVE - odešle se</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> DORA rok 1 - audit trail nad dokumentovým životním cyklem</div>
+            <div class="subject-preview"><strong>Preview:</strong> Trojvrstvý audit trail a retention enforcement - pohled na 12 měsíců dohledu.</div>
+            <div class="subject-audience">Pro: CISO, IT Security Architect, Risk IT Manager</div>
+        </div>
+    
+        <div class="subject-card ">
+            <div class="subject-head">
+                <span class="subject-letter">Var. C</span>
+                <span class="badge badge-test">A/B test 33%</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> Otázka k integrační vrstvě nad dokumenty</div>
+            <div class="subject-preview"><strong>Preview:</strong> Krátká otázka k integrační vrstvě - žádný produkt, žádné loga.</div>
+            <div class="subject-audience">Pro: CIO, CTO, IT Solutions Architect (bez compliance buzzwords)</div>
+        </div>
+    </div></div>
+            <div class="bodies-section">
+                <div class="section-title">Body varianty (per cluster)</div>
+                
+        <div class="body-card" data-body-idx="0">
+            <div class="body-head">
+                <span class="body-cluster">CIO / CTO / Head of IT (vendor consolidation + DORA Art. 28-29)</span>
+                <span class="badge badge-default">DEFAULT cluster</span>
+            </div>
+            <div class="body-cta"><strong>CTA:</strong> Opt-in otázka</div>
+            <div class="body-text body-cz" data-lang="cz"><span class="var" data-var="{salutation}" title="Personalizační proměnná: {salutation}">{salutation}</span> <span class="var" data-var="{prijmeni_voc}" title="Personalizační proměnná: {prijmeni_voc}">{prijmeni_voc}</span>,<br><br>12 měsíců po účinnosti DORA - registr třetích stran a koncentrační<br>riziko ICT dodavatelů (Art. 28-29) je u většiny velkých českých FI<br>teď tichý projekt 2026. Pro IT board level to znamená přehodnocení,<br>kolik dokumentových a archivních systémů žije pod kolika smluvními<br>vztahy.<br><br>U FI srovnatelné velikosti v ČR vidíme stejný paradox - 5 až 10<br>dokumentových sil (sdílené disky, M365, ECM, capture, output<br>management), každý další vendor = další smluvní vztah, další<br>integrace, další subkontraktor v Register of Information.<br><br>Pracujeme s většinou velkých českých bank a finančních skupin právě<br>na konsolidaci této vrstvy (jména konkrétních projektů pod NDA).<br><br>Dávalo by Vám smysl se krátce spojit, abych s Vámi sdílel krátký<br>pohled napříč trhem na to, jak srovnatelné FI dnes řeší vendor<br>consolidation pod DORA Art. 28-29, nebo to teď není priorita?<br><br>S pozdravem,</div>
+            <div class="body-text body-sk body-sk-missing" data-lang="sk" hidden><em>SK varianta není v této ukázce zachycena (default cluster použije CZ jako baseline; v Lemlist je SK plně lokalizováno).</em></div>
+        </div>
+    
+        <div class="body-card" data-body-idx="1">
+            <div class="body-head">
+                <span class="body-cluster">CISO / IT Security Architect / Risk IT (DORA Art. 6 + Art. 17 + NIS2/ZKB)</span>
+                
+            </div>
+            <div class="body-cta"><strong>CTA:</strong> Opt-in otázka</div>
+            <div class="body-text body-cz" data-lang="cz"><span class="var" data-var="{salutation}" title="Personalizační proměnná: {salutation}">{salutation}</span> <span class="var" data-var="{prijmeni_voc}" title="Personalizační proměnná: {prijmeni_voc}">{prijmeni_voc}</span>,<br><br>12 měsíců po účinnosti DORA - Art. 6 ICT risk framework a Art. 17<br>incident classification nad dokumentovým životním cyklem teď žije<br>v supervisory review fázi u ČNB. K tomu transpozice NIS2 do nového<br>ZKB řadí banky jako klíčový subjekt - records management bez<br>enforced retention je v ostrém světle dohledové povinnosti.<br><br>Co u peer CISOs v CZ vidíme jako přehlížené téma 2026: ne sám audit<br>log, ale jeho immutability a propojení s SIEM nad dokumentovou<br>vrstvou. Trojvrstvý audit trail (aplikační + metadata audit +<br>workflow log) s end-to-end vynucením oprávnění na každé operaci<br>je u větších českých bank teď baseline, ne nice-to-have.<br><br>Pracujeme s většinou velkých českých bank právě na této vrstvě<br>(jména projektů pod NDA).<br><br>Dávalo by Vám smysl se krátce spojit, abych s Vámi sdílel krátký<br>pohled napříč trhem na to, jak tuto governance vrstvu dnes řeší<br>srovnatelné banky pod DORA Art. 6 a 17, nebo to teď není priorita?<br><br>S pozdravem,</div>
+            <div class="body-text body-sk body-sk-missing" data-lang="sk" hidden><em>SK varianta není v této ukázce zachycena (default cluster použije CZ jako baseline; v Lemlist je SK plně lokalizováno).</em></div>
+        </div>
+    
+        <div class="body-card" data-body-idx="2">
+            <div class="body-head">
+                <span class="body-cluster">IT Solutions Architect (M365/SAP integration + Documentum migrace)</span>
+                
+            </div>
+            <div class="body-cta"><strong>CTA:</strong> Opt-in otázka</div>
+            <div class="body-text body-cz" data-lang="cz"><span class="var" data-var="{salutation}" title="Personalizační proměnná: {salutation}">{salutation}</span> <span class="var" data-var="{prijmeni_voc}" title="Personalizační proměnná: {prijmeni_voc}">{prijmeni_voc}</span>,<br><br>dokumentová vrstva s integrací do M365, SAP a Salesforce bývá<br>v bance srovnatelné velikosti 6 až 10 integračních scénářů -<br>faktury v SAP, klientské složky v SharePointu, smlouvy v Salesforce,<br>vstupní podatelna, output management. Každý jako bod selhání +<br>další položka v Register of Information.<br><br>Co u peer Solution Architects v CZ vidíme jako industry baseline<br>2026: business abstrakční vrstva nad elementárním REST API<br>dokumentové platformy. Jeden business call místo 15 až 30<br>elementárních volání nad nativním API - měřitelný integration<br>effort drop a méně bodů selhání. K tomu paralelní migrace ze<br>starších DMS (Documentum 7.x v provozu 15+ let je v české<br>bance baseline) s hash-checksum validací metadat.<br><br>Pracujeme s většinou velkých českých bank právě na integrační<br>vrstvě dokumentové platformy (jména projektů pod NDA).<br><br>Dávalo by Vám smysl se krátce spojit, abych s Vámi sdílel krátký<br>pohled napříč trhem, jak srovnatelné integration teams dnes<br>řeší tuto abstrakční vrstvu nad ECM?<br><br>S pozdravem,</div>
+            <div class="body-text body-sk body-sk-missing" data-lang="sk" hidden><em>SK varianta není v této ukázce zachycena (default cluster použije CZ jako baseline; v Lemlist je SK plně lokalizováno).</em></div>
+        </div>
+    
+            </div>
+        </section>
+    
+        <section class="touchpoint tp-li_cr" id="it-leaders-li_cr">
+            <header class="tp-header">
+                <div class="tp-day-badge">Den 1-2</div>
+                <h3 class="tp-title">LinkedIn Connection Request</h3>
+                <div class="tp-type">LinkedIn Connection Request</div>
+            </header>
+            <p class="tp-purpose">BLANK - bez textu. Lemlist LI account = Jiří Jakeš.</p>
+            
+            <div class="bodies-section">
+                <div class="section-title">Body varianty (per cluster)</div>
+                
+        <div class="body-card" data-body-idx="0">
+            <div class="body-head">
+                <span class="body-cluster">Univerzální</span>
+                <span class="badge badge-default">DEFAULT cluster</span>
+            </div>
+            <div class="body-cta"><strong>CTA:</strong> Žádná - blank CR</div>
+            <div class="body-text body-cz" data-lang="cz">(BEZ ZPRÁVY - prázdný Connection Request)</div>
+            <div class="body-text body-sk body-sk-missing" data-lang="sk" hidden><em>SK varianta není v této ukázce zachycena (default cluster použije CZ jako baseline; v Lemlist je SK plně lokalizováno).</em></div>
+        </div>
+    
+            </div>
+        </section>
+    
+        <section class="touchpoint tp-linkedin" id="it-leaders-li_msg">
+            <header class="tp-header">
+                <div class="tp-day-badge">Den 3</div>
+                <h3 class="tp-title">LinkedIn 1st message (po accept)</h3>
+                <div class="tp-type">LinkedIn zpráva</div>
+            </header>
+            <p class="tp-purpose">Peer-insight zápisek, bez schůzky.</p>
+            
+            <div class="bodies-section">
+                <div class="section-title">Body varianty (per cluster)</div>
+                
+        <div class="body-card" data-body-idx="0">
+            <div class="body-head">
+                <span class="body-cluster">Univerzální (IT cluster)</span>
+                <span class="badge badge-default">DEFAULT cluster</span>
+            </div>
+            <div class="body-cta"><strong>CTA:</strong> Opt-in</div>
+            <div class="body-text body-cz" data-lang="cz"><span class="var" data-var="{salutation}" title="Personalizační proměnná: {salutation}">{salutation}</span> <span class="var" data-var="{prijmeni_voc}" title="Personalizační proměnná: {prijmeni_voc}">{prijmeni_voc}</span>, díky za přijetí.<br><br>Krátký kontext - sledujeme, jak IT v ČR/SK řeší audit trail, vendor consolidation a DORA Art. 28-29 nad dokumentovou vrstvou. Pokud by Vás občasný peer-insight zápisek zajímal (3-4 vzorce, žádný produkt), dejte vědět.<br><br>S pozdravem,<br>Jiří Jakeš</div>
+            <div class="body-text body-sk body-sk-missing" data-lang="sk" hidden><em>SK varianta není v této ukázce zachycena (default cluster použije CZ jako baseline; v Lemlist je SK plně lokalizováno).</em></div>
+        </div>
+    
+            </div>
+        </section>
+    
+        <section class="touchpoint tp-email" id="it-leaders-e2">
+            <header class="tp-header">
+                <div class="tp-day-badge">Den 5</div>
+                <h3 class="tp-title">Email 2</h3>
+                <div class="tp-type">E-mail</div>
+            </header>
+            <p class="tp-purpose">Druhý angle - konkrétní use case dle clusteru. Soft ask PDF.</p>
+            <div class="subjects-section"><div class="section-title">Subject varianty (A/B/C)</div><div class="subject-grid">
+        <div class="subject-card ">
+            <div class="subject-head">
+                <span class="subject-letter">Var. A</span>
+                <span class="badge badge-test">A/B test 33%</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> <span class="var" data-var="{firma}" title="Personalizační proměnná: {firma}">{firma}</span> - 3 vzorce v IT governance, které vidíme u peers</div>
+            <div class="subject-preview"><strong>Preview:</strong> 2-stránkový pohled napříč trhem, žádná loga.</div>
+            <div class="subject-audience">Pro: CIO / IT default</div>
+        </div>
+    
+        <div class="subject-card ">
+            <div class="subject-head">
+                <span class="subject-letter">Var. B</span>
+                <span class="badge badge-test">A/B test 33%</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> Immutability audit logu - kde leží baseline 2026</div>
+            <div class="subject-preview"><strong>Preview:</strong> Co vidíme u peer CISOs - 3 nejčastější vzorce.</div>
+            <div class="subject-audience">Pro: CISO / Security</div>
+        </div>
+    
+        <div class="subject-card subject-live">
+            <div class="subject-head">
+                <span class="subject-letter">Var. C</span>
+                <span class="badge badge-live">● LIVE - odešle se</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> Jedno volání místo 15 - integrační vrstva nad ECM</div>
+            <div class="subject-preview"><strong>Preview:</strong> Business abstrakce nad REST API - krátký technický pohled.</div>
+            <div class="subject-audience">Pro: Solution Architect (DEFAULT)</div>
+        </div>
+    </div></div>
+            <div class="bodies-section">
+                <div class="section-title">Body varianty (per cluster)</div>
+                
+        <div class="body-card" data-body-idx="0">
+            <div class="body-head">
+                <span class="body-cluster">CIO / IT default - vendor consolidation use case</span>
+                <span class="badge badge-default">DEFAULT cluster</span>
+            </div>
+            <div class="body-cta"><strong>CTA:</strong> Soft ask - PDF</div>
+            <div class="body-text body-cz" data-lang="cz"><span class="var" data-var="{salutation}" title="Personalizační proměnná: {salutation}">{salutation}</span> <span class="var" data-var="{prijmeni_voc}" title="Personalizační proměnná: {prijmeni_voc}">{prijmeni_voc}</span>,<br><br>navazuji - dnes konkrétní use case, který u CIO ve velkých FI v ČR<br>zaznívá nejčastěji.<br><br>Vendor consolidation napříč dokumentovými agendami. Klasický paradox:<br>faktury v jednom systému, smlouvy ve druhém, klientské složky ve<br>třetím, archiv ve čtvrtém. Při M&amp;A nebo změně ERP se každá integrace<br>platí 2× (implementace + exit). Pod DORA Art. 28-29 navíc každý<br>vendor = další položka v Register of Information.<br><br>Mohu poslat 2-stránkový přehled (PDF), jak konsolidaci řešily 3<br>velké české banky? Bez jmen, bez produktu - jen mechanika<br>a měřitelný dopad na OPEX a integrační riziko.<br><br>S pozdravem,</div>
+            <div class="body-text body-sk body-sk-missing" data-lang="sk" hidden><em>SK varianta není v této ukázce zachycena (default cluster použije CZ jako baseline; v Lemlist je SK plně lokalizováno).</em></div>
+        </div>
+    
+            </div>
+        </section>
+    
+        <section class="touchpoint tp-email" id="it-leaders-e3">
+            <header class="tp-header">
+                <div class="tp-day-badge">Den 10</div>
+                <h3 class="tp-title">Email 3 (CTA split)</h3>
+                <div class="tp-type">E-mail</div>
+            </header>
+            <p class="tp-purpose">Value-add: IXTENT/OpenText přiznáno + ISAE/SOC2/ISO27001. CTA split: CIO → PDF, CISO/Risk → senior expert hovor, Solution Architect → PDF + tech follow-up.</p>
+            <div class="subjects-section"><div class="section-title">Subject varianty (A/B/C)</div><div class="subject-grid">
+        <div class="subject-card subject-live">
+            <div class="subject-head">
+                <span class="subject-letter">Var. A</span>
+                <span class="badge badge-live">● LIVE - odešle se</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> Co dělá většina velkých českých bank na governance vrstvě</div>
+            <div class="subject-preview"><strong>Preview:</strong> Konkrétní social proof - peer adopce v ČR FI segmentu.</div>
+            <div class="subject-audience">Pro: DEFAULT pro CIO</div>
+        </div>
+    
+        <div class="subject-card ">
+            <div class="subject-head">
+                <span class="subject-letter">Var. B</span>
+                <span class="badge badge-test">A/B test 33%</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> DORA Art. 6 + 17 - jak to řeší peer CISOs</div>
+            <div class="subject-preview"><strong>Preview:</strong> ISO 27001, SOC 2, ISAE 3402 - peer baseline 2026.</div>
+            <div class="subject-audience">Pro: CISO / Security / Risk</div>
+        </div>
+    
+        <div class="subject-card ">
+            <div class="subject-head">
+                <span class="subject-letter">Var. C</span>
+                <span class="badge badge-test">A/B test 33%</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> Otázka: kde je u Vás integrační abstrakce nad ECM?</div>
+            <div class="subject-preview"><strong>Preview:</strong> 2-stránkový technický přehled (PDF) - bez schůzky.</div>
+            <div class="subject-audience">Pro: Solution Architect</div>
+        </div>
+    </div></div>
+            <div class="bodies-section">
+                <div class="section-title">Body varianty (per cluster)</div>
+                
+        <div class="body-card" data-body-idx="0">
+            <div class="body-head">
+                <span class="body-cluster">CIO cluster (PDF CTA)</span>
+                <span class="badge badge-default">DEFAULT cluster</span>
+            </div>
+            <div class="body-cta"><strong>CTA:</strong> PDF nabídka</div>
+            <div class="body-text body-cz" data-lang="cz"><span class="var" data-var="{salutation}" title="Personalizační proměnná: {salutation}">{salutation}</span> <span class="var" data-var="{prijmeni_voc}" title="Personalizační proměnná: {prijmeni_voc}">{prijmeni_voc}</span>,<br><br>dnes pohled napříč trhem - to nejkonkrétnější z této série.<br><br>Krátká transparentní věc: většina velkých českých bank má dokumentovou<br>governance vrstvu konsolidovanou na jedné platformě - konkrétně<br>OpenText Content Management. V ČR/SK delivery pokrývá IXTENT (Praha)<br>jako Platinum partner.<br><br>IXTENT - 23 let na trhu, 1 000+ projektů, 300+ klientů ve střední<br>Evropě. Jména konkrétních projektů pod NDA.<br><br>Pro IT board level to znamená:<br><br>  • při regulačních žádostech ČNB / NBS argumentujete platformou,<br>    která má ISAE 3402 Type II, SOC 2 Type II i ISO 27001,<br>  • Register of Information (DORA Art. 28-29) se smršťuje - DMS,<br>    archiv, capture, output management pod jedním vendorem s lokální<br>    servisní podporou v Praze. Vendor concentration risk adresujeme<br>    dual-region BCP a explicitní exit strategií.<br><br>Je toto téma pro Vás aktuální? Pokud ano, rád Vám pošlu 2-stránkový<br>přehled (PDF), jak konsolidaci dokumentové vrstvy už realizovaly<br>3 srovnatelné FI v ČR - mechanika konkrétně.<br><br>Pokud teď ne, v pořádku - v Q3 se ozvu znovu.<br><br>S pozdravem,</div>
+            <div class="body-text body-sk body-sk-missing" data-lang="sk" hidden><em>SK varianta není v této ukázce zachycena (default cluster použije CZ jako baseline; v Lemlist je SK plně lokalizováno).</em></div>
+        </div>
+    
+        <div class="body-card" data-body-idx="1">
+            <div class="body-head">
+                <span class="body-cluster">CISO / Security / Risk IT (Senior expert call CTA)</span>
+                
+            </div>
+            <div class="body-cta"><strong>CTA:</strong> Senior expert hovor</div>
+            <div class="body-text body-cz" data-lang="cz"><span class="var" data-var="{salutation}" title="Personalizační proměnná: {salutation}">{salutation}</span> <span class="var" data-var="{prijmeni_voc}" title="Personalizační proměnná: {prijmeni_voc}">{prijmeni_voc}</span>,<br><br>dnes pohled napříč trhem - to nejkonkrétnější z této série.<br><br>Pracujeme s většinou velkých českých bank na governance vrstvě nad<br>dokumentovým životním cyklem - konkrétně na OpenText Content Management<br>platformě. IXTENT (Praha) je Platinum delivery partner OpenText v CEE,<br>23 let na trhu.<br><br>Pro Vaši roli to znamená:<br><br>  • OpenText hosting má ISO 27001, SOC 2 Type II i ISAE 3402 Type II -<br>    pod DORA Art. 6 ICT risk framework a Art. 17 incident classification<br>    argumentujete certifikovanou platformou,<br>  • trojvrstvý audit trail (aplikační + Category audit + Workflow log)<br>    immutable + SIEM integrovaný - bez customizace,<br>  • retention enforcement na úrovni objektu, ne procesem - records<br>    management baseline pro NIS2/ZKB klíčový subjekt klasifikaci.<br><br>Je toto téma pro Vás aktuální? Pokud ano, rád bych si s Vámi krátce<br>promluvil - ukážu Vám konkrétní mechaniku, jak governance vrstvu<br>už nasadily srovnatelné banky v ČR.<br><br>Pokud teď ne, v pořádku - v Q3 se ozvu znovu.<br><br>S pozdravem,</div>
+            <div class="body-text body-sk body-sk-missing" data-lang="sk" hidden><em>SK varianta není v této ukázce zachycena (default cluster použije CZ jako baseline; v Lemlist je SK plně lokalizováno).</em></div>
+        </div>
+    
+            </div>
+        </section>
+    
+        <section class="touchpoint tp-linkedin" id="it-leaders-li_msg2">
+            <header class="tp-header">
+                <div class="tp-day-badge">Den 18</div>
+                <h3 class="tp-title">LinkedIn 2nd touch</h3>
+                <div class="tp-type">LinkedIn zpráva</div>
+            </header>
+            <p class="tp-purpose">Soft poke + social proof.</p>
+            
+            <div class="bodies-section">
+                <div class="section-title">Body varianty (per cluster)</div>
+                
+        <div class="body-card" data-body-idx="0">
+            <div class="body-head">
+                <span class="body-cluster">Univerzální (IT cluster)</span>
+                <span class="badge badge-default">DEFAULT cluster</span>
+            </div>
+            <div class="body-cta"><strong>CTA:</strong> Soft poke</div>
+            <div class="body-text body-cz" data-lang="cz"><span class="var" data-var="{salutation}" title="Personalizační proměnná: {salutation}">{salutation}</span> <span class="var" data-var="{prijmeni_voc}" title="Personalizační proměnná: {prijmeni_voc}">{prijmeni_voc}</span>, krátká věc - minulý týden jsem Vám poslal pohled k tomu, jak většina velkých českých bank konsoliduje dokumentovou governance vrstvu na OpenText. IXTENT je 23 let na trhu a Platinum delivery partner OpenText v CEE.<br><br>Bez tlaku - jen pokud by tato vrstva byla u Vás na stole. Pokud teď ne, v pořádku.<br><br>S pozdravem,<br>Jiří Jakeš</div>
+            <div class="body-text body-sk body-sk-missing" data-lang="sk" hidden><em>SK varianta není v této ukázce zachycena (default cluster použije CZ jako baseline; v Lemlist je SK plně lokalizováno).</em></div>
+        </div>
+    
+            </div>
+        </section>
+    
+        <section class="touchpoint tp-email" id="it-leaders-e4">
+            <header class="tp-header">
+                <div class="tp-day-badge">Den 25</div>
+                <h3 class="tp-title">Email 4 (A/B/C poll)</h3>
+                <div class="tp-type">E-mail</div>
+            </header>
+            <p class="tp-purpose">Jednoznaková klasifikace pozice.</p>
+            <div class="subjects-section"><div class="section-title">Subject varianty (A/B/C)</div><div class="subject-grid">
+        <div class="subject-card ">
+            <div class="subject-head">
+                <span class="subject-letter">Var. A</span>
+                <span class="badge badge-test">A/B test 33%</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> <span class="var" data-var="{firma}" title="Personalizační proměnná: {firma}">{firma}</span> - krátký dotaz na 1 znak</div>
+            <div class="subject-preview"><strong>Preview:</strong> A/B/C - vyberte jedno, žádný další e-mail tento měsíc.</div>
+            <div class="subject-audience">Pro: Jednoznaková otázka</div>
+        </div>
+    
+        <div class="subject-card subject-live">
+            <div class="subject-head">
+                <span class="subject-letter">Var. B</span>
+                <span class="badge badge-live">● LIVE - odešle se</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> Jak to s dokumentovou governance ve Vaší firmě stojí?</div>
+            <div class="subject-preview"><strong>Preview:</strong> 1 znak v odpovědi stačí.</div>
+            <div class="subject-audience">Pro: DEFAULT</div>
+        </div>
+    
+        <div class="subject-card ">
+            <div class="subject-head">
+                <span class="subject-letter">Var. C</span>
+                <span class="badge badge-test">A/B test 33%</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> Stručná otázka - vaše situace?</div>
+            <div class="subject-preview"><strong>Preview:</strong> 2 vteřiny vašeho času, jasná klasifikace.</div>
+            <div class="subject-audience">Pro: Peer-to-peer</div>
+        </div>
+    </div></div>
+            <div class="bodies-section">
+                <div class="section-title">Body varianty (per cluster)</div>
+                
+        <div class="body-card" data-body-idx="0">
+            <div class="body-head">
+                <span class="body-cluster">Univerzální (A/B/C poll)</span>
+                <span class="badge badge-default">DEFAULT cluster</span>
+            </div>
+            <div class="body-cta"><strong>CTA:</strong> A/B/C poll</div>
+            <div class="body-text body-cz" data-lang="cz"><span class="var" data-var="{salutation}" title="Personalizační proměnná: {salutation}">{salutation}</span> <span class="var" data-var="{prijmeni_voc}" title="Personalizační proměnná: {prijmeni_voc}">{prijmeni_voc}</span>,<br><br>posílal jsem několik zpráv k tématu governance dokumentové vrstvy<br>a DORA evoluci - chápu, že priority se mění.<br><br>Aby měla naše další komunikace smysl, prosím o jeden znak:<br><br>A) Téma relevantní, nezbyl mi čas - ozvěte se prosím příští týden.<br>B) Téma relevantní, ale ne teď - ozvěte se za 3-6 měsíců.<br>C) Téma pro nás aktuálně nerelevantní - vyřaďte mě z komunikace.<br><br>Děkuji za 2 vteřiny Vašeho času.<br><br>S pozdravem,</div>
+            <div class="body-text body-sk body-sk-missing" data-lang="sk" hidden><em>SK varianta není v této ukázce zachycena (default cluster použije CZ jako baseline; v Lemlist je SK plně lokalizováno).</em></div>
+        </div>
+    
+            </div>
+        </section>
+    
+            </div>
+        </section>
+    
+
+        <section class="sequence" id="seq-hr-leaders" data-seq="hr-leaders">
+            <header class="seq-header">
+                <h2 class="seq-title">Sekvence 3: HR leaders</h2>
+                <div class="seq-meta">
+                    <div class="meta-row"><strong>Cílovka:</strong> HR Director, Chief People &amp; Culture, HRBP, HR Manager, HR Department Manager, Ředitelka personálního odboru</div>
+                    <div class="meta-row"><strong>Velikost:</strong> ~25 kontaktů (~18-20 firem) | <strong>Buckety:</strong> Bucket C (HR) + Finance group s velkou HR agendou</div>
+                    <div class="meta-row"><strong>Primary angle:</strong> GDPR Art. 5+32, ZP §312, AI Act Annex III (AI v náboru), CSRD S pillar, HR e-složka, retention, GECO SAP HR reference</div>
+                    <div class="meta-row"><strong>Compliance angle:</strong> GDPR, ZP §312, AI Act, CSRD, NIS2</div>
+                    <div class="meta-row meta-avoid"><strong>NIKDY nepoužít:</strong> „HR transformation&quot;, „AI-powered HR&quot;, „employee experience platform&quot;</div>
+                    <div class="seq-framing"><strong>Framing:</strong> HR cluster je interní šampion, ne signatář. Email 1 + Email 4 obsahují EXPLICITNÍ referral ask (IT / Compliance / CFO). Referral = stejně hodnotný outcome jako schůzka.</div>
+                    <div class="meta-row"><strong>Clustery:</strong></div>
+                    <ul class="seq-clusters"><li>HR Director / Head of HR (default)</li><li>Chief People &amp; Culture</li><li>Senior HRBP / Lead HRBP</li><li>HR Manager / Recruiting Teamleader</li><li>HR Department Manager / mid-size</li></ul>
+                </div>
+                <div class="timeline"><div class="timeline-line"></div><div class="timeline-nodes">
+            <a class="timeline-node tp-email" href="#hr-leaders-e1" title="Email 1">
+                <div class="node-circle">@</div>
+                <div class="node-day">Den 0</div>
+            </a>
+        
+            <a class="timeline-node tp-li_cr" href="#hr-leaders-li_cr" title="LinkedIn Connection Request">
+                <div class="node-circle">+in</div>
+                <div class="node-day">Den 1-2</div>
+            </a>
+        
+            <a class="timeline-node tp-linkedin" href="#hr-leaders-li_msg" title="LinkedIn 1st message (po accept)">
+                <div class="node-circle">in</div>
+                <div class="node-day">Den 3</div>
+            </a>
+        
+            <a class="timeline-node tp-email" href="#hr-leaders-e2" title="Email 2">
+                <div class="node-circle">@</div>
+                <div class="node-day">Den 5</div>
+            </a>
+        
+            <a class="timeline-node tp-email" href="#hr-leaders-e3" title="Email 3 (CTA split)">
+                <div class="node-circle">@</div>
+                <div class="node-day">Den 10</div>
+            </a>
+        
+            <a class="timeline-node tp-linkedin" href="#hr-leaders-li_msg2" title="LinkedIn 2nd touch">
+                <div class="node-circle">in</div>
+                <div class="node-day">Den 18</div>
+            </a>
+        
+            <a class="timeline-node tp-email" href="#hr-leaders-e4" title="Email 4 (A/B/C poll + referral ask)">
+                <div class="node-circle">@</div>
+                <div class="node-day">Den 25</div>
+            </a>
+        </div></div>
+            </header>
+            <div class="touchpoints">
+                
+        <section class="touchpoint tp-email" id="hr-leaders-e1">
+            <header class="tp-header">
+                <div class="tp-day-badge">Den 0</div>
+                <h3 class="tp-title">Email 1</h3>
+                <div class="tp-type">E-mail</div>
+            </header>
+            <p class="tp-purpose">First touch. 5 cluster-specific bodies. Každá varianta obsahuje referral ask.</p>
+            <div class="subjects-section"><div class="section-title">Subject varianty (A/B/C)</div><div class="subject-grid">
+        <div class="subject-card subject-live">
+            <div class="subject-head">
+                <span class="subject-letter">Var. A</span>
+                <span class="badge badge-live">● LIVE - odešle se</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> <span class="var" data-var="{firma}" title="Personalizační proměnná: {firma}">{firma}</span> - krátký pohled k personální agendě 2026</div>
+            <div class="subject-preview"><strong>Preview:</strong> Co vidíme u většiny velkých českých FI v personální vrstvě - krátký pohled.</div>
+            <div class="subject-audience">Pro: HR Director, HR Manager, HR Department Manager</div>
+        </div>
+    
+        <div class="subject-card ">
+            <div class="subject-head">
+                <span class="subject-letter">Var. B</span>
+                <span class="badge badge-test">A/B test 33%</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> GDPR retention nad personální složkou - pohled napříč trhem</div>
+            <div class="subject-preview"><strong>Preview:</strong> Retention podle ZP §312 a GDPR Art. 5(1)(e) - pohled na ÚOOÚ audit cycle.</div>
+            <div class="subject-audience">Pro: HR Director / Head of HR Services s compliance citem</div>
+        </div>
+    
+        <div class="subject-card ">
+            <div class="subject-head">
+                <span class="subject-letter">Var. C</span>
+                <span class="badge badge-test">A/B test 33%</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> Otázka k digitalizaci personální agendy</div>
+            <div class="subject-preview"><strong>Preview:</strong> Krátká otázka - žádný produkt, žádný HR transformation buzzword.</div>
+            <div class="subject-audience">Pro: Chief People &amp; Culture, Senior HRBP</div>
+        </div>
+    </div></div>
+            <div class="bodies-section">
+                <div class="section-title">Body varianty (per cluster)</div>
+                
+        <div class="body-card" data-body-idx="0">
+            <div class="body-head">
+                <span class="body-cluster">HR Director / Head of HR (GDPR retention + ZP §312 + referral ask)</span>
+                <span class="badge badge-default">DEFAULT cluster</span>
+            </div>
+            <div class="body-cta"><strong>CTA:</strong> Opt-in + referral ask</div>
+            <div class="body-text body-cz" data-lang="cz"><span class="var" data-var="{salutation}" title="Personalizační proměnná: {salutation}">{salutation}</span> <span class="var" data-var="{prijmeni_voc}" title="Personalizační proměnná: {prijmeni_voc}">{prijmeni_voc}</span>,<br><br>retence personální složky podle GDPR Art. 5(1)(e) a Zákoníku práce<br>§312 (pracovní dokumenty + 3 roky, mzdy 30 let, DPN 10 let) je<br>u většiny velkých českých FI ještě dnes manuální evidence v Excelu,<br>plus papírový šanon v personálním archivu. Příští ÚOOÚ audit cycle<br>je na obzoru a personální data jsou zvláštní kategorie osobních<br>údajů.<br><br>U FI srovnatelné velikosti v ČR vidíme stejný paradox - dokumenty<br>k jednomu zaměstnanci jsou rozházené přes HRIS, payroll, sdílené<br>disky, e-mail a papír. Při kontrole inspektorátu práce nebo žádosti<br>zaměstnance o nahlédnutí se hledají hodiny.<br><br>Pracujeme s 3-4 srovnatelnými pojišťovnami a bankami s 500+ zaměstnanci<br>v ČR právě na této vrstvě - HR e-složka je u nich typicky druhá nebo<br>třetí agenda na dokumentovém backbonu (jména konkrétních projektů<br>pod NDA).<br><br>Dávalo by Vám smysl se krátce spojit, abych s Vámi sdílel krátký<br>pohled napříč trhem na to, jak digitální personální složku a řízenou<br>skartaci dnes řeší srovnatelné FI v ČR, nebo to teď není priorita?<br><br>Pokud toto téma u Vás spadá spíše pod IT, compliance nebo CFO,<br>dejte mi prosím vědět - obrátím se rád přímo na ně.<br><br>S pozdravem,</div>
+            <div class="body-text body-sk body-sk-missing" data-lang="sk" hidden><em>SK varianta není v této ukázce zachycena (default cluster použije CZ jako baseline; v Lemlist je SK plně lokalizováno).</em></div>
+        </div>
+    
+        <div class="body-card" data-body-idx="1">
+            <div class="body-head">
+                <span class="body-cluster">Chief People &amp; Culture (AI Act + employee experience + referral)</span>
+                
+            </div>
+            <div class="body-cta"><strong>CTA:</strong> Opt-in + referral ask</div>
+            <div class="body-text body-cz" data-lang="cz"><span class="var" data-var="{salutation}" title="Personalizační proměnná: {salutation}">{salutation}</span> <span class="var" data-var="{prijmeni_voc}" title="Personalizační proměnná: {prijmeni_voc}">{prijmeni_voc}</span>,<br><br>AI Act účinnost 2. 8. 2026 - AI v náboru a employment decisions je<br>v Annex III klasifikován jako high-risk AI system. U peer HR oddělení<br>v ČR vidíme dnes typický paradox - recruiteři experimentují s ChatGPT,<br>Copilot v Outlooku a parsing tools bez governance frameworku. CSRD<br>S pillar reporting (headcount, fluktuace, gender pay gap, training)<br>to staví do ostrého světla v 2026.<br><br>U HR vedení na úrovni board ve velkých multi-entity skupinách v ČR<br>(FI, telco, utility) vidíme stejné přehlížené téma - jedna pravda<br>o zaměstnanci napříč 4-5 různými core HR systémy po akvizicích (HRIS,<br>ATS, LMS, payroll, sdílené disky) a governance framework pro AI<br>v náboru s human-in-the-loop u recruitment a performance decisions.<br><br>Pracujeme s několika velkými skupinami v ČR/CEE právě na této vrstvě<br>(jména konkrétních projektů pod NDA).<br><br>Dávalo by Vám smysl se krátce spojit, abych s Vámi sdílel krátký<br>pohled napříč trhem, jak srovnatelné firmy řeší AI governance v HR<br>před účinností AI Act 8/2026?<br><br>Pokud téma u Vás spadá spíše pod IT, compliance nebo CFO, dejte<br>mi prosím vědět - obrátím se rád přímo na ně.<br><br>S pozdravem,</div>
+            <div class="body-text body-sk body-sk-missing" data-lang="sk" hidden><em>SK varianta není v této ukázce zachycena (default cluster použije CZ jako baseline; v Lemlist je SK plně lokalizováno).</em></div>
+        </div>
+    
+            </div>
+        </section>
+    
+        <section class="touchpoint tp-li_cr" id="hr-leaders-li_cr">
+            <header class="tp-header">
+                <div class="tp-day-badge">Den 1-2</div>
+                <h3 class="tp-title">LinkedIn Connection Request</h3>
+                <div class="tp-type">LinkedIn Connection Request</div>
+            </header>
+            <p class="tp-purpose">BLANK - bez textu.</p>
+            
+            <div class="bodies-section">
+                <div class="section-title">Body varianty (per cluster)</div>
+                
+        <div class="body-card" data-body-idx="0">
+            <div class="body-head">
+                <span class="body-cluster">Univerzální</span>
+                <span class="badge badge-default">DEFAULT cluster</span>
+            </div>
+            <div class="body-cta"><strong>CTA:</strong> Žádná - blank CR</div>
+            <div class="body-text body-cz" data-lang="cz">(BEZ ZPRÁVY - prázdný Connection Request)</div>
+            <div class="body-text body-sk body-sk-missing" data-lang="sk" hidden><em>SK varianta není v této ukázce zachycena (default cluster použije CZ jako baseline; v Lemlist je SK plně lokalizováno).</em></div>
+        </div>
+    
+            </div>
+        </section>
+    
+        <section class="touchpoint tp-linkedin" id="hr-leaders-li_msg">
+            <header class="tp-header">
+                <div class="tp-day-badge">Den 3</div>
+                <h3 class="tp-title">LinkedIn 1st message (po accept)</h3>
+                <div class="tp-type">LinkedIn zpráva</div>
+            </header>
+            <p class="tp-purpose">Peer-insight zápisek pro HR cluster.</p>
+            
+            <div class="bodies-section">
+                <div class="section-title">Body varianty (per cluster)</div>
+                
+        <div class="body-card" data-body-idx="0">
+            <div class="body-head">
+                <span class="body-cluster">Univerzální (HR cluster)</span>
+                <span class="badge badge-default">DEFAULT cluster</span>
+            </div>
+            <div class="body-cta"><strong>CTA:</strong> Opt-in</div>
+            <div class="body-text body-cz" data-lang="cz"><span class="var" data-var="{salutation}" title="Personalizační proměnná: {salutation}">{salutation}</span> <span class="var" data-var="{prijmeni_voc}" title="Personalizační proměnná: {prijmeni_voc}">{prijmeni_voc}</span>, díky za přijetí.<br><br>Krátký kontext - sledujeme, jak HR oddělení velkých FI v ČR/SK řeší GDPR retention, ZP §312 a AI Act před účinností 8/2026. Pokud by Vás občasný peer-insight zápisek zajímal (3-4 vzorce, žádný produkt), dejte vědět.<br><br>S pozdravem,<br>Jiří Jakeš</div>
+            <div class="body-text body-sk body-sk-missing" data-lang="sk" hidden><em>SK varianta není v této ukázce zachycena (default cluster použije CZ jako baseline; v Lemlist je SK plně lokalizováno).</em></div>
+        </div>
+    
+            </div>
+        </section>
+    
+        <section class="touchpoint tp-email" id="hr-leaders-e2">
+            <header class="tp-header">
+                <div class="tp-day-badge">Den 5</div>
+                <h3 class="tp-title">Email 2</h3>
+                <div class="tp-type">E-mail</div>
+            </header>
+            <p class="tp-purpose">Konkrétní HR use case (e-složka / retention / nábor governance). Soft ask PDF.</p>
+            <div class="subjects-section"><div class="section-title">Subject varianty (A/B/C)</div><div class="subject-grid">
+        <div class="subject-card ">
+            <div class="subject-head">
+                <span class="subject-letter">Var. A</span>
+                <span class="badge badge-test">A/B test 33%</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> <span class="var" data-var="{firma}" title="Personalizační proměnná: {firma}">{firma}</span> - 3 vzorce v HR governance, které vidíme u peers</div>
+            <div class="subject-preview"><strong>Preview:</strong> 2-stránkový pohled napříč trhem, bez jmen.</div>
+            <div class="subject-audience">Pro: HR Director</div>
+        </div>
+    
+        <div class="subject-card subject-live">
+            <div class="subject-head">
+                <span class="subject-letter">Var. B</span>
+                <span class="badge badge-live">● LIVE - odešle se</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> Personální složka v 5 systémech - vyřešitelný paradox?</div>
+            <div class="subject-preview"><strong>Preview:</strong> HR e-složka jako single source of truth - mechanika konkrétně.</div>
+            <div class="subject-audience">Pro: HR Manager / Mid-size HR (DEFAULT)</div>
+        </div>
+    
+        <div class="subject-card ">
+            <div class="subject-head">
+                <span class="subject-letter">Var. C</span>
+                <span class="badge badge-test">A/B test 33%</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> AI v náboru - co se chystá před 8/2026</div>
+            <div class="subject-preview"><strong>Preview:</strong> AI Act Annex III - governance framework pro HR.</div>
+            <div class="subject-audience">Pro: Chief People &amp; Culture, Recruiting Lead</div>
+        </div>
+    </div></div>
+            <div class="bodies-section">
+                <div class="section-title">Body varianty (per cluster)</div>
+                
+        <div class="body-card" data-body-idx="0">
+            <div class="body-head">
+                <span class="body-cluster">HR Director / HR Manager - HR e-složka use case</span>
+                <span class="badge badge-default">DEFAULT cluster</span>
+            </div>
+            <div class="body-cta"><strong>CTA:</strong> Soft ask - PDF</div>
+            <div class="body-text body-cz" data-lang="cz"><span class="var" data-var="{salutation}" title="Personalizační proměnná: {salutation}">{salutation}</span> <span class="var" data-var="{prijmeni_voc}" title="Personalizační proměnná: {prijmeni_voc}">{prijmeni_voc}</span>,<br><br>navazuji - dnes konkrétní use case, který u HR Directorů ve velkých<br>FI v ČR zaznívá nejčastěji.<br><br>Personální e-složka. Klasický paradox: smlouva v jednom systému,<br>dodatky v druhém, mzdové dokumenty ve třetím, hodnocení ve čtvrtém,<br>prohlídky v papíru. Audit přijde, kontrola inspektorátu práce přijde,<br>zaměstnanec požádá o nahlédnutí - hledá se hodiny.<br><br>Digitální personální složka jako single source of truth (smlouva,<br>dodatky, prohlídky, mzdové dokumenty, hodnocení per zaměstnanec)<br>s automatickou skartací podle ZP §312 a GDPR Art. 5(1)(e) je<br>u peer pojišťoven a bank s 500+ zaměstnanci v ČR baseline.<br><br>Mohu poslat 2-stránkový přehled (PDF), jak to řešilo 3-4 srovnatelné<br>FI? Bez jmen, bez produktu - jen mechanika a měřitelný dopad<br>na ÚOOÚ audit cycle.<br><br>S pozdravem,</div>
+            <div class="body-text body-sk body-sk-missing" data-lang="sk" hidden><em>SK varianta není v této ukázce zachycena (default cluster použije CZ jako baseline; v Lemlist je SK plně lokalizováno).</em></div>
+        </div>
+    
+            </div>
+        </section>
+    
+        <section class="touchpoint tp-email" id="hr-leaders-e3">
+            <header class="tp-header">
+                <div class="tp-day-badge">Den 10</div>
+                <h3 class="tp-title">Email 3 (CTA split)</h3>
+                <div class="tp-type">E-mail</div>
+            </header>
+            <p class="tp-purpose">Value-add: IXTENT/OpenText + GECO SAP HR reference. CTA: HR Director/Manager/HRBP/mid-size → PDF, Chief People &amp; Culture → senior expert hovor.</p>
+            <div class="subjects-section"><div class="section-title">Subject varianty (A/B/C)</div><div class="subject-grid">
+        <div class="subject-card subject-live">
+            <div class="subject-head">
+                <span class="subject-letter">Var. A</span>
+                <span class="badge badge-live">● LIVE - odešle se</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> GECO + 3-4 srovnatelné FI - jak vyřešily HR e-složku</div>
+            <div class="subject-preview"><strong>Preview:</strong> Konkrétní social proof - SAP HR integrace od 2010.</div>
+            <div class="subject-audience">Pro: DEFAULT pro HR Director</div>
+        </div>
+    
+        <div class="subject-card ">
+            <div class="subject-head">
+                <span class="subject-letter">Var. B</span>
+                <span class="badge badge-test">A/B test 33%</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> Personální složka pod GDPR Art. 5(1)(e) - peer baseline 2026</div>
+            <div class="subject-preview"><strong>Preview:</strong> ZP §312 + ÚOOÚ retention cycle - mechanika konkrétně.</div>
+            <div class="subject-audience">Pro: HR Director / Head of HR Services</div>
+        </div>
+    
+        <div class="subject-card ">
+            <div class="subject-head">
+                <span class="subject-letter">Var. C</span>
+                <span class="badge badge-test">A/B test 33%</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> Otázka: jak řešíte AI governance v HR před 8/2026?</div>
+            <div class="subject-preview"><strong>Preview:</strong> AI Act Annex III - co dělá většina velkých skupin.</div>
+            <div class="subject-audience">Pro: Chief People &amp; Culture</div>
+        </div>
+    </div></div>
+            <div class="bodies-section">
+                <div class="section-title">Body varianty (per cluster)</div>
+                
+        <div class="body-card" data-body-idx="0">
+            <div class="body-head">
+                <span class="body-cluster">HR Director / Manager / HRBP / mid-size (PDF CTA - DEFAULT)</span>
+                <span class="badge badge-default">DEFAULT cluster</span>
+            </div>
+            <div class="body-cta"><strong>CTA:</strong> PDF nabídka</div>
+            <div class="body-text body-cz" data-lang="cz"><span class="var" data-var="{salutation}" title="Personalizační proměnná: {salutation}">{salutation}</span> <span class="var" data-var="{prijmeni_voc}" title="Personalizační proměnná: {prijmeni_voc}">{prijmeni_voc}</span>,<br><br>dnes pohled napříč trhem - to nejkonkrétnější z této série.<br><br>Krátká transparentní věc: pracujeme s většinou velkých českých bank,<br>pojišťoven a finančních skupin na dokumentové vrstvě - HR e-složka<br>a integrace na SAP HR / SuccessFactors je u nich typicky 2. nebo<br>3. agenda na tomtéž backbonu, který už mají z archivu nebo fakturace.<br><br>Konkrétně platforma OpenText Content Management, kterou v ČR/SK<br>delivery pokrývá IXTENT (Praha) jako Platinum partner. 23 let na trhu,<br>1 000+ projektů, 300+ klientů ve střední Evropě. Jediná veřejně<br>dokumentovaná reference s integrací na SAP HR je GECO a.s. (od 2010).<br><br>Pro HR vedení to znamená dvě věci:<br><br>  • personální e-složka s řízenou skartací podle ZP §312 + GDPR -<br>    audit-ready, ÚOOÚ-ready, prohledávatelná napříč zaměstnaneckými<br>    daty,<br>  • integrace na SAP HR / SuccessFactors / payroll vendora - jedna<br>    pravda o zaměstnanci, žádný ETL, žádné manuální propojování.<br><br>Je toto téma pro Vás aktuální? Pokud ano, rád Vám pošlu 2-stránkový<br>přehled (PDF), jak HR e-složku už vyřešily 3-4 srovnatelné FI v ČR.<br><br>Pokud teď ne, v pořádku - v Q3 se ozvu znovu.<br><br>S pozdravem,</div>
+            <div class="body-text body-sk body-sk-missing" data-lang="sk" hidden><em>SK varianta není v této ukázce zachycena (default cluster použije CZ jako baseline; v Lemlist je SK plně lokalizováno).</em></div>
+        </div>
+    
+            </div>
+        </section>
+    
+        <section class="touchpoint tp-linkedin" id="hr-leaders-li_msg2">
+            <header class="tp-header">
+                <div class="tp-day-badge">Den 18</div>
+                <h3 class="tp-title">LinkedIn 2nd touch</h3>
+                <div class="tp-type">LinkedIn zpráva</div>
+            </header>
+            <p class="tp-purpose">Soft poke + GECO reference.</p>
+            
+            <div class="bodies-section">
+                <div class="section-title">Body varianty (per cluster)</div>
+                
+        <div class="body-card" data-body-idx="0">
+            <div class="body-head">
+                <span class="body-cluster">Univerzální (HR cluster)</span>
+                <span class="badge badge-default">DEFAULT cluster</span>
+            </div>
+            <div class="body-cta"><strong>CTA:</strong> Soft poke</div>
+            <div class="body-text body-cz" data-lang="cz"><span class="var" data-var="{salutation}" title="Personalizační proměnná: {salutation}">{salutation}</span> <span class="var" data-var="{prijmeni_voc}" title="Personalizační proměnná: {prijmeni_voc}">{prijmeni_voc}</span>, krátká věc - minulý týden jsem Vám poslal pohled k tomu, jak většina velkých českých FI řeší HR e-složku a retention podle ZP §312. IXTENT je 23 let na trhu, Platinum delivery partner OpenText v CEE.<br><br>Bez tlaku - jen pokud by tato vrstva byla u Vás na stole. Pokud teď ne, v pořádku.<br><br>S pozdravem,<br>Jiří Jakeš</div>
+            <div class="body-text body-sk body-sk-missing" data-lang="sk" hidden><em>SK varianta není v této ukázce zachycena (default cluster použije CZ jako baseline; v Lemlist je SK plně lokalizováno).</em></div>
+        </div>
+    
+            </div>
+        </section>
+    
+        <section class="touchpoint tp-email" id="hr-leaders-e4">
+            <header class="tp-header">
+                <div class="tp-day-badge">Den 25</div>
+                <h3 class="tp-title">Email 4 (A/B/C poll + referral ask)</h3>
+                <div class="tp-type">E-mail</div>
+            </header>
+            <p class="tp-purpose">Jednoznaková klasifikace + opakovaný referral ask (HR = interní šampion).</p>
+            <div class="subjects-section"><div class="section-title">Subject varianty (A/B/C)</div><div class="subject-grid">
+        <div class="subject-card ">
+            <div class="subject-head">
+                <span class="subject-letter">Var. A</span>
+                <span class="badge badge-test">A/B test 33%</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> <span class="var" data-var="{firma}" title="Personalizační proměnná: {firma}">{firma}</span> - krátký dotaz na 1 znak</div>
+            <div class="subject-preview"><strong>Preview:</strong> A/B/C - vyberte jedno, žádný další e-mail tento měsíc.</div>
+            <div class="subject-audience">Pro: Jednoznaková</div>
+        </div>
+    
+        <div class="subject-card subject-live">
+            <div class="subject-head">
+                <span class="subject-letter">Var. B</span>
+                <span class="badge badge-live">● LIVE - odešle se</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> Jak to s personální složkou ve Vaší firmě stojí?</div>
+            <div class="subject-preview"><strong>Preview:</strong> 1 znak v odpovědi stačí.</div>
+            <div class="subject-audience">Pro: DEFAULT</div>
+        </div>
+    
+        <div class="subject-card ">
+            <div class="subject-head">
+                <span class="subject-letter">Var. C</span>
+                <span class="badge badge-test">A/B test 33%</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> Stručná otázka - vaše situace?</div>
+            <div class="subject-preview"><strong>Preview:</strong> 2 vteřiny vašeho času.</div>
+            <div class="subject-audience">Pro: Peer-to-peer</div>
+        </div>
+    </div></div>
+            <div class="bodies-section">
+                <div class="section-title">Body varianty (per cluster)</div>
+                
+        <div class="body-card" data-body-idx="0">
+            <div class="body-head">
+                <span class="body-cluster">Univerzální (A/B/C poll + referral ask)</span>
+                <span class="badge badge-default">DEFAULT cluster</span>
+            </div>
+            <div class="body-cta"><strong>CTA:</strong> A/B/C poll + referral ask</div>
+            <div class="body-text body-cz" data-lang="cz"><span class="var" data-var="{salutation}" title="Personalizační proměnná: {salutation}">{salutation}</span> <span class="var" data-var="{prijmeni_voc}" title="Personalizační proměnná: {prijmeni_voc}">{prijmeni_voc}</span>,<br><br>posílal jsem několik zpráv k tématu HR e-složky, retention podle<br>ZP §312 a AI Act governance v HR - chápu, že priority se mění.<br><br>Aby měla naše další komunikace smysl, prosím o jeden znak:<br><br>A) Téma relevantní, nezbyl mi čas - ozvěte se prosím příští týden.<br>B) Téma relevantní, ale ne teď - ozvěte se za 3-6 měsíců.<br>C) Téma pro nás aktuálně nerelevantní - vyřaďte mě z komunikace.<br><br>A případně - pokud toto téma u Vás aktuálně leží spíše pod IT,<br>compliance nebo CFO, dejte vědět - obrátím se rád přímo na ně.<br><br>Děkuji za 2 vteřiny Vašeho času.<br><br>S pozdravem,</div>
+            <div class="body-text body-sk body-sk-missing" data-lang="sk" hidden><em>SK varianta není v této ukázce zachycena (default cluster použije CZ jako baseline; v Lemlist je SK plně lokalizováno).</em></div>
+        </div>
+    
+            </div>
+        </section>
+    
+            </div>
+        </section>
+    
+
+        <section class="sequence" id="seq-ops-leaders" data-seq="ops-leaders">
+            <header class="seq-header">
+                <h2 class="seq-title">Sekvence 4: Ops leaders</h2>
+                <div class="seq-meta">
+                    <div class="meta-row"><strong>Cílovka:</strong> COO, Director Group Finance Operations, Director Trade Finance, Change Manager, Process Analyst, Project Manager, ERP Manager</div>
+                    <div class="meta-row"><strong>Velikost:</strong> 10 kontaktů (CZ × 9 + SK × 1) | <strong>Buckety:</strong> 3 sub-clustery</div>
+                    <div class="meta-row"><strong>Primary angle:</strong> DORA Operational Resilience Art. 5, AML/KYC change cycle, BPM workflow + governance přes change, vendor consolidation, M&amp;A integrace, AP automation</div>
+                    <div class="meta-row"><strong>Compliance angle:</strong> DORA Op Resilience, AML/KYC, NIS2/ZKB</div>
+                    <div class="meta-row meta-avoid"><strong>NIKDY nepoužít:</strong> „Digital transformation&quot;, „operational excellence&quot;, „process reengineering&quot;</div>
+                    
+                    <div class="meta-row"><strong>Clustery:</strong></div>
+                    <ul class="seq-clusters"><li>Executive Ops (COO, Director Group Finance Ops, Trade Finance)</li><li>Change Manager / Change Mgmt Lead</li><li>Process Analyst / Project Manager / ERP</li></ul>
+                </div>
+                <div class="timeline"><div class="timeline-line"></div><div class="timeline-nodes">
+            <a class="timeline-node tp-email" href="#ops-leaders-e1" title="Email 1">
+                <div class="node-circle">@</div>
+                <div class="node-day">Den 0</div>
+            </a>
+        
+            <a class="timeline-node tp-li_cr" href="#ops-leaders-li_cr" title="LinkedIn Connection Request">
+                <div class="node-circle">+in</div>
+                <div class="node-day">Den 1-2</div>
+            </a>
+        
+            <a class="timeline-node tp-linkedin" href="#ops-leaders-li_msg" title="LinkedIn 1st message (po accept)">
+                <div class="node-circle">in</div>
+                <div class="node-day">Den 3</div>
+            </a>
+        
+            <a class="timeline-node tp-email" href="#ops-leaders-e2" title="Email 2">
+                <div class="node-circle">@</div>
+                <div class="node-day">Den 5</div>
+            </a>
+        
+            <a class="timeline-node tp-email" href="#ops-leaders-e3" title="Email 3 (CTA split)">
+                <div class="node-circle">@</div>
+                <div class="node-day">Den 10</div>
+            </a>
+        
+            <a class="timeline-node tp-linkedin" href="#ops-leaders-li_msg2" title="LinkedIn 2nd touch">
+                <div class="node-circle">in</div>
+                <div class="node-day">Den 18</div>
+            </a>
+        
+            <a class="timeline-node tp-email" href="#ops-leaders-e4" title="Email 4 (A/B/C poll)">
+                <div class="node-circle">@</div>
+                <div class="node-day">Den 25</div>
+            </a>
+        </div></div>
+            </header>
+            <div class="touchpoints">
+                
+        <section class="touchpoint tp-email" id="ops-leaders-e1">
+            <header class="tp-header">
+                <div class="tp-day-badge">Den 0</div>
+                <h3 class="tp-title">Email 1</h3>
+                <div class="tp-type">E-mail</div>
+            </header>
+            <p class="tp-purpose">First touch. 3 cluster-specific bodies podle role.</p>
+            <div class="subjects-section"><div class="section-title">Subject varianty (A/B/C)</div><div class="subject-grid">
+        <div class="subject-card subject-live">
+            <div class="subject-head">
+                <span class="subject-letter">Var. A</span>
+                <span class="badge badge-live">● LIVE - odešle se</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> <span class="var" data-var="{firma}" title="Personalizační proměnná: {firma}">{firma}</span> - krátký pohled k vendor konsolidaci 2026</div>
+            <div class="subject-preview"><strong>Preview:</strong> Co vidíme u Finance group skupin a regulovaných FI v ČR.</div>
+            <div class="subject-audience">Pro: Executive Ops (COO, Group Finance Ops, Trade Finance)</div>
+        </div>
+    
+        <div class="subject-card ">
+            <div class="subject-head">
+                <span class="subject-letter">Var. B</span>
+                <span class="badge badge-test">A/B test 33%</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> Governance přes change - 3 vrstvy auditu</div>
+            <div class="subject-preview"><strong>Preview:</strong> Workflow audit log + Category audit + audit trail aplikace - pohled z praxe.</div>
+            <div class="subject-audience">Pro: Change Manager / Change Mgmt Lead</div>
+        </div>
+    
+        <div class="subject-card ">
+            <div class="subject-head">
+                <span class="subject-letter">Var. C</span>
+                <span class="badge badge-test">A/B test 33%</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> Otázka k AP / contract workflow v SAP</div>
+            <div class="subject-preview"><strong>Preview:</strong> Faktura v SAP UI s end-to-end auditovatelností - krátký pohled napříč trhem.</div>
+            <div class="subject-audience">Pro: Process Analyst / PM / ERP Manager</div>
+        </div>
+    </div></div>
+            <div class="bodies-section">
+                <div class="section-title">Body varianty (per cluster)</div>
+                
+        <div class="body-card" data-body-idx="0">
+            <div class="body-head">
+                <span class="body-cluster">Executive Ops (vendor consolidation + M&amp;A + Trade Finance)</span>
+                <span class="badge badge-default">DEFAULT cluster</span>
+            </div>
+            <div class="body-cta"><strong>CTA:</strong> Opt-in otázka</div>
+            <div class="body-text body-cz" data-lang="cz"><span class="var" data-var="{salutation}" title="Personalizační proměnná: {salutation}">{salutation}</span> <span class="var" data-var="{prijmeni_voc}" title="Personalizační proměnná: {prijmeni_voc}">{prijmeni_voc}</span>,<br><br>12 měsíců po účinnosti DORA - registr třetích stran a koncentrační<br>riziko (Art. 28-29) plus Operational Resilience Art. 5 je u Finance<br>group skupin a regulovaných FI v ČR teď tichý projekt 2026. Pro<br>group-level Ops to znamená přehodnocení, kolik dokumentových agend<br>žije pod kolika smluvními vztahy napříč entitami.<br><br>U Finance group skupin srovnatelné velikosti v ČR/CEE vidíme stejný<br>paradox - 5 až 10 dokumentových sil per entita (sdílené disky, M365,<br>legacy archiv, capture, output management). Každé silo = další<br>subdodavatel v DORA registru, další eskalační kanál. Při M&amp;A<br>integraci se problém násobí - typicky se sloučení dokumentových<br>skladů, retencí a oprávnění řeší ad-hoc projektem na každou<br>akvizici.<br><br>Pracujeme s většinou velkých českých bank a finančních skupin<br>právě na konsolidaci této vrstvy napříč skupinou (jména konkrétních<br>projektů pod NDA).<br><br>Dávalo by Vám smysl se krátce spojit, abych s Vámi sdílel krátký<br>pohled napříč trhem na to, jak srovnatelné Finance group skupiny<br>dnes řeší vendor consolidation a M&amp;A integraci dokumentové vrstvy,<br>nebo to teď není priorita?<br><br>S pozdravem,</div>
+            <div class="body-text body-sk body-sk-missing" data-lang="sk" hidden><em>SK varianta není v této ukázce zachycena (default cluster použije CZ jako baseline; v Lemlist je SK plně lokalizováno).</em></div>
+        </div>
+    
+        <div class="body-card" data-body-idx="1">
+            <div class="body-head">
+                <span class="body-cluster">Change Manager (BPM workflow + governance přes change)</span>
+                
+            </div>
+            <div class="body-cta"><strong>CTA:</strong> Opt-in otázka</div>
+            <div class="body-text body-cz" data-lang="cz"><span class="var" data-var="{salutation}" title="Personalizační proměnná: {salutation}">{salutation}</span> <span class="var" data-var="{prijmeni_voc}" title="Personalizační proměnná: {prijmeni_voc}">{prijmeni_voc}</span>,<br><br>každá změna procesu v regulované bance nebo telco operátora je<br>sama o sobě regulatorně dohledávaná událost - kdo změnu schválil,<br>kdo ji nasadil, kdy se aplikovala, na koho dopadla. Pod DORA<br>Operational Resilience Art. 5 a transpozicí NIS2 do nového ZKB<br>(banky jako klíčový subjekt, telco jako důležitý subjekt) je<br>governance přes change v ostrém světle dohledové povinnosti.<br><br>Co u Change Managerů v ČR vidíme jako přehlíženou bolest 2026:<br>každý funkční tým chce vlastní úzce specializovaný nástroj na<br>svůj proces - další silo, další tender, další subkontraktor<br>v Register of Information. BPM workflow engine v existující<br>dokumentové platformě řeší tohle - designujete procesy v grafickém<br>BPMN designeru bez kódu, jeden technologický stack pro všechny<br>dokumentové procesy v bance. Audit trail je vlastnost platformy,<br>ne extra nástroj.<br><br>Pracujeme s většinou velkých českých bank právě na této vrstvě<br>(jména konkrétních projektů pod NDA).<br><br>Dávalo by Vám smysl se krátce spojit, abych s Vámi sdílel krátký<br>pohled napříč trhem na to, jak srovnatelné Change Manageři v ČR<br>dnes řeší BPM stack a governance přes change?<br><br>S pozdravem,</div>
+            <div class="body-text body-sk body-sk-missing" data-lang="sk" hidden><em>SK varianta není v této ukázce zachycena (default cluster použije CZ jako baseline; v Lemlist je SK plně lokalizováno).</em></div>
+        </div>
+    
+        <div class="body-card" data-body-idx="2">
+            <div class="body-head">
+                <span class="body-cluster">Process Analyst / PM / ERP (AP automation + contract workflow + SAP/D365)</span>
+                
+            </div>
+            <div class="body-cta"><strong>CTA:</strong> Opt-in otázka</div>
+            <div class="body-text body-cz" data-lang="cz"><span class="var" data-var="{salutation}" title="Personalizační proměnná: {salutation}">{salutation}</span> <span class="var" data-var="{prijmeni_voc}" title="Personalizační proměnná: {prijmeni_voc}">{prijmeni_voc}</span>,<br><br>faktura nebo smlouva dnes typicky v pojišťovně, leasingové<br>společnosti nebo retail firmě projde 3 až 5 systémy - sken,<br>OCR, vytěžení dat, schvalovací workflow, archiv, předání do<br>SAP nebo D365. Každá entita to dělá jinak, audit prep = manuální<br>dohledávání PDF v 5 zdrojích.<br><br>Co u Process Analystů a ERP Managerů v regulovaném sektoru<br>v ČR vidíme jako přehlíženou bolest 2026: AP automation a contract<br>workflow s nativní integrací do SAP GUI / Fiori nebo D365 znamená,<br>že faktura nebo smlouva žije v ERP UI s end-to-end auditovatelností<br>- bez exportů do sdíleného disku. K tomu reporting nad procesními<br>metadaty (doba schválení, počet návratů, dodržení SLA) jako<br>měřitelný baseline každého zlepšení procesu.<br><br>Pracujeme s většinou velkých českých bank a několika retail<br>a pojišťovacími firmami právě na této vrstvě (jména konkrétních<br>projektů pod NDA).<br><br>Dávalo by Vám smysl se krátce spojit, abych s Vámi sdílel krátký<br>pohled napříč trhem na to, jak srovnatelné Process Analyst /<br>ERP týmy dnes řeší AP automation a contract workflow nad SAP / D365?<br><br>S pozdravem,</div>
+            <div class="body-text body-sk body-sk-missing" data-lang="sk" hidden><em>SK varianta není v této ukázce zachycena (default cluster použije CZ jako baseline; v Lemlist je SK plně lokalizováno).</em></div>
+        </div>
+    
+            </div>
+        </section>
+    
+        <section class="touchpoint tp-li_cr" id="ops-leaders-li_cr">
+            <header class="tp-header">
+                <div class="tp-day-badge">Den 1-2</div>
+                <h3 class="tp-title">LinkedIn Connection Request</h3>
+                <div class="tp-type">LinkedIn Connection Request</div>
+            </header>
+            <p class="tp-purpose">BLANK - bez textu.</p>
+            
+            <div class="bodies-section">
+                <div class="section-title">Body varianty (per cluster)</div>
+                
+        <div class="body-card" data-body-idx="0">
+            <div class="body-head">
+                <span class="body-cluster">Univerzální</span>
+                <span class="badge badge-default">DEFAULT cluster</span>
+            </div>
+            <div class="body-cta"><strong>CTA:</strong> Žádná - blank CR</div>
+            <div class="body-text body-cz" data-lang="cz">(BEZ ZPRÁVY - prázdný Connection Request)</div>
+            <div class="body-text body-sk body-sk-missing" data-lang="sk" hidden><em>SK varianta není v této ukázce zachycena (default cluster použije CZ jako baseline; v Lemlist je SK plně lokalizováno).</em></div>
+        </div>
+    
+            </div>
+        </section>
+    
+        <section class="touchpoint tp-linkedin" id="ops-leaders-li_msg">
+            <header class="tp-header">
+                <div class="tp-day-badge">Den 3</div>
+                <h3 class="tp-title">LinkedIn 1st message (po accept)</h3>
+                <div class="tp-type">LinkedIn zpráva</div>
+            </header>
+            <p class="tp-purpose">Peer-insight zápisek pro Ops cluster.</p>
+            
+            <div class="bodies-section">
+                <div class="section-title">Body varianty (per cluster)</div>
+                
+        <div class="body-card" data-body-idx="0">
+            <div class="body-head">
+                <span class="body-cluster">Univerzální (Ops cluster)</span>
+                <span class="badge badge-default">DEFAULT cluster</span>
+            </div>
+            <div class="body-cta"><strong>CTA:</strong> Opt-in</div>
+            <div class="body-text body-cz" data-lang="cz"><span class="var" data-var="{salutation}" title="Personalizační proměnná: {salutation}">{salutation}</span> <span class="var" data-var="{prijmeni_voc}" title="Personalizační proměnná: {prijmeni_voc}">{prijmeni_voc}</span>, díky za přijetí.<br><br>Krátký kontext - sledujeme, jak Ops/Change/Process teams v regulovaných FI v ČR/SK řeší vendor consolidation, BPM governance a AP automation pod DORA Operational Resilience Art. 5. Pokud by Vás občasný peer-insight zájem zajímal (3-4 vzorce, žádný produkt), dejte vědět.<br><br>S pozdravem,<br>Jiří Jakeš</div>
+            <div class="body-text body-sk body-sk-missing" data-lang="sk" hidden><em>SK varianta není v této ukázce zachycena (default cluster použije CZ jako baseline; v Lemlist je SK plně lokalizováno).</em></div>
+        </div>
+    
+            </div>
+        </section>
+    
+        <section class="touchpoint tp-email" id="ops-leaders-e2">
+            <header class="tp-header">
+                <div class="tp-day-badge">Den 5</div>
+                <h3 class="tp-title">Email 2</h3>
+                <div class="tp-type">E-mail</div>
+            </header>
+            <p class="tp-purpose">Konkrétní use case podle clusteru. Soft ask PDF.</p>
+            <div class="subjects-section"><div class="section-title">Subject varianty (A/B/C)</div><div class="subject-grid">
+        <div class="subject-card ">
+            <div class="subject-head">
+                <span class="subject-letter">Var. A</span>
+                <span class="badge badge-test">A/B test 33%</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> <span class="var" data-var="{firma}" title="Personalizační proměnná: {firma}">{firma}</span> - 3 vzorce M&amp;A integrace dokumentové vrstvy</div>
+            <div class="subject-preview"><strong>Preview:</strong> Co vidíme u Finance group skupin pod DORA Art. 28-29.</div>
+            <div class="subject-audience">Pro: Executive Ops</div>
+        </div>
+    
+        <div class="subject-card subject-live">
+            <div class="subject-head">
+                <span class="subject-letter">Var. B</span>
+                <span class="badge badge-live">● LIVE - odešle se</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> BPM stack v bance - jeden technologický stack místo 5</div>
+            <div class="subject-preview"><strong>Preview:</strong> Workflow audit log baseline 2026 - krátký přehled.</div>
+            <div class="subject-audience">Pro: Change Manager (DEFAULT)</div>
+        </div>
+    
+        <div class="subject-card ">
+            <div class="subject-head">
+                <span class="subject-letter">Var. C</span>
+                <span class="badge badge-test">A/B test 33%</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> AP automation v SAP UI - jak to řeší peer banky</div>
+            <div class="subject-preview"><strong>Preview:</strong> End-to-end auditovatelnost bez exportu - mechanika.</div>
+            <div class="subject-audience">Pro: Process Analyst / ERP</div>
+        </div>
+    </div></div>
+            <div class="bodies-section">
+                <div class="section-title">Body varianty (per cluster)</div>
+                
+        <div class="body-card" data-body-idx="0">
+            <div class="body-head">
+                <span class="body-cluster">Change Manager - BPM stack use case</span>
+                <span class="badge badge-default">DEFAULT cluster</span>
+            </div>
+            <div class="body-cta"><strong>CTA:</strong> Soft ask - PDF</div>
+            <div class="body-text body-cz" data-lang="cz"><span class="var" data-var="{salutation}" title="Personalizační proměnná: {salutation}">{salutation}</span> <span class="var" data-var="{prijmeni_voc}" title="Personalizační proměnná: {prijmeni_voc}">{prijmeni_voc}</span>,<br><br>navazuji - dnes konkrétní use case, který u Change Managerů<br>ve velkých českých bankách zaznívá nejčastěji.<br><br>BPM stack. Klasický paradox: každý funkční tým má vlastní nástroj<br>na svůj proces (onboarding, KYC, schvalování smlouvy, change request<br>v IT). 5-10 silových BPM enginů, žádná konzistentní audit trail<br>vrstva, každý nový proces = další integrace, další subkontraktor<br>v Register of Information.<br><br>BPM workflow engine přímo v dokumentové platformě (procesy v BPMN<br>designeru bez kódu, audit trail vlastnost platformy) je u peer<br>velkých českých bank baseline 2026 - jeden stack pro všechny<br>dokumentové procesy.<br><br>Mohu poslat 2-stránkový přehled (PDF), jak konsolidaci BPM stacku<br>už realizovaly 3 srovnatelné banky v ČR? Bez jmen, bez produktu -<br>jen mechanika a měřitelný dopad na governance.<br><br>S pozdravem,</div>
+            <div class="body-text body-sk body-sk-missing" data-lang="sk" hidden><em>SK varianta není v této ukázce zachycena (default cluster použije CZ jako baseline; v Lemlist je SK plně lokalizováno).</em></div>
+        </div>
+    
+            </div>
+        </section>
+    
+        <section class="touchpoint tp-email" id="ops-leaders-e3">
+            <header class="tp-header">
+                <div class="tp-day-badge">Den 10</div>
+                <h3 class="tp-title">Email 3 (CTA split)</h3>
+                <div class="tp-type">E-mail</div>
+            </header>
+            <p class="tp-purpose">IXTENT/OpenText přiznáno + reference (E.ON Business Services, Modrá pyramida/KB, PSS, Žabka, Škoda). CTA: Executive Ops → senior expert hovor, Change Mgr/Process → PDF.</p>
+            <div class="subjects-section"><div class="section-title">Subject varianty (A/B/C)</div><div class="subject-grid">
+        <div class="subject-card subject-live">
+            <div class="subject-head">
+                <span class="subject-letter">Var. A</span>
+                <span class="badge badge-live">● LIVE - odešle se</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> Co dělají Finance group skupiny v ČR jinak</div>
+            <div class="subject-preview"><strong>Preview:</strong> Konkrétní social proof - peer adopce v ČR/CEE.</div>
+            <div class="subject-audience">Pro: DEFAULT pro Executive Ops</div>
+        </div>
+    
+        <div class="subject-card ">
+            <div class="subject-head">
+                <span class="subject-letter">Var. B</span>
+                <span class="badge badge-test">A/B test 33%</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> BPM v bance - jak to řeší většina velkých českých bank</div>
+            <div class="subject-preview"><strong>Preview:</strong> Workflow engine v ECM - mechanika konkrétně.</div>
+            <div class="subject-audience">Pro: Change Manager</div>
+        </div>
+    
+        <div class="subject-card ">
+            <div class="subject-head">
+                <span class="subject-letter">Var. C</span>
+                <span class="badge badge-test">A/B test 33%</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> AP automation + SAP/D365 - peer baseline 2026</div>
+            <div class="subject-preview"><strong>Preview:</strong> End-to-end audit trail v ERP UI - 2-stránkový přehled.</div>
+            <div class="subject-audience">Pro: Process Analyst / ERP</div>
+        </div>
+    </div></div>
+            <div class="bodies-section">
+                <div class="section-title">Body varianty (per cluster)</div>
+                
+        <div class="body-card" data-body-idx="0">
+            <div class="body-head">
+                <span class="body-cluster">Executive Ops (Senior expert call CTA - DEFAULT)</span>
+                <span class="badge badge-default">DEFAULT cluster</span>
+            </div>
+            <div class="body-cta"><strong>CTA:</strong> Senior expert hovor</div>
+            <div class="body-text body-cz" data-lang="cz"><span class="var" data-var="{salutation}" title="Personalizační proměnná: {salutation}">{salutation}</span> <span class="var" data-var="{prijmeni_voc}" title="Personalizační proměnná: {prijmeni_voc}">{prijmeni_voc}</span>,<br><br>dnes pohled napříč trhem - to nejkonkrétnější z této série.<br><br>Krátká transparentní věc: většina velkých českých bank a finančních<br>skupin má dokumentovou governance vrstvu konsolidovanou na jedné<br>platformě - konkrétně OpenText Content Management. V ČR/SK delivery<br>pokrývá IXTENT (Praha) jako Platinum partner. 23 let na trhu,<br>1 000+ projektů, 300+ klientů ve střední Evropě.<br><br>Pro M&amp;A / vendor consolidation kontext máme veřejné reference -<br>E.ON Business Services a PPF Group (přes CETIN). Pro Trade Finance:<br>Modrá pyramida / Komerční banka, PSS. Pro retail/ERP: Žabka Polska,<br>Škoda Auto.<br><br>Pro group-level Ops to znamená:<br><br>  • DORA Art. 28-29 + Operational Resilience Art. 5 - vendor<br>    concentration risk adresujeme dual-region BCP, Register of<br>    Information se smršťuje,<br>  • M&amp;A integrace dokumentové vrstvy bez ztráty audit trailu (xECM<br>    jako enterprise document service vrstva).<br><br>Je toto téma pro Vás aktuální? Pokud ano, rád bych si s Vámi<br>krátce promluvil - ukážu Vám konkrétní mechaniku, jak konsolidaci<br>už realizovaly srovnatelné Finance group skupiny v ČR/CEE.<br><br>Pokud teď ne, v pořádku - v Q3 se ozvu znovu.<br><br>S pozdravem,</div>
+            <div class="body-text body-sk body-sk-missing" data-lang="sk" hidden><em>SK varianta není v této ukázce zachycena (default cluster použije CZ jako baseline; v Lemlist je SK plně lokalizováno).</em></div>
+        </div>
+    
+        <div class="body-card" data-body-idx="1">
+            <div class="body-head">
+                <span class="body-cluster">Change Manager / Process Analyst / PM (PDF CTA)</span>
+                
+            </div>
+            <div class="body-cta"><strong>CTA:</strong> PDF nabídka</div>
+            <div class="body-text body-cz" data-lang="cz"><span class="var" data-var="{salutation}" title="Personalizační proměnná: {salutation}">{salutation}</span> <span class="var" data-var="{prijmeni_voc}" title="Personalizační proměnná: {prijmeni_voc}">{prijmeni_voc}</span>,<br><br>dnes pohled napříč trhem - to nejkonkrétnější z této série.<br><br>Pracujeme s většinou velkých českých bank na governance vrstvě nad<br>dokumentovým životním cyklem - konkrétně OpenText Content Management.<br>IXTENT (Praha) je Platinum delivery partner OpenText v CEE,<br>23 let na trhu, 1 000+ projektů.<br><br>Pro Vaši roli to znamená:<br><br>  • BPM workflow engine v ECM - procesy v BPMN designeru bez kódu,<br>    audit trail vlastnost platformy, jeden stack pro všechny<br>    dokumentové procesy v bance,<br>  • AP automation a contract workflow s nativní integrací do SAP GUI<br>    / Fiori / D365 - faktura žije v ERP UI s end-to-end auditovatelností.<br><br>Mohu poslat 2-stránkový přehled (PDF), jak BPM stack a AP automation<br>už realizovaly 3 srovnatelné banky v ČR? Bez jmen, bez produktové<br>prezentace - jen mechanika a měřitelný dopad.<br><br>S pozdravem,</div>
+            <div class="body-text body-sk body-sk-missing" data-lang="sk" hidden><em>SK varianta není v této ukázce zachycena (default cluster použije CZ jako baseline; v Lemlist je SK plně lokalizováno).</em></div>
+        </div>
+    
+            </div>
+        </section>
+    
+        <section class="touchpoint tp-linkedin" id="ops-leaders-li_msg2">
+            <header class="tp-header">
+                <div class="tp-day-badge">Den 18</div>
+                <h3 class="tp-title">LinkedIn 2nd touch</h3>
+                <div class="tp-type">LinkedIn zpráva</div>
+            </header>
+            <p class="tp-purpose">Soft poke + Ops reference.</p>
+            
+            <div class="bodies-section">
+                <div class="section-title">Body varianty (per cluster)</div>
+                
+        <div class="body-card" data-body-idx="0">
+            <div class="body-head">
+                <span class="body-cluster">Univerzální (Ops cluster)</span>
+                <span class="badge badge-default">DEFAULT cluster</span>
+            </div>
+            <div class="body-cta"><strong>CTA:</strong> Soft poke</div>
+            <div class="body-text body-cz" data-lang="cz"><span class="var" data-var="{salutation}" title="Personalizační proměnná: {salutation}">{salutation}</span> <span class="var" data-var="{prijmeni_voc}" title="Personalizační proměnná: {prijmeni_voc}">{prijmeni_voc}</span>, krátká věc - minulý týden jsem Vám poslal pohled k tomu, jak Finance group skupiny v ČR konsolidují dokumentovou vrstvu pod DORA Art. 28-29 a Operational Resilience. IXTENT je 23 let na trhu, Platinum delivery partner OpenText v CEE.<br><br>Bez tlaku - jen pokud by tato vrstva byla u Vás na stole. Pokud teď ne, v pořádku.<br><br>S pozdravem,<br>Jiří Jakeš</div>
+            <div class="body-text body-sk body-sk-missing" data-lang="sk" hidden><em>SK varianta není v této ukázce zachycena (default cluster použije CZ jako baseline; v Lemlist je SK plně lokalizováno).</em></div>
+        </div>
+    
+            </div>
+        </section>
+    
+        <section class="touchpoint tp-email" id="ops-leaders-e4">
+            <header class="tp-header">
+                <div class="tp-day-badge">Den 25</div>
+                <h3 class="tp-title">Email 4 (A/B/C poll)</h3>
+                <div class="tp-type">E-mail</div>
+            </header>
+            <p class="tp-purpose">Jednoznaková klasifikace.</p>
+            <div class="subjects-section"><div class="section-title">Subject varianty (A/B/C)</div><div class="subject-grid">
+        <div class="subject-card ">
+            <div class="subject-head">
+                <span class="subject-letter">Var. A</span>
+                <span class="badge badge-test">A/B test 33%</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> <span class="var" data-var="{firma}" title="Personalizační proměnná: {firma}">{firma}</span> - krátký dotaz na 1 znak</div>
+            <div class="subject-preview"><strong>Preview:</strong> A/B/C - vyberte jedno, žádný další e-mail.</div>
+            <div class="subject-audience">Pro: Jednoznaková</div>
+        </div>
+    
+        <div class="subject-card subject-live">
+            <div class="subject-head">
+                <span class="subject-letter">Var. B</span>
+                <span class="badge badge-live">● LIVE - odešle se</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> Jak to s dokumentovou vrstvou ve Vaší skupině stojí?</div>
+            <div class="subject-preview"><strong>Preview:</strong> 1 znak v odpovědi stačí.</div>
+            <div class="subject-audience">Pro: DEFAULT</div>
+        </div>
+    
+        <div class="subject-card ">
+            <div class="subject-head">
+                <span class="subject-letter">Var. C</span>
+                <span class="badge badge-test">A/B test 33%</span>
+            </div>
+            <div class="subject-line"><strong>Subject:</strong> Stručná otázka - vaše situace?</div>
+            <div class="subject-preview"><strong>Preview:</strong> 2 vteřiny vašeho času.</div>
+            <div class="subject-audience">Pro: Peer-to-peer</div>
+        </div>
+    </div></div>
+            <div class="bodies-section">
+                <div class="section-title">Body varianty (per cluster)</div>
+                
+        <div class="body-card" data-body-idx="0">
+            <div class="body-head">
+                <span class="body-cluster">Univerzální (A/B/C poll)</span>
+                <span class="badge badge-default">DEFAULT cluster</span>
+            </div>
+            <div class="body-cta"><strong>CTA:</strong> A/B/C poll</div>
+            <div class="body-text body-cz" data-lang="cz"><span class="var" data-var="{salutation}" title="Personalizační proměnná: {salutation}">{salutation}</span> <span class="var" data-var="{prijmeni_voc}" title="Personalizační proměnná: {prijmeni_voc}">{prijmeni_voc}</span>,<br><br>posílal jsem několik zpráv k tématu vendor consolidation, BPM<br>governance a AP automation pod DORA Operational Resilience -<br>chápu, že priority se mění.<br><br>Aby měla naše další komunikace smysl, prosím o jeden znak:<br><br>A) Téma relevantní, nezbyl mi čas - ozvěte se prosím příští týden.<br>B) Téma relevantní, ale ne teď - ozvěte se za 3-6 měsíců.<br>C) Téma pro nás aktuálně nerelevantní - vyřaďte mě z komunikace.<br><br>Děkuji za 2 vteřiny Vašeho času.<br><br>S pozdravem,</div>
+            <div class="body-text body-sk body-sk-missing" data-lang="sk" hidden><em>SK varianta není v této ukázce zachycena (default cluster použije CZ jako baseline; v Lemlist je SK plně lokalizováno).</em></div>
+        </div>
+    
+            </div>
+        </section>
+    
+            </div>
+        </section>
+    
+
+        <div class="footer">
+            <strong>Generated:</strong> 12. 5. 2026 18:18<br>
+            <strong>Source:</strong> <code>finance-smer1-*-2026-05-12.md</code> (4 sekvence) + <code>MASTER-SUMMARY-finance-smer1.md</code><br>
+            <strong>Version:</strong> <code>build-2026-05-12-1818</code><br>
+            <strong>Build:</strong> <code>scripts/build_preview.py</code> - Forecom Solutions × IXTENT s.r.o.
+        </div>
+    </main>
+</div>
+
+<script>
+const SAMPLES_CZ = {
+  '{salutation}': 'Vážený pane',
+  '{prijmeni_voc}': 'Nováku',
+  '{firma}': 'Air Bank a.s.',
+  '{cluster}': 'CFO',
+  '{role}': 'CFO',
+  '{dora_aftermath}': 'rok po DORA Art. 28(4) supervisory review',
+  '{nis2_transposition}': 'NIS2 transpozice do nového ZKB účinná od 4/2026',
+  '{nis2_zkb_transposition}': 'NIS2 transpozice do ZKB - klíčový subjekt',
+  '{cnb_dohledovy_dopis}': 'ČNB dohledový dopis 03/2026',
+  '{compliance_initiative}': 'implementace DORA do Q2 2026',
+  '{audit_finding_public}': 'audit finding ÚOOÚ 02/2026',
+  '{recent_cfo_hire}': 'nový CFO Jan Novák od 03/2026',
+  '{recent_compliance_hire}': 'nový Compliance Director od 01/2026',
+  '{recent_ciso_hire}': 'nový CISO od 01/2026',
+  '{recent_cio_hire}': 'nový CIO od 02/2026',
+  '{recent_hr_director_hire}': 'nová HR Director od 03/2026',
+  '{board_change}': 'nová členka představenstva 03/2026',
+  '{linkedin_post_signal}': 'LI příspěvek o DORA z 04/2026',
+  '{linkedin_post_hr}': 'LI příspěvek o AI Act v náboru',
+  '{konference_vystoupeni}': 'vystoupení na konferenci CFO Forum 04/2026',
+  '{konference_hr}': 'HR Excellence Forum 03/2026',
+  '{podcast_hr}': 'podcast Lidi a HR z 02/2026',
+  '{annual_report_hr_section}': 'Annual Report 2025 - HR sekce s headcount nárůstem',
+  '{ma_aktivita}': 'akvizice Equa bank 09/2025',
+  '{ma_hr_integration}': 'M&A integrace Equa bank - HR konsolidace',
+  '{ma_signal}': 'M&A aktivita - PPF Group integrace 2025',
+  '{aum_growth}': 'AUM růst +18 % v 2025',
+  '{novy_produkt}': 'launch nového digitálního produktu',
+  '{expanze}': 'expanze na SK trh 2026',
+  '{stack_signal}': 'SAP S/4HANA migrace',
+  '{legacy_dms_signal}': 'Documentum 7.x v provozu od 2008',
+  '{ai_signal}': 'AI iniciativa - Copilot pilot',
+  '{ai_act_trigger}': 'AI Act účinnost 2. 8. 2026',
+  '{ai_act_hr_deadline}': 'AI Act 2.8.2026 - AI v náboru je high-risk',
+  '{m365_announcement}': 'M365 E5 rollout dokončen 03/2026',
+  '{copilot_governance}': 'Copilot for M365 governance program',
+  '{azure_migration}': 'migrace do Azure dokončena Q4/2025',
+  '{documentum_eol}': 'Documentum 7.x EOL hlášen na 2027',
+  '{sap_transformation}': 'SAP S/4HANA program 2025-2027',
+  '{servicenow_rollout}': 'ServiceNow ITSM rollout 2025',
+  '{salesforce_fsc}': 'Salesforce FSC implementace 2025',
+  '{open_security_role}': 'otevřená pozice Security Architect',
+  '{open_m365_role}': 'otevřená pozice M365 Specialist',
+  '{open_integration_role}': 'otevřená pozice Integration Architect',
+  '{open_dms_role}': 'otevřená pozice DMS Lead',
+  '{open_ai_role}': 'otevřená pozice AI Governance Lead',
+  '{open_hr_analyst}': 'otevřená pozice HR Analyst',
+  '{open_ai_hr_role}': 'otevřená pozice AI in HR Lead',
+  '{open_hrbp_role}': 'otevřená pozice Senior HRBP',
+  '{open_recruiter_role}': 'otevřená pozice Recruiter',
+  '{open_hr_admin_role}': 'otevřená pozice HR Admin',
+  '{gdpr_retention_cycle}': 'ÚOOÚ retention audit cycle 2026',
+  '{zp_312_audit}': 'ZP §312 - retence pracovních dokumentů',
+  '{csrd_s_pillar}': 'CSRD S pillar reporting 2026',
+  '{nis2_hr_systems}': 'NIS2 - HR systémy v scope',
+  '{successfactors_signal}': 'SAP SuccessFactors v provozu',
+  '{workday_signal}': 'Workday pilot 2025',
+  '{sap_hr_signal}': 'SAP HR core HR',
+  '{m365_hr_signal}': 'M365 + SharePoint pro HR',
+  '{ats_signal}': 'Greenhouse ATS',
+  '{hris_rollout}': 'HRIS rollout 2026',
+  '{recruiting_drive}': 'headcount +250 v 2026',
+  '{payroll_vendor_change}': 'změna payroll vendora 2025',
+  '{hybrid_work_signal}': 'hybrid work policy 2026',
+  '{dei_initiative}': 'DEI strategie 2026-2028',
+  '{headcount_growth}': 'headcount +18 % YoY',
+  '{regulator_pokuta_uoou}': 'ÚOOÚ pokuta 03/2025 - benchmark',
+  '{esg_csrd_report}': 'CSRD report 2025 publikován 04/2026',
+  '{dora_op_resilience}': 'DORA Operational Resilience Art. 5',
+  '{aml_kyc_cycle}': 'AML/KYC change cycle, AMLA 2026 hand-over',
+  '{audit_trail_signal}': 'governance přes change - workflow audit log',
+  '{system_change_signal}': 'SAP S/4HANA + D365 F&O paralelní change',
+  '{salutation_sk}': 'Vážený pán',
+  '{priezvisko_voc}': 'Novák'
+};
+
+const SAMPLES_SK = {
+  '{salutation}': 'Vážený pán',
+  '{prijmeni_voc}': 'Novák',
+  '{firma}': 'Tatra banka, a.s.',
+  '{cluster}': 'CFO',
+  '{role}': 'CFO',
+  '{dora_aftermath}': 'rok po DORA Art. 28(4) supervisory review NBS',
+  '{nis2_transposition}': 'NIS2 transpozícia do ZoKB SK účinná 4/2026',
+  '{nis2_zkb_transposition}': 'NIS2 transpozice do ZKB - klíčový subjekt',
+  '{cnb_dohledovy_dopis}': 'NBS dohľadový list 03/2026',
+  '{compliance_initiative}': 'implementácia DORA do Q2 2026',
+  '{audit_finding_public}': 'audit finding ÚOOÚ 02/2026',
+  '{recent_cfo_hire}': 'nový CFO Ján Novák od 03/2026',
+  '{recent_compliance_hire}': 'nový Compliance Director od 01/2026',
+  '{recent_ciso_hire}': 'nový CISO od 01/2026',
+  '{recent_cio_hire}': 'nový CIO od 02/2026',
+  '{recent_hr_director_hire}': 'nová HR Director od 03/2026',
+  '{board_change}': 'nová členka představenstva 03/2026',
+  '{linkedin_post_signal}': 'LI příspěvek o DORA z 04/2026',
+  '{linkedin_post_hr}': 'LI příspěvek o AI Act v náboru',
+  '{konference_vystoupeni}': 'vystoupení na konferenci CFO Forum 04/2026',
+  '{konference_hr}': 'HR Excellence Forum 03/2026',
+  '{podcast_hr}': 'podcast Lidi a HR z 02/2026',
+  '{annual_report_hr_section}': 'Annual Report 2025 - HR sekce s headcount nárůstem',
+  '{ma_aktivita}': 'nedávna akvizícia 2025',
+  '{ma_hr_integration}': 'M&A integrace Equa bank - HR konsolidace',
+  '{ma_signal}': 'M&A aktivita - PPF Group integrace 2025',
+  '{aum_growth}': 'AUM růst +18 % v 2025',
+  '{novy_produkt}': 'launch nového digitálního produktu',
+  '{expanze}': 'expanze na SK trh 2026',
+  '{stack_signal}': 'SAP S/4HANA migrace',
+  '{legacy_dms_signal}': 'Documentum 7.x v provozu od 2008',
+  '{ai_signal}': 'AI iniciativa - Copilot pilot',
+  '{ai_act_trigger}': 'AI Act účinnost 2. 8. 2026',
+  '{ai_act_hr_deadline}': 'AI Act 2.8.2026 - AI v náboru je high-risk',
+  '{m365_announcement}': 'M365 E5 rollout dokončen 03/2026',
+  '{copilot_governance}': 'Copilot for M365 governance program',
+  '{azure_migration}': 'migrace do Azure dokončena Q4/2025',
+  '{documentum_eol}': 'Documentum 7.x EOL hlášen na 2027',
+  '{sap_transformation}': 'SAP S/4HANA program 2025-2027',
+  '{servicenow_rollout}': 'ServiceNow ITSM rollout 2025',
+  '{salesforce_fsc}': 'Salesforce FSC implementace 2025',
+  '{open_security_role}': 'otevřená pozice Security Architect',
+  '{open_m365_role}': 'otevřená pozice M365 Specialist',
+  '{open_integration_role}': 'otevřená pozice Integration Architect',
+  '{open_dms_role}': 'otevřená pozice DMS Lead',
+  '{open_ai_role}': 'otevřená pozice AI Governance Lead',
+  '{open_hr_analyst}': 'otevřená pozice HR Analyst',
+  '{open_ai_hr_role}': 'otevřená pozice AI in HR Lead',
+  '{open_hrbp_role}': 'otevřená pozice Senior HRBP',
+  '{open_recruiter_role}': 'otevřená pozice Recruiter',
+  '{open_hr_admin_role}': 'otevřená pozice HR Admin',
+  '{gdpr_retention_cycle}': 'ÚOOÚ retention audit cycle 2026',
+  '{zp_312_audit}': 'ZP §312 - retence pracovních dokumentů',
+  '{csrd_s_pillar}': 'CSRD S pillar reporting 2026',
+  '{nis2_hr_systems}': 'NIS2 - HR systémy v scope',
+  '{successfactors_signal}': 'SAP SuccessFactors v provozu',
+  '{workday_signal}': 'Workday pilot 2025',
+  '{sap_hr_signal}': 'SAP HR core HR',
+  '{m365_hr_signal}': 'M365 + SharePoint pro HR',
+  '{ats_signal}': 'Greenhouse ATS',
+  '{hris_rollout}': 'HRIS rollout 2026',
+  '{recruiting_drive}': 'headcount +250 v 2026',
+  '{payroll_vendor_change}': 'změna payroll vendora 2025',
+  '{hybrid_work_signal}': 'hybrid work policy 2026',
+  '{dei_initiative}': 'DEI strategie 2026-2028',
+  '{headcount_growth}': 'headcount +18 % YoY',
+  '{regulator_pokuta_uoou}': 'ÚOOÚ pokuta 03/2025 - benchmark',
+  '{esg_csrd_report}': 'CSRD report 2025 publikován 04/2026',
+  '{dora_op_resilience}': 'DORA Operational Resilience Art. 5',
+  '{aml_kyc_cycle}': 'AML/KYC change cycle, AMLA 2026 hand-over',
+  '{audit_trail_signal}': 'governance přes change - workflow audit log',
+  '{system_change_signal}': 'SAP S/4HANA + D365 F&O paralelní change',
+  '{salutation_sk}': 'Vážený pán',
+  '{priezvisko_voc}': 'Novák'
+};
+
+let currentLang = 'cz';
+let dataOn = false;
+
+function applyLang(lang) {
+    currentLang = lang;
+    document.body.classList.remove('lang-cz', 'lang-sk');
+    document.body.classList.add('lang-' + lang);
+    document.querySelectorAll('.body-text').forEach(el => {
+        const elLang = el.dataset.lang;
+        el.hidden = (elLang !== lang);
+    });
+    refreshVarsAll();
+}
+
+function applyData(on) {
+    dataOn = on;
+    document.body.classList.remove('data-on', 'data-off');
+    document.body.classList.add(on ? 'data-on' : 'data-off');
+    refreshVarsAll();
+}
+
+function refreshVarsAll() {
+    const samples = currentLang === 'sk' ? SAMPLES_SK : SAMPLES_CZ;
+    document.querySelectorAll('.var').forEach(el => {
+        const v = el.dataset.var;
+        if (dataOn && samples[v] !== undefined) {
+            el.textContent = samples[v];
+        } else {
+            el.textContent = v;
+        }
+    });
+}
+
+document.getElementById('lang-toggle').addEventListener('click', e => {
+    const btn = e.target.closest('.toggle-btn');
+    if (!btn) return;
+    document.querySelectorAll('#lang-toggle .toggle-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    applyLang(btn.dataset.lang);
+});
+
+document.getElementById('data-toggle').addEventListener('click', e => {
+    const btn = e.target.closest('.toggle-btn');
+    if (!btn) return;
+    document.querySelectorAll('#data-toggle .toggle-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    applyData(btn.dataset.data === 'on');
+});
+
+// Highlight active sequence in sidebar based on scroll
+const sequences = document.querySelectorAll('.sequence');
+const sidebarItems = document.querySelectorAll('.sidebar-seq');
+function updateActive() {
+    let active = sequences[0];
+    const offset = window.scrollY + 200;
+    sequences.forEach(s => { if (s.offsetTop <= offset) active = s; });
+    sidebarItems.forEach(i => i.classList.remove('active'));
+    const match = document.querySelector(`.sidebar-seq[data-seq="${active.dataset.seq}"]`);
+    if (match) match.classList.add('active');
+}
+window.addEventListener('scroll', updateActive, { passive: true });
+
+// Initial state
+applyLang('cz');
+applyData(false);
+</script>
+</body>
+</html>
