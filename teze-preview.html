@@ -1,0 +1,1488 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IXTENT outreach — teze k schválení</title>
+  <style>
+:root {
+  --bg: #f8fafc;
+  --sidebar-bg: #0f172a;
+  --sidebar-text: #e2e8f0;
+  --primary: #1e3a8a;
+  --primary-gradient: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+  --accent: #3b82f6;
+  --approved: #16a34a;
+  --validate: #ea580c;
+  --card-bg: #ffffff;
+  --border: #e2e8f0;
+  --text: #0f172a;
+  --text-muted: #64748b;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+}
+
+.app {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 100vh;
+}
+
+aside.sidebar {
+  background: var(--sidebar-bg);
+  color: var(--sidebar-text);
+  padding: 24px 20px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.sidebar h1 { font-size: 18px; margin: 0 0 8px; color: #fff; }
+.sidebar .meta { font-size: 12px; color: #94a3b8; margin-bottom: 24px; }
+
+.dir-toggle { display: flex; gap: 8px; margin-bottom: 20px; }
+.dir-toggle button {
+  flex: 1;
+  padding: 10px;
+  background: transparent;
+  border: 1px solid #334155;
+  color: var(--sidebar-text);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.15s;
+}
+.dir-toggle button.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+.dir-toggle button:hover:not(.active) { background: #1e293b; }
+
+.sidebar nav { font-size: 13px; }
+.sidebar nav .nav-section { margin-bottom: 16px; }
+.sidebar nav .nav-section-title {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #64748b;
+  margin-bottom: 8px;
+  letter-spacing: 0.06em;
+}
+.sidebar nav a {
+  display: block;
+  padding: 6px 10px;
+  color: var(--sidebar-text);
+  text-decoration: none;
+  border-radius: 4px;
+  margin-bottom: 2px;
+  transition: background 0.1s;
+}
+.sidebar nav a:hover { background: rgba(255,255,255,0.06); }
+.sidebar nav a .nav-id { color: #94a3b8; font-size: 11px; margin-right: 6px; font-family: 'SF Mono', Menlo, monospace; }
+
+main {
+  padding: 32px 48px;
+  max-width: 1100px;
+}
+
+.page-header {
+  background: var(--primary-gradient);
+  color: #fff;
+  padding: 32px 36px;
+  border-radius: 12px;
+  margin-bottom: 28px;
+}
+.page-header h1 { margin: 0 0 10px; font-size: 28px; }
+.page-header .subtitle { font-size: 15px; opacity: 0.9; }
+.page-header .meta-row { margin-top: 16px; font-size: 13px; opacity: 0.85; }
+
+section.principy-banner {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin-bottom: 28px;
+  border: 1px solid var(--border);
+}
+section.principy-banner h2 { margin: 0 0 16px; font-size: 16px; color: var(--primary); }
+.principy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+.princip-item {
+  background: #f1f5f9;
+  border-left: 3px solid var(--accent);
+  padding: 10px 12px;
+  border-radius: 4px;
+}
+.princip-title { font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+.princip-desc { font-size: 12px; color: var(--text-muted); }
+
+section.reference-portfolio {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin-bottom: 28px;
+  border: 1px solid var(--border);
+}
+section.reference-portfolio h2 { margin: 0 0 16px; font-size: 18px; color: var(--primary); }
+section.reference-portfolio table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+section.reference-portfolio th {
+  text-align: left;
+  padding: 8px 10px;
+  background: #f1f5f9;
+  border-bottom: 2px solid var(--border);
+  color: var(--text-muted);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+section.reference-portfolio td {
+  padding: 10px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+section.reference-portfolio .firm-name { font-weight: 600; color: var(--primary); }
+section.reference-portfolio .rule-hint {
+  margin-top: 16px;
+  padding: 10px 14px;
+  background: #fefce8;
+  border-left: 3px solid #facc15;
+  font-size: 13px;
+  border-radius: 4px;
+}
+
+.direction-block { display: none; }
+.direction-block.active { display: block; }
+
+article.teze-card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 28px;
+  margin-bottom: 20px;
+  border: 1px solid var(--border);
+  scroll-margin-top: 20px;
+}
+.teze-header { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+.teze-id {
+  background: var(--primary);
+  color: #fff;
+  padding: 5px 11px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: 'SF Mono', Menlo, monospace;
+}
+.teze-name { flex: 1; font-size: 17px; font-weight: 600; }
+
+.badge {
+  padding: 5px 10px;
+  border-radius: 14px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.badge-approved { background: #dcfce7; color: var(--approved); }
+.badge-validate { background: #fed7aa; color: var(--validate); }
+
+.section { margin-bottom: 16px; }
+.section-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 6px; }
+.section ul { margin: 4px 0; padding-left: 22px; }
+.section li { margin: 3px 0; }
+
+.claim-section .claim-text {
+  background: #eff6ff;
+  border-left: 4px solid var(--accent);
+  padding: 12px 16px;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.ref-chips, .keyword-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.ref-chip {
+  background: #dbeafe;
+  color: #1e3a8a;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+.keyword-chip {
+  background: #f3e8ff;
+  color: #6b21a8;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  font-family: 'SF Mono', Menlo, monospace;
+}
+
+.quotes-section {
+  background: #fefce8;
+  border-left: 3px solid #facc15;
+  padding: 14px 16px;
+  border-radius: 4px;
+}
+.quote-item { display: flex; gap: 12px; margin: 8px 0; align-items: baseline; }
+.quote-time {
+  background: #facc15;
+  color: #713f12;
+  padding: 2px 7px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 700;
+  font-family: 'SF Mono', Menlo, monospace;
+  white-space: nowrap;
+}
+.quote-text { font-size: 13px; font-style: italic; color: #422006; }
+
+.examples-section { background: #f0fdf4; border-left: 3px solid #22c55e; padding: 12px 16px; border-radius: 4px; }
+.example { font-family: 'SF Mono', Menlo, monospace; font-size: 12px; color: #166534; }
+
+.rule-callout { background: #fef2f2; border-left: 3px solid #ef4444; padding: 12px 16px; border-radius: 4px; }
+.rule-callout div:last-child { font-size: 13px; color: #7f1d1d; }
+
+.mustek-section { background: #ecfeff; border-left: 3px solid #06b6d4; padding: 12px 16px; border-radius: 4px; }
+.hodnota-section { background: #fafaf9; border-left: 3px solid #78716c; padding: 12px 16px; border-radius: 4px; }
+
+.teze-footer { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-muted); font-style: italic; }
+
+section.otazky-section {
+  background: #fff7ed;
+  border: 2px solid #fdba74;
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin-top: 32px;
+  margin-bottom: 28px;
+}
+section.otazky-section h2 { margin: 0 0 12px; color: #9a3412; font-size: 18px; }
+section.otazky-section ol { margin: 0; padding-left: 22px; }
+section.otazky-section li { margin: 8px 0; font-size: 14px; color: #7c2d12; }
+
+@media print {
+  .sidebar, .dir-toggle { display: none; }
+  .app { grid-template-columns: 1fr; }
+  .direction-block { display: block !important; page-break-before: always; }
+  main { padding: 16px; max-width: 100%; }
+  article.teze-card { page-break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <h1>IXTENT teze</h1>
+      <div class="meta">K schválení Jirkou Jakešem<br>2026-05-14</div>
+
+      <div class="dir-toggle">
+        <button id="btn-smer1" class="active" onclick="showDirection('smer1')">Směr 1</button>
+        <button id="btn-smer2" onclick="showDirection('smer2')">Směr 2</button>
+      </div>
+
+      <nav id="nav-smer1">
+        <div class="nav-section">
+          <div class="nav-section-title">Směr 1 — Finance firmy</div>
+          <a href="#S1-1"><span class="nav-id">S1-1</span>DORA jako trigger, klientská dokumentace jako landing</a><a href="#S1-2"><span class="nav-id">S1-2</span>NIS2 / kybernetická bezpečnost + důvěryhodnost dokumentu</a><a href="#S1-3"><span class="nav-id">S1-3</span>eIDAS / kvalifikovaný elektronický podpis (IXTENT Sign)</a><a href="#S1-4"><span class="nav-id">S1-4</span>Records Management &amp; regulovaný archiv (MoReq + retence)</a><a href="#S1-5"><span class="nav-id">S1-5</span>AI ready DMS (Content Aviator, BYOM, multi-model) ⭐</a><a href="#S1-6"><span class="nav-id">S1-6</span>„Maximum za minimum“ (DORA splnit za rozumné peníze)</a><a href="#S1-7"><span class="nav-id">S1-7</span>Long-term důvěryhodný archiv (retence + auditní stopa)</a><a href="#S1-8"><span class="nav-id">S1-8</span>Konzistence dat napříč core banking + CRM + DMS</a><a href="#S1-9"><span class="nav-id">S1-9</span>Integrace se státními systémy (ISDS Connector + SDF)</a><a href="#S1-10"><span class="nav-id">S1-10</span>Faktury / smluvní stopa pro audit (substantive testing prep)</a><a href="#S1-11"><span class="nav-id">S1-11</span>AI ve vytěžování dokumentů (call centrum, KYC, fotodokumentace)</a><a href="#S1-12"><span class="nav-id">S1-12</span>IXTENT je dlouhodobý delivery partner (23+ let v ECM)</a>
+        </div>
+        <div class="nav-section">
+          <div class="nav-section-title">Reference + otázky</div>
+          <a href="#ref-portfolio-1"><span class="nav-id">REF</span>Reference portfolio</a>
+          <a href="#otazky-1"><span class="nav-id">Q</span>Otázky pro Jirku</a>
+        </div>
+      </nav>
+
+      <nav id="nav-smer2" style="display:none">
+        <div class="nav-section">
+          <div class="nav-section-title">Směr 2 — Non-finance firmy</div>
+          <a href="#S2-1"><span class="nav-id">S2-1</span>Centralizace strukturovaných a nestrukturovaných dat z heterogenních ERP</a><a href="#S2-2"><span class="nav-id">S2-2</span>Migrace dokumentové vrstvy při SAP S/4HANA upgradu</a><a href="#S2-3"><span class="nav-id">S2-3</span>Konsolidace v rámci organizace (NE „do matky“)</a><a href="#S2-4"><span class="nav-id">S2-4</span>Decommissioning legacy systémů s dokumentovou stopou</a><a href="#S2-5"><span class="nav-id">S2-5</span>AI ready DMS (Aviator + BYOM + human-in-the-loop) ⭐</a><a href="#S2-6"><span class="nav-id">S2-6</span>„Příprava na audit“ (NE „audit prep“)</a><a href="#S2-7"><span class="nav-id">S2-7</span>Long-term archiv compliantní s GDPR + ZoÚ + ZoArch</a><a href="#S2-8"><span class="nav-id">S2-8</span>CSRD ESRS reporting — dokumentová stopa pro audit</a><a href="#S2-9"><span class="nav-id">S2-9</span>Whistleblowing + AML compliance přes dokumentovou vrstvu</a><a href="#S2-10"><span class="nav-id">S2-10</span>NIS2 transpozice pro kritickou infrastrukturu</a><a href="#S2-11"><span class="nav-id">S2-11</span>Vendor consolidation: místo 5 systémů 1 DMS</a><a href="#S2-12"><span class="nav-id">S2-12</span>CLM (Contract Lifecycle Management) — „podepisování bez opuštění perimetru“</a><a href="#S2-13"><span class="nav-id">S2-13</span>AI ve vytěžování dokumentů (rychlejší procesy) ⭐</a><a href="#S2-14"><span class="nav-id">S2-14</span>Reference benefit-first (FOJT vzor)</a>
+        </div>
+        <div class="nav-section">
+          <div class="nav-section-title">Reference + otázky</div>
+          <a href="#ref-portfolio-2"><span class="nav-id">REF</span>Reference portfolio</a>
+          <a href="#otazky-2"><span class="nav-id">Q</span>Otázky pro Jirku</a>
+        </div>
+      </nav>
+    </aside>
+
+    <main>
+      <header class="page-header">
+        <h1>Teze IXTENT cold outreach — k schválení</h1>
+        <div class="subtitle">12 tezí pro Směr 1 (finance) + 14 tezí pro Směr 2 (non-finance), derivované z feedback hovoru 13. 5. 2026 s Jirkou Jakešem (Sales Director IXTENT).</div>
+        <div class="meta-row">Vygenerováno: 2026-05-14 · Připravil: Tomáš Vrbka, Forecom Solutions · Schvaluje: Jiří Jakeš / Kateřina Divišová</div>
+      </header>
+
+      
+<section class="principy-banner">
+  <h2>Cross-cutting principy (top 10) — platí napříč všemi tezemi</h2>
+  <div class="principy-grid"><div class="princip-item"><div class="princip-title">Oslí můstek na core business</div><div class="princip-desc">Každý email musí přejít na správu dokumentů. Regulace je jen entry hook.</div></div><div class="princip-item"><div class="princip-title">Regulace ANO, paragrafy NE</div><div class="princip-desc">DORA / NIS2 / eIDAS / CSRD OK; žádné Art. 28(4), § 31, čl. 21 ods. 2.</div></div><div class="princip-item"><div class="princip-title">Žádné technické výkřiky</div><div class="princip-desc">OSS DPH, IATF DD, audit prep (angl.), cross-border výroba — VEN.</div></div><div class="princip-item"><div class="princip-title">Pozitivní transformace</div><div class="princip-desc">Expertní přístup, „maximum za minimum“, ne čistý fear-only narativ.</div></div><div class="princip-item"><div class="princip-title">AI v subject + body</div><div class="princip-desc">AI / NIS2 / DORA / CSRD viditelné v Subject A nebo B každého emailu. Jinak persona neklikne.</div></div><div class="princip-item"><div class="princip-title">Soft-claim language</div><div class="princip-desc">Žádná konkrétní hyperbolická čísla bez ground-truth. „Několik systémů“, ne „4-5 míst“.</div></div><div class="princip-item"><div class="princip-title">Reference s benefitem</div><div class="princip-desc">Email 3: CO TÍM klient získal (FOJT vzor), ne jen co se dělalo.</div></div><div class="princip-item"><div class="princip-title">Čeština preferovat</div><div class="princip-desc">„Příprava na audit“ místo „audit prep“. Anglicismy jen kde nutné.</div></div><div class="princip-item"><div class="princip-title">1. osoba Jirka</div><div class="princip-desc">„Rád bych s Vámi krátce promluvil“, ne „náš tým Vám představí“.</div></div><div class="princip-item"><div class="princip-title">Žádné „bez tlaku na Vás“</div><div class="princip-desc">Paradox — vytváří tlak. V LinkedIn message nepoužívat.</div></div></div>
+</section>
+
+
+      <div id="dir-smer1" class="direction-block active">
+        <h1 style="margin-bottom: 8px;">Směr 1 — Finance firmy</h1>
+        <p style="color: var(--text-muted); margin-bottom: 24px;">Banky, pojišťovny, leasing, asset management — 96 kontaktů napříč Sekvencí 1-4.</p>
+
+        
+<section class="reference-portfolio" id="ref-portfolio-1">
+  <h2>Reference portfolio IXTENT — finance sektor</h2>
+  <table>
+    <thead><tr><th>Firma</th><th>Typ klienta</th><th>Charakteristika spolupráce</th></tr></thead>
+    <tbody><tr><td class="firm-name">Modrá pyramida (Komerční banka skupina)</td><td>Banking retail / stavební spoření</td><td>OpenText ECM, elektronický archiv s biometrikou — klientské složky, regulovaný archiv</td></tr><tr><td class="firm-name">Conseq Investment Management</td><td>Asset mgmt</td><td>10+ let spolupráce, OpenText Content Server jako centrální archiv, 250 denních uživatelů</td></tr><tr><td class="firm-name">Golden Gate</td><td>Asset mgmt / finance</td><td>OpenText archive napříč core systémy asset managementu</td></tr><tr><td class="firm-name">Respect Group</td><td>Insurance broker</td><td>Dokumentová vrstva pojišťovacího brokera — retence pojistné dokumentace, NIS2</td></tr><tr><td class="firm-name">Allianz CZ</td><td>Insurance</td><td>Klientské složky, eIDAS-compliantní podpisové procesy v retail insurance</td></tr><tr><td class="firm-name">Allianz Slovenská poisťovňa</td><td>Insurance SK</td><td>SK varianta — klientské složky, podpisy, retence</td></tr><tr><td class="firm-name">PPF Group</td><td>Multi-entity holding</td><td>Konsolidace dokumentové vrstvy napříč holdingem (i pro Směr 2)</td></tr></tbody>
+  </table>
+  <p class="rule-hint"><strong>Zlatá rule placement:</strong> U dlouhodobé spolupráce (10+ let) preferovat konkrétní jméno. U net-new outreach preferovat „9 z 10“ pattern. MAX 2-3 reference firmy per teze.</p>
+</section>
+
+
+        
+<article class="teze-card" id="S1-1">
+  <header class="teze-header">
+    <div class="teze-id">S1-1</div>
+    <div class="teze-name">DORA jako trigger, klientská dokumentace jako landing</div>
+    <span class="badge badge-approved">✅ JIRKA SCHVÁLIL</span>
+  </header>
+
+  <div class="section claim-section">
+    <div class="section-title">Claim</div>
+    <div class="claim-text">Po DORA implementaci (provizorní úroveň od ledna 2026) banky řeší gap v dokumentové vrstvě — klientské složky, smluvní dokumentace, evidenční záznamy.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Kdy se hodí</div>
+    <ul><li>CFO / Compliance Director v bance, který má DORA spuštěnou provizorně a ví, že na audit nestačí</li><li>Risk Manager, který skenuje gap analysis</li></ul>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Důkaz / podpora</div>
+    <ul><li>„9 z 10 největších FI v ČR provozuje OpenText DMS“</li><li>Platinum partnership s OpenText (cca 12 globálně)</li><li>NAB jako referenční projekt — klientské složky pro depozitní/úvěrové produkty</li></ul>
+    <div class="ref-chips"><span class="ref-chip">Modrá pyramida</span><span class="ref-chip">Allianz CZ</span><span class="ref-chip">Allianz Slovenská poisťovňa</span></div>
+  </div>
+
+  
+  
+  
+
+  <div class="section mustek-section">
+    <div class="section-title">Oslí můstek na core business</div>
+    <div>IXTENT řeší dokumentovou vrstvu (klientské složky, kvalifikované podpisy, regulovaný archiv) — oblast, kam DORA dopadá nejvíc. Není to celá DORA implementace.</div>
+  </div>
+
+  <div class="section hodnota-section">
+    <div class="section-title">Hodnota pro klienta</div>
+    <div>Posun z provizorní úrovně na úroveň, která projde reálným auditem regulátora.</div>
+  </div>
+
+  <div class="section"><div class="section-title">Subject keywords</div><div class="keyword-chips"><span class="keyword-chip">DORA</span><span class="keyword-chip">klientské složky</span></div></div>
+
+  <footer class="teze-footer">✅ JIRKA SCHVÁLIL (citace 29:46 + 30:00)</footer>
+</article>
+
+<article class="teze-card" id="S1-2">
+  <header class="teze-header">
+    <div class="teze-id">S1-2</div>
+    <div class="teze-name">NIS2 / kybernetická bezpečnost + důvěryhodnost dokumentu</div>
+    <span class="badge badge-approved">✅ JIRKA SCHVÁLIL</span>
+  </header>
+
+  <div class="section claim-section">
+    <div class="section-title">Claim</div>
+    <div class="claim-text">NIS2 / nový ZKB tlačí banky a pojišťovny na bezpečnostní pravidla nad dokumenty (šifrování at-rest, identity &amp; access mgmt, audit trail nad přístupy).</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Kdy se hodí</div>
+    <ul><li>CISO / CIO v bance / pojišťovně, který řeší NIS2 transpozici</li><li>Compliance Director, který koordinuje s IT</li></ul>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Důkaz / podpora</div>
+    <ul><li>IXTENT Sign (kvalifikovaný el. podpis), eIDAS-compliant</li><li>Records Management s identity-based access</li><li>MoReq-compliant archiv</li></ul>
+    <div class="ref-chips"><span class="ref-chip">Respect Group</span></div>
+  </div>
+
+  
+  
+  
+
+  <div class="section mustek-section">
+    <div class="section-title">Oslí můstek na core business</div>
+    <div>NIS2 dopadá na security napříč firmou (síť, endpointy, identity). My řešíme tu část, která se týká dokumentového obsahu — kdo k jakému dokumentu kdy mohl + důkazní stopa.</div>
+  </div>
+
+  <div class="section hodnota-section">
+    <div class="section-title">Hodnota pro klienta</div>
+    <div>Dokumentová vrstva NIS2-ready, konzistentní s ostatními bezpečnostními projekty.</div>
+  </div>
+
+  <div class="section"><div class="section-title">Subject keywords</div><div class="keyword-chips"><span class="keyword-chip">NIS2</span><span class="keyword-chip">kybernetická bezpečnost</span></div></div>
+
+  <footer class="teze-footer">✅ JIRKA SCHVÁLIL (citace 10:49, 11:30)</footer>
+</article>
+
+<article class="teze-card" id="S1-3">
+  <header class="teze-header">
+    <div class="teze-id">S1-3</div>
+    <div class="teze-name">eIDAS / kvalifikovaný elektronický podpis (IXTENT Sign)</div>
+    <span class="badge badge-approved">✅ JIRKA SCHVÁLIL</span>
+  </header>
+
+  <div class="section claim-section">
+    <div class="section-title">Claim</div>
+    <div class="claim-text">eIDAS 2.0 + ZoeKomS tlačí finanční instituce na kvalifikované elektronické podpisy v klientském onboardingu, úvěrech, pojistných smlouvách.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Kdy se hodí</div>
+    <ul><li>Operations / Process Owner v retail bankingu (onboarding, úvěry)</li><li>Compliance, který řeší podpisové procesy</li></ul>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Důkaz / podpora</div>
+    <ul><li>IXTENT Sign — vlastní produkt s kvalifikovaným certifikátem</li><li>Integrace přímo do OpenText DMS — „podepisujeme smlouvy, aniž by smlouva opustila perimetr“</li></ul>
+    <div class="ref-chips"><span class="ref-chip">Allianz CZ</span><span class="ref-chip">Allianz Slovenská poisťovňa</span></div>
+  </div>
+
+  
+  
+  
+
+  <div class="section mustek-section">
+    <div class="section-title">Oslí můstek na core business</div>
+    <div>Podpis je jen jeden krok v životním cyklu dokumentu — IXTENT řeší celý cyklus (vznik, schválení, podpis, archiv, vyhledatelnost). „Podepisování bez opuštění perimetru“ = unique IXTENT angle.</div>
+  </div>
+
+  <div class="section hodnota-section">
+    <div class="section-title">Hodnota pro klienta</div>
+    <div>Bezpečné podepisování + plná auditní stopa od draftu po archiv.</div>
+  </div>
+
+  <div class="section"><div class="section-title">Subject keywords</div><div class="keyword-chips"><span class="keyword-chip">eIDAS</span><span class="keyword-chip">kvalifikovaný podpis</span></div></div>
+
+  <footer class="teze-footer">✅ Jirkovo zlaté téma (kick-off 18. 3.)</footer>
+</article>
+
+<article class="teze-card" id="S1-4">
+  <header class="teze-header">
+    <div class="teze-id">S1-4</div>
+    <div class="teze-name">Records Management &amp; regulovaný archiv (MoReq + retence)</div>
+    <span class="badge badge-validate">✓ K VALIDACI</span>
+  </header>
+
+  <div class="section claim-section">
+    <div class="section-title">Claim</div>
+    <div class="claim-text">Finance instituce mají povinnost archivace 10-30 let podle ZoÚ + zákona o bankách + zákona o archivnictví. Records Management je IXTENT core capability.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Kdy se hodí</div>
+    <ul><li>Head of Operations / Process Owner pro regulované oblasti</li><li>Internal Audit, CFO</li></ul>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Důkaz / podpora</div>
+    <ul><li>MoReq-compliant archiv</li><li>23+ let zkušeností s regulovaným archivem</li><li>9 z 10 největších FI v ČR provozuje OpenText</li></ul>
+    <div class="ref-chips"><span class="ref-chip">Conseq Investment Management</span><span class="ref-chip">Modrá pyramida</span><span class="ref-chip">Golden Gate</span></div>
+  </div>
+
+  
+  
+  
+
+  <div class="section mustek-section">
+    <div class="section-title">Oslí můstek na core business</div>
+    <div>Regulovaný archiv = páteř IXTENT delivery. To není add-on — to je core business.</div>
+  </div>
+
+  <div class="section hodnota-section">
+    <div class="section-title">Hodnota pro klienta</div>
+    <div>Konzistentní retention policy napříč produkty + plná dohledatelnost při audit.</div>
+  </div>
+
+  <div class="section"><div class="section-title">Subject keywords</div><div class="keyword-chips"><span class="keyword-chip">archiv</span><span class="keyword-chip">Records Management</span><span class="keyword-chip">retence</span></div></div>
+
+  <footer class="teze-footer">Vychází z IXTENT_Archivace + NAB case</footer>
+</article>
+
+<article class="teze-card" id="S1-5">
+  <header class="teze-header">
+    <div class="teze-id">S1-5</div>
+    <div class="teze-name">AI ready DMS (Content Aviator, BYOM, multi-model) ⭐</div>
+    <span class="badge badge-approved">✅ JIRKA SCHVÁLIL</span>
+  </header>
+
+  <div class="section claim-section">
+    <div class="section-title">Claim</div>
+    <div class="claim-text">AI transformuje, jak se pracuje s dokumentem. IXTENT systémy už AI mají — klienti reálně začínají používat. AI v outreach je trojským koněm — finální landing konverzace je vždy správa dokumentů.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Kdy se hodí</div>
+    <ul><li>CIO / Head of Digital v bance</li><li>Innovation Lead skenující vendor landscape</li><li>CFO sledující TCO / ROI of AI</li><li>Universal — AI je „tendenční termín“ napříč Sekvencí 1-4 (ne jen Innovation Lead)</li></ul>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Důkaz / podpora</div>
+    <ul><li>Content Aviator + BYOM v OpenText, klienti začínají reálně používat</li><li>Multi-model architektura (Aviator + externí LLM přes BYOM)</li><li>Human-in-the-loop přístup (AI Act compliance)</li></ul>
+    <div class="ref-chips"><span class="ref-chip">Modrá pyramida</span></div>
+  </div>
+
+  <div class="section quotes-section"><div class="section-title">Klíčové Jirkovy citace</div><div class="quote-item"><span class="quote-time">49:25</span><span class="quote-text">„chci je dostat do situace, abych jim mohl ukázat systém na zprávu dokumentů. AI scénář je entry point, ale finální landing = správa dokumentů.“</span></div><div class="quote-item"><span class="quote-time">1:02:25</span><span class="quote-text">„tendenční termíny musí být viditelné, jinak persona neklikne“</span></div><div class="quote-item"><span class="quote-time">47:38</span><span class="quote-text">„výroba dokumentu může trvat 5 dní, pomocí AI 10 minut“ → používat OBECNĚJI („výrazně rychleji“)</span></div></div>
+  <div class="section examples-section"><div class="section-title">Subject vzory</div><ul><li class="example">„AI v dokumentové vrstvě - co u 10 z 10 největších FI vidíme“</li><li class="example">„LLM nad smluvním portfoliem - 3 přístupy“</li><li class="example">„Aviator v klientském onboardingu - co se mění“</li></ul></div>
+  <div class="section rule-callout"><div class="section-title">Pravidlo aplikace</div><div>Subject A NEBO B každého emailu napříč Sekvencí 1-4 MUSÍ obsahovat alespoň 1 termín z AI, LLM, Aviator. Fallback: NIS2 / DORA / CSRD.</div></div>
+
+  <div class="section mustek-section">
+    <div class="section-title">Oslí můstek na core business</div>
+    <div>AI = další tool pro práci s dokumentem (vytěžování KYC, klasifikace, generování draftů). NE „AI nahradí Vaše procesy“ — „AI rozšiřuje, jak s dokumentem pracujete“. Konečná destinace konverzace zůstává správa dokumentů.</div>
+  </div>
+
+  <div class="section hodnota-section">
+    <div class="section-title">Hodnota pro klienta</div>
+    <div>„IXTENT systém AI už má“ — nečekání na vendor roadmap. AI Act compliance přes human-in-the-loop.</div>
+  </div>
+
+  <div class="section"><div class="section-title">Subject keywords</div><div class="keyword-chips"><span class="keyword-chip">AI</span><span class="keyword-chip">Aviator</span><span class="keyword-chip">LLM</span></div></div>
+
+  <footer class="teze-footer">✅ JIRKA SCHVÁLIL (citace 46:19, 47:36, 48:37, 49:25, 1:02:25)</footer>
+</article>
+
+<article class="teze-card" id="S1-6">
+  <header class="teze-header">
+    <div class="teze-id">S1-6</div>
+    <div class="teze-name">„Maximum za minimum“ (DORA splnit za rozumné peníze)</div>
+    <span class="badge badge-approved">✅ JIRKA SCHVÁLIL</span>
+  </header>
+
+  <div class="section claim-section">
+    <div class="section-title">Claim</div>
+    <div class="claim-text">Většina velkých FI má DORA v provizorní úrovni. „Maximum za minimum“ = splnit požadavky regulátora bez milionového projektu napříč 30 systémy.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Kdy se hodí</div>
+    <ul><li>CFO, který hlídá budget na compliance</li><li>Head of Operations s omezenými resources</li><li>Senior Risk Manager koordinující gap remediation</li></ul>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Důkaz / podpora</div>
+    <ul><li>GDPR vzor — IXTENT to dělal v 2018, podobný narativ</li><li>23+ let v ECM = nejlevnější TCO mezi delivery partnery</li></ul>
+    
+  </div>
+
+  
+  
+  
+
+  <div class="section mustek-section">
+    <div class="section-title">Oslí můstek na core business</div>
+    <div>Pro dokumentovou část DORA Vám pomůžeme dostat ze provizorní úrovně na úroveň, která projde reálným auditem. Zbytek DORA (sítě, endpointy, BCP) řeší jiní.</div>
+  </div>
+
+  <div class="section hodnota-section">
+    <div class="section-title">Hodnota pro klienta</div>
+    <div>Vlk se nažral, koza zůstala celá — compliance splněna bez nutnosti enterprise-scale projektu.</div>
+  </div>
+
+  <div class="section"><div class="section-title">Subject keywords</div><div class="keyword-chips"><span class="keyword-chip">DORA</span><span class="keyword-chip">audit-ready</span><span class="keyword-chip">příprava na audit</span></div></div>
+
+  <footer class="teze-footer">✅ JIRKA SCHVÁLIL (citace 40:53, GDPR vzor 42:46)</footer>
+</article>
+
+<article class="teze-card" id="S1-7">
+  <header class="teze-header">
+    <div class="teze-id">S1-7</div>
+    <div class="teze-name">Long-term důvěryhodný archiv (retence + auditní stopa)</div>
+    <span class="badge badge-validate">✓ K VALIDACI</span>
+  </header>
+
+  <div class="section claim-section">
+    <div class="section-title">Claim</div>
+    <div class="claim-text">Banky a pojišťovny musí archivovat klientskou dokumentaci 10-30 let s auditní stopou. Tradiční file storage to neumí.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Kdy se hodí</div>
+    <ul><li>Head of Compliance připravující audit ČNB / NBS</li><li>Internal Auditor kombinující dokumenty napříč systémy</li><li>Operations Director řešící cost-of-storage</li></ul>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Důkaz / podpora</div>
+    <ul><li>IXTENT Records Management — kvalifikovaný digitální archiv</li><li>Retence policies napříč produkty</li></ul>
+    <div class="ref-chips"><span class="ref-chip">Conseq Investment Management</span><span class="ref-chip">Modrá pyramida</span><span class="ref-chip">Respect Group</span></div>
+  </div>
+
+  
+  
+  
+
+  <div class="section mustek-section">
+    <div class="section-title">Oslí můstek na core business</div>
+    <div>Archiv = naše playing field. Nejen storage, ale plnohodnotný archiv s auditní stopou a retencí policy.</div>
+  </div>
+
+  <div class="section hodnota-section">
+    <div class="section-title">Hodnota pro klienta</div>
+    <div>Plná dohledatelnost při auditní kontrole + konzistentní retence napříč produkty.</div>
+  </div>
+
+  <div class="section"><div class="section-title">Subject keywords</div><div class="keyword-chips"><span class="keyword-chip">archiv</span><span class="keyword-chip">retence</span><span class="keyword-chip">auditní stopa</span></div></div>
+
+  <footer class="teze-footer">Vychází z NAB + ZoÚ kontextu</footer>
+</article>
+
+<article class="teze-card" id="S1-8">
+  <header class="teze-header">
+    <div class="teze-id">S1-8</div>
+    <div class="teze-name">Konzistence dat napříč core banking + CRM + DMS</div>
+    <span class="badge badge-validate">✓ K VALIDACI</span>
+  </header>
+
+  <div class="section claim-section">
+    <div class="section-title">Claim</div>
+    <div class="claim-text">Banky mají dokumenty roztříštěné mezi core banking systémem, CRM a file storage. IXTENT je single source of truth pro dokumenty.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Kdy se hodí</div>
+    <ul><li>CIO s roadmap konsolidace</li><li>Head of Architecture s vendor sprawl</li><li>COO trpící silami napříč týmy</li></ul>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Důkaz / podpora</div>
+    <ul><li>OpenText jako enterprise-grade dokumentový hub</li><li>Integrace s SAP, Oracle, MS Dynamics, Salesforce</li><li>NAB case (klientské složky napojené na core banking)</li></ul>
+    <div class="ref-chips"><span class="ref-chip">Conseq Investment Management</span><span class="ref-chip">Golden Gate</span></div>
+  </div>
+
+  
+  
+  
+
+  <div class="section mustek-section">
+    <div class="section-title">Oslí můstek na core business</div>
+    <div>Konsolidace dokumentové vrstvy do jednoho místa, kde žije celý životní cyklus.</div>
+  </div>
+
+  <div class="section hodnota-section">
+    <div class="section-title">Hodnota pro klienta</div>
+    <div>Klient po konsolidaci získá jeden přehled o kompletní klientské stopě.</div>
+  </div>
+
+  <div class="section"><div class="section-title">Subject keywords</div><div class="keyword-chips"><span class="keyword-chip">konsolidace</span><span class="keyword-chip">jednotný zdroj pravdy</span></div></div>
+
+  <footer class="teze-footer">Vychází z IXTENT_DMS_z NAB + telco CLM case</footer>
+</article>
+
+<article class="teze-card" id="S1-9">
+  <header class="teze-header">
+    <div class="teze-id">S1-9</div>
+    <div class="teze-name">Integrace se státními systémy (ISDS Connector + SDF)</div>
+    <span class="badge badge-validate">✓ K VALIDACI</span>
+  </header>
+
+  <div class="section claim-section">
+    <div class="section-title">Claim</div>
+    <div class="claim-text">Banky komunikují se státem (datová schránka, FÚ, soudy, registry). IXTENT ISDS Connector + SDF integrují DMS přímo se státními systémy.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Kdy se hodí</div>
+    <ul><li>IT Manager pro regulované oblasti</li><li>Operations Process Owner pro státní reporting</li><li>Compliance pro DPH, AML reporting</li></ul>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Důkaz / podpora</div>
+    <ul><li>ISDS Connector — vlastní IXTENT produkt</li><li>SDF integrace pro veřejnoprávní entity</li></ul>
+    
+  </div>
+
+  
+  
+  
+
+  <div class="section mustek-section">
+    <div class="section-title">Oslí můstek na core business</div>
+    <div>Integrace státních systémů s naším DMS — klient nemá fragmentovaný workflow mezi datovou schránkou a interním archivem.</div>
+  </div>
+
+  <div class="section hodnota-section">
+    <div class="section-title">Hodnota pro klienta</div>
+    <div>Konzistentní workflow bez manuálního přenosu mezi systémy.</div>
+  </div>
+
+  <div class="section"><div class="section-title">Subject keywords</div><div class="keyword-chips"><span class="keyword-chip">ISDS</span><span class="keyword-chip">datová schránka</span><span class="keyword-chip">státní systémy</span></div></div>
+
+  <footer class="teze-footer">Z IXTENT_DMS_z NAB</footer>
+</article>
+
+<article class="teze-card" id="S1-10">
+  <header class="teze-header">
+    <div class="teze-id">S1-10</div>
+    <div class="teze-name">Faktury / smluvní stopa pro audit (substantive testing prep)</div>
+    <span class="badge badge-validate">✓ K VALIDACI</span>
+  </header>
+
+  <div class="section claim-section">
+    <div class="section-title">Claim</div>
+    <div class="claim-text">Při auditu (interním nebo Big 4) je dohledatelnost smluv a faktur klíčová. Tradiční file storage neumí auditní stopu. IXTENT umí.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Kdy se hodí</div>
+    <ul><li>Head of Internal Audit</li><li>Hlavní účetní v retail bankingu</li><li>CAE, Finance Director připravující IFRS audit</li></ul>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Důkaz / podpora</div>
+    <ul><li>Records Management s plnou auditní stopou</li><li>Faktury v SAP napojené přes Extended ECM</li><li>Substantive testing prep pro Big 4 — předpřipravené sample sets v DMS</li></ul>
+    
+  </div>
+
+  
+  
+  
+
+  <div class="section mustek-section">
+    <div class="section-title">Oslí můstek na core business</div>
+    <div>Dokumentová stopa nad finančními transakcemi = naše playing field.</div>
+  </div>
+
+  <div class="section hodnota-section">
+    <div class="section-title">Hodnota pro klienta</div>
+    <div>Audit prep z týdnů na dny (soft claim).</div>
+  </div>
+
+  <div class="section"><div class="section-title">Subject keywords</div><div class="keyword-chips"><span class="keyword-chip">audit</span><span class="keyword-chip">auditní stopa</span><span class="keyword-chip">příprava na audit</span></div></div>
+
+  <footer class="teze-footer">Vychází z Big 4 kontextu + NAB</footer>
+</article>
+
+<article class="teze-card" id="S1-11">
+  <header class="teze-header">
+    <div class="teze-id">S1-11</div>
+    <div class="teze-name">AI ve vytěžování dokumentů (call centrum, KYC, fotodokumentace)</div>
+    <span class="badge badge-validate">✓ K VALIDACI</span>
+  </header>
+
+  <div class="section claim-section">
+    <div class="section-title">Claim</div>
+    <div class="claim-text">AI/OCR + klasifikace = vytěžování KYC dokumentů, hovorů z call centra, fotodokumentace pojistných událostí. IXTENT systémy to umí už dnes.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Kdy se hodí</div>
+    <ul><li>Operations Manager v retail bankingu (call centrum, KYC)</li><li>Claims Manager v pojišťovně (fotodokumentace likvidace)</li><li>Process Owner pro onboarding</li></ul>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Důkaz / podpora</div>
+    <ul><li>Aviator + BYOM</li><li>Konkrétní use cases (NAB call centrum, pojistné fotodokumentace)</li></ul>
+    <div class="ref-chips"><span class="ref-chip">Modrá pyramida</span><span class="ref-chip">Allianz CZ</span><span class="ref-chip">Allianz Slovenská poisťovňa</span></div>
+  </div>
+
+  
+  
+  
+
+  <div class="section mustek-section">
+    <div class="section-title">Oslí můstek na core business</div>
+    <div>AI = další způsob, jak z dokumentu vytáhnout informaci (klasifikovat, extrahovat, propojit s transakcí).</div>
+  </div>
+
+  <div class="section hodnota-section">
+    <div class="section-title">Hodnota pro klienta</div>
+    <div>Rychlejší zpracování + méně manuální práce (soft claim — žádné „5 dní → 10 minut“).</div>
+  </div>
+
+  <div class="section"><div class="section-title">Subject keywords</div><div class="keyword-chips"><span class="keyword-chip">AI</span><span class="keyword-chip">vytěžování</span><span class="keyword-chip">OCR</span><span class="keyword-chip">KYC</span></div></div>
+
+  <footer class="teze-footer">Vychází z NAB + Archivace case</footer>
+</article>
+
+<article class="teze-card" id="S1-12">
+  <header class="teze-header">
+    <div class="teze-id">S1-12</div>
+    <div class="teze-name">IXTENT je dlouhodobý delivery partner (23+ let v ECM)</div>
+    <span class="badge badge-validate">✓ K VALIDACI</span>
+  </header>
+
+  <div class="section claim-section">
+    <div class="section-title">Claim</div>
+    <div class="claim-text">Cold outreach klade na credibility nejvíc. IXTENT má 23+ let, 1 000+ projektů, 300+ klientů v CEE, Platinum partnership s OpenText.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Kdy se hodí</div>
+    <ul><li>Universal credibility hook (každá první zpráva)</li><li>Executive (CFO, CIO, COO), kde reference váží víc než konkrétní mechanika</li></ul>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Důkaz / podpora</div>
+    <ul><li>23+ let, 1 000+ projektů, 300+ klientů</li><li>Platinum partner OpenText (cca 12 globálně)</li><li>9 z 10 největších FI provozuje OpenText</li></ul>
+    <div class="ref-chips"><span class="ref-chip">Conseq Investment Management</span><span class="ref-chip">Modrá pyramida</span><span class="ref-chip">Golden Gate</span><span class="ref-chip">Respect Group</span><span class="ref-chip">Allianz CZ</span><span class="ref-chip">Allianz Slovenská poisťovňa</span></div>
+  </div>
+
+  
+  
+  
+
+  <div class="section mustek-section">
+    <div class="section-title">Oslí můstek na core business</div>
+    <div>Nejsme startup, nejsme generický integrátor. 23+ let v dokumentech znamená, že rozumíme do detailu.</div>
+  </div>
+
+  <div class="section hodnota-section">
+    <div class="section-title">Hodnota pro klienta</div>
+    <div>Long-term partner s prokazatelnou delivery historií v sektoru.</div>
+  </div>
+
+  
+
+  <footer class="teze-footer">Vychází z CLAUDE.md</footer>
+</article>
+
+
+        
+<section class="otazky-section" id="otazky-1">
+  <h2>Otázky pro Jirku — Směr 1</h2>
+  <ol><li>Teze S1-7, S1-8, S1-9, S1-12 — jsou v projektovém scope? Sekvence 1-4 zatím cílí spíš na S1-1 až S1-6, S1-10 a S1-11. Měli bychom S1-7/8/9/12 rozšířit, nebo nechat jako sekundární?</li><li>Teze S1-3 (eIDAS / IXTENT Sign) — má dnes IXTENT Sign produkt status, který umožňuje primární narativ v cold outreach? Nebo je to spíš upsell po prvním kontaktu?</li><li>Teze S1-5 (AI ready) — Aviator + BYOM jsou už deployed u klientů s měřenými výsledky? Pokud ano, kdo? Pokud ne, formulace by měla být soft („systém je AI ready, klienti začínají používat“).</li><li>„9 z 10 největších FI“ claim — máme tuto formulaci podloženou? Z webu? Z OpenText? (Pro důvěryhodnost důležité.)</li><li>Reference firmy (Modrá pyramida, Conseq, Golden Gate, Respect Group, Allianz CZ + SK) — můžeme všechny použít v cold outreach textu? Nebo jsou některé pod NDA (i přes podepsanou smlouvu)? Stejný dotaz pro web vs. closed reference.</li><li>AI deployed cases u Modrá pyramida / Conseq / Allianz / Golden Gate — máte konkrétní deployed case s Aviator nebo BYOM? Pokud ano, můžeme se na ně odkazovat? (Pro důvěryhodnost AI claim v cold outreach.)</li></ol>
+</section>
+
+      </div>
+
+      <div id="dir-smer2" class="direction-block">
+        <h1 style="margin-bottom: 8px;">Směr 2 — Non-finance firmy</h1>
+        <p style="color: var(--text-muted); margin-bottom: 24px;">Telco, utility, výroba, retail, IT services, healthcare — 282 kontaktů napříč Sekvencí 5a-5e.</p>
+
+        
+<section class="reference-portfolio" id="ref-portfolio-2">
+  <h2>Reference portfolio IXTENT — non-finance sektor</h2>
+  <table>
+    <thead><tr><th>Firma</th><th>Typ klienta</th><th>Charakteristika spolupráce</th></tr></thead>
+    <tbody><tr><td class="firm-name">PPF Group</td><td>Multi-entity holding</td><td>Konsolidace dokumentové vrstvy napříč holdingem (finance + non-finance entity)</td></tr><tr><td class="firm-name">Slovenská pošta</td><td>Postal services</td><td>Document-heavy provoz, centrální dokumentová vrstva, retence</td></tr><tr><td class="firm-name">FOJT</td><td>Výroba (automotive supplier)</td><td>Konsolidace dat ze SAP / Oracle / Navision — unifikovaný přehled napříč výrobou globálně</td></tr><tr><td class="firm-name">VOITH Digital Solutions</td><td>Výroba (industrial)</td><td>xECM4SAP s propojením SAP + Oracle JD Edwards + MS Navision přes Business Workspaces</td></tr><tr><td class="firm-name">MAN Energy Solutions / Everllence</td><td>Výroba (engineering)</td><td>Extended ECM, konsolidace výrobní dokumentace; dokumenty, smlouvy, objednávky, protokoly v jednom workspace</td></tr><tr><td class="firm-name">HOLCIM Group / Holcim Česko</td><td>Výroba (stavebnictví)</td><td>10+ let spolupráce, archivace + DMS pro SAP prostředí ve 10+ zemích CEE/EMEA, Extended ECM od 2014</td></tr><tr><td class="firm-name">E.ON</td><td>Utility (multi-country)</td><td>Sloučení dvou ECM platforem do jedné, konsolidace + migrace na MS Azure</td></tr><tr><td class="firm-name">Západoslovenská energetika (ZSE/ZSD)</td><td>Utility SK</td><td>Migrace archivů z Německa do Bratislavy, xECM4SAP infrastruktura, Smart UI scénáře</td></tr><tr><td class="firm-name">CETIN (PPF Group)</td><td>Telco infrastruktura</td><td>OpenText archivace pro SAP ERP, KOFAX OCR scénáře, roll-out z O2 Telefonica při spin-off</td></tr><tr><td class="firm-name">T-Mobile CZ</td><td>Telco</td><td>20+ archivačních projektů na OpenText platformě, dlouhodobá kontinuita IXTENT týmu</td></tr><tr><td class="firm-name">Telefónica O2 SK</td><td>Telco</td><td>„Competitive upgrade“ IBM FileNet → OpenText, integrace billing + Kofax OCR + CRM, migrace 23M+ dokumentů; dnes modern ECM v SAP S/4</td></tr><tr><td class="firm-name">GECO</td><td>Retail koncern</td><td>ECM platforma s integrací na SAP HR od 2010, tisíce uživatelů v pobočkách/kioscích, SDF + biometrické podepisování</td></tr><tr><td class="firm-name">Kocián Šolc Balaštík</td><td>Advokátní kancelář</td><td>DMS — migrace všech elektronických dokumentů na OpenText, kompletní lifecycle + audit</td></tr><tr><td class="firm-name">Prvá stavebná sporiteľňa (PSS)</td><td>Finance SK (stavební spoření)</td><td>Nahrazení starého ECM moderním řešením, customer documentation, transakční licence</td></tr></tbody>
+  </table>
+  <p class="rule-hint"><strong>Zlatá rule placement:</strong> U dlouhodobé spolupráce (10+ let) preferovat konkrétní jméno. U net-new outreach preferovat „9 z 10“ pattern. MAX 2-3 reference firmy per teze.</p>
+</section>
+
+
+        
+<article class="teze-card" id="S2-1">
+  <header class="teze-header">
+    <div class="teze-id">S2-1</div>
+    <div class="teze-name">Centralizace strukturovaných a nestrukturovaných dat z heterogenních ERP</div>
+    <span class="badge badge-approved">✅ JIRKA SCHVÁLIL</span>
+  </header>
+
+  <div class="section claim-section">
+    <div class="section-title">Claim</div>
+    <div class="claim-text">Velké firmy mají dokumenty rozprostřené napříč více ERP (SAP + Oracle + Navision). IXTENT Extended ECM je propojí do jedné dokumentové vrstvy.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Kdy se hodí</div>
+    <ul><li>CFO / Finance Director ve velké výrobě (FOJT, Brose, Continental, Magna)</li><li>Group CFO multi-entity holdingu</li><li>Head of Architecture / CIO koordinující ERP landscape</li></ul>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Důkaz / podpora</div>
+    <ul><li>FOJT (Jirka 58:07): „unifikovaný přehled nad všemi výrobními systémy + zlepšila se schopnost plánování výroby a dodávek napříč celým světem“</li><li>OpenText Extended ECM = enterprise-grade integrační vrstva</li><li>Out-of-the-box konektory pro SAP, Oracle, MS Dynamics</li></ul>
+    <div class="ref-chips"><span class="ref-chip">FOJT</span><span class="ref-chip">VOITH</span><span class="ref-chip">MAN/Everllence</span><span class="ref-chip">Slovenská pošta</span></div>
+  </div>
+
+  
+  
+  
+
+  <div class="section mustek-section">
+    <div class="section-title">Oslí můstek na core business</div>
+    <div>Dokumentová vrstva nad ERPy = naše core. Strukturovaná data jsou v ERPu, nestrukturovaná (smlouvy, faktury, dodací listy) jsou roztříštěné. My je dáme dohromady.</div>
+  </div>
+
+  <div class="section hodnota-section">
+    <div class="section-title">Hodnota pro klienta</div>
+    <div>Unifikovaný přehled napříč výrobou globálně + lepší schopnost plánování výroby a dodávek.</div>
+  </div>
+
+  <div class="section"><div class="section-title">Subject keywords</div><div class="keyword-chips"><span class="keyword-chip">konsolidace</span><span class="keyword-chip">Extended ECM</span><span class="keyword-chip">jednotný zdroj pravdy</span></div></div>
+
+  <footer class="teze-footer">✅ JIRKA SCHVÁLIL (citace 54:54)</footer>
+</article>
+
+<article class="teze-card" id="S2-2">
+  <header class="teze-header">
+    <div class="teze-id">S2-2</div>
+    <div class="teze-name">Migrace dokumentové vrstvy při SAP S/4HANA upgradu</div>
+    <span class="badge badge-approved">✅ JIRKA SCHVÁLIL</span>
+  </header>
+
+  <div class="section claim-section">
+    <div class="section-title">Claim</div>
+    <div class="claim-text">Významní dodavatelé v celosvětových migrací SAP S/4HANA typicky migrují dokumentovou vrstvu — bez konsolidace = dvojnásobný čas.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Kdy se hodí</div>
+    <ul><li>CFO ve velké výrobě</li><li>Finance Director sponzorující SAP upgrade</li><li>IT Director / SAP Architect koordinující migraci</li></ul>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Důkaz / podpora</div>
+    <ul><li>IXTENT 23+ let v migrácích z legacy DMS</li><li>Telco CLM case (T-Mobile migrace)</li></ul>
+    <div class="ref-chips"><span class="ref-chip">Telefónica O2 SK</span><span class="ref-chip">T-Mobile CZ</span><span class="ref-chip">VOITH</span><span class="ref-chip">HOLCIM Group</span></div>
+  </div>
+
+  
+  
+  
+
+  <div class="section mustek-section">
+    <div class="section-title">Oslí můstek na core business</div>
+    <div>Při SAP migraci se musí migrovat i smluvní dokumentace, faktury, dodací listy — to není SAP, to je dokumentová vrstva. My to umíme.</div>
+  </div>
+
+  <div class="section hodnota-section">
+    <div class="section-title">Hodnota pro klienta</div>
+    <div>Konsolidace dokumentové vrstvy v rámci migrace + výrazně kratší příprava + méně rizik.</div>
+  </div>
+
+  <div class="section"><div class="section-title">Subject keywords</div><div class="keyword-chips"><span class="keyword-chip">SAP S/4HANA</span><span class="keyword-chip">migrace dokumentové vrstvy</span></div></div>
+
+  <footer class="teze-footer">✅ JIRKA SCHVÁLIL (citace 52:39)</footer>
+</article>
+
+<article class="teze-card" id="S2-3">
+  <header class="teze-header">
+    <div class="teze-id">S2-3</div>
+    <div class="teze-name">Konsolidace v rámci organizace (NE „do matky“)</div>
+    <span class="badge badge-approved">✅ JIRKA SCHVÁLIL</span>
+  </header>
+
+  <div class="section claim-section">
+    <div class="section-title">Claim</div>
+    <div class="claim-text">Konsolidace dokumentové vrstvy = v rámci organizace, ne nutně do matky. Může být do dceřinky, sesterky.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Kdy se hodí</div>
+    <ul><li>Group CFO multi-entity holdingu (PPF, KKCG, Penta)</li><li>Finance Director ve výrobě s mezinárodními pobočkami</li><li>Head of Architecture v M&amp;A integraci</li></ul>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Důkaz / podpora</div>
+    <ul><li>IXTENT case portfolio s multi-entity klienty</li><li>Flexibilní architecture Extended ECM</li></ul>
+    <div class="ref-chips"><span class="ref-chip">PPF Group</span><span class="ref-chip">CETIN (PPF Group)</span><span class="ref-chip">E.ON</span><span class="ref-chip">HOLCIM Group</span></div>
+  </div>
+
+  
+  
+  
+
+  <div class="section mustek-section">
+    <div class="section-title">Oslí můstek na core business</div>
+    <div>Konsolidace dokumentové vrstvy v rámci celé skupiny — nemusíme rozhodovat kam, klient rozhoduje.</div>
+  </div>
+
+  <div class="section hodnota-section">
+    <div class="section-title">Hodnota pro klienta</div>
+    <div>Flexibilita umístění + konsistentní dokumentová vrstva napříč firmou.</div>
+  </div>
+
+  <div class="section"><div class="section-title">Subject keywords</div><div class="keyword-chips"><span class="keyword-chip">konsolidace</span><span class="keyword-chip">multi-entity</span></div></div>
+
+  <footer class="teze-footer">✅ JIRKA SCHVÁLIL korekcí (citace 53:19)</footer>
+</article>
+
+<article class="teze-card" id="S2-4">
+  <header class="teze-header">
+    <div class="teze-id">S2-4</div>
+    <div class="teze-name">Decommissioning legacy systémů s dokumentovou stopou</div>
+    <span class="badge badge-validate">✓ K VALIDACI</span>
+  </header>
+
+  <div class="section claim-section">
+    <div class="section-title">Claim</div>
+    <div class="claim-text">Při decommissioningu legacy ERPu zůstává dokumentová stopa, kterou je nutné zachovat. IXTENT migruje a archivuje.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Kdy se hodí</div>
+    <ul><li>IT Director koordinující legacy retirement</li><li>Compliance Manager (právní archivace 10-30 let)</li><li>Finance Director — cost-of-storage legacy</li></ul>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Důkaz / podpora</div>
+    <ul><li>IXTENT 23+ let v migracích z legacy systémů (Documentum → Extended ECM)</li><li>Records Management s plnou retencí policy</li></ul>
+    <div class="ref-chips"><span class="ref-chip">Telefónica O2 SK</span><span class="ref-chip">E.ON</span></div>
+  </div>
+
+  
+  
+  
+
+  <div class="section mustek-section">
+    <div class="section-title">Oslí můstek na core business</div>
+    <div>Legacy decommissioning = ne jen vypnout systém, ale uchovat dokumenty s auditní stopou.</div>
+  </div>
+
+  <div class="section hodnota-section">
+    <div class="section-title">Hodnota pro klienta</div>
+    <div>Cost-of-storage úspora + plná compliance s retention policy.</div>
+  </div>
+
+  <div class="section"><div class="section-title">Subject keywords</div><div class="keyword-chips"><span class="keyword-chip">decommissioning</span><span class="keyword-chip">legacy</span><span class="keyword-chip">archiv</span></div></div>
+
+  <footer class="teze-footer">Vychází z utility tech case</footer>
+</article>
+
+<article class="teze-card" id="S2-5">
+  <header class="teze-header">
+    <div class="teze-id">S2-5</div>
+    <div class="teze-name">AI ready DMS (Aviator + BYOM + human-in-the-loop) ⭐</div>
+    <span class="badge badge-approved">✅ JIRKA SCHVÁLIL</span>
+  </header>
+
+  <div class="section claim-section">
+    <div class="section-title">Claim</div>
+    <div class="claim-text">AI transformuje business napříč vertikálami. IXTENT systémy už AI mají — Aviator + BYOM + human-in-the-loop. AI v outreach je entry point — finální landing konverzace zůstává správa dokumentů.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Kdy se hodí</div>
+    <ul><li>CIO / Innovation Lead ve výrobě, retail, telco</li><li>CFO sledující ROI of AI</li><li>Universal — AI je „tendenční termín“ napříč Sekvencí 5a-5e</li></ul>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Důkaz / podpora</div>
+    <ul><li>Aviator + BYOM v OpenText, klienti začínají reálně používat</li><li>Multi-model architektura</li><li>Human-in-the-loop (klíčové pro AI Act)</li></ul>
+    
+  </div>
+
+  <div class="section quotes-section"><div class="section-title">Klíčové Jirkovy citace</div><div class="quote-item"><span class="quote-time">49:25</span><span class="quote-text">„chci je dostat do situace, abych jim mohl ukázat systém na zprávu dokumentů. AI scénář je entry point, ale finální landing = správa dokumentů.“</span></div><div class="quote-item"><span class="quote-time">1:02:25</span><span class="quote-text">„tendenční termíny musí být viditelné, jinak persona neklikne“</span></div><div class="quote-item"><span class="quote-time">48:37</span><span class="quote-text">„Nečekejte na to, že to teprve na trh bude. V našich systémech už ta AI je, zákazníci ji začínají používat.“</span></div></div>
+  <div class="section examples-section"><div class="section-title">Subject vzory</div><ul><li class="example">„AI nad smluvním portfoliem - 3 přístupy v multi-entity skupinách“</li><li class="example">„Aviator + BYOM ve výrobě - co vidíme“</li><li class="example">„LLM nad audit prep - jak to zrychlit“</li><li class="example">„AI v dokumentovém workflow - co u 9 z 10 velkých firem vidíme“</li></ul></div>
+  <div class="section rule-callout"><div class="section-title">Pravidlo aplikace</div><div>Subject A NEBO B každého emailu napříč Sekvencí 5a-5e MUSÍ obsahovat alespoň 1 termín z AI, LLM, Aviator. Fallback: CSRD / NIS2 / Whistleblowing.</div></div>
+
+  <div class="section mustek-section">
+    <div class="section-title">Oslí můstek na core business</div>
+    <div>AI rozšiřuje, jak s dokumentem pracujete (vytěžování, klasifikace, generování draftů). NE „AI nahradí Vaše procesy“. Konečná destinace konverzace zůstává správa dokumentů.</div>
+  </div>
+
+  <div class="section hodnota-section">
+    <div class="section-title">Hodnota pro klienta</div>
+    <div>Aviator dostupný hned + AI Act compliance přes human-in-the-loop + BYOM = flexibilní LLM výběr.</div>
+  </div>
+
+  <div class="section"><div class="section-title">Subject keywords</div><div class="keyword-chips"><span class="keyword-chip">AI</span><span class="keyword-chip">Aviator</span><span class="keyword-chip">LLM</span><span class="keyword-chip">BYOM</span></div></div>
+
+  <footer class="teze-footer">✅ JIRKA SCHVÁLIL (citace 47:36, 48:37, 49:25, 1:02:25)</footer>
+</article>
+
+<article class="teze-card" id="S2-6">
+  <header class="teze-header">
+    <div class="teze-id">S2-6</div>
+    <div class="teze-name">„Příprava na audit“ (NE „audit prep“)</div>
+    <span class="badge badge-approved">✅ JIRKA SCHVÁLIL</span>
+  </header>
+
+  <div class="section claim-section">
+    <div class="section-title">Claim</div>
+    <div class="claim-text">Pro CFO ve velké firmě je příprava na audit stoprocentně téma. Klient potřebuje dohledatelnou dokumentovou stopu napříč ERPy.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Kdy se hodí</div>
+    <ul><li>CFO / Finance Director připravující Big 4 audit</li><li>Head of Accounting koordinující IFRS audit</li><li>Internal Audit Director / CAE</li></ul>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Důkaz / podpora</div>
+    <ul><li>Records Management napříč firmou s plnou auditní stopou</li><li>Substantive testing prep s predefined sample sets</li></ul>
+    
+  </div>
+
+  
+  
+  
+
+  <div class="section mustek-section">
+    <div class="section-title">Oslí můstek na core business</div>
+    <div>Dokumentová stopa nad finančními transakcemi = naše playing field.</div>
+  </div>
+
+  <div class="section hodnota-section">
+    <div class="section-title">Hodnota pro klienta</div>
+    <div>Plná dohledatelnost dokumentu k transakci + výrazně rychlejší příprava na audit (soft).</div>
+  </div>
+
+  <div class="section"><div class="section-title">Subject keywords</div><div class="keyword-chips"><span class="keyword-chip">příprava na audit</span><span class="keyword-chip">auditní stopa</span></div></div>
+
+  <footer class="teze-footer">✅ JIRKA SCHVÁLIL (citace 1:04:22)</footer>
+</article>
+
+<article class="teze-card" id="S2-7">
+  <header class="teze-header">
+    <div class="teze-id">S2-7</div>
+    <div class="teze-name">Long-term archiv compliantní s GDPR + ZoÚ + ZoArch</div>
+    <span class="badge badge-validate">✓ K VALIDACI</span>
+  </header>
+
+  <div class="section claim-section">
+    <div class="section-title">Claim</div>
+    <div class="claim-text">Velké firmy musí archivovat 10-30 let podle ZoÚ, GDPR, ZoArch a oborových norem. IXTENT je records management specialist.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Kdy se hodí</div>
+    <ul><li>Head of Accounting (retence účetních dokumentů)</li><li>Compliance Manager (GDPR retention policy)</li><li>Operations Director ve výrobě (technická dokumentace 30+ let)</li></ul>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Důkaz / podpora</div>
+    <ul><li>23+ let v regulovaných archivech</li><li>IXTENT_Archivace cross-industry case studies</li><li>MoReq-compliant</li></ul>
+    <div class="ref-chips"><span class="ref-chip">Slovenská pošta</span><span class="ref-chip">VOITH</span><span class="ref-chip">GECO</span></div>
+  </div>
+
+  
+  
+  
+
+  <div class="section mustek-section">
+    <div class="section-title">Oslí můstek na core business</div>
+    <div>Archiv = core. Records Management = naše core delivery.</div>
+  </div>
+
+  <div class="section hodnota-section">
+    <div class="section-title">Hodnota pro klienta</div>
+    <div>Konzistentní retention policy napříč firmou + plná dohledatelnost při kontrole (FÚ, ÚOOÚ, SÚKL).</div>
+  </div>
+
+  <div class="section"><div class="section-title">Subject keywords</div><div class="keyword-chips"><span class="keyword-chip">archiv</span><span class="keyword-chip">retence</span><span class="keyword-chip">Records Management</span></div></div>
+
+  <footer class="teze-footer">Vychází z IXTENT_Archivace</footer>
+</article>
+
+<article class="teze-card" id="S2-8">
+  <header class="teze-header">
+    <div class="teze-id">S2-8</div>
+    <div class="teze-name">CSRD ESRS reporting — dokumentová stopa pro audit</div>
+    <span class="badge badge-validate">✓ K VALIDACI</span>
+  </header>
+
+  <div class="section claim-section">
+    <div class="section-title">Claim</div>
+    <div class="claim-text">CSRD tlačí firmy &gt;250 zaměstnanců na ESG reporting. Dokumentová stopa = zásadní pro substantive testing auditora.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Kdy se hodí</div>
+    <ul><li>CFO ve velké firmě (wave 2: 2026-2027)</li><li>Finance Director sponzorující CSRD</li><li>Sustainability Lead / ESG Officer</li><li>Internal Audit</li></ul>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Důkaz / podpora</div>
+    <ul><li>Big 4 substantive testing pro CSRD</li><li>IXTENT records management = audit-ready archive</li></ul>
+    
+  </div>
+
+  
+  
+  
+
+  <div class="section mustek-section">
+    <div class="section-title">Oslí můstek na core business</div>
+    <div>CSRD je reporting issue — ale za reporting potřebujete dokumentační vrstvu, která dokáže auditovi prokázat čísla.</div>
+  </div>
+
+  <div class="section hodnota-section">
+    <div class="section-title">Hodnota pro klienta</div>
+    <div>Plná dohledatelnost ESG dat zpět k zdroji + připravenost na CSRD audit (Big 4).</div>
+  </div>
+
+  <div class="section"><div class="section-title">Subject keywords</div><div class="keyword-chips"><span class="keyword-chip">CSRD</span><span class="keyword-chip">ESG reporting</span><span class="keyword-chip">audit-ready</span></div></div>
+
+  <footer class="teze-footer">Z CLAUDE.md narrativ, validovat</footer>
+</article>
+
+<article class="teze-card" id="S2-9">
+  <header class="teze-header">
+    <div class="teze-id">S2-9</div>
+    <div class="teze-name">Whistleblowing + AML compliance přes dokumentovou vrstvu</div>
+    <span class="badge badge-validate">✓ K VALIDACI</span>
+  </header>
+
+  <div class="section claim-section">
+    <div class="section-title">Claim</div>
+    <div class="claim-text">Whistleblowing direktiva + AML 6 vyžadují bezpečnou dokumentační vrstvu s identity-based access.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Kdy se hodí</div>
+    <ul><li>Compliance Manager / Head of Legal</li><li>HR Director (whistleblowing channel)</li><li>Operations Manager v retail, výrobě, healthcare</li></ul>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Důkaz / podpora</div>
+    <ul><li>IXTENT Records Management s identity-based access</li><li>Records retention policy (whistleblowing 3-5 let, dle CZ/SK)</li></ul>
+    
+  </div>
+
+  
+  
+  
+
+  <div class="section mustek-section">
+    <div class="section-title">Oslí můstek na core business</div>
+    <div>Whistleblowing / AML compliance se opírá o dokumentační stopu — kdo viděl, kdy, co.</div>
+  </div>
+
+  <div class="section hodnota-section">
+    <div class="section-title">Hodnota pro klienta</div>
+    <div>Plnohodnotná dokumentační stopa pro compliance audit + identity-based access + retention out-of-the-box.</div>
+  </div>
+
+  <div class="section"><div class="section-title">Subject keywords</div><div class="keyword-chips"><span class="keyword-chip">Whistleblowing</span><span class="keyword-chip">AML 6</span><span class="keyword-chip">compliance</span></div></div>
+
+  <footer class="teze-footer">Z 5e Compliance sequence</footer>
+</article>
+
+<article class="teze-card" id="S2-10">
+  <header class="teze-header">
+    <div class="teze-id">S2-10</div>
+    <div class="teze-name">NIS2 transpozice pro kritickou infrastrukturu</div>
+    <span class="badge badge-approved">✅ JIRKA SCHVÁLIL</span>
+  </header>
+
+  <div class="section claim-section">
+    <div class="section-title">Claim</div>
+    <div class="claim-text">NIS2 + nový ZKB řadí utility, telco, healthcare, výrobu do „důležité subjekty“ s bezpečnostními pravidly nad dokumenty.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Kdy se hodí</div>
+    <ul><li>CISO / IT Security Director v utility, telco, healthcare</li><li>Compliance Manager koordinující NIS2</li><li>COO v kritické infrastruktuře</li></ul>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Důkaz / podpora</div>
+    <ul><li>IXTENT Sign + identity &amp; access mgmt</li><li>Records Management s audit trail</li><li>23+ let v regulovaných sektorech</li></ul>
+    <div class="ref-chips"><span class="ref-chip">E.ON</span><span class="ref-chip">ZSE/ZSD</span><span class="ref-chip">T-Mobile CZ</span><span class="ref-chip">Telefónica O2 SK</span><span class="ref-chip">CETIN</span></div>
+  </div>
+
+  
+  
+  
+
+  <div class="section mustek-section">
+    <div class="section-title">Oslí můstek na core business</div>
+    <div>NIS2 dopadá napříč firmou — my řešíme tu část, kde se dotýká dokumentového obsahu.</div>
+  </div>
+
+  <div class="section hodnota-section">
+    <div class="section-title">Hodnota pro klienta</div>
+    <div>Dokumentová vrstva NIS2-ready + konzistentní s ostatními NIS2 compliance projekty.</div>
+  </div>
+
+  <div class="section"><div class="section-title">Subject keywords</div><div class="keyword-chips"><span class="keyword-chip">NIS2</span><span class="keyword-chip">ZKB</span><span class="keyword-chip">kritická infrastruktura</span></div></div>
+
+  <footer class="teze-footer">✅ Z Jirkovy zmínky 11:06</footer>
+</article>
+
+<article class="teze-card" id="S2-11">
+  <header class="teze-header">
+    <div class="teze-id">S2-11</div>
+    <div class="teze-name">Vendor consolidation: místo 5 systémů 1 DMS</div>
+    <span class="badge badge-validate">✓ K VALIDACI</span>
+  </header>
+
+  <div class="section claim-section">
+    <div class="section-title">Claim</div>
+    <div class="claim-text">Velké firmy mají dokumenty roztříštěné mezi 5+ systémy. Vendor consolidation do jednoho DMS = úspora + konzistence.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Kdy se hodí</div>
+    <ul><li>CIO / IT Director s rationalization roadmap</li><li>CFO sledující TCO of IT</li><li>COO trpící data silos</li></ul>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Důkaz / podpora</div>
+    <ul><li>IXTENT Extended ECM jako single source of truth</li><li>Out-of-the-box konektory pro SAP, Oracle, MS Dynamics, Salesforce, M365</li></ul>
+    <div class="ref-chips"><span class="ref-chip">PPF Group</span><span class="ref-chip">Slovenská pošta</span><span class="ref-chip">E.ON</span><span class="ref-chip">HOLCIM Group</span></div>
+  </div>
+
+  
+  
+  
+
+  <div class="section mustek-section">
+    <div class="section-title">Oslí můstek na core business</div>
+    <div>Místo 5 oddělených systémů 1 DMS s plnohodnotnou correlation napříč.</div>
+  </div>
+
+  <div class="section hodnota-section">
+    <div class="section-title">Hodnota pro klienta</div>
+    <div>TCO úspora + konzistentní access policy napříč.</div>
+  </div>
+
+  <div class="section"><div class="section-title">Subject keywords</div><div class="keyword-chips"><span class="keyword-chip">vendor consolidation</span><span class="keyword-chip">konsolidace dodavatelů</span></div></div>
+
+  <footer class="teze-footer">Vychází z telco CLM + média CLM case</footer>
+</article>
+
+<article class="teze-card" id="S2-12">
+  <header class="teze-header">
+    <div class="teze-id">S2-12</div>
+    <div class="teze-name">CLM (Contract Lifecycle Management) — „podepisování bez opuštění perimetru“</div>
+    <span class="badge badge-approved">✅ JIRKA SCHVÁLIL</span>
+  </header>
+
+  <div class="section claim-section">
+    <div class="section-title">Claim</div>
+    <div class="claim-text">Velké firmy mají hodně smluv. CLM v IXTENT DMS = smlouvy podepsané bez opuštění firemního perimetru.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Kdy se hodí</div>
+    <ul><li>CFO koordinující dodavatelské smlouvy</li><li>General Counsel / Head of Legal</li><li>Procurement Director s vendor mgmt</li></ul>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Důkaz / podpora</div>
+    <ul><li>Telco CLM case (T-Mobile) — AI-governed Contract Hub</li><li>Média CLM case — workflow, supplier mgmt, D365/Refinitiv integrace</li><li>IXTENT Sign integrovaný v Extended ECM</li></ul>
+    <div class="ref-chips"><span class="ref-chip">PPF Group</span><span class="ref-chip">VOITH</span><span class="ref-chip">MAN/Everllence</span><span class="ref-chip">Kocián Šolc Balaštík</span></div>
+  </div>
+
+  
+  
+  
+
+  <div class="section mustek-section">
+    <div class="section-title">Oslí můstek na core business</div>
+    <div>CLM = smluvní část dokumentového životního cyklu. „Podepisujeme smlouvy bez opuštění perimetru“ = unique IXTENT angle.</div>
+  </div>
+
+  <div class="section hodnota-section">
+    <div class="section-title">Hodnota pro klienta</div>
+    <div>Bezpečné podepisování + plná auditní stopa + Single Source of Truth pro smluvní portfolio.</div>
+  </div>
+
+  <div class="section"><div class="section-title">Subject keywords</div><div class="keyword-chips"><span class="keyword-chip">CLM</span><span class="keyword-chip">smluvní cyklus</span><span class="keyword-chip">kvalifikovaný podpis</span></div></div>
+
+  <footer class="teze-footer">✅ Jirkův kick-off zlatý narativ</footer>
+</article>
+
+<article class="teze-card" id="S2-13">
+  <header class="teze-header">
+    <div class="teze-id">S2-13</div>
+    <div class="teze-name">AI ve vytěžování dokumentů (rychlejší procesy) ⭐</div>
+    <span class="badge badge-approved">✅ JIRKA SCHVÁLIL</span>
+  </header>
+
+  <div class="section claim-section">
+    <div class="section-title">Claim</div>
+    <div class="claim-text">AI/OCR + klasifikace = rychlejší zpracování smluv, faktur, technické dokumentace. Aviator a BYOM už nasazené. „Pojďte se na to podívat“ jako CTA pro AI angle.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Kdy se hodí</div>
+    <ul><li>Operations Manager / Head of Accounting</li><li>Process Owner pro faktury v SAP</li><li>Procurement / Vendor Mgmt</li><li>Universal entry point napříč Sekvencí 5a-5e</li></ul>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Důkaz / podpora</div>
+    <ul><li>Aviator + BYOM</li><li>Konkrétní use cases (telco CLM, výroba technická dokumentace)</li></ul>
+    <div class="ref-chips"><span class="ref-chip">CETIN (KOFAX OCR)</span><span class="ref-chip">GECO (OCR + biometrika)</span></div>
+  </div>
+
+  <div class="section quotes-section"><div class="section-title">Klíčové Jirkovy citace</div><div class="quote-item"><span class="quote-time">47:38</span><span class="quote-text">„výroba dokumentu může trvat 5 dní, pomocí AI 10 minut. Zbytek dolepím manuálně, nebo jsem spokojený za zlomek efortu.“ → POUŽÍVAT OBECNĚJI („výrazně rychleji“)</span></div><div class="quote-item"><span class="quote-time">49:25</span><span class="quote-text">„AI scénář je entry point, finální landing = správa dokumentů“</span></div></div>
+  
+  <div class="section rule-callout"><div class="section-title">Pravidlo aplikace</div><div>Soft claim: „výrazně rychleji“ / „zlomek dosavadního efortu“. Konkrétní čísla bez ground-truth z reálné case study by mohla zhoršit důvěryhodnost.</div></div>
+
+  <div class="section mustek-section">
+    <div class="section-title">Oslí můstek na core business</div>
+    <div>AI = další způsob, jak z dokumentu vytáhnout informaci. Klient získá rychlejší zpracování + méně manuální práce.</div>
+  </div>
+
+  <div class="section hodnota-section">
+    <div class="section-title">Hodnota pro klienta</div>
+    <div>Výrazně rychlejší zpracování dokumentů (soft) + méně manuální práce v AP, claims, contract review.</div>
+  </div>
+
+  <div class="section"><div class="section-title">Subject keywords</div><div class="keyword-chips"><span class="keyword-chip">AI</span><span class="keyword-chip">vytěžování</span><span class="keyword-chip">OCR</span><span class="keyword-chip">Aviator</span></div></div>
+
+  <footer class="teze-footer">✅ Z Jirkovy zmínky 47:38, 49:25, 1:02:25</footer>
+</article>
+
+<article class="teze-card" id="S2-14">
+  <header class="teze-header">
+    <div class="teze-id">S2-14</div>
+    <div class="teze-name">Reference benefit-first (FOJT vzor)</div>
+    <span class="badge badge-approved">✅ JIRKA SCHVÁLIL</span>
+  </header>
+
+  <div class="section claim-section">
+    <div class="section-title">Claim</div>
+    <div class="claim-text">Každá case study reference musí říct CO TÍM klient získal, ne jen co se technicky dělalo.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Kdy se hodí</div>
+    <ul><li>Email 3 napříč všemi sub-sekvencemi Směr 2</li><li>Reference v body Email 1 (krátká forma)</li></ul>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Důkaz / podpora</div>
+    <ul><li>Jirkův explicit vzor: FOJT získal „unifikovaný přehled napříč výrobou globálně + zlepšila se schopnost plánování“</li></ul>
+    <div class="ref-chips"><span class="ref-chip">FOJT</span></div>
+  </div>
+
+  
+  
+  
+
+  <div class="section mustek-section">
+    <div class="section-title">Oslí můstek na core business</div>
+    <div>Pravidlo, ne samostatná teze. Aplikuje se na všechny ostatní teze v Email 3.</div>
+  </div>
+
+  <div class="section hodnota-section">
+    <div class="section-title">Hodnota pro klienta</div>
+    <div>Reference s benefitem zní jako reálná case story, ne jako vendor pitch.</div>
+  </div>
+
+  
+
+  <footer class="teze-footer">✅ JIRKA SCHVÁLIL VZOR (citace 58:07)</footer>
+</article>
+
+
+        
+<section class="otazky-section" id="otazky-2">
+  <h2>Otázky pro Jirku — Směr 2</h2>
+  <ol><li>Teze S2-3 (konsolidace „ne nutně do matky“) — máme konkrétní case, kdy se konsolidovalo do dceřinky / sesterky? FOJT byla do matky, máme jiný příklad?</li><li>Teze S2-8 (CSRD ESRS) — máme aktuální IXTENT case s CSRD reportingem, nebo je to nový angle? Pokud nový, podpora bude soft.</li><li>Teze S2-9 (Whistleblowing + AML 6) — máme aktuální projekt s identity-based access? Klíčový pro 5e Compliance Manager sub-sekvenci.</li><li>Teze S2-11 (vendor consolidation) — máme TCO data z reálných cases? Použít jako soft claim, nebo konkrétní?</li><li>Teze S2-13 (AI 5 dní → 10 minut) — citujeme to soft („výrazně rychleji“), nebo máme reálný case-base?</li><li>FOJT (Teze S2-1, S2-3, S2-14) — můžeme jméno FOJT používat v outreach? Z webu IXTENT? Z podepsané smlouvy?</li><li>Slovenská pošta + PPF Group — můžeme jména použít v cold outreach (jako u Teze S2-1, S2-3, S2-7, S2-11, S2-12)? Z webu IXTENT, nebo NDA-protected?</li><li>AI deployed cases u FOJT / PPF / Slovenské pošty — máte konkrétní deployed case s Aviator nebo BYOM v těchto firmách? Pokud ano, můžeme se na ně odkazovat?</li></ol>
+</section>
+
+      </div>
+    </main>
+  </div>
+  <script>
+function showDirection(dir) {
+  document.querySelectorAll('.direction-block').forEach(el => el.classList.remove('active'));
+  document.getElementById('dir-' + dir).classList.add('active');
+  document.querySelectorAll('.dir-toggle button').forEach(b => b.classList.remove('active'));
+  document.getElementById('btn-' + dir).classList.add('active');
+  document.getElementById('nav-' + dir).style.display = 'block';
+  document.getElementById('nav-' + (dir === 'smer1' ? 'smer2' : 'smer1')).style.display = 'none';
+  window.scrollTo(0, 0);
+}
+document.addEventListener('DOMContentLoaded', () => showDirection('smer1'));
+</script>
+</body>
+</html>
