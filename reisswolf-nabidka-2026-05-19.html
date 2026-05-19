@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tomáš Vrbka · Nabídka REISSWOLF · ABM kampaň</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue: #1a56db;
+      --blue-dark: #103f9e;
+      --navy: #0f2747;
+      --ink: #475467;
+      --line: #e4e8ef;
+      --soft: rgba(26,86,219,0.06);
+      --soft-bd: rgba(26,86,219,0.18);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #eef1f6;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-size: 15px;
+      line-height: 1.75;
+    }
+
+    .page-wrapper { position: relative; padding: 32px 16px 64px; }
+
+    .proposal-card {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 64px 72px;
+      max-width: 920px;
+      margin: 0 auto;
+      box-shadow: 0 1px 2px rgba(16,40,71,0.04), 0 24px 64px rgba(16,40,71,0.08);
+    }
+
+    .cover {
+      text-align: center;
+      padding: 56px 40px 64px;
+      margin: -64px -72px 56px;
+      border-radius: 12px;
+      position: relative;
+      background:
+        radial-gradient(ellipse at 30% 0%, rgba(26,86,219,0.10) 0%, transparent 60%),
+        linear-gradient(160deg, #f6f9ff 0%, #eef3fd 100%);
+      border-bottom: 1px solid var(--line);
+    }
+    .cover::after {
+      content: '';
+      position: absolute; left: 50%; bottom: -1px; transform: translateX(-50%);
+      width: 72%; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--blue), transparent);
+    }
+
+    .cover .wordmark {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--navy);
+      margin-bottom: 40px;
+    }
+    .cover .wordmark span { color: var(--blue); }
+
+    .cover .proposal-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--blue);
+      border: 1px solid var(--soft-bd);
+      border-radius: 100px;
+      padding: 5px 16px;
+      margin-bottom: 36px;
+      background: var(--soft);
+    }
+
+    .cover .client-company {
+      font-size: 3.2rem;
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 18px;
+    }
+
+    .cover .proposal-title {
+      font-size: 1.15rem;
+      color: var(--blue-dark);
+      font-weight: 500;
+      margin: 0 auto 32px;
+      max-width: 560px;
+    }
+
+    .cover .meta {
+      font-size: 0.85rem;
+      color: #7a8699;
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .cover .meta span::before {
+      content: '·';
+      margin-right: 24px;
+      color: rgba(26,86,219,0.5);
+    }
+    .cover .meta span:first-child::before { display: none; }
+
+    .section-header { margin: 56px 0 24px; }
+    .section-header .section-number {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--blue);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .section-header h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+    .section-header .h2-sub {
+      font-size: 0.75rem;
+      color: #98a2b3;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .lead-p {
+      color: var(--ink);
+      text-align: justify;
+      margin-bottom: 8px;
+    }
+
+    .solution-block {
+      background: #fafbfd;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 22px 28px;
+      margin-bottom: 16px;
+    }
+    .solution-block .service-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--blue);
+      background: var(--soft);
+      border: 1px solid var(--soft-bd);
+      border-radius: 6px;
+      padding: 3px 10px;
+      margin-bottom: 12px;
+    }
+    .solution-block h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .solution-block p {
+      color: var(--ink);
+      font-size: 0.92rem;
+      margin: 0;
+      text-align: justify;
+    }
+
+    .scope-table-wrap {
+      margin: 24px 0;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+    }
+    table { width: 100%; border-collapse: collapse; }
+    thead th {
+      background: var(--soft);
+      color: var(--blue);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      padding: 12px 20px;
+      text-align: left;
+      border-bottom: 1px solid var(--soft-bd);
+    }
+    tbody td {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--line);
+      color: var(--ink);
+      font-size: 0.92rem;
+    }
+    tbody tr:last-child td {
+      border-bottom: none;
+      font-weight: 700;
+      color: var(--navy);
+      background: var(--soft);
+    }
+    .num { text-align: right; white-space: nowrap; }
+
+    .investment-box {
+      background: var(--soft);
+      border: 1px solid var(--soft-bd);
+      border-radius: 14px;
+      padding: 28px 32px;
+      margin: 24px 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .investment-item .inv-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #7a8699;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .investment-item .inv-amount {
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -0.02em;
+    }
+    .investment-item .inv-note {
+      font-size: 0.78rem;
+      color: #7a8699;
+      margin-top: 4px;
+    }
+
+    .ops-intro {
+      color: var(--ink);
+      font-size: 0.92rem;
+      margin: 20px 0 8px;
+    }
+    .ops-intro strong { color: var(--navy); }
+    .variant-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 16px 0 8px;
+    }
+    .variant-card {
+      background: #fafbfd;
+      border: 1px solid var(--soft-bd);
+      border-radius: 14px;
+      padding: 24px 26px;
+    }
+    .variant-card .v-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--blue);
+      background: var(--soft);
+      border: 1px solid var(--soft-bd);
+      border-radius: 6px;
+      padding: 3px 10px;
+      margin-bottom: 14px;
+    }
+    .variant-card h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+    .variant-card .v-desc {
+      font-size: 0.84rem;
+      color: #7a8699;
+      margin-bottom: 16px;
+    }
+    .variant-card .v-amount {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -0.02em;
+    }
+    .variant-card .v-breakdown {
+      font-size: 0.78rem;
+      color: #7a8699;
+      margin-top: 4px;
+    }
+    .ops-note {
+      font-size: 0.8rem;
+      color: #7a8699;
+      margin-top: 8px;
+    }
+
+    .why-block p {
+      color: var(--ink);
+      margin-bottom: 16px;
+      text-align: justify;
+    }
+    .ref-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+    .ref-tag {
+      display: inline-block;
+      background: var(--soft);
+      border: 1px solid var(--soft-bd);
+      border-radius: 8px;
+      padding: 5px 14px;
+      font-size: 0.8rem;
+      color: var(--blue-dark);
+      font-weight: 600;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--line);
+      margin: 48px 0;
+    }
+
+    .contact-card {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      background: #fafbfd;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 28px 32px;
+      margin-top: 48px;
+      flex-wrap: wrap;
+    }
+    .contact-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.02em;
+      flex-shrink: 0;
+    }
+    .contact-info { flex: 1; min-width: 180px; }
+    .contact-info .contact-name { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 2px; }
+    .contact-info .contact-role { font-size: 0.82rem; color: var(--blue); margin-bottom: 1px; }
+    .contact-info .contact-company { font-size: 0.8rem; color: #7a8699; }
+    .contact-details { display: flex; flex-direction: column; gap: 5px; text-align: right; }
+    .contact-details a {
+      font-size: 0.82rem;
+      color: var(--ink);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .contact-details a:hover { color: var(--blue); }
+    .contact-details .contact-web { font-size: 0.8rem; color: var(--blue); }
+
+    footer {
+      text-align: center;
+      font-size: 0.73rem;
+      color: #98a2b3;
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      letter-spacing: 0.04em;
+    }
+
+    @media (max-width: 720px) {
+      .proposal-card { padding: 40px 24px; }
+      .cover { margin: -40px -24px 48px; padding: 48px 24px 56px; }
+      .cover .client-company { font-size: 2.2rem; }
+      .variant-grid { grid-template-columns: 1fr; }
+      .contact-details { text-align: left; }
+    }
+
+    @media print {
+      body { background: #ffffff !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .page-wrapper { padding: 0; }
+      .proposal-card { box-shadow: none; border: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <div class="proposal-card">
+
+      <div class="cover">
+        <div class="wordmark">Tomáš <span>Vrbka</span></div>
+        <div class="proposal-badge">Návrh spolupráce</div>
+        <div class="client-company">REISSWOLF s.r.o.</div>
+        <div class="proposal-title">ABM kampaň · skartace &amp; digitalizace dokumentů</div>
+        <div class="meta">
+          <span>Pro: Czech Promotion</span>
+          <span>19. května 2026</span>
+          <span>Připravil: Tomáš Vrbka</span>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <div class="section-number">01</div>
+        <h2>Kontext</h2>
+        <div class="h2-sub">Project context</div>
+      </div>
+      <p class="lead-p">Cílem projektu je přímé oslovení předem vybraných firem (account-based marketing) se službami skartace a digitalizace dokumentů REISSWOLF s.r.o. Místo plošné komunikace oslovíme konkrétní společnosti, o které má klient zájem, a dovedeme je ke kvalifikované schůzce pro obchodní tým. Hlavním kanálem je e-mail odesílaný jménem obchodního manažera, s možným rozšířením o LinkedIn.</p>
+
+      <hr class="divider">
+
+      <div class="section-header">
+        <div class="section-number">02</div>
+        <h2>Co budeme dělat</h2>
+        <div class="h2-sub">Scope of work</div>
+      </div>
+
+      <div class="solution-block">
+        <div class="service-tag">01 · Workshop</div>
+        <h3>Úvodní online workshop + zpracování</h3>
+        <p>Společně nadefinujeme ideální profil zákazníka (ICP), segmenty, strategii cílení a hlavní sdělení kampaně. Výstupem je jasné zadání, podle kterého stavíme databázi i obsah.</p>
+      </div>
+      <div class="solution-block">
+        <div class="service-tag">02 · Data</div>
+        <h3>Příprava databáze</h3>
+        <p>Sestavíme databázi cílových firem podle dohodnutých parametrů a k nim ověřené kontakty na decision-makery (více kontaktů na jednu firmu). Stávající zákazníky klienta z databáze vyfiltrujeme, aby nebyli osloveni znovu.</p>
+      </div>
+      <div class="solution-block">
+        <div class="service-tag">03 · Messaging</div>
+        <h3>Tvorba obsahu sekvencí, messaging</h3>
+        <p>Napíšeme kompletní e-mailové sekvence a sdělení postavené na silných stránkách klienta: bezpečnost, komplexnost pod jednou střechou a 30 let na trhu. Texty laděné na relevanci a odpovědi, ne na objem.</p>
+      </div>
+      <div class="solution-block">
+        <div class="service-tag">04 · Infrastruktura</div>
+        <h3>Infrastruktura (domény, maily)</h3>
+        <p>Nakoupíme sekundární domény podobné hlavní a nastavíme samostatné e-mailové schránky. Tím chráníme hlavní doménu klienta před případným spam flagem.</p>
+      </div>
+      <div class="solution-block">
+        <div class="service-tag">05 · Rozesílač</div>
+        <h3>Nastavení mailového rozesílače</h3>
+        <p>Nakonfigurujeme nástroj pro automatizaci komunikace, zahřejeme schránky a spustíme kampaň. Po spuštění je systém připraven dodávat schůzky obchodnímu týmu.</p>
+      </div>
+
+      <hr class="divider">
+
+      <div class="section-header">
+        <div class="section-number">03</div>
+        <h2>Rozsah a investice</h2>
+        <div class="h2-sub">Scope &amp; investment</div>
+      </div>
+
+      <div class="scope-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Činnost</th>
+              <th class="num">Počet hodin</th>
+              <th class="num">Cena</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Úvodní online workshop + zpracování</td><td class="num">4</td><td class="num">8 000 Kč</td></tr>
+            <tr><td>Příprava databáze</td><td class="num">16</td><td class="num">32 000 Kč</td></tr>
+            <tr><td>Tvorba obsahu sekvencí, messaging</td><td class="num">18</td><td class="num">36 000 Kč</td></tr>
+            <tr><td>Infrastruktura (domény, maily)</td><td class="num">2</td><td class="num">4 000 Kč</td></tr>
+            <tr><td>Nastavení mailového rozesílače</td><td class="num">6</td><td class="num">12 000 Kč</td></tr>
+            <tr><td>Celkem</td><td class="num">46</td><td class="num">92 000 Kč</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="investment-box">
+        <div class="investment-item">
+          <div class="inv-label">Jednorázová investice</div>
+          <div class="inv-amount">92 000 Kč</div>
+          <div class="inv-note">bez DPH · hodinová sazba 2 000 Kč/hod · 46 hodin</div>
+        </div>
+      </div>
+
+      <p class="ops-intro"><strong>Provozní náklady (měsíční).</strong> Hradí se měsíčně podle zvolené varianty nástroje. Základem je 10× e-mailová schránka za 1 300 Kč/měs, která je součástí obou variant.</p>
+
+      <div class="variant-grid">
+        <div class="variant-card">
+          <div class="v-tag">Varianta A · Smartlead</div>
+          <h4>Automatizace komunikace, pouze e-mail</h4>
+          <div class="v-desc">Nástroj Smartlead pro automatizaci e-mailové komunikace.</div>
+          <div class="v-amount">3 500 Kč/měs</div>
+          <div class="v-breakdown">1 300 Kč schránky + 2 200 Kč Smartlead</div>
+        </div>
+        <div class="variant-card">
+          <div class="v-tag">Varianta B · Leadspicker</div>
+          <h4>Automatizace komunikace, e-mail + LinkedIn</h4>
+          <div class="v-desc">Nástroj Leadspicker, e-mail + 5× LinkedIn účet.</div>
+          <div class="v-amount">7 500 Kč/měs</div>
+          <div class="v-breakdown">1 300 Kč schránky + 6 200 Kč Leadspicker</div>
+        </div>
+      </div>
+      <p class="ops-note">Provozní náklady se hradí po dobu běhu kampaně. Po jejím skončení lze systém buď vypnout, předat do správy klienta, nebo pokračovat dalšími kampaněmi. Ceny bez DPH. Jednorázová investice 92 000 Kč je nezávislá na zvolené variantě provozního nástroje.</p>
+
+      <hr class="divider">
+
+      <div class="section-header">
+        <div class="section-number">04</div>
+        <h2>Proč Tomáš Vrbka</h2>
+        <div class="h2-sub">Why Tomáš Vrbka</div>
+      </div>
+      <div class="why-block">
+        <p>Více než 10 let zkušeností s B2B prodejem, z in-house pozic i z freelance poradenství. Nestaví jen strategii na papíře, ale i funkční systém, který reálně dodává schůzky obchodnímu týmu.</p>
+        <div class="ref-tags">
+          <span class="ref-tag">Oracle</span>
+          <span class="ref-tag">Compelson</span>
+          <span class="ref-tag">PRECISMO</span>
+          <span class="ref-tag">Easy Redmine</span>
+          <span class="ref-tag">Expando</span>
+          <span class="ref-tag">GRIT</span>
+          <span class="ref-tag">Monet+</span>
+        </div>
+      </div>
+
+      <div class="contact-card">
+        <div class="contact-avatar">TV</div>
+        <div class="contact-info">
+          <div class="contact-name">Tomáš Vrbka</div>
+          <div class="contact-role">B2B Lead Generation &amp; Sales Consultant</div>
+          <div class="contact-company">10+ let B2B prodeje · Praha</div>
+        </div>
+        <div class="contact-details">
+          <a href="mailto:tomas@tomasvrbka.cz">tomas@tomasvrbka.cz</a>
+          <a href="tel:+420734584664">+420 734 584 664</a>
+          <a href="https://www.linkedin.com/in/tvrbka" class="contact-web">linkedin.com/in/tvrbka</a>
+          <a href="https://tomasvrbka.cz" class="contact-web">tomasvrbka.cz</a>
+        </div>
+      </div>
+
+      <footer>Důvěrné · Tomáš Vrbka · 19. května 2026</footer>
+
+    </div>
+  </div>
+</body>
+</html>
