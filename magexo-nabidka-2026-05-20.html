@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tomáš Vrbka · Nabídka Magexo · Cold Outreach</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue: #1a56db;
+      --blue-dark: #103f9e;
+      --navy: #0f2747;
+      --ink: #475467;
+      --line: #e4e8ef;
+      --soft: rgba(26,86,219,0.06);
+      --soft-bd: rgba(26,86,219,0.18);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #eef1f6;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-size: 15px;
+      line-height: 1.75;
+    }
+
+    .page-wrapper { position: relative; padding: 32px 16px 64px; }
+
+    .proposal-card {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 64px 72px;
+      max-width: 960px;
+      margin: 0 auto;
+      box-shadow: 0 1px 2px rgba(16,40,71,0.04), 0 24px 64px rgba(16,40,71,0.08);
+    }
+
+    .cover {
+      text-align: center;
+      padding: 56px 40px 64px;
+      margin: -64px -72px 56px;
+      border-radius: 12px;
+      position: relative;
+      background:
+        radial-gradient(ellipse at 30% 0%, rgba(26,86,219,0.10) 0%, transparent 60%),
+        linear-gradient(160deg, #f6f9ff 0%, #eef3fd 100%);
+      border-bottom: 1px solid var(--line);
+    }
+    .cover::after {
+      content: '';
+      position: absolute; left: 50%; bottom: -1px; transform: translateX(-50%);
+      width: 72%; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--blue), transparent);
+    }
+
+    .cover .wordmark {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--navy);
+      margin-bottom: 40px;
+    }
+    .cover .wordmark span { color: var(--blue); }
+
+    .cover .proposal-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--blue);
+      border: 1px solid var(--soft-bd);
+      border-radius: 100px;
+      padding: 5px 16px;
+      margin-bottom: 36px;
+      background: var(--soft);
+    }
+
+    .cover .client-company {
+      font-size: 3.2rem;
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 18px;
+    }
+
+    .cover .proposal-title {
+      font-size: 1.15rem;
+      color: var(--blue-dark);
+      font-weight: 500;
+      margin: 0 auto 32px;
+      max-width: 620px;
+    }
+
+    .cover .meta {
+      font-size: 0.85rem;
+      color: #7a8699;
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .cover .meta span::before {
+      content: '·';
+      margin-right: 24px;
+      color: rgba(26,86,219,0.5);
+    }
+    .cover .meta span:first-child::before { display: none; }
+
+    .section-header { margin: 56px 0 24px; }
+    .section-header .section-number {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--blue);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .section-header h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+    .section-header .h2-sub {
+      font-size: 0.75rem;
+      color: #98a2b3;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .lead-p {
+      color: var(--ink);
+      text-align: justify;
+      margin-bottom: 8px;
+    }
+
+    .group-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin: 28px 0 12px;
+    }
+
+    .solution-block {
+      background: #fafbfd;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 22px 28px;
+      margin-bottom: 14px;
+    }
+    .solution-block .service-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--blue);
+      background: var(--soft);
+      border: 1px solid var(--soft-bd);
+      border-radius: 6px;
+      padding: 3px 10px;
+      margin-bottom: 12px;
+    }
+    .solution-block h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .solution-block p {
+      color: var(--ink);
+      font-size: 0.92rem;
+      margin: 0;
+      text-align: justify;
+    }
+
+    .inline-note {
+      font-size: 0.85rem;
+      color: #7a8699;
+      background: #fafbfd;
+      border: 1px dashed var(--line);
+      border-radius: 10px;
+      padding: 14px 20px;
+      margin-bottom: 14px;
+    }
+    .inline-note strong { color: var(--navy); }
+
+    .scope-table-wrap {
+      margin: 24px 0;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+    }
+    table { width: 100%; border-collapse: collapse; }
+    thead th {
+      background: var(--soft);
+      color: var(--blue);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 700;
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--soft-bd);
+    }
+    tbody td {
+      padding: 13px 16px;
+      border-bottom: 1px solid var(--line);
+      color: var(--ink);
+      font-size: 0.9rem;
+      vertical-align: middle;
+    }
+    tbody tr:last-child td { border-bottom: none; }
+    .num { text-align: right; white-space: nowrap; }
+    .row-section td {
+      background: #f5f7fc;
+      color: var(--navy);
+      font-weight: 700;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 10px 16px;
+    }
+
+    .investment-box {
+      background: var(--soft);
+      border: 1px solid var(--soft-bd);
+      border-radius: 14px;
+      padding: 24px 28px;
+      margin: 24px 0 8px;
+      display: flex;
+      align-items: flex-start;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .investment-item .inv-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #7a8699;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .investment-item .inv-amount {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -0.02em;
+    }
+    .investment-item .inv-note {
+      font-size: 0.82rem;
+      color: #7a8699;
+      margin-top: 6px;
+      max-width: 520px;
+    }
+
+    .why-block p {
+      color: var(--ink);
+      margin-bottom: 14px;
+      text-align: justify;
+    }
+    .why-block .quote {
+      font-style: italic;
+      color: var(--blue-dark);
+      border-left: 3px solid var(--soft-bd);
+      padding-left: 16px;
+      margin: 14px 0;
+      font-size: 0.95rem;
+    }
+    .ref-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+    .ref-tag {
+      display: inline-block;
+      background: var(--soft);
+      border: 1px solid var(--soft-bd);
+      border-radius: 8px;
+      padding: 5px 14px;
+      font-size: 0.8rem;
+      color: var(--blue-dark);
+      font-weight: 600;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--line);
+      margin: 48px 0;
+    }
+
+    .contact-card {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      background: #fafbfd;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 28px 32px;
+      margin-top: 48px;
+      flex-wrap: wrap;
+    }
+    .contact-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.02em;
+      flex-shrink: 0;
+    }
+    .contact-info { flex: 1; min-width: 180px; }
+    .contact-info .contact-name { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 2px; }
+    .contact-info .contact-role { font-size: 0.82rem; color: var(--blue); margin-bottom: 1px; }
+    .contact-info .contact-company { font-size: 0.8rem; color: #7a8699; }
+    .contact-details { display: flex; flex-direction: column; gap: 5px; text-align: right; }
+    .contact-details a {
+      font-size: 0.82rem;
+      color: var(--ink);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .contact-details a:hover { color: var(--blue); }
+    .contact-details .contact-web { font-size: 0.8rem; color: var(--blue); }
+
+    footer {
+      text-align: center;
+      font-size: 0.73rem;
+      color: #98a2b3;
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      letter-spacing: 0.04em;
+    }
+
+    @media (max-width: 760px) {
+      .proposal-card { padding: 40px 24px; }
+      .cover { margin: -40px -24px 48px; padding: 48px 24px 56px; }
+      .cover .client-company { font-size: 2.2rem; }
+      .contact-details { text-align: left; }
+      thead th, tbody td { padding: 10px 10px; font-size: 0.82rem; }
+    }
+
+    @media print {
+      body { background: #ffffff !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .page-wrapper { padding: 0; }
+      .proposal-card { box-shadow: none; border: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <div class="proposal-card">
+
+      <div class="cover">
+        <div class="wordmark">Tomáš <span>Vrbka</span></div>
+        <div class="proposal-badge">Návrh spolupráce</div>
+        <div class="client-company">Magexo</div>
+        <div class="proposal-title">Cold Outreach přes Leadspicker · kombinace e-mailu a LinkedInu</div>
+        <div class="meta">
+          <span>20. května 2026</span>
+          <span>Připravil: Tomáš Vrbka</span>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <div class="section-number">01</div>
+        <h2>Kontext</h2>
+        <div class="h2-sub">Project context</div>
+      </div>
+      <p class="lead-p">Cold Outreach pro Magexo postavený na kombinaci e-mailu a LinkedInu přes Leadspicker. Stavíme tři vrstvy aktivit, ze kterých si Magexo poskládá to, co dává smysl právě teď: průběžné roboty na sledování ICP, jednorázové kampaně (event nebo na míru) a doplňkové činnosti kolem nástrojů a komunikace. Hodinová sazba je 1 700 Kč/hod (bez DPH).</p>
+
+      <hr class="divider">
+
+      <div class="section-header">
+        <div class="section-number">02</div>
+        <h2>Co můžeme dělat</h2>
+        <div class="h2-sub">Scope of work</div>
+      </div>
+
+      <div class="group-label">A · Roboti · průběžné sledování ICP</div>
+
+      <div class="solution-block">
+        <div class="service-tag">Robot · Noví CMOs</div>
+        <h3>Sledování nově nastoupivších CMOs</h3>
+        <p>Robot pravidelně skenuje LinkedIn a hlásí nové CMOs (případně další executive role po dohodě) ve firmách v ICP. Nálezy se průběžně přidávají do Leadspickeru a lze je rovnou pushnout do Pipedrive jako nové dealy nebo leady. Vy reagujete jen na hotový seznam.</p>
+      </div>
+
+      <div class="solution-block">
+        <div class="service-tag">Robot · Noví e-commerce manažeři</div>
+        <h3>Sledování nových e-commerce rolí</h3>
+        <p>Stejná logika, ale cílená na e-commerce manažery, vedoucí e-commerce týmů a další e-commerce role v cílových firmách. Typicky lidi, kteří v nové roli řeší výběr partnera na Shopify Plus.</p>
+      </div>
+
+      <div class="solution-block">
+        <div class="service-tag">Robot · Stalking influencerů</div>
+        <h3>Sběr engagerů z postů relevantních LinkedIn osobností</h3>
+        <p>Vybereme konkrétní LinkedIn tvůrce, kteří postují relevantní obsah pro vaše ICP (např. Filip Dřímalka a téma AI). Robot sleduje, kdo dává lajky a komentáře pod jejich posty. Přes ICP filtr necháme jen lidi z cílových firem, kde nemusí být ani přímo CMO nebo e-commerce manažer, ale klidně jiná role v té firmě. Píšeme jim ve smyslu „vidíme, že tě zajímá AI / moderní technologie, rádi bychom se spojili k využití AI ve vašem e-commerce".</p>
+      </div>
+
+      <div class="inline-note">
+        <strong>Poznámka: hiring roboty bych vynechal.</strong> Díval jsem se na možnost sledovat hiring na e-commerce a Shopify lidi přes Startup Jobs a LinkedIn. Výsledky jsou málo vypovídající (přehlednost inzerátů, šum, slabá signalizace nákupního záměru), takže tyto dva roboty bych nedělal.
+      </div>
+
+      <div class="group-label">B · Kampaně · jednorázové</div>
+
+      <div class="solution-block">
+        <div class="service-tag">Kampaň · Event</div>
+        <h3>Pozvánková kampaň na webinář nebo offline event</h3>
+        <p>Když Magexo dělá webinář nebo offline akci: připravíme pozvánkovou textaci, sestavíme cílový seznam kontaktů a spustíme kampaň přes Leadspicker. Cíl: naplnit kapacitu eventu relevantními lidmi z ICP.</p>
+      </div>
+
+      <div class="solution-block">
+        <div class="service-tag">Kampaň · Na míru</div>
+        <h3>Nový seznam firem podle parametrů + kampaň</h3>
+        <p>Pokud chceme oslovit konkrétní výsek trhu (např. firmy běžící na konkrétní technologii, vertikálu nebo velikost), postavíme nový seznam přesně podle těch parametrů a spustíme na něj samostatnou kampaň. Hodí se na nové vertikály, nové služby nebo testování nových úhlů.</p>
+      </div>
+
+      <div class="group-label">C · Ostatní</div>
+
+      <div class="solution-block">
+        <div class="service-tag">Integrace · Pipedrive</div>
+        <h3>Napojení Leadspickeru a kampaní na CRM</h3>
+        <p>Nastavíme automatický tok dat z Leadspickeru (a odpovědí z kampaní) do Pipedrive: leady, dealy, aktivity. Dle potřeby a podle hodinové sazby.</p>
+      </div>
+
+      <div class="solution-block">
+        <div class="service-tag">Komunikace</div>
+        <h3>Průběžná správa, ladění, reporting</h3>
+        <p>Operativa okolo kampaní: úpravy textací podle dat, ladění cílení, reporting reply/booking rate, sync schůzky. Dle potřeby a podle hodinové sazby.</p>
+      </div>
+
+      <div class="solution-block">
+        <div class="service-tag">Nárazové úkoly</div>
+        <h3>Drobné úkoly dle zadání</h3>
+        <p>Cokoli mimo definovaný rozsah: dílčí úprava sekvence, jednorázový export, krátký research, ad-hoc nastavení nástrojů. Dle hodinové sazby, před provedením vždy pošlu odhad náročnosti.</p>
+      </div>
+
+      <hr class="divider">
+
+      <div class="section-header">
+        <div class="section-number">03</div>
+        <h2>Rozsah a investice</h2>
+        <div class="h2-sub">Scope &amp; investment</div>
+      </div>
+
+      <div class="scope-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Činnost</th>
+              <th class="num">Nastavení<br>Leadspicker</th>
+              <th class="num">Tvorba<br>textací</th>
+              <th class="num">Práce<br>s kontakty</th>
+              <th class="num">Cena</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row-section"><td colspan="5">Roboti</td></tr>
+            <tr><td>Noví CMOs</td><td class="num">2 h</td><td class="num">2 h</td><td class="num">-</td><td class="num">6 800 Kč</td></tr>
+            <tr><td>Noví e-commerce manažeři</td><td class="num">2 h</td><td class="num">2 h</td><td class="num">-</td><td class="num">6 800 Kč</td></tr>
+            <tr><td>Stalking influencerů</td><td class="num">2 h</td><td class="num">2 h</td><td class="num">-</td><td class="num">6 800 Kč</td></tr>
+            <tr class="row-section"><td colspan="5">Kampaně</td></tr>
+            <tr><td>Event (webinář / offline)</td><td class="num">1 h</td><td class="num">2 h</td><td class="num">2 h</td><td class="num">8 500 Kč</td></tr>
+            <tr><td>Kampaň na míru</td><td class="num">4 h</td><td class="num">4 h</td><td class="num">4-8 h</td><td class="num">20 400 - 27 200 Kč</td></tr>
+            <tr class="row-section"><td colspan="5">Ostatní</td></tr>
+            <tr><td>Integrace Pipedrive</td><td class="num" colspan="3">dle potřeby</td><td class="num">dle hodinové sazby</td></tr>
+            <tr><td>Komunikace okolo kampaní</td><td class="num" colspan="3">dle potřeby</td><td class="num">dle hodinové sazby</td></tr>
+            <tr><td>Nárazové úkoly dle zadání</td><td class="num" colspan="3">dle potřeby</td><td class="num">dle hodinové sazby (odhad předem)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="investment-box">
+        <div class="investment-item">
+          <div class="inv-label">Hodinová sazba</div>
+          <div class="inv-amount">1 700 Kč/hod</div>
+          <div class="inv-note">Ceny bez DPH. Provozní tooling (Leadspicker licence, e-mailové schránky) není v ceně - řeší si Magexo dle svých potřeb.</div>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <div class="section-header">
+        <div class="section-number">04</div>
+        <h2>Reference</h2>
+        <div class="h2-sub">Why Tomáš Vrbka</div>
+      </div>
+      <div class="why-block">
+        <p>Všechny tyhle roboty děláme úspěšně ve <strong>Forecomu</strong>, kde vedu sales consulting. Nejlíp z nich funguje <strong>stalking influencerů</strong> - dlouhodobě dodává nejkvalitnější konverzace.</p>
+        <p>Konkrétní příklad: sledujeme posty <strong>Petra Němečka</strong> <em>(sorry, Petře :D)</em> a oslovujeme jeho engagery z cílových firem.</p>
+        <p class="quote">„Vidíme, že Vás zajímají moderní technologie v salesu - nechtěl byste se o tom víc pobavit?"</p>
+        <p>Lidi z toho bývají hodně nadšení, hlavně z toho, jak jsme to vůbec zjistili. Otevírá to dveře k rozhovoru, který by přes klasický cold outreach na ICP nikdy nevznikl.</p>
+        <div class="ref-tags">
+          <span class="ref-tag">Forecom</span>
+          <span class="ref-tag">Leadspicker</span>
+          <span class="ref-tag">Pipedrive</span>
+          <span class="ref-tag">LinkedIn Sales Navigator</span>
+        </div>
+      </div>
+
+      <div class="contact-card">
+        <div class="contact-avatar">TV</div>
+        <div class="contact-info">
+          <div class="contact-name">Tomáš Vrbka</div>
+          <div class="contact-role">B2B Lead Generation &amp; Sales Consultant</div>
+          <div class="contact-company">10+ let B2B prodeje · Praha</div>
+        </div>
+        <div class="contact-details">
+          <a href="mailto:tomas@tomasvrbka.cz">tomas@tomasvrbka.cz</a>
+          <a href="tel:+420734584664">+420 734 584 664</a>
+          <a href="https://www.linkedin.com/in/tvrbka" class="contact-web">linkedin.com/in/tvrbka</a>
+          <a href="https://tomasvrbka.cz" class="contact-web">tomasvrbka.cz</a>
+        </div>
+      </div>
+
+      <footer>Důvěrné · Tomáš Vrbka · 20. května 2026</footer>
+
+    </div>
+  </div>
+</body>
+</html>
