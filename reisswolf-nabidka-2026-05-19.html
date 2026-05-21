@@ -297,6 +297,29 @@
       color: #7a8699;
       margin-top: 8px;
     }
+    .ops-disclaimer {
+      background: #fafbfd;
+      border: 1px dashed var(--line);
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin: 14px 0 8px;
+      font-size: 0.78rem;
+      color: #7a8699;
+      line-height: 1.65;
+    }
+    .ops-disclaimer .disclaimer-label {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #98a2b3;
+      margin-bottom: 8px;
+    }
+    .ops-disclaimer .disclaimer-item { margin-bottom: 6px; }
+    .ops-disclaimer .disclaimer-item:last-child { margin-bottom: 0; }
+    .ops-disclaimer .disclaimer-item strong { color: var(--navy); font-weight: 600; }
+    .ops-disclaimer .d-amount { color: var(--navy); font-weight: 600; white-space: nowrap; }
+    .ops-disclaimer .d-note { color: #98a2b3; }
 
     .why-block p {
       color: var(--ink);
@@ -478,23 +501,12 @@
         </div>
       </div>
 
-      <p class="ops-intro"><strong>Provozní náklady (měsíční).</strong> Hradí se měsíčně podle zvolené varianty nástroje. Základem je 10× e-mailová schránka za 1 300 Kč/měs, která je součástí obou variant.</p>
+      <p class="ops-intro"><strong>Provozní náklady (měsíční) hradí přímo klient (REISSWOLF s.r.o.).</strong> Nejsou součástí ceny pro Czech Promotion. Níže uvádíme orientační varianty nástrojů jen pro představu, jakou částku klient bude hradit poskytovateli.</p>
 
-      <div class="variant-grid">
-        <div class="variant-card">
-          <div class="v-tag">Varianta A · Smartlead</div>
-          <h4>Automatizace komunikace, pouze e-mail</h4>
-          <div class="v-desc">Nástroj Smartlead pro automatizaci e-mailové komunikace.</div>
-          <div class="v-amount">3 500 Kč/měs</div>
-          <div class="v-breakdown">1 300 Kč schránky + 2 200 Kč Smartlead</div>
-        </div>
-        <div class="variant-card">
-          <div class="v-tag">Varianta B · Leadspicker</div>
-          <h4>Automatizace komunikace, e-mail + LinkedIn</h4>
-          <div class="v-desc">Nástroj Leadspicker, e-mail + 5× LinkedIn účet.</div>
-          <div class="v-amount">7 500 Kč/měs</div>
-          <div class="v-breakdown">1 300 Kč schránky + 6 200 Kč Leadspicker</div>
-        </div>
+      <div class="ops-disclaimer">
+        <div class="disclaimer-label">Orientační varianty nástrojů · hradí klient přímo</div>
+        <div class="disclaimer-item"><strong>Varianta A · Smartlead</strong> (automatizace komunikace, pouze e-mail) <span class="d-amount">~3 500 Kč/měs</span> <span class="d-note">(1 300 Kč 10× e-mailová schránka + 2 200 Kč Smartlead).</span></div>
+        <div class="disclaimer-item"><strong>Varianta B · Leadspicker</strong> (automatizace komunikace, e-mail + 5× LinkedIn účet) <span class="d-amount">~7 500 Kč/měs</span> <span class="d-note">(1 300 Kč 10× e-mailová schránka + 6 200 Kč Leadspicker).</span></div>
       </div>
       <p class="ops-note">Provozní náklady se hradí po dobu běhu kampaně. Po jejím skončení lze systém buď vypnout, předat do správy klienta, nebo pokračovat dalšími kampaněmi. Ceny bez DPH. Jednorázová investice 92 000 Kč je nezávislá na zvolené variantě provozního nástroje.</p>
 
