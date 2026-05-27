@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tomáš Vrbka · Nabídka SPHERE · Cold email kampaň</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue: #1a56db;
+      --blue-dark: #103f9e;
+      --navy: #0f2747;
+      --ink: #475467;
+      --line: #e4e8ef;
+      --soft: rgba(26,86,219,0.06);
+      --soft-bd: rgba(26,86,219,0.18);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #eef1f6;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-size: 15px;
+      line-height: 1.75;
+    }
+
+    .page-wrapper { position: relative; padding: 32px 16px 64px; }
+
+    .proposal-card {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 64px 72px;
+      max-width: 1080px;
+      margin: 0 auto;
+      box-shadow: 0 1px 2px rgba(16,40,71,0.04), 0 24px 64px rgba(16,40,71,0.08);
+    }
+
+    .cover {
+      text-align: center;
+      padding: 56px 40px 64px;
+      margin: -64px -72px 56px;
+      border-radius: 12px;
+      position: relative;
+      background:
+        radial-gradient(ellipse at 30% 0%, rgba(26,86,219,0.10) 0%, transparent 60%),
+        linear-gradient(160deg, #f6f9ff 0%, #eef3fd 100%);
+      border-bottom: 1px solid var(--line);
+    }
+    .cover::after {
+      content: '';
+      position: absolute; left: 50%; bottom: -1px; transform: translateX(-50%);
+      width: 72%; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--blue), transparent);
+    }
+
+    .cover .wordmark {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--navy);
+      margin-bottom: 40px;
+    }
+    .cover .wordmark span { color: var(--blue); }
+
+    .cover .proposal-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--blue);
+      border: 1px solid var(--soft-bd);
+      border-radius: 100px;
+      padding: 5px 16px;
+      margin-bottom: 36px;
+      background: var(--soft);
+    }
+
+    .cover .client-company {
+      font-size: 3.2rem;
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 18px;
+    }
+
+    .cover .proposal-title {
+      font-size: 1.15rem;
+      color: var(--blue-dark);
+      font-weight: 500;
+      margin: 0 auto 32px;
+      max-width: 620px;
+    }
+
+    .cover .meta {
+      font-size: 0.85rem;
+      color: #7a8699;
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .cover .meta span::before {
+      content: '·';
+      margin-right: 24px;
+      color: rgba(26,86,219,0.5);
+    }
+    .cover .meta span:first-child::before { display: none; }
+
+    .section-header { margin: 56px 0 24px; }
+    .section-header .section-number {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--blue);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .section-header h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+    .section-header .h2-sub {
+      font-size: 0.75rem;
+      color: #98a2b3;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .lead-p {
+      color: var(--ink);
+      text-align: justify;
+      margin-bottom: 8px;
+    }
+
+    .solution-block {
+      background: #fafbfd;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 22px 28px;
+      margin-bottom: 16px;
+    }
+    .solution-block .service-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--blue);
+      background: var(--soft);
+      border: 1px solid var(--soft-bd);
+      border-radius: 6px;
+      padding: 3px 10px;
+      margin-bottom: 12px;
+    }
+    .solution-block h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .solution-block p {
+      color: var(--ink);
+      font-size: 0.92rem;
+      margin: 0;
+      text-align: justify;
+    }
+
+    .variant-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      margin: 24px 0 16px;
+    }
+    .variant-card {
+      background: #fafbfd;
+      border: 1px solid var(--soft-bd);
+      border-radius: 14px;
+      padding: 24px 24px 20px;
+      display: flex;
+      flex-direction: column;
+    }
+    .variant-card .v-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--blue);
+      background: var(--soft);
+      border: 1px solid var(--soft-bd);
+      border-radius: 6px;
+      padding: 3px 10px;
+      margin-bottom: 14px;
+      align-self: flex-start;
+    }
+    .variant-card h4 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 4px;
+      letter-spacing: -0.01em;
+    }
+    .variant-card .v-desc {
+      font-size: 0.82rem;
+      color: #7a8699;
+      margin-bottom: 18px;
+      line-height: 1.55;
+    }
+
+    .v-headline {
+      padding: 14px 0 14px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 14px;
+    }
+    .v-headline .v-amount {
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+    .v-headline .v-amount-unit {
+      font-size: 0.78rem;
+      color: #7a8699;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      margin-left: 4px;
+    }
+    .v-headline .v-annual {
+      font-size: 0.85rem;
+      color: var(--blue-dark);
+      font-weight: 600;
+      margin-top: 4px;
+    }
+    .v-headline .v-perlead {
+      font-size: 0.78rem;
+      color: #7a8699;
+      margin-top: 2px;
+    }
+    .v-headline .v-perlead strong { color: var(--navy); font-weight: 700; }
+
+    .v-breakdown {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 4px;
+    }
+    .v-breakdown li {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 10px;
+      font-size: 0.8rem;
+      color: var(--ink);
+      padding: 6px 0;
+      border-bottom: 1px dashed var(--line);
+    }
+    .v-breakdown li:last-child { border-bottom: none; }
+    .v-breakdown li .b-label { color: #7a8699; }
+    .v-breakdown li .b-val {
+      color: var(--navy);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .v-breakdown-head {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #98a2b3;
+      margin: 6px 0 4px;
+    }
+
+    .ops-note {
+      font-size: 0.85rem;
+      color: var(--ink);
+      margin-top: 14px;
+      padding: 16px 20px;
+      background: var(--soft);
+      border: 1px solid var(--soft-bd);
+      border-radius: 10px;
+      line-height: 1.7;
+    }
+    .ops-note strong { color: var(--navy); }
+    .ops-note .roi {
+      font-size: 0.8rem;
+      color: #7a8699;
+      margin-top: 8px;
+      display: block;
+    }
+
+    .optional-badge {
+      display: inline-block;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #fff;
+      background: var(--blue);
+      border-radius: 6px;
+      padding: 4px 10px;
+      margin-bottom: 8px;
+    }
+    .ai-flow {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin: 18px 0 24px;
+    }
+    .ai-step {
+      background: #fafbfd;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-size: 0.82rem;
+      color: var(--ink);
+      line-height: 1.5;
+      position: relative;
+    }
+    .ai-step .step-num {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: var(--blue);
+      margin-bottom: 4px;
+    }
+    .ai-step strong { color: var(--navy); display: block; margin-bottom: 4px; font-size: 0.88rem; }
+
+    .ai-pricing {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 20px 0 16px;
+    }
+    .ai-price-card {
+      background: var(--soft);
+      border: 1px solid var(--soft-bd);
+      border-radius: 14px;
+      padding: 22px 24px;
+    }
+    .ai-price-card .ap-label {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #7a8699;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .ai-price-card .ap-amount {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -0.02em;
+    }
+    .ai-price-card .ap-note {
+      font-size: 0.8rem;
+      color: var(--ink);
+      margin-top: 6px;
+      line-height: 1.55;
+    }
+
+    .ai-estimate-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0 8px;
+      font-size: 0.85rem;
+    }
+    .ai-estimate-table th {
+      background: var(--soft);
+      color: var(--blue);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 700;
+      padding: 10px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--soft-bd);
+    }
+    .ai-estimate-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--line);
+      color: var(--ink);
+    }
+    .ai-estimate-table tr:last-child td { border-bottom: none; }
+    .ai-estimate-table td.num { text-align: right; white-space: nowrap; font-weight: 600; color: var(--navy); }
+    .ai-estimate-wrap {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 12px 0;
+    }
+
+    .why-block p {
+      color: var(--ink);
+      margin-bottom: 16px;
+      text-align: justify;
+    }
+    .ref-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+    .ref-tag {
+      display: inline-block;
+      background: var(--soft);
+      border: 1px solid var(--soft-bd);
+      border-radius: 8px;
+      padding: 5px 14px;
+      font-size: 0.8rem;
+      color: var(--blue-dark);
+      font-weight: 600;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--line);
+      margin: 48px 0;
+    }
+
+    .contact-card {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      background: #fafbfd;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 28px 32px;
+      margin-top: 48px;
+      flex-wrap: wrap;
+    }
+    .contact-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.02em;
+      flex-shrink: 0;
+    }
+    .contact-info { flex: 1; min-width: 180px; }
+    .contact-info .contact-name { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 2px; }
+    .contact-info .contact-role { font-size: 0.82rem; color: var(--blue); margin-bottom: 1px; }
+    .contact-info .contact-company { font-size: 0.8rem; color: #7a8699; }
+    .contact-details { display: flex; flex-direction: column; gap: 5px; text-align: right; }
+    .contact-details a {
+      font-size: 0.82rem;
+      color: var(--ink);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .contact-details a:hover { color: var(--blue); }
+    .contact-details .contact-web { font-size: 0.8rem; color: var(--blue); }
+
+    footer {
+      text-align: center;
+      font-size: 0.73rem;
+      color: #98a2b3;
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      letter-spacing: 0.04em;
+    }
+
+    @media (max-width: 980px) {
+      .variant-grid { grid-template-columns: 1fr; }
+      .ai-flow { grid-template-columns: 1fr 1fr; }
+      .ai-pricing { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 720px) {
+      .proposal-card { padding: 40px 24px; }
+      .cover { margin: -40px -24px 48px; padding: 48px 24px 56px; }
+      .cover .client-company { font-size: 2.2rem; }
+      .contact-details { text-align: left; }
+      .ai-flow { grid-template-columns: 1fr; }
+    }
+
+    @media print {
+      body { background: #ffffff !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .page-wrapper { padding: 0; }
+      .proposal-card { box-shadow: none; border: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <div class="proposal-card">
+
+      <div class="cover">
+        <div class="wordmark">Tomáš <span>Vrbka</span></div>
+        <div class="proposal-badge">Návrh spolupráce</div>
+        <div class="client-company">SPHERE</div>
+        <div class="proposal-title">Cold email kampaň · plošné oslovení B2B firem v ČR · 12 měsíců</div>
+        <div class="meta">
+          <span>Pro: Czech Promotion</span>
+          <span>27. května 2026</span>
+          <span>Připravil: Tomáš Vrbka</span>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <div class="section-number">01</div>
+        <h2>Kontext</h2>
+        <div class="h2-sub">Project context</div>
+      </div>
+      <p class="lead-p">Cílem projektu je systematické oslovení B2B firem v České republice s nabídkou benefitních karet Sphere - jak pro zaměstnance, tak pro koncové zákazníky firem. Místo dlouhodobé a nákladné individuální obchodní práce na velkých korporacích otevíráme samoobslužný kanál pro masové oslovení trhu. Menší objednávky (do 500 karet) přijímá e-shop Sphere bez nutnosti obchodníka, větší zakázky přebírá obchodní tým. Kampaň běží 12 měsíců, kanál je výhradně e-mail.</p>
+
+      <hr class="divider">
+
+      <div class="section-header">
+        <div class="section-number">02</div>
+        <h2>Co budeme dělat</h2>
+        <div class="h2-sub">Scope of work</div>
+      </div>
+
+      <div class="solution-block">
+        <div class="service-tag">01 · Workshop</div>
+        <h3>Úvodní online workshop + zpracování</h3>
+        <p>Společně nadefinujeme ideální profil zákazníka (ICP), segmentaci podle velikosti a typu firmy (živnostníci, malé a střední firmy, korporátní zákazníci) a hlavní sdělení pro jednotlivé segmenty. Výstupem je jasné zadání pro stavbu databáze i obsahu kampaní.</p>
+      </div>
+      <div class="solution-block">
+        <div class="service-tag">02 · Data</div>
+        <h3>Měsíční příprava databáze</h3>
+        <p>Pravidelný měsíční výběr cílových firem z relevantních databází (Merk, BizMachine, Prospector) doplněný o vlastní robotické dohledávání konkrétních kontaktů na decision-makery. Stávající zákazníky Sphere z databáze vyfiltrujeme, aby nebyli osloveni znovu.</p>
+      </div>
+      <div class="solution-block">
+        <div class="service-tag">03 · Messaging &amp; sekvence</div>
+        <h3>Tvorba obsahu a sekvencí</h3>
+        <p>Napíšeme kompletní e-mailové sekvence (první oslovení + 2 follow-upy) v různých scénářích pro různé segmenty (živnostník, office manager, CEO/CFO). Texty laděné na relevanci a reply rate, ne na objem. Průběžně optimalizujeme podle reálných výsledků kampaně.</p>
+      </div>
+      <div class="solution-block">
+        <div class="service-tag">04 · Infrastruktura</div>
+        <h3>Domény a e-mailové schránky</h3>
+        <p>Nakoupíme sekundární domény podobné hlavní a nastavíme samostatné e-mailové schránky. Tím chráníme hlavní doménu klienta před případným spam flagem. Provádíme technické zahřátí (warm-up) a průběžnou údržbu - výměnu nezdravých domén, kontrolu deliverability.</p>
+      </div>
+      <div class="solution-block">
+        <div class="service-tag">05 · Provoz a správa</div>
+        <h3>Full-service měsíční provoz kampaně</h3>
+        <p>Nakonfigurujeme rozesílač Smartlead, spustíme a denně řídíme kampaň. Monitorujeme reply rate, booking rate a zdravotní stav schránek. Reportujeme výsledky, testujeme varianty sdělení (A/B testing) a obsluhujeme automatizované reakce. Vy dostáváte poptávky a domluvené schůzky.</p>
+      </div>
+
+      <hr class="divider">
+
+      <div class="section-header">
+        <div class="section-number">03</div>
+        <h2>Tři varianty rozsahu a investice</h2>
+        <div class="h2-sub">Scope &amp; investment - 3 variants</div>
+      </div>
+
+      <p class="lead-p">Varianty se liší pouze objemem oslovených firem za měsíc, struktura služby je u všech identická. Žádný jednorázový setup - vše je v měsíčním paušálu. Smluvní období 12 měsíců.</p>
+
+      <div class="variant-grid">
+
+        <div class="variant-card">
+          <div class="v-tag">Varianta A</div>
+          <h4>1 000 000 firem za 12 měsíců</h4>
+          <div class="v-desc">83 333 firem / měsíc · 83 333 kontaktů / měsíc · 227 e-mailových účtů</div>
+
+          <div class="v-headline">
+            <div><span class="v-amount">258 667 Kč</span><span class="v-amount-unit">/ měsíc</span></div>
+            <div class="v-annual">3 134 000 Kč / rok</div>
+            <div class="v-perlead">Cena za oslovení 1 kontaktu: <strong>3 Kč</strong></div>
+          </div>
+
+          <div class="v-breakdown-head">Rozpis nákladů</div>
+          <ul class="v-breakdown">
+            <li><span class="b-label">Domény (roční)</span><span class="b-val">30 000 Kč</span></li>
+            <li><span class="b-label">E-mailové účty / měs</span><span class="b-val">25 000 Kč</span></li>
+            <li><span class="b-label">Kontakty / měs (2 Kč/ks)</span><span class="b-val">166 667 Kč</span></li>
+            <li><span class="b-label">Práce - full service / měs</span><span class="b-val">60 000 Kč</span></li>
+            <li><span class="b-label">Smartlead</span><span class="b-val">7 000 Kč</span></li>
+          </ul>
+        </div>
+
+        <div class="variant-card">
+          <div class="v-tag">Varianta B</div>
+          <h4>500 000 firem za 12 měsíců</h4>
+          <div class="v-desc">41 667 firem / měsíc · 41 667 kontaktů / měsíc · 114 e-mailových účtů</div>
+
+          <div class="v-headline">
+            <div><span class="v-amount">141 833 Kč</span><span class="v-amount-unit">/ měsíc</span></div>
+            <div class="v-annual">1 717 000 Kč / rok</div>
+            <div class="v-perlead">Cena za oslovení 1 kontaktu: <strong>3 Kč</strong></div>
+          </div>
+
+          <div class="v-breakdown-head">Rozpis nákladů</div>
+          <ul class="v-breakdown">
+            <li><span class="b-label">Domény (roční)</span><span class="b-val">15 000 Kč</span></li>
+            <li><span class="b-label">E-mailové účty / měs</span><span class="b-val">15 000 Kč</span></li>
+            <li><span class="b-label">Kontakty / měs (2 Kč/ks)</span><span class="b-val">83 333 Kč</span></li>
+            <li><span class="b-label">Práce - full service / měs</span><span class="b-val">40 000 Kč</span></li>
+            <li><span class="b-label">Smartlead</span><span class="b-val">3 500 Kč</span></li>
+          </ul>
+        </div>
+
+        <div class="variant-card">
+          <div class="v-tag">Varianta C</div>
+          <h4>100 000 firem za 12 měsíců</h4>
+          <div class="v-desc">8 333 firem / měsíc · 8 333 kontaktů / měsíc · 38 e-mailových účtů</div>
+
+          <div class="v-headline">
+            <div><span class="v-amount">59 182 Kč</span><span class="v-amount-unit">/ měsíc</span></div>
+            <div class="v-annual">714 182 Kč / rok</div>
+            <div class="v-perlead">Cena za oslovení 1 kontaktu: <strong>7 Kč</strong></div>
+          </div>
+
+          <div class="v-breakdown-head">Rozpis nákladů</div>
+          <ul class="v-breakdown">
+            <li><span class="b-label">Domény (roční)</span><span class="b-val">4 000 Kč</span></li>
+            <li><span class="b-label">E-mailové účty / měs</span><span class="b-val">5 682 Kč</span></li>
+            <li><span class="b-label">Kontakty / měs (3 Kč/ks)</span><span class="b-val">25 000 Kč</span></li>
+            <li><span class="b-label">Práce - full service / měs</span><span class="b-val">25 000 Kč</span></li>
+            <li><span class="b-label">Smartlead</span><span class="b-val">3 500 Kč</span></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="ops-note">
+        <strong>Všechny ceny jsou bez DPH a v měsíčním paušálu je zahrnuto vše:</strong> data, infrastruktura (domény + e-mailové účty), nástroje (Smartlead), tvorba a průběžné ladění sekvencí, denní správa kampaně, reporting. Žádný jednorázový setup poplatek. Smluvní období je 12 měsíců s možností pauzy podle sezonality nebo kapacity obchodního týmu.
+        <span class="roi">Orientačně počítáme s konverzním poměrem 1 % oslovených kontaktů na schůzku nebo poptávku - vstup pro model návratnosti na straně klienta.</span>
+      </div>
+
+      <hr class="divider">
+
+      <div class="section-header">
+        <div class="optional-badge">Volitelné rozšíření</div>
+        <div class="section-number">04</div>
+        <h2>AI automatizace komunikace</h2>
+        <div class="h2-sub">Optional add-on · AI reply handling</div>
+      </div>
+
+      <p class="lead-p">AI agent přečte každou příchozí odpověď, klasifikuje záměr a odhadne velikost obchodní příležitosti. Malé poptávky (do 500 karet) dostanou rovnou odkaz na příslušný modul e-shopu Sphere s krátkou personalizovanou zprávou. Větší potenciál (řádově tisíce karet) AI eskaluje obchodníkovi spolu s připraveným kontextem a doporučeným postupem. Výsledek: obchodníci řeší jen kvalifikované zájemce, malé objednávky tečou přímo do e-shopu bez lidské obsluhy.</p>
+
+      <div class="ai-flow">
+        <div class="ai-step">
+          <div class="step-num">01</div>
+          <strong>Detekce odpovědi</strong>
+          AI okamžitě přečte celé vlákno odpovědi v Smartlead.
+        </div>
+        <div class="ai-step">
+          <div class="step-num">02</div>
+          <strong>Klasifikace záměru</strong>
+          Zájem / nezájem / dotaz / out-of-office.
+        </div>
+        <div class="ai-step">
+          <div class="step-num">03</div>
+          <strong>Odhad potenciálu</strong>
+          Velikost firmy, předpokládaný počet karet, typ poptávky.
+        </div>
+        <div class="ai-step">
+          <div class="step-num">04</div>
+          <strong>Routing &amp; odpověď</strong>
+          E-shop link (malé) nebo eskalace obchodníkovi (velké) s draftem.
+        </div>
+      </div>
+
+      <div class="ai-pricing">
+        <div class="ai-price-card">
+          <div class="ap-label">Jednorázové nastavení</div>
+          <div class="ap-amount">50 000 Kč</div>
+          <div class="ap-note">Knowledge base (produkty, ceník, e-shop moduly), klasifikační logika, scénáře odpovědí, kalibrace na tone-of-voice obchodníka, dashboard a integrace s rozesílačem.</div>
+        </div>
+        <div class="ai-price-card">
+          <div class="ap-label">Provozní náklady</div>
+          <div class="ap-amount">Pass-through dle spotřeby</div>
+          <div class="ap-note">Účtujeme přesně podle reálné spotřeby Anthropic Claude API, bez marže. Cena ~0,50 Kč za zpracovanou odpověď (Claude Sonnet, pay-per-token).</div>
+        </div>
+      </div>
+
+      <p class="lead-p" style="margin-top: 8px;"><strong style="color: var(--navy);">Odhad provozních nákladů na variantu.</strong> V ČR se reply rate u B2B cold emailu pohybuje kolem 10-20 %, ale AI nemusí zpracovávat každou odpověď - negativní odpovědi, out-of-office a unsubscribe vyřeší automaticky rozesílač bez API. AI spotřebovává tokeny jen u kvalifikovaných odpovědí, kde dává smysl klasifikovat potenciál a routovat (odhadem ~2 % z oslovených kontaktů). Odhad níže obsahuje 50% rezervu na vyšší objem odpovědí nebo delší vlákna se zákazníkem.</p>
+
+      <div class="ai-estimate-wrap">
+        <table class="ai-estimate-table">
+          <thead>
+            <tr>
+              <th>Varianta</th>
+              <th class="num">Kontaktů / měsíc</th>
+              <th class="num">Zpracovaných odpovědí / měsíc</th>
+              <th class="num">API náklady / měsíc (s rezervou)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>A · 1 000 000 firem / rok</td><td class="num">83 333</td><td class="num">~1 667</td><td class="num">~1 250 Kč</td></tr>
+            <tr><td>B · 500 000 firem / rok</td><td class="num">41 667</td><td class="num">~833</td><td class="num">~630 Kč</td></tr>
+            <tr><td>C · 100 000 firem / rok</td><td class="num">8 333</td><td class="num">~167</td><td class="num">~130 Kč</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="ops-note" style="margin-top: 12px;">
+        Číslo „zpracovaných odpovědí" = ty, na kterých AI reálně vykoná práci (klasifikace potenciálu + routing + draft odpovědi). Celkový objem příchozích odpovědí bude vyšší (10-20 % reply rate), ale negativní reakce, OOO a unsubscribe filtrujeme bez API spotřeby. Základní cena ~0,50 Kč/zpracovaná odpověď (Claude Sonnet) + 50% rezerva = ~0,75 Kč/odpověď v odhadu. Faktura jde 1:1 z Anthropic účtu bez marže - pokud je reálná spotřeba nižší, platíte méně; pokud vyšší (delší vlákna, více zpráv), rezerva pokrývá nárůst bez nutnosti přepočítávat rozpočet.
+        <span class="roi">AI automatizace je čistě volitelné rozšíření, neovlivňuje cenu hlavních variant A / B / C. Lze přidat kdykoli během 12měsíčního období.</span>
+      </p>
+
+      <hr class="divider">
+
+      <div class="section-header">
+        <div class="section-number">05</div>
+        <h2>Proč Tomáš Vrbka</h2>
+        <div class="h2-sub">Why Tomáš Vrbka</div>
+      </div>
+      <div class="why-block">
+        <p>Více než 10 let zkušeností s B2B prodejem, z in-house pozic i z freelance poradenství. Nestaví jen strategii na papíře, ale i funkční systém, který reálně dodává schůzky obchodnímu týmu.</p>
+        <div class="ref-tags">
+          <span class="ref-tag">Oracle</span>
+          <span class="ref-tag">Compelson</span>
+          <span class="ref-tag">PRECISMO</span>
+          <span class="ref-tag">Easy Redmine</span>
+          <span class="ref-tag">Expando</span>
+          <span class="ref-tag">GRIT</span>
+          <span class="ref-tag">Monet+</span>
+        </div>
+      </div>
+
+      <div class="contact-card">
+        <div class="contact-avatar">TV</div>
+        <div class="contact-info">
+          <div class="contact-name">Tomáš Vrbka</div>
+          <div class="contact-role">B2B Lead Generation &amp; Sales Consultant</div>
+          <div class="contact-company">10+ let B2B prodeje · Praha</div>
+        </div>
+        <div class="contact-details">
+          <a href="mailto:tomas@tomasvrbka.cz">tomas@tomasvrbka.cz</a>
+          <a href="tel:+420734584664">+420 734 584 664</a>
+          <a href="https://www.linkedin.com/in/tvrbka" class="contact-web">linkedin.com/in/tvrbka</a>
+          <a href="https://tomasvrbka.cz" class="contact-web">tomasvrbka.cz</a>
+        </div>
+      </div>
+
+      <footer>Důvěrné · Tomáš Vrbka · 27. května 2026</footer>
+
+    </div>
+  </div>
+</body>
+</html>
