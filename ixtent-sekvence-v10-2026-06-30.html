@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IXTENT outreach sekvence v10.4 - klient preview</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; color: #1a2233; background: #f4f6fa; line-height: 1.55; }
+.layout { display: grid; grid-template-columns: 280px 1fr; min-height: 100vh; }
+.sidebar { background: #0e1d33; color: #cfd9eb; padding: 32px 24px; position: sticky; top: 0; height: 100vh; overflow-y: auto; display: flex; flex-direction: column; gap: 32px; }
+.brand { border-bottom: 1px solid #243a5a; padding-bottom: 24px; }
+.brand-row { font-size: 18px; font-weight: 700; color: #fff; letter-spacing: 0.5px; }
+.brand-sub { font-size: 13px; color: #82ba36; margin-top: 4px; font-weight: 500; }
+.brand-meta { font-size: 11px; color: #7b8aa3; margin-top: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.sidebar-nav { display: flex; flex-direction: column; gap: 4px; }
+.sidebar-nav a { display: block; color: #cfd9eb; text-decoration: none; padding: 10px 12px; border-radius: 6px; transition: background 0.15s; }
+.sidebar-nav a:hover { background: #1a2c4a; color: #fff; }
+.sidebar-nav .nav-title { display: block; font-size: 14px; font-weight: 600; }
+.sidebar-nav .nav-sub { display: block; font-size: 11px; color: #7b8aa3; margin-top: 2px; }
+.brand-footer { margin-top: auto; padding-top: 24px; border-top: 1px solid #243a5a; font-size: 11px; color: #7b8aa3; }
+.main { padding: 40px 56px; max-width: 920px; }
+.intro { background: #fff; border: 1px solid #e2e7f0; border-radius: 12px; padding: 28px 32px; margin-bottom: 40px; }
+.intro h1 { font-size: 24px; color: #0e1d33; margin-bottom: 12px; }
+.intro p { color: #4a5870; font-size: 14px; margin-bottom: 12px; }
+.intro p:last-child { margin-bottom: 0; }
+.intro .meta { display: flex; gap: 16px; font-size: 12px; color: #7b8aa3; margin-top: 16px; padding-top: 16px; border-top: 1px solid #f0f2f6; }
+.intro .meta span strong { color: #0e1d33; }
+.sequence { margin-bottom: 56px; scroll-margin-top: 20px; }
+.sequence-header { margin-bottom: 24px; padding-bottom: 16px; border-bottom: 2px solid #0671b7; }
+.sequence-header h2 { font-size: 28px; color: #0671b7; font-weight: 700; }
+.sequence-header .subtitle { font-size: 14px; color: #7b8aa3; margin-top: 4px; }
+.sequence-header .references { font-size: 12px; color: #4a5870; margin-top: 12px; }
+.touchpoint { background: #fff; border: 1px solid #e2e7f0; border-radius: 10px; padding: 20px 24px; margin-bottom: 16px; }
+.touchpoint.linkedin { border-left: 4px solid #0a66c2; }
+.touchpoint.email { border-left: 4px solid #82ba36; }
+.touchpoint .meta { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; font-size: 13px; color: #4a5870; }
+.touchpoint .day { background: #0e1d33; color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 600; font-size: 12px; }
+.touchpoint .icon { width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; background: #f0f2f6; border-radius: 50%; font-size: 12px; font-weight: 700; color: #0671b7; }
+.touchpoint.linkedin .icon { background: #0a66c2; color: #fff; }
+.touchpoint .label { font-weight: 600; color: #1a2233; }
+.touchpoint .subject { font-size: 13px; color: #1a2233; background: #f4f6fa; padding: 10px 14px; border-radius: 6px; margin-bottom: 12px; }
+.touchpoint .body p { margin-bottom: 12px; font-size: 14px; color: #1a2233; }
+.touchpoint .body p:last-child { margin-bottom: 0; }
+.touchpoint .body p.empty { color: #7b8aa3; font-style: italic; }
+@media (max-width: 880px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { position: relative; height: auto; }
+  .main { padding: 24px; }
+}
+@media print {
+  .sidebar { display: none; }
+  .layout { grid-template-columns: 1fr; }
+  .main { padding: 0; max-width: 100%; }
+  .sequence { page-break-before: always; }
+  .sequence:first-child { page-break-before: avoid; }
+  .touchpoint { page-break-inside: avoid; border: 1px solid #ccc; }
+}
+</style>
+</head>
+<body>
+<div class="layout">
+
+<aside class="sidebar">
+  <div class="brand">
+    <div class="brand-row">IXTENT × FORECOM</div>
+    <div class="brand-sub">Outreach sekvence v10.4</div>
+    <div class="brand-meta">2026-06-30 · klient preview</div>
+  </div>
+  <nav class="sidebar-nav">
+    <a href="#finance"><span class="nav-title">Finance</span><span class="nav-sub">banky, pojišťovny, asset mgmt, leasing</span></a><a href="#vyroba"><span class="nav-title">Výroba / Automotive</span><span class="nav-sub">manufacturing</span></a><a href="#utility"><span class="nav-title">Utility / Energetika</span><span class="nav-sub">infrastrukturní skupiny</span></a><a href="#telco"><span class="nav-title">Telco</span><span class="nav-sub">telekomunikační skupiny</span></a><a href="#retail"><span class="nav-title">Retail / FMCG</span><span class="nav-sub">obchodní řetězce, distribuce</span></a><a href="#pharma"><span class="nav-title">Pharma / Healthcare</span><span class="nav-sub">regulované odvětví</span></a><a href="#universal"><span class="nav-title">Universal</span><span class="nav-sub">fallback pro neidentifikované vertikály</span></a>
+  </nav>
+  <div class="brand-footer">
+    <div>Cadence: 7 touchpointů per kampaň</div>
+    <div>0/2/5/7/12/18/25 dní</div>
+  </div>
+</aside>
+
+<main class="main">
+
+<div class="intro">
+  <h1>IXTENT outreach sekvence v10.4 - klient preview</h1>
+  <p><strong>Cílovka:</strong> management a vedení velkých firem (1mld+ CZK obrat) napříč 7 vertikálami. Cadence: 7 touchpointů per kampaň (4 emaily + 1 LinkedIn Connection + 2 LinkedIn zprávy) po vzoru REISSWOLF latest.</p>
+  <p><strong>Sample personalizace v tomto preview:</strong> Vážený pane Nováku (vzorové jméno), Komerční banka (vzorová firma). Spintax varianty rozhodnuty na první možnost - klient v reálném odeslání uvidí přirozenou variaci napříč leadů.</p>
+  <div class="meta">
+    <span><strong>Vertikál:</strong> 7</span>
+    <span><strong>Touchpointů per kampaň:</strong> 7</span>
+    <span><strong>Total emailů:</strong> 28</span>
+    <span><strong>Total LinkedIn zpráv:</strong> 14</span>
+    <span><strong>Datum:</strong> 2026-06-30</span>
+  </div>
+</div>
+
+
+<section class="sequence" id="finance">
+  <header class="sequence-header">
+    <h2>Finance</h2>
+    <p class="subtitle">banky, pojišťovny, asset mgmt, leasing</p>
+    <p class="references"><strong>Reference v textech:</strong> Modrá pyramida, Conseq Investment Management, Allianz CZ, Allianz Slovenská poisťovňa, PPF Group, Golden Gate, Respect Group, Slovenská pošta</p>
+  </header>
+  <div class="touchpoint email"><div class="meta"><span class="day">Den 0</span><span class="icon">✉</span><span class="label">Email 1</span></div><div class="subject"><strong>Subject:</strong> Komerční banka - kdo má u Vás přehled o smlouvách, podpisech a auditní stopě?</div><div class="body"><p>Vážený pane Nováku,</p>
+<p>chtěl bych se zeptat, kdo má u Vás na starosti, aby smlouvy, podpisy a klientské složky byly dohledatelné s jasnou auditní stopou - od přijetí přes schválení až po archiv?</p>
+<p>U finančních institucí Vaší velikosti vídáme stále podobný vzorec - smlouvy, podpisy a klientské složky žijí v několika digitálních systémech, ale bez jednotných pravidel. Smlouva v core systému, podpis v podpisové aplikaci, schválení v emailu, klientská složka ve SharePointu nebo na sdíleném disku. Když přijde dotaz z auditu nebo regulátora, dohledat kompletní stopu - kdo co kdy schválil - zabere dny. Není to chybou nikoho konkrétního - za dvacet let se to tak postupně nastavilo.</p>
+<p>Rád bych Vám představil, jaké jsou možnosti, jak by digitální správa dokumentů ve Komerční banka mohla mít jeden archiv s jednotnými pravidly retence, workflow pro schvalování s auditní stopou a jasná přístupová práva napříč produkty a divizemi. Od roku 2002 jsme realizovali přes 1 000 dokumentových projektů u velkých firem v ČR a SK - mezi klienty máme Modrou pyramidu, Conseq Investment Management nebo Allianz CZ.</p>
+<p>Vyhovoval by Vám krátký 15-min hovor, nebo raději stručný textový přehled?</p>
+<p>P.S. Pokud správu dokumentů u Vás řeší někdo jiný, např. provozní ředitel, head of compliance nebo CFO, budu vděčný za nasměrování.</p>
+<p>Jiří Jakeš<br>Sales Director, IXTENT s.r.o.<br>jiri.jakes@ixtent.cz</p></div></div>
+<div class="touchpoint linkedin"><div class="meta"><span class="day">Den 2</span><span class="icon">in</span><span class="label">LinkedIn Connection Request</span></div><div class="body"><p class="empty">(pozvánka bez doprovodné zprávy)</p></div></div>
+<div class="touchpoint email"><div class="meta"><span class="day">Den 5</span><span class="icon">✉</span><span class="label">Email 2 (reply)</span></div><div class="subject"><strong>Subject:</strong> Komerční banka - pravděpodobně to už máte vyřešené</div><div class="body"><p>Vážený pane Nováku,</p>
+<p>navazuji na předchozí e-mail. Předpokládám, že nějaký archiv smluv a klientských dokumentů u Vás samozřejmě běží. Otázka není, jestli něco máte, ale <strong>jak je to dnes pohromadě</strong> - jeden dodavatel nebo pět, jednotná pravidla retence nebo každé oddělení vlastní, audit z jednoho místa nebo z několika systémů.</p>
+<p>U finančních institucí Vaší velikosti to bývá historicky rozdělené mezi několik řešení. Ne proto, že by někdo udělal chybu, ale proto, že se to za patnáct let nastavilo postupně - různé éry, různí dodavatelé, různé verze. Často se to vyplave až s konkrétním požadavkem auditora nebo se změnou v regulaci.</p>
+<p>Pro vedení firmy je hlavní téma riziko a čas - kolik dnů zabere připravit dokumentaci pro audit, kolik lidí to drží v hlavě, co se stane, když jeden z nich odejde.</p>
+<p>Rád bych Vám představil, jak to typicky vypadá u srovnatelných institucí - bez produktové prezentace, jen kde se zasekávají a co s tím dělají. Vyhovovalo by Vám krátký hovor, nebo raději textový přehled?</p>
+<p>Jiří Jakeš<br>Sales Director, IXTENT s.r.o.<br>jiri.jakes@ixtent.cz</p></div></div>
+<div class="touchpoint linkedin"><div class="meta"><span class="day">Den 7</span><span class="icon">in</span><span class="label">LinkedIn zpráva 1</span></div><div class="body"><p>Děkuji za propojení.</p>
+<p>Chtěl bych se zeptat, kdo má u Vás na starosti, aby smlouvy, podpisy a klientské složky byly dohledatelné s jasnou auditní stopou?</p>
+<p>V IXTENTu pomáháme finančním institucím s digitální správou dokumentů - jeden archiv, jednotná pravidla retence, workflow pro schvalování. Rád bych této osobě představil, jaké možnosti pro firmy Vaší velikosti máme.</p>
+<p>Můžu Vás poprosit o nasměrování?</p></div></div>
+<div class="touchpoint email"><div class="meta"><span class="day">Den 12</span><span class="icon">✉</span><span class="label">Email 3 (reply)</span></div><div class="subject"><strong>Subject:</strong> Jak to řešíme u podobných institucí</div><div class="body"><p>Vážený pane Nováku,</p>
+<p>posílám konkrétnější obrázek - tři situace, ve kterých jsme to řešili.</p>
+<p>V Modré pyramidě (skupina Komerční banky) šlo o sjednocení klientské dokumentace napříč produkty stavebního spoření, tak aby auditní dohledání zabralo minuty namísto dnů a aby bylo jasné, kdo má k čemu přístup.</p>
+<p>V Conseq Investment Management jsme řešili archiv klientských smluv a obchodních záznamů s ohledem na dlouhou retenci, přístupová práva a regulatorní stopu.</p>
+<p>V Allianz CZ pak jednotnou dokumentaci napříč produkty životního a neživotního pojištění - jeden přístupový model, jedna pravidla, jeden archiv místo paralelních systémů.</p>
+<p>Žádná z těch situací nebyla o výměně systému. Šlo o to dát existujícím dokumentům digitální řád. Pro vedení to znamená méně rizika při auditu, rychlejší reakci na regulátora a méně času, který lidé tráví hledáním.</p>
+<p>Je toto téma pro Vás aktuální nyní, nebo by Vám dávalo větší smysl se k němu vrátit později (např. před auditem nebo v rámci 2027 plánování)?</p>
+<p>Jiří Jakeš<br>Sales Director, IXTENT s.r.o.<br>jiri.jakes@ixtent.cz</p></div></div>
+<div class="touchpoint linkedin"><div class="meta"><span class="day">Den 18</span><span class="icon">in</span><span class="label">LinkedIn zpráva 2</span></div><div class="body"><p>Chtěl jsem ještě jednou krátce - před týdnem jsem se zde ptal, kdo u Vás řeší správu smluv, podpisů a klientské dokumentace.</p>
+<p>Finanční instituce Vaší velikosti se k tomuto tématu vrací v konkrétních momentech - typicky před auditem, při regulatorní vlně nebo M&A. Chtěl jsem se ujistit, že o IXTENTu v takové chvíli budete vědět.</p>
+<p>Pokud byste mě v budoucnu chtěli nasměrovat na správnou osobu, dejte prosím vědět zde nebo na můj e-mail.</p></div></div>
+<div class="touchpoint email"><div class="meta"><span class="day">Den 25</span><span class="icon">✉</span><span class="label">Email 4 (nový thread)</span></div><div class="subject"><strong>Subject:</strong> Ozvu se za půl roku?</div><div class="body"><p>Vážený pane Nováku,</p>
+<p>posílal jsem Vám pár emailů o tom, jak finanční instituce řeší roztříštěnou dokumentaci - smlouvy, podpisy, klientské složky napříč několika systémy.</p>
+<p>Téma, které u vedení firem rezonuje typicky v období auditů, regulatorních vln nebo M&A. Od roku 2002 jsme tohle řešili u přes 1 000 projektů - mezi klienty máme Modrou pyramidu, Conseq nebo Allianz CZ.</p>
+<p>Pokud teď není správný čas, rád se ozvu za půl roku - bylo by to vhodné, nebo Vás téma nezajímá a mám Vás vyřadit ze seznamu kontaktů?</p>
+<p>Jiří Jakeš<br>Sales Director, IXTENT s.r.o.<br>jiri.jakes@ixtent.cz</p></div></div>
+</section>
+
+
+<section class="sequence" id="vyroba">
+  <header class="sequence-header">
+    <h2>Výroba / Automotive</h2>
+    <p class="subtitle">manufacturing</p>
+    <p class="references"><strong>Reference v textech:</strong> VOITH, Škoda Auto, Daimler ČR, Philip Morris ČR</p>
+  </header>
+  <div class="touchpoint email"><div class="meta"><span class="day">Den 0</span><span class="icon">✉</span><span class="label">Email 1</span></div><div class="subject"><strong>Subject:</strong> Komerční banka - technická dokumentace, smlouvy a workflow ve více systémech</div><div class="body"><p>Vážený pane Nováku,</p>
+<p>chtěl bych se zeptat, kdo má u Vás na starosti, aby smlouvy s dodavateli, technická dokumentace a HR podklady měly jednotnou stopu napříč závody - kdo co kdy schválil a co kdy expirovalo?</p>
+<p>U velkých výrobních firem vídáme stále podobný vzorec - smlouvy s dodavateli, technická dokumentace zařízení a HR složky žijí v několika digitálních systémech, ale bez jednotných pravidel. Smlouvy v ERP a emailu. Technická dokumentace v inženýrských úložištích nebo sdílených složkách. HR složky v personalistickém systému. Provozní záznamy v provozním systému. Když někdo potřebuje najít konkrétní smlouvu z roku 2019 nebo dohledat schvalovací stopu k technické specifikaci, hledá v několika systémech a Excelech. Hodiny.</p>
+<p>Rád bych Vám představil, jaké jsou možnosti, jak by digitální správa dokumentů ve Komerční banka mohla mít jeden archiv s jednotnými pravidly retence, workflow pro schvalování s auditní stopou a jasná přístupová práva napříč závody a divizemi. Od roku 2002 jsme realizovali přes 1 000 dokumentových projektů u velkých firem v ČR a SK - mezi klienty máme VOITH, Škoda Auto nebo Daimler ČR.</p>
+<p>Vyhovoval by Vám krátký 15-min hovor, nebo raději stručný textový přehled?</p>
+<p>P.S. Pokud správu dokumentace u Vás řeší někdo jiný, např. provozní ředitel, head of operations nebo IT ředitel, budu vděčný za nasměrování.</p>
+<p>Jiří Jakeš<br>Sales Director, IXTENT s.r.o.<br>jiri.jakes@ixtent.cz</p></div></div>
+<div class="touchpoint linkedin"><div class="meta"><span class="day">Den 2</span><span class="icon">in</span><span class="label">LinkedIn Connection Request</span></div><div class="body"><p class="empty">(pozvánka bez doprovodné zprávy)</p></div></div>
+<div class="touchpoint email"><div class="meta"><span class="day">Den 5</span><span class="icon">✉</span><span class="label">Email 2 (reply)</span></div><div class="subject"><strong>Subject:</strong> Komerční banka - pravděpodobně už něco máte</div><div class="body"><p>Vážený pane Nováku,</p>
+<p>navazuji na předchozí e-mail. Předpokládám, že u Vás nějaký systém na dokumenty samozřejmě běží - sdílené disky, SharePoint, něco od ERP dodavatele, případně několik různých řešení paralelně podle divizí a závodů.</p>
+<p>Otázka není, jestli něco máte, ale <strong>jak je to dnes pohromadě</strong> - jeden dodavatel nebo pět, jestli HR, výroba a obchod používají stejná pravidla nebo každé oddělení vlastní, jestli při kontrole z úřadu nebo auditu dodavatele vytahujete dokumenty z jednoho místa nebo z několika systémů a Excelů.</p>
+<p>U firem Vaší velikosti to bývá historicky rozdělené. Ne proto, že by někdo udělal chybu - postupně se to tak nastavilo. Akvizice, nový závod, nový ERP, nová HR aplikace, každá vlna přidala vlastní úložiště.</p>
+<p>Pro vedení firmy je hlavní téma čas a riziko - kolik lidí to dnes drží v hlavě a co se stane, když některý z nich odejde nebo přijde kontrola.</p>
+<p>Rád bych Vám představil, jak to typicky vypadá u podobných firem - bez produktové prezentace, jen kde se zasekávají. Vyhovovalo by Vám krátký hovor, nebo raději textový přehled?</p>
+<p>Jiří Jakeš<br>Sales Director, IXTENT s.r.o.<br>jiri.jakes@ixtent.cz</p></div></div>
+<div class="touchpoint linkedin"><div class="meta"><span class="day">Den 7</span><span class="icon">in</span><span class="label">LinkedIn zpráva 1</span></div><div class="body"><p>Děkuji za propojení.</p>
+<p>Chtěl bych se zeptat, kdo má u Vás na starosti, aby smlouvy s dodavateli, technická dokumentace a HR podklady měly jednotnou stopu napříč závody?</p>
+<p>V IXTENTu pomáháme velkým výrobním firmám s digitální správou dokumentů - jeden archiv, jednotná pravidla retence, workflow pro schvalování. Rád bych této osobě představil, jaké možnosti pro firmy Vaší velikosti máme.</p>
+<p>Můžu Vás poprosit o nasměrování?</p></div></div>
+<div class="touchpoint email"><div class="meta"><span class="day">Den 12</span><span class="icon">✉</span><span class="label">Email 3 (reply)</span></div><div class="subject"><strong>Subject:</strong> Jak to řešíme u podobných firem</div><div class="body"><p>Vážený pane Nováku,</p>
+<p>posílám konkrétnější obrázek - tři situace, ve kterých jsme to řešili.</p>
+<p>U VOITH šlo o sjednocení dokumentace napříč divizemi a závody - smlouvy s dodavateli, technická dokumentace zařízení, provozní záznamy na jednom místě s jasnými přístupovými právy.</p>
+<p>U Škoda Auto jsme řešili dokumenty v dlouhém životním cyklu - od smluv přes výrobní specifikace po servisní záznamy, s ohledem na dohledatelnost při auditech kvality a dodavatelů.</p>
+<p>U Daimler ČR pak jednotnou dokumentaci napříč výrobním a obchodním segmentem - jeden přístupový model, jednotná pravidla retence, jasná stopa pro kontrolu.</p>
+<p>Žádná z těch situací nebyla o výměně systému. Šlo o to dát existujícím dokumentům digitální řád. Pro vedení to znamená méně rizika při kontrolách a auditech dodavatelů, rychlejší reakci na úřady a méně času, který lidé tráví hledáním.</p>
+<p>Je toto téma pro Vás aktuální nyní, nebo by Vám dávalo větší smysl se k němu vrátit později (např. před auditem nebo v rámci 2027 plánování)?</p>
+<p>Jiří Jakeš<br>Sales Director, IXTENT s.r.o.<br>jiri.jakes@ixtent.cz</p></div></div>
+<div class="touchpoint linkedin"><div class="meta"><span class="day">Den 18</span><span class="icon">in</span><span class="label">LinkedIn zpráva 2</span></div><div class="body"><p>Chtěl jsem ještě jednou krátce - před týdnem jsem se zde ptal, kdo u Vás řeší správu smluv s dodavateli, technické dokumentace a HR složek.</p>
+<p>Výrobní firmy Vaší velikosti se k tomuto tématu vrací v konkrétních momentech - typicky při auditu dodavatele, kontrole kvality nebo přechodu na nový ERP. Chtěl jsem se ujistit, že o IXTENTu v takové chvíli budete vědět.</p>
+<p>Pokud byste mě v budoucnu chtěli nasměrovat na správnou osobu, dejte prosím vědět zde nebo na můj e-mail.</p></div></div>
+<div class="touchpoint email"><div class="meta"><span class="day">Den 25</span><span class="icon">✉</span><span class="label">Email 4 (nový thread)</span></div><div class="subject"><strong>Subject:</strong> Ozvu se za půl roku?</div><div class="body"><p>Vážený pane Nováku,</p>
+<p>posílal jsem Vám pár emailů o tom, jak velké výrobní firmy řeší roztříštěnou dokumentaci - smlouvy, technickou dokumentaci a HR složky napříč několika systémy.</p>
+<p>Téma, které u vedení firem rezonuje typicky v období kontrol, auditů dodavatelů nebo přechodu na nový ERP. Od roku 2002 jsme tohle řešili u přes 1 000 projektů - mezi klienty máme VOITH, Škoda Auto nebo Daimler ČR.</p>
+<p>Pokud teď není správný čas, rád se ozvu za půl roku - bylo by to vhodné, nebo Vás téma nezajímá a mám Vás vyřadit ze seznamu kontaktů?</p>
+<p>Jiří Jakeš<br>Sales Director, IXTENT s.r.o.<br>jiri.jakes@ixtent.cz</p></div></div>
+</section>
+
+
+<section class="sequence" id="utility">
+  <header class="sequence-header">
+    <h2>Utility / Energetika</h2>
+    <p class="subtitle">infrastrukturní skupiny</p>
+    <p class="references"><strong>Reference v textech:</strong> E.ON ČR, Pražská plynárenská</p>
+  </header>
+  <div class="touchpoint email"><div class="meta"><span class="day">Den 0</span><span class="icon">✉</span><span class="label">Email 1</span></div><div class="subject"><strong>Subject:</strong> Komerční banka - regulatorní stopa, smlouvy a provoz pod jednou kontrolou</div><div class="body"><p>Vážený pane Nováku,</p>
+<p>chtěl bych se zeptat, kdo má u Vás na starosti, aby smlouvy s odběrateli, provozní záznamy a regulatorní podklady pro ERÚ měly jednotnou stopu - kdo co kdy schválil a co je dohledatelné při auditu?</p>
+<p>U velkých utility a energetických skupin vídáme stále podobný vzorec - regulovaný a obchodní segment běží paralelně, dokumenty žijí v několika digitálních systémech bez jednotných pravidel. Smlouvy s odběrateli v billingu, provozní záznamy v provozním systému, regulatorní podklady pro ERÚ v dalším úložišti, technická dokumentace zařízení u inženýrů. Když přijde audit ERÚ nebo dotaz na konkrétní smlouvu, dohledat kompletní stopu zabere dny.</p>
+<p>Rád bych Vám představil, jaké jsou možnosti, jak by digitální správa dokumentů ve Komerční banka mohla mít jeden archiv s jednotnými pravidly retence, workflow pro schvalování s auditní stopou a jasná přístupová práva napříč regulovaným a obchodním segmentem. Od roku 2002 jsme realizovali přes 1 000 dokumentových projektů u velkých firem v ČR a SK - mezi klienty máme E.ON ČR nebo Pražskou plynárenskou.</p>
+<p>Vyhovoval by Vám krátký 15-min hovor, nebo raději stručný textový přehled?</p>
+<p>P.S. Pokud správu dokumentů u Vás řeší někdo jiný, např. provozní ředitel, head of operations nebo regulatory affairs, budu vděčný za nasměrování.</p>
+<p>Jiří Jakeš<br>Sales Director, IXTENT s.r.o.<br>jiri.jakes@ixtent.cz</p></div></div>
+<div class="touchpoint linkedin"><div class="meta"><span class="day">Den 2</span><span class="icon">in</span><span class="label">LinkedIn Connection Request</span></div><div class="body"><p class="empty">(pozvánka bez doprovodné zprávy)</p></div></div>
+<div class="touchpoint email"><div class="meta"><span class="day">Den 5</span><span class="icon">✉</span><span class="label">Email 2 (reply)</span></div><div class="subject"><strong>Subject:</strong> Komerční banka - pravděpodobně už něco máte</div><div class="body"><p>Vážený pane Nováku,</p>
+<p>navazuji na předchozí e-mail. Předpokládám, že u Vás nějaký systém na dokumenty samozřejmě běží - sdílené disky, SharePoint, ERP, případně několik různých řešení paralelně podle segmentu (regulovaný / obchodní / provoz).</p>
+<p>Otázka není, jestli něco máte, ale <strong>jak je to dnes pohromadě</strong> - jeden dodavatel nebo pět, jednotná pravidla retence pro provozní dokumentaci nebo každý segment vlastní, jestli při auditu ERÚ vytahujete dokumenty z jednoho místa nebo z několika systémů.</p>
+<p>U infrastrukturních skupin Vaší velikosti to bývá historicky rozdělené. Akvizice, nové regulatorní rámce, různí dodavatelé - postupně se to tak nastavilo.</p>
+<p>Pro vedení firmy je hlavní téma riziko a čas - kolik dnů zabere připravit dokumentaci pro audit, kolik lidí to drží v hlavě, co se stane při kontrole.</p>
+<p>Rád bych Vám představil, jak to typicky vypadá u srovnatelných infrastrukturních skupin - bez produktové prezentace, jen kde se zasekávají. Vyhovovalo by Vám krátký hovor, nebo raději textový přehled?</p>
+<p>Jiří Jakeš<br>Sales Director, IXTENT s.r.o.<br>jiri.jakes@ixtent.cz</p></div></div>
+<div class="touchpoint linkedin"><div class="meta"><span class="day">Den 7</span><span class="icon">in</span><span class="label">LinkedIn zpráva 1</span></div><div class="body"><p>Děkuji za propojení.</p>
+<p>Chtěl bych se zeptat, kdo má u Vás na starosti, aby smlouvy s odběrateli, provozní záznamy a regulatorní podklady pro ERÚ měly jednotnou stopu?</p>
+<p>V IXTENTu pomáháme velkým utility a energetickým skupinám s digitální správou dokumentů - jeden archiv, jednotná pravidla retence, workflow pro schvalování. Rád bych této osobě představil, jaké možnosti pro firmy Vaší velikosti máme.</p>
+<p>Můžu Vás poprosit o nasměrování?</p></div></div>
+<div class="touchpoint email"><div class="meta"><span class="day">Den 12</span><span class="icon">✉</span><span class="label">Email 3 (reply)</span></div><div class="subject"><strong>Subject:</strong> Jak to řešíme u podobných firem</div><div class="body"><p>Vážený pane Nováku,</p>
+<p>posílám konkrétnější obrázek - tři situace, ve kterých jsme to řešili.</p>
+<p>U E.ON ČR šlo o sjednocení dokumentace napříč regulovaným a obchodním segmentem - jeden přístupový model, jednotná pravidla retence, jasná stopa pro audit ERÚ.</p>
+<p>U Pražské plynárenské jsme řešili archiv smluv s odběrateli a provozních záznamů s ohledem na dlouhou retenci a regulatorní stopu.</p>
+<p>U dalších velkých infrastrukturních skupin v ČR jsme pak řešili dokumentaci napříč závody a centrálou - jeden archiv, jednotná pravidla přístupu, jasná stopa pro kontrolu.</p>
+<p>Žádná z těch situací nebyla o výměně systému. Šlo o to dát existujícím dokumentům digitální řád. Pro vedení to znamená méně rizika při auditu ERÚ, rychlejší reakci na úřady a méně času, který lidé tráví hledáním.</p>
+<p>Je toto téma pro Vás aktuální nyní, nebo by Vám dávalo větší smysl se k němu vrátit později (např. před auditem nebo v rámci 2027 plánování)?</p>
+<p>Jiří Jakeš<br>Sales Director, IXTENT s.r.o.<br>jiri.jakes@ixtent.cz</p></div></div>
+<div class="touchpoint linkedin"><div class="meta"><span class="day">Den 18</span><span class="icon">in</span><span class="label">LinkedIn zpráva 2</span></div><div class="body"><p>Chtěl jsem ještě jednou krátce - před týdnem jsem se zde ptal, kdo u Vás řeší správu smluv, provozních záznamů a regulatorních podkladů.</p>
+<p>Utility a energetické skupiny Vaší velikosti se k tomuto tématu vrací v konkrétních momentech - typicky před auditem ERÚ, při regulatorní vlně nebo přechodu na nový systém. Chtěl jsem se ujistit, že o IXTENTu v takové chvíli budete vědět.</p>
+<p>Pokud byste mě v budoucnu chtěli nasměrovat na správnou osobu, dejte prosím vědět zde nebo na můj e-mail.</p></div></div>
+<div class="touchpoint email"><div class="meta"><span class="day">Den 25</span><span class="icon">✉</span><span class="label">Email 4 (nový thread)</span></div><div class="subject"><strong>Subject:</strong> Ozvu se za půl roku?</div><div class="body"><p>Vážený pane Nováku,</p>
+<p>posílal jsem Vám pár emailů o tom, jak velké utility a energetické skupiny řeší roztříštěnou dokumentaci - smlouvy s odběrateli, provozní záznamy a regulatorní podklady napříč několika systémy.</p>
+<p>Téma, které u vedení firem rezonuje typicky v období auditů ERÚ, regulatorních vln nebo přechodu na nový systém. Od roku 2002 jsme tohle řešili u přes 1 000 projektů - mezi klienty máme E.ON ČR nebo Pražskou plynárenskou.</p>
+<p>Pokud teď není správný čas, rád se ozvu za půl roku - bylo by to vhodné, nebo Vás téma nezajímá a mám Vás vyřadit ze seznamu kontaktů?</p>
+<p>Jiří Jakeš<br>Sales Director, IXTENT s.r.o.<br>jiri.jakes@ixtent.cz</p></div></div>
+</section>
+
+
+<section class="sequence" id="telco">
+  <header class="sequence-header">
+    <h2>Telco</h2>
+    <p class="subtitle">telekomunikační skupiny</p>
+    <p class="references"><strong>Reference v textech:</strong> T-Mobile CZ, O2 Slovakia</p>
+  </header>
+  <div class="touchpoint email"><div class="meta"><span class="day">Den 0</span><span class="icon">✉</span><span class="label">Email 1</span></div><div class="subject"><strong>Subject:</strong> Komerční banka - klientské, smluvní a regulatorní dokumenty pod kontrolou</div><div class="body"><p>Vážený pane Nováku,</p>
+<p>chtěl bych se zeptat, kdo má u Vás na starosti, aby klientské, smluvní a partnerské dokumenty měly jednotnou stopu napříč CRM, BSS a dalšími systémy - kdo má k čemu přístup a co je dohledatelné při auditu?</p>
+<p>U velkých telekomunikačních skupin vídáme stále podobný vzorec - klientské složky (B2B i retail), partnerské smlouvy a provozní dokumentace sítě žijí v několika digitálních systémech bez jednotných pravidel. Smlouvy v CRM, podpisy v podpisové aplikaci, schvalovací stopa v emailu, partnerské doklady na sdíleném disku nebo v ERP. Když přijde audit, kontrola ČTÚ nebo dotaz na konkrétní smlouvu, dohledat kompletní stopu zabere dny.</p>
+<p>Rád bych Vám představil, jaké jsou možnosti, jak by digitální správa dokumentů ve Komerční banka mohla mít jeden archiv s jednotnými pravidly retence, workflow pro schvalování s auditní stopou a jasná přístupová práva napříč B2B a retail segmentem. Od roku 2002 jsme realizovali přes 1 000 dokumentových projektů u velkých firem v ČR a SK - mezi klienty máme T-Mobile CZ nebo O2 Slovakia.</p>
+<p>Vyhovoval by Vám krátký 15-min hovor, nebo raději stručný textový přehled?</p>
+<p>P.S. Pokud správu dokumentů u Vás řeší někdo jiný, např. head of operations, IT ředitel nebo head of customer ops, budu vděčný za nasměrování.</p>
+<p>Jiří Jakeš<br>Sales Director, IXTENT s.r.o.<br>jiri.jakes@ixtent.cz</p></div></div>
+<div class="touchpoint linkedin"><div class="meta"><span class="day">Den 2</span><span class="icon">in</span><span class="label">LinkedIn Connection Request</span></div><div class="body"><p class="empty">(pozvánka bez doprovodné zprávy)</p></div></div>
+<div class="touchpoint email"><div class="meta"><span class="day">Den 5</span><span class="icon">✉</span><span class="label">Email 2 (reply)</span></div><div class="subject"><strong>Subject:</strong> Komerční banka - pravděpodobně už něco máte</div><div class="body"><p>Vážený pane Nováku,</p>
+<p>navazuji na předchozí e-mail. Předpokládám, že u Vás nějaký systém na dokumenty samozřejmě běží - CRM, BSS/OSS, sdílené disky, případně několik různých řešení paralelně podle segmentu.</p>
+<p>Otázka není, jestli něco máte, ale <strong>jak je to dnes pohromadě</strong> - jeden dodavatel nebo pět, jednotná pravidla retence pro klientské složky nebo každý segment vlastní, jestli při auditu nebo kontrole ČTÚ vytahujete dokumenty z jednoho místa nebo z několika systémů.</p>
+<p>U telekomunikačních skupin Vaší velikosti to bývá historicky rozdělené. Akvizice, nové platformy, různí dodavatelé - postupně se to tak nastavilo.</p>
+<p>Pro vedení firmy je hlavní téma riziko a čas - kolik dnů zabere připravit dokumentaci pro audit nebo dotaz ČTÚ, kolik lidí to drží v hlavě.</p>
+<p>Rád bych Vám představil, jak to typicky vypadá u srovnatelných telekomunikačních skupin - bez produktové prezentace, jen kde se zasekávají. Vyhovovalo by Vám krátký hovor, nebo raději textový přehled?</p>
+<p>Jiří Jakeš<br>Sales Director, IXTENT s.r.o.<br>jiri.jakes@ixtent.cz</p></div></div>
+<div class="touchpoint linkedin"><div class="meta"><span class="day">Den 7</span><span class="icon">in</span><span class="label">LinkedIn zpráva 1</span></div><div class="body"><p>Děkuji za propojení.</p>
+<p>Chtěl bych se zeptat, kdo má u Vás na starosti, aby klientské, smluvní a partnerské dokumenty měly jednotnou stopu napříč CRM, BSS a dalšími systémy?</p>
+<p>V IXTENTu pomáháme velkým telekomunikačním skupinám s digitální správou dokumentů - jeden archiv, jednotná pravidla retence, workflow pro schvalování. Rád bych této osobě představil, jaké možnosti pro firmy Vaší velikosti máme.</p>
+<p>Můžu Vás poprosit o nasměrování?</p></div></div>
+<div class="touchpoint email"><div class="meta"><span class="day">Den 12</span><span class="icon">✉</span><span class="label">Email 3 (reply)</span></div><div class="subject"><strong>Subject:</strong> Jak to řešíme u podobných firem</div><div class="body"><p>Vážený pane Nováku,</p>
+<p>posílám konkrétnější obrázek - tři situace, ve kterých jsme to řešili.</p>
+<p>U T-Mobile CZ šlo o sjednocení klientské dokumentace napříč B2B a retail segmentem - jeden přístupový model, jednotná pravidla retence, jasná stopa pro audit.</p>
+<p>U O2 Slovakia jsme řešili archiv partnerských smluv a obchodních záznamů s ohledem na dlouhou retenci a regulatorní stopu.</p>
+<p>U dalších telekomunikačních skupin v ČR a SK jsme pak řešili dokumentaci napříč produkty (mobile, fixed, internet, TV) - jeden archiv, jednotná pravidla přístupu.</p>
+<p>Žádná z těch situací nebyla o výměně systému. Šlo o to dát existujícím dokumentům digitální řád. Pro vedení to znamená méně rizika při auditu, rychlejší reakci na úřady i klienty a méně času, který lidé tráví hledáním.</p>
+<p>Je toto téma pro Vás aktuální nyní, nebo by Vám dávalo větší smysl se k němu vrátit později (např. před auditem nebo v rámci 2027 plánování)?</p>
+<p>Jiří Jakeš<br>Sales Director, IXTENT s.r.o.<br>jiri.jakes@ixtent.cz</p></div></div>
+<div class="touchpoint linkedin"><div class="meta"><span class="day">Den 18</span><span class="icon">in</span><span class="label">LinkedIn zpráva 2</span></div><div class="body"><p>Chtěl jsem ještě jednou krátce - před týdnem jsem se zde ptal, kdo u Vás řeší správu klientských, smluvních a partnerských dokumentů.</p>
+<p>Telekomunikační skupiny Vaší velikosti se k tomuto tématu vrací v konkrétních momentech - typicky před auditem, při kontrole ČTÚ nebo přechodu na nový systém. Chtěl jsem se ujistit, že o IXTENTu v takové chvíli budete vědět.</p>
+<p>Pokud byste mě v budoucnu chtěli nasměrovat na správnou osobu, dejte prosím vědět zde nebo na můj e-mail.</p></div></div>
+<div class="touchpoint email"><div class="meta"><span class="day">Den 25</span><span class="icon">✉</span><span class="label">Email 4 (nový thread)</span></div><div class="subject"><strong>Subject:</strong> Ozvu se za půl roku?</div><div class="body"><p>Vážený pane Nováku,</p>
+<p>posílal jsem Vám pár emailů o tom, jak velké telekomunikační skupiny řeší roztříštěnou dokumentaci - klientské, partnerské a provozní dokumenty napříč několika systémy.</p>
+<p>Téma, které u vedení firem rezonuje typicky v období auditů, kontrol ČTÚ nebo přechodu na nový systém. Od roku 2002 jsme tohle řešili u přes 1 000 projektů - mezi klienty máme T-Mobile CZ nebo O2 Slovakia.</p>
+<p>Pokud teď není správný čas, rád se ozvu za půl roku - bylo by to vhodné, nebo Vás téma nezajímá a mám Vás vyřadit ze seznamu kontaktů?</p>
+<p>Jiří Jakeš<br>Sales Director, IXTENT s.r.o.<br>jiri.jakes@ixtent.cz</p></div></div>
+</section>
+
+
+<section class="sequence" id="retail">
+  <header class="sequence-header">
+    <h2>Retail / FMCG</h2>
+    <p class="subtitle">obchodní řetězce, distribuce</p>
+    <p class="references"><strong>Reference v textech:</strong> Žabka, GECO, Unilever SCE</p>
+  </header>
+  <div class="touchpoint email"><div class="meta"><span class="day">Den 0</span><span class="icon">✉</span><span class="label">Email 1</span></div><div class="subject"><strong>Subject:</strong> Komerční banka - dodavatelské smlouvy, HR a provoz na jednom místě</div><div class="body"><p>Vážený pane Nováku,</p>
+<p>chtěl bych se zeptat, kdo má u Vás na starosti, aby dodavatelské smlouvy, HR složky a provozní záznamy napříč prodejnami měly jednotnou stopu a jasná přístupová práva?</p>
+<p>U velkých retail a FMCG firem vídáme stále podobný vzorec - dodavatelské smlouvy, HR složky stovek zaměstnanců napříč prodejnami a provozní záznamy žijí v několika digitálních systémech bez jednotných pravidel. Smlouvy v emailu a ERP. HR složky v HR systému. Provozní záznamy v provozním systému. Když někdo potřebuje najít konkrétní dodavatelskou smlouvu z roku 2019 nebo dohledat personální složku bývalého zaměstnance, hledá v několika systémech. Hodiny. A když přijde kontrola ČOI nebo audit dodavatele, ten chaos je vidět.</p>
+<p>Rád bych Vám představil, jaké jsou možnosti, jak by digitální správa dokumentů ve Komerční banka mohla mít jeden archiv s jednotnými pravidly retence, workflow pro schvalování s auditní stopou a jasná přístupová práva napříč prodejnami a centrálou. Od roku 2002 jsme realizovali přes 1 000 dokumentových projektů u velkých firem v ČR a SK - mezi klienty máme Žabku, GECO nebo Unilever SCE.</p>
+<p>Vyhovoval by Vám krátký 15-min hovor, nebo raději stručný textový přehled?</p>
+<p>P.S. Pokud správu dokumentů u Vás řeší někdo jiný, např. provozní ředitel, head of HR nebo supply chain manager, budu vděčný za nasměrování.</p>
+<p>Jiří Jakeš<br>Sales Director, IXTENT s.r.o.<br>jiri.jakes@ixtent.cz</p></div></div>
+<div class="touchpoint linkedin"><div class="meta"><span class="day">Den 2</span><span class="icon">in</span><span class="label">LinkedIn Connection Request</span></div><div class="body"><p class="empty">(pozvánka bez doprovodné zprávy)</p></div></div>
+<div class="touchpoint email"><div class="meta"><span class="day">Den 5</span><span class="icon">✉</span><span class="label">Email 2 (reply)</span></div><div class="subject"><strong>Subject:</strong> Komerční banka - pravděpodobně už něco máte</div><div class="body"><p>Vážený pane Nováku,</p>
+<p>navazuji na předchozí e-mail. Předpokládám, že u Vás nějaký systém na dokumenty samozřejmě běží - sdílené disky, SharePoint, ERP, něco od HR dodavatele, případně několik různých řešení paralelně podle prodejen a centrály.</p>
+<p>Otázka není, jestli něco máte, ale <strong>jak je to dnes pohromadě</strong> - jeden dodavatel nebo pět, jednotná pravidla retence pro HR složky a dodavatelské smlouvy nebo každá oblast vlastní, jestli při kontrole ČOI nebo auditu dodavatele vytahujete dokumenty z jednoho místa nebo z několika systémů a Excelů.</p>
+<p>U firem Vaší velikosti to bývá historicky rozdělené. Nové prodejny, nové kategorie, HR turnover - postupně se to tak nastavilo.</p>
+<p>Pro vedení firmy je hlavní téma riziko a čas - kolik lidí to dnes drží v hlavě a co se stane při personálním auditu nebo kontrole.</p>
+<p>Rád bych Vám představil, jak to typicky vypadá u podobných firem - bez produktové prezentace, jen kde se zasekávají. Vyhovovalo by Vám krátký hovor, nebo raději textový přehled?</p>
+<p>Jiří Jakeš<br>Sales Director, IXTENT s.r.o.<br>jiri.jakes@ixtent.cz</p></div></div>
+<div class="touchpoint linkedin"><div class="meta"><span class="day">Den 7</span><span class="icon">in</span><span class="label">LinkedIn zpráva 1</span></div><div class="body"><p>Děkuji za propojení.</p>
+<p>Chtěl bych se zeptat, kdo má u Vás na starosti, aby dodavatelské smlouvy, HR složky a provozní záznamy napříč prodejnami měly jednotnou stopu a jasná přístupová práva?</p>
+<p>V IXTENTu pomáháme velkým retail a FMCG firmám s digitální správou dokumentů - jeden archiv, jednotná pravidla retence, workflow pro schvalování. Rád bych této osobě představil, jaké možnosti pro firmy Vaší velikosti máme.</p>
+<p>Můžu Vás poprosit o nasměrování?</p></div></div>
+<div class="touchpoint email"><div class="meta"><span class="day">Den 12</span><span class="icon">✉</span><span class="label">Email 3 (reply)</span></div><div class="subject"><strong>Subject:</strong> Jak to řešíme u podobných firem</div><div class="body"><p>Vážený pane Nováku,</p>
+<p>posílám konkrétnější obrázek - tři situace, ve kterých jsme to řešili.</p>
+<p>U Žabky šlo o sjednocení HR a provozní dokumentace napříč sítí prodejen - jeden přístupový model, jednotná pravidla retence personálních složek, jasná stopa pro audit.</p>
+<p>U GECO jsme řešili archiv dodavatelských smluv a obchodních záznamů s ohledem na dlouhou retenci a auditní dohledatelnost.</p>
+<p>U Unilever SCE pak jednotnou dokumentaci napříč multi-entity holdingem - jeden archiv, jednotná pravidla přístupu, jasná stopa pro audit dodavatelů.</p>
+<p>Žádná z těch situací nebyla o výměně systému. Šlo o to dát existujícím dokumentům digitální řád. Pro vedení to znamená méně rizika při kontrolách a personálních auditech, rychlejší reakci na úřady a méně času, který lidé tráví hledáním.</p>
+<p>Je toto téma pro Vás aktuální nyní, nebo by Vám dávalo větší smysl se k němu vrátit později (např. před auditem nebo v rámci 2027 plánování)?</p>
+<p>Jiří Jakeš<br>Sales Director, IXTENT s.r.o.<br>jiri.jakes@ixtent.cz</p></div></div>
+<div class="touchpoint linkedin"><div class="meta"><span class="day">Den 18</span><span class="icon">in</span><span class="label">LinkedIn zpráva 2</span></div><div class="body"><p>Chtěl jsem ještě jednou krátce - před týdnem jsem se zde ptal, kdo u Vás řeší správu dodavatelských smluv, HR složek a provozních záznamů.</p>
+<p>Retail a FMCG firmy Vaší velikosti se k tomuto tématu vrací v konkrétních momentech - typicky před personálním auditem, kontrolou ČOI nebo přechodu na nový HR/ERP systém. Chtěl jsem se ujistit, že o IXTENTu v takové chvíli budete vědět.</p>
+<p>Pokud byste mě v budoucnu chtěli nasměrovat na správnou osobu, dejte prosím vědět zde nebo na můj e-mail.</p></div></div>
+<div class="touchpoint email"><div class="meta"><span class="day">Den 25</span><span class="icon">✉</span><span class="label">Email 4 (nový thread)</span></div><div class="subject"><strong>Subject:</strong> Ozvu se za půl roku?</div><div class="body"><p>Vážený pane Nováku,</p>
+<p>posílal jsem Vám pár emailů o tom, jak velké retail a FMCG firmy řeší roztříštěnou dokumentaci - smlouvy s dodavateli, HR složky a provozní záznamy napříč několika systémy.</p>
+<p>Téma, které u vedení firem rezonuje typicky v období kontrol, personálních auditů nebo přechodu na nový HR/ERP systém. Od roku 2002 jsme tohle řešili u přes 1 000 projektů - mezi klienty máme Žabku, GECO nebo Unilever SCE.</p>
+<p>Pokud teď není správný čas, rád se ozvu za půl roku - bylo by to vhodné, nebo Vás téma nezajímá a mám Vás vyřadit ze seznamu kontaktů?</p>
+<p>Jiří Jakeš<br>Sales Director, IXTENT s.r.o.<br>jiri.jakes@ixtent.cz</p></div></div>
+</section>
+
+
+<section class="sequence" id="pharma">
+  <header class="sequence-header">
+    <h2>Pharma / Healthcare</h2>
+    <p class="subtitle">regulované odvětví</p>
+    <p class="references"><strong>Reference v textech:</strong> Walmark, Sotio, Saneca Pharma</p>
+  </header>
+  <div class="touchpoint email"><div class="meta"><span class="day">Den 0</span><span class="icon">✉</span><span class="label">Email 1</span></div><div class="subject"><strong>Subject:</strong> Komerční banka - regulatorní podklady, schválení a audit trail na jednom místě</div><div class="body"><p>Vážený pane Nováku,</p>
+<p>chtěl bych se zeptat, kdo má u Vás na starosti, aby regulatorní podklady, schválení a klinická dokumentace byly v jednom místě dohledatelné - od přijetí přes workflow až po archiv s retencí dle SÚKL?</p>
+<p>U velkých pharma a healthcare firem vídáme stále podobný vzorec - regulatorní dokumentace, klinické studie, výrobní šarže a smluvní agenda žijí v několika digitálních systémech, ale bez jednotných pravidel. Schvalovací stopa pro inspekci se sbírá ručně, retenční lhůty hlídá někdo v hlavě, přístupová práva přes systémy nikdo nesleduje jednotně. Když přijde audit kvality nebo inspekce SÚKL, dohledatelnost zabere dny.</p>
+<p>Rád bych Vám představil, jaké jsou možnosti, jak by digitální správa dokumentů ve Komerční banka mohla mít jeden archiv s jednotnými pravidly retence, workflow pro schvalování s auditní stopou a jasná přístupová práva napříč regulatorním, výrobním a komerčním segmentem. Od roku 2002 jsme realizovali přes 1 000 dokumentových projektů u velkých firem v ČR a SK - mezi klienty máme Walmark, Sotio nebo Saneca Pharma.</p>
+<p>Vyhovoval by Vám krátký 15-min hovor, nebo raději stručný textový přehled?</p>
+<p>P.S. Pokud správu dokumentů u Vás řeší někdo jiný, např. quality manager, regulatory affairs nebo head of operations, budu vděčný za nasměrování.</p>
+<p>Jiří Jakeš<br>Sales Director, IXTENT s.r.o.<br>jiri.jakes@ixtent.cz</p></div></div>
+<div class="touchpoint linkedin"><div class="meta"><span class="day">Den 2</span><span class="icon">in</span><span class="label">LinkedIn Connection Request</span></div><div class="body"><p class="empty">(pozvánka bez doprovodné zprávy)</p></div></div>
+<div class="touchpoint email"><div class="meta"><span class="day">Den 5</span><span class="icon">✉</span><span class="label">Email 2 (reply)</span></div><div class="subject"><strong>Subject:</strong> Komerční banka - pravděpodobně už něco máte</div><div class="body"><p>Vážený pane Nováku,</p>
+<p>navazuji na předchozí e-mail. Předpokládám, že u Vás nějaký systém na dokumenty samozřejmě běží - sdílené disky, eQMS, validovaný systém pro klinickou dokumentaci, případně několik různých řešení paralelně podle segmentu (regulatory / výroba / komerce).</p>
+<p>Otázka není, jestli něco máte, ale <strong>jak je to dnes pohromadě</strong> - jeden dodavatel nebo pět, jednotná pravidla retence pro regulatorní a klinickou dokumentaci nebo každý segment vlastní, jestli při auditu kvality nebo kontrole SÚKL vytahujete dokumenty z jednoho místa nebo z několika systémů.</p>
+<p>U pharma a healthcare firem Vaší velikosti to bývá historicky rozdělené. Validace, akvizice, nové molekuly, různí dodavatelé - postupně se to tak nastavilo.</p>
+<p>Pro vedení firmy je hlavní téma riziko a čas - kolik dnů zabere připravit dokumentaci pro audit nebo inspekci, kolik lidí to drží v hlavě.</p>
+<p>Rád bych Vám představil, jak to typicky vypadá u srovnatelných pharma firem - bez produktové prezentace, jen kde se zasekávají. Vyhovovalo by Vám krátký hovor, nebo raději textový přehled?</p>
+<p>Jiří Jakeš<br>Sales Director, IXTENT s.r.o.<br>jiri.jakes@ixtent.cz</p></div></div>
+<div class="touchpoint linkedin"><div class="meta"><span class="day">Den 7</span><span class="icon">in</span><span class="label">LinkedIn zpráva 1</span></div><div class="body"><p>Děkuji za propojení.</p>
+<p>Chtěl bych se zeptat, kdo má u Vás na starosti, aby regulatorní podklady, schválení a klinická dokumentace byly v jednom místě dohledatelné - od přijetí přes workflow až po archiv s retencí dle SÚKL?</p>
+<p>V IXTENTu pomáháme velkým pharma a healthcare firmám s digitální správou dokumentů - jeden archiv, jednotná pravidla retence, workflow pro schvalování s auditní stopou. Rád bych této osobě představil, jaké možnosti pro firmy Vaší velikosti máme.</p>
+<p>Můžu Vás poprosit o nasměrování?</p></div></div>
+<div class="touchpoint email"><div class="meta"><span class="day">Den 12</span><span class="icon">✉</span><span class="label">Email 3 (reply)</span></div><div class="subject"><strong>Subject:</strong> Jak to řešíme u podobných firem</div><div class="body"><p>Vážený pane Nováku,</p>
+<p>posílám konkrétnější obrázek - tři situace, ve kterých jsme to řešili.</p>
+<p>U Walmark šlo o sjednocení dokumentace napříč komerčním a regulatorním segmentem - jeden přístupový model, jednotná pravidla retence, jasná stopa pro audit kvality.</p>
+<p>U Sotio jsme řešili archiv klinické a partnerské dokumentace s ohledem na dlouhou retenci, přístupová práva a regulatorní stopu.</p>
+<p>U Saneca Pharma pak jednotnou dokumentaci napříč výrobními závody - jeden archiv, jednotná pravidla retence pro výrobní šarže a regulatorní podklady, jasná stopa pro inspekci SÚKL.</p>
+<p>Žádná z těch situací nebyla o výměně systému. Šlo o to dát existujícím dokumentům digitální řád. Pro vedení to znamená méně rizika při auditech kvality a inspekcích, rychlejší reakci na regulátora a méně času, který lidé tráví hledáním.</p>
+<p>Je toto téma pro Vás aktuální nyní, nebo by Vám dávalo větší smysl se k němu vrátit později (např. před auditem nebo v rámci 2027 plánování)?</p>
+<p>Jiří Jakeš<br>Sales Director, IXTENT s.r.o.<br>jiri.jakes@ixtent.cz</p></div></div>
+<div class="touchpoint linkedin"><div class="meta"><span class="day">Den 18</span><span class="icon">in</span><span class="label">LinkedIn zpráva 2</span></div><div class="body"><p>Chtěl jsem ještě jednou krátce - před týdnem jsem se zde ptal, kdo u Vás řeší správu regulatorních podkladů, schválení a klinické dokumentace.</p>
+<p>Pharma a healthcare firmy Vaší velikosti se k tomuto tématu vrací v konkrétních momentech - typicky před auditem kvality, inspekcí SÚKL nebo přechodu na nový eQMS. Chtěl jsem se ujistit, že o IXTENTu v takové chvíli budete vědět.</p>
+<p>Pokud byste mě v budoucnu chtěli nasměrovat na správnou osobu, dejte prosím vědět zde nebo na můj e-mail.</p></div></div>
+<div class="touchpoint email"><div class="meta"><span class="day">Den 25</span><span class="icon">✉</span><span class="label">Email 4 (nový thread)</span></div><div class="subject"><strong>Subject:</strong> Ozvu se za půl roku?</div><div class="body"><p>Vážený pane Nováku,</p>
+<p>posílal jsem Vám pár emailů o tom, jak velké pharma a healthcare firmy řeší roztříštěnou dokumentaci - smlouvy s partnery, regulatorní a klinické podklady, HR složky napříč několika systémy.</p>
+<p>Téma, které u vedení firem rezonuje typicky v období auditů kvality, inspekcí SÚKL nebo přechodu na nový eQMS. Od roku 2002 jsme tohle řešili u přes 1 000 projektů - mezi klienty máme Walmark, Sotio nebo Saneca Pharma.</p>
+<p>Pokud teď není správný čas, rád se ozvu za půl roku - bylo by to vhodné, nebo Vás téma nezajímá a mám Vás vyřadit ze seznamu kontaktů?</p>
+<p>Jiří Jakeš<br>Sales Director, IXTENT s.r.o.<br>jiri.jakes@ixtent.cz</p></div></div>
+</section>
+
+
+<section class="sequence" id="universal">
+  <header class="sequence-header">
+    <h2>Universal</h2>
+    <p class="subtitle">fallback pro neidentifikované vertikály</p>
+    <p class="references"><strong>Reference v textech:</strong> VOITH, Škoda Auto, E.ON ČR, T-Mobile CZ, Žabka</p>
+  </header>
+  <div class="touchpoint email"><div class="meta"><span class="day">Den 0</span><span class="icon">✉</span><span class="label">Email 1</span></div><div class="subject"><strong>Subject:</strong> Komerční banka - smlouvy, dokumentace a workflow napříč systémy</div><div class="body"><p>Vážený pane Nováku,</p>
+<p>chtěl bych se zeptat, kdo má u Vás na starosti, aby smlouvy, klientské a HR složky a technická dokumentace měly jednotnou stopu napříč systémy - kdo má k čemu přístup a co je dohledatelné při auditu?</p>
+<p>U velkých firem vídáme stále podobný vzorec - smlouvy, klientské a HR složky, technická a provozní dokumentace žijí v několika digitálních systémech bez jednotných pravidel. Smlouvy v ERP a emailu. Dokumentace ve sdílených složkách a SharePointu. HR v personalistice. Když někdo potřebuje najít konkrétní dokument nebo dohledat schvalovací stopu, hledá v několika systémech a Excelech. Hodiny. A když přijde audit nebo kontrola, ten chaos je vidět.</p>
+<p>Rád bych Vám představil, jaké jsou možnosti, jak by digitální správa dokumentů ve Komerční banka mohla mít jeden archiv s jednotnými pravidly retence, workflow pro schvalování s auditní stopou a jasná přístupová práva napříč divizemi a procesy. Od roku 2002 jsme realizovali přes 1 000 dokumentových projektů u velkých firem v ČR a SK - mezi klienty máme VOITH, Škoda Auto, E.ON, T-Mobile nebo Žabku.</p>
+<p>Vyhovoval by Vám krátký 15-min hovor, nebo raději stručný textový přehled?</p>
+<p>P.S. Pokud správu dokumentů u Vás řeší někdo jiný, např. provozní ředitel, head of operations nebo CFO, budu vděčný za nasměrování.</p>
+<p>Jiří Jakeš<br>Sales Director, IXTENT s.r.o.<br>jiri.jakes@ixtent.cz</p></div></div>
+<div class="touchpoint linkedin"><div class="meta"><span class="day">Den 2</span><span class="icon">in</span><span class="label">LinkedIn Connection Request</span></div><div class="body"><p class="empty">(pozvánka bez doprovodné zprávy)</p></div></div>
+<div class="touchpoint email"><div class="meta"><span class="day">Den 5</span><span class="icon">✉</span><span class="label">Email 2 (reply)</span></div><div class="subject"><strong>Subject:</strong> Komerční banka - pravděpodobně už něco máte</div><div class="body"><p>Vážený pane Nováku,</p>
+<p>navazuji na předchozí e-mail. Předpokládám, že u Vás nějaký systém na dokumenty samozřejmě běží - sdílené disky, SharePoint, něco od ERP dodavatele, případně několik různých řešení paralelně podle divizí a procesů.</p>
+<p>Otázka není, jestli něco máte, ale <strong>jak je to dnes pohromadě</strong> - jeden dodavatel nebo pět, jednotná pravidla retence napříč firmou nebo každé oddělení vlastní, jestli při auditu nebo kontrole vytahujete dokumenty z jednoho místa nebo z několika systémů a Excelů.</p>
+<p>U firem Vaší velikosti to bývá historicky rozdělené. Akvizice, nové divize, různí dodavatelé - postupně se to tak nastavilo.</p>
+<p>Pro vedení firmy je hlavní téma riziko a čas - kolik lidí to dnes drží v hlavě a co se stane, když některý z nich odejde nebo přijde kontrola.</p>
+<p>Rád bych Vám představil, jak to typicky vypadá u podobných firem - bez produktové prezentace, jen kde se zasekávají. Vyhovovalo by Vám krátký hovor, nebo raději textový přehled?</p>
+<p>Jiří Jakeš<br>Sales Director, IXTENT s.r.o.<br>jiri.jakes@ixtent.cz</p></div></div>
+<div class="touchpoint linkedin"><div class="meta"><span class="day">Den 7</span><span class="icon">in</span><span class="label">LinkedIn zpráva 1</span></div><div class="body"><p>Děkuji za propojení.</p>
+<p>Chtěl bych se zeptat, kdo má u Vás na starosti, aby smlouvy, klientské a HR složky a technická dokumentace měly jednotnou stopu napříč systémy?</p>
+<p>V IXTENTu pomáháme velkým firmám s digitální správou dokumentů - jeden archiv, jednotná pravidla retence, workflow pro schvalování. Rád bych této osobě představil, jaké možnosti pro firmy Vaší velikosti máme.</p>
+<p>Můžu Vás poprosit o nasměrování?</p></div></div>
+<div class="touchpoint email"><div class="meta"><span class="day">Den 12</span><span class="icon">✉</span><span class="label">Email 3 (reply)</span></div><div class="subject"><strong>Subject:</strong> Jak to řešíme u podobných firem</div><div class="body"><p>Vážený pane Nováku,</p>
+<p>posílám konkrétnější obrázek - tři situace z různých odvětví, ve kterých jsme to řešili.</p>
+<p>U VOITH (výroba) šlo o sjednocení dokumentace napříč divizemi a závody - smlouvy s dodavateli, technická dokumentace zařízení, provozní záznamy na jednom místě s jasnými přístupovými právy.</p>
+<p>U E.ON ČR (energetika) jsme řešili dokumentaci napříč regulovaným a obchodním segmentem - jeden přístupový model, jednotná pravidla retence, jasná stopa pro audit.</p>
+<p>U Žabky (retail) pak jednotnou HR a provozní dokumentaci napříč sítí prodejen - jeden archiv, jednotná pravidla retence personálních složek, jasná stopa pro audit.</p>
+<p>Žádná z těch situací nebyla o výměně systému. Šlo o to dát existujícím dokumentům digitální řád. Pro vedení to znamená méně rizika při kontrolách a auditech, rychlejší reakci na úřady a méně času, který lidé tráví hledáním.</p>
+<p>Je toto téma pro Vás aktuální nyní, nebo by Vám dávalo větší smysl se k němu vrátit později (např. před auditem nebo v rámci 2027 plánování)?</p>
+<p>Jiří Jakeš<br>Sales Director, IXTENT s.r.o.<br>jiri.jakes@ixtent.cz</p></div></div>
+<div class="touchpoint linkedin"><div class="meta"><span class="day">Den 18</span><span class="icon">in</span><span class="label">LinkedIn zpráva 2</span></div><div class="body"><p>Chtěl jsem ještě jednou krátce - před týdnem jsem se zde ptal, kdo u Vás řeší správu smluv, klientských a HR složek a technické dokumentace.</p>
+<p>Firmy Vaší velikosti se k tomuto tématu vrací v konkrétních momentech - typicky před auditem, kontrolou nebo přechodu na nový systém. Chtěl jsem se ujistit, že o IXTENTu v takové chvíli budete vědět.</p>
+<p>Pokud byste mě v budoucnu chtěli nasměrovat na správnou osobu, dejte prosím vědět zde nebo na můj e-mail.</p></div></div>
+<div class="touchpoint email"><div class="meta"><span class="day">Den 25</span><span class="icon">✉</span><span class="label">Email 4 (nový thread)</span></div><div class="subject"><strong>Subject:</strong> Ozvu se za půl roku?</div><div class="body"><p>Vážený pane Nováku,</p>
+<p>posílal jsem Vám pár emailů o tom, jak velké firmy řeší roztříštěnou dokumentaci - smlouvy, klientské a HR složky, technickou a provozní dokumentaci napříč několika systémy.</p>
+<p>Téma, které u vedení firem rezonuje typicky v období auditů, kontrol nebo přechodu na nový systém. Od roku 2002 jsme tohle řešili u přes 1 000 projektů - mezi klienty máme VOITH, Škoda Auto, E.ON, T-Mobile nebo Žabku.</p>
+<p>Pokud teď není správný čas, rád se ozvu za půl roku - bylo by to vhodné, nebo Vás téma nezajímá a mám Vás vyřadit ze seznamu kontaktů?</p>
+<p>Jiří Jakeš<br>Sales Director, IXTENT s.r.o.<br>jiri.jakes@ixtent.cz</p></div></div>
+</section>
+
+</main>
+</div>
+</body>
+</html>
