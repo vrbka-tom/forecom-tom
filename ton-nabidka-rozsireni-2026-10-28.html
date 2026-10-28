@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FORECOM - Rozšíření outreache pro TON</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #fafafa;
+      min-height: 100vh;
+      color: #3a3a4a;
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 15px;
+      line-height: 1.75;
+    }
+
+    .page-wrapper { padding: 32px 16px 60px; }
+
+    .proposal-card {
+      background: #fff;
+      border: 1px solid #e8e8ec;
+      border-radius: 14px;
+      padding: 64px 72px;
+      max-width: 920px;
+      margin: 0 auto;
+      box-shadow: 0 2px 24px rgba(0, 0, 0, 0.04);
+    }
+
+    /* -- Cover -- */
+    .cover {
+      text-align: center;
+      padding: 40px 0 64px;
+      border-bottom: 1px solid #e8e8ec;
+      margin-bottom: 48px;
+    }
+
+    .cover .forecom-logo { display: flex; justify-content: center; margin-bottom: 40px; }
+    .cover .forecom-logo svg { width: 140px; height: auto; }
+
+    .cover .proposal-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #7c5cfc;
+      border: 1px solid rgba(124, 92, 252, 0.3);
+      border-radius: 100px;
+      padding: 5px 16px;
+      margin-bottom: 36px;
+      background: rgba(124, 92, 252, 0.06);
+    }
+
+    .cover .client-company {
+      font-size: 3.2rem;
+      font-weight: 700;
+      color: #0f0f1a;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .cover .proposal-title {
+      font-size: 1.15rem;
+      color: #7c5cfc;
+      font-weight: 400;
+      margin: 0 auto 32px;
+      max-width: 600px;
+    }
+
+    .cover .meta {
+      font-size: 0.85rem;
+      color: #888;
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cover .meta span::before {
+      content: '\00b7';
+      margin-right: 24px;
+      color: rgba(124, 92, 252, 0.4);
+    }
+    .cover .meta span:first-child::before { display: none; }
+
+    /* -- Summary -- */
+    .summary-box {
+      background: #f3efff;
+      border: 1px solid #e4dcff;
+      border-radius: 12px;
+      padding: 26px 30px;
+    }
+
+    .summary-box .sb-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #7c5cfc;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .summary-box ul { margin: 0; padding-left: 20px; }
+    .summary-box li { font-size: 0.93rem; margin-bottom: 8px; }
+    .summary-box li:last-child { margin-bottom: 0; }
+    .summary-box strong { color: #0f0f1a; }
+
+    /* -- Section headers -- */
+    .section-header { margin: 56px 0 24px; }
+
+    .section-header .section-number {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(124, 92, 252, 0.6);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .section-header h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #0f0f1a;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    .section-header .h2-sub {
+      font-size: 0.75rem;
+      color: #888;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .sub-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #7c5cfc;
+      font-weight: 600;
+      margin: 40px 0 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #e8e8ec;
+    }
+
+    .sub-label.first { margin-top: 8px; }
+
+    .lead-text { margin-bottom: 8px; text-align: justify; }
+
+    /* -- Track record stats -- */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .stat {
+      background: #fff;
+      border: 1px solid #e8e8ec;
+      border-radius: 12px;
+      padding: 18px 16px;
+    }
+
+    .stat .stat-num {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #0f0f1a;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .stat .stat-label { font-size: 0.8rem; color: #888; margin-top: 6px; line-height: 1.4; }
+
+    .stats-caption { font-size: 0.85rem; color: #888; margin: 12px 0 36px; }
+
+    /* -- Challenges -- */
+    .challenge-block {
+      margin-bottom: 28px;
+      padding-left: 20px;
+      border-left: 3px solid #7c5cfc;
+    }
+
+    .challenge-block h3 { font-size: 0.95rem; font-weight: 600; color: #0f0f1a; margin-bottom: 8px; }
+    .challenge-block p { margin: 0; text-align: justify; }
+
+    /* -- KPI strip -- */
+    .kpi-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 24px 0 28px;
+    }
+
+    .kpi {
+      text-align: center;
+      background: rgba(124, 92, 252, 0.05);
+      border: 1px solid rgba(124, 92, 252, 0.18);
+      border-radius: 12px;
+      padding: 18px 12px;
+    }
+
+    .kpi .kpi-num { font-size: 1.5rem; font-weight: 700; color: #7c5cfc; line-height: 1.15; }
+    .kpi .kpi-label { font-size: 0.8rem; color: #3a3a4a; margin-top: 6px; line-height: 1.4; }
+
+    /* -- Solution blocks -- */
+    .solution-block {
+      background: #fff;
+      border: 1px solid #e8e8ec;
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin-bottom: 20px;
+    }
+
+    .solution-block .service-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #7c5cfc;
+      background: rgba(124, 92, 252, 0.06);
+      border: 1px solid rgba(124, 92, 252, 0.2);
+      border-radius: 6px;
+      padding: 3px 10px;
+      margin-bottom: 12px;
+    }
+
+    .solution-block .service-tag.optional { color: #888; background: #fafafa; border-color: #e8e8ec; }
+
+    .solution-block h3 { font-size: 1rem; font-weight: 600; color: #0f0f1a; margin-bottom: 10px; }
+    .solution-block p { font-size: 0.92rem; margin: 0; text-align: justify; }
+    .solution-block ul { margin: 10px 0 0 0; padding-left: 20px; }
+    .solution-block ul li { font-size: 0.9rem; margin-bottom: 5px; }
+
+    /* -- Variant cards -- */
+    .variants {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 28px 0 20px;
+    }
+
+    .variant {
+      position: relative;
+      background: #fff;
+      border: 1px solid #e8e8ec;
+      border-radius: 14px;
+      padding: 26px 22px 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .variant.recommended {
+      border: 2px solid #7c5cfc;
+      box-shadow: 0 6px 24px rgba(124, 92, 252, 0.10);
+    }
+
+    .variant .v-badge {
+      position: absolute;
+      top: -12px;
+      left: 20px;
+      background: #7c5cfc;
+      color: #fff;
+      font-size: 0.64rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-radius: 100px;
+      padding: 3px 12px;
+    }
+
+    .variant .v-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #7c5cfc;
+      font-weight: 600;
+    }
+
+    .variant .v-name { font-size: 1.05rem; font-weight: 600; color: #0f0f1a; margin: 4px 0 2px; line-height: 1.35; }
+    .variant .v-markets { font-size: 0.82rem; color: #888; margin-bottom: 16px; line-height: 1.5; min-height: 3em; }
+
+    .nw { white-space: nowrap; }
+
+    .variant .v-price {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #0f0f1a;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .variant .v-price-note { font-size: 0.78rem; color: #888; margin: 6px 0 16px; line-height: 1.45; }
+    .variant .v-rows { border-top: 1px solid #f0f0f2; padding-top: 10px; margin-top: auto; }
+    .variant .v-row { display: flex; justify-content: space-between; gap: 8px; font-size: 0.85rem; padding: 3px 0; }
+    .variant .v-row span:last-child { font-weight: 600; color: #0f0f1a; text-align: right; white-space: nowrap; }
+
+    /* -- Tables -- */
+    .scope-table-wrap,
+    .pricing-table-wrap {
+      margin: 20px 0;
+      border-radius: 12px;
+      overflow-x: auto;
+      border: 1px solid #e8e8ec;
+    }
+
+    table { width: 100%; border-collapse: collapse; }
+
+    thead th {
+      background: rgba(124, 92, 252, 0.06);
+      color: #7c5cfc;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 600;
+      padding: 12px 20px;
+      text-align: left;
+      border-bottom: 1px solid rgba(124, 92, 252, 0.15);
+    }
+
+    tbody td {
+      padding: 13px 20px;
+      border-bottom: 1px solid #f0f0f2;
+      color: #3a3a4a;
+      font-size: 0.9rem;
+      vertical-align: top;
+    }
+
+    tbody tr:last-child td { border-bottom: none; }
+
+    .scope-table-wrap td:first-child { color: #0f0f1a; font-weight: 600; white-space: nowrap; }
+
+    .pricing-table-wrap thead th { text-align: center; }
+    .pricing-table-wrap thead th:first-child { text-align: left; }
+    .pricing-table-wrap thead th.rec { background: #7c5cfc; color: #fff; }
+
+    .pricing-table-wrap tbody td {
+      text-align: center;
+      font-weight: 600;
+      color: #0f0f1a;
+      white-space: nowrap;
+      vertical-align: middle;
+    }
+
+    .pricing-table-wrap tbody td:first-child {
+      text-align: left;
+      font-weight: 400;
+      color: #3a3a4a;
+      white-space: normal;
+      min-width: 220px;
+    }
+
+    .pricing-table-wrap tbody td.rec { background: rgba(124, 92, 252, 0.04); }
+
+    .pricing-table-wrap tr.group-row td {
+      background: #fafafa;
+      font-size: 0.66rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #888;
+      font-weight: 600;
+      padding: 8px 20px;
+      text-align: left;
+    }
+
+    .pricing-table-wrap tr.total-row td { background: rgba(124, 92, 252, 0.07); font-weight: 700; color: #0f0f1a; }
+    .pricing-table-wrap tr.total-row td.rec { background: rgba(124, 92, 252, 0.14); }
+
+    .table-note, .extra-note { font-size: 0.85rem; color: #888; margin-top: 8px; font-style: italic; }
+
+    /* -- Insight box -- */
+    .insight-box {
+      background: #f3efff;
+      border: 1px solid #e4dcff;
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin: 24px 0;
+      font-size: 0.9rem;
+    }
+
+    .insight-box .ib-title {
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #7c5cfc;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .insight-box p { margin: 0; text-align: justify; }
+    .insight-box p + p { margin-top: 8px; }
+    .insight-box strong { color: #0f0f1a; }
+
+    /* -- Extra options -- */
+    .extra-option { margin: 28px 0 36px; }
+    .extra-option .eo-title { font-size: 1rem; font-weight: 600; color: #0f0f1a; margin-bottom: 8px; }
+    .extra-option .eo-desc { font-size: 0.9rem; margin-bottom: 4px; text-align: justify; }
+
+    /* -- Funnel -- */
+    .funnel-row {
+      display: flex;
+      align-items: stretch;
+      gap: 6px;
+      margin: 18px 0 8px;
+    }
+
+    .funnel-step {
+      flex: 1 1 0;
+      background: #fff;
+      border: 1px solid #e8e8ec;
+      border-radius: 12px;
+      padding: 14px 10px;
+      text-align: center;
+    }
+
+    .funnel-step .fs-num { font-size: 1.15rem; font-weight: 700; color: #0f0f1a; line-height: 1.2; }
+    .funnel-step .fs-label { font-size: 0.76rem; color: #888; line-height: 1.35; margin-top: 4px; }
+    .funnel-step.final { background: rgba(124, 92, 252, 0.06); border-color: rgba(124, 92, 252, 0.25); }
+    .funnel-step.final .fs-num { color: #7c5cfc; }
+    .funnel-arrow { align-self: center; color: rgba(124, 92, 252, 0.55); font-size: 1rem; flex: 0 0 auto; }
+
+    .funnel-caption { font-size: 0.82rem; color: #888; margin-top: 6px; }
+
+    /* -- Info cards -- */
+    .info-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 20px 0;
+    }
+
+    .info-cards.three { grid-template-columns: repeat(3, 1fr); }
+
+    .info-card {
+      background: #fff;
+      border: 1px solid #e8e8ec;
+      border-radius: 12px;
+      padding: 22px 24px;
+    }
+
+    .info-card.full-width { grid-column: 1 / -1; }
+
+    .info-card .ic-label {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #7c5cfc;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .info-card .ic-value { font-size: 1.15rem; font-weight: 700; color: #0f0f1a; margin-bottom: 6px; line-height: 1.3; }
+    .info-card .ic-desc { font-size: 0.87rem; line-height: 1.6; }
+    .info-card .ic-desc strong { color: #0f0f1a; }
+
+    /* -- Callout -- */
+    .callout {
+      background: #fff;
+      border: 1px solid #e8e8ec;
+      border-left: 3px solid #7c5cfc;
+      border-radius: 0 12px 12px 0;
+      padding: 20px 24px;
+      margin: 24px 0;
+    }
+
+    .callout h3 { font-size: 0.95rem; font-weight: 600; color: #0f0f1a; margin-bottom: 8px; }
+    .callout p { font-size: 0.9rem; margin: 0; text-align: justify; }
+
+    /* -- Timeline -- */
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin: 20px 0 28px;
+    }
+
+    .tl-step {
+      background: #fff;
+      border: 1px solid #e8e8ec;
+      border-top: 3px solid #7c5cfc;
+      border-radius: 0 0 12px 12px;
+      padding: 16px;
+    }
+
+    .tl-step .tl-when {
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #7c5cfc;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .tl-step .tl-what { font-size: 0.85rem; line-height: 1.55; }
+
+    /* -- Next steps -- */
+    .steps { list-style: none; counter-reset: step; margin: 8px 0 0; padding: 0; }
+
+    .steps li {
+      counter-increment: step;
+      position: relative;
+      padding: 2px 0 14px 44px;
+      font-size: 0.93rem;
+    }
+
+    .steps li::before {
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(124, 92, 252, 0.1);
+      color: #7c5cfc;
+      font-weight: 700;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* -- Why -- */
+    .why-block p { margin-bottom: 16px; text-align: justify; }
+
+    .ref-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+
+    .ref-tag {
+      display: inline-block;
+      background: rgba(124, 92, 252, 0.06);
+      border: 1px solid rgba(124, 92, 252, 0.2);
+      border-radius: 8px;
+      padding: 5px 14px;
+      font-size: 0.8rem;
+      color: #7c5cfc;
+      font-weight: 500;
+    }
+
+    .divider { border: none; border-top: 1px solid #e8e8ec; margin: 48px 0; }
+
+    /* -- Contact card -- */
+    .contact-card {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      background: #fafafa;
+      border: 1px solid #e8e8ec;
+      border-radius: 16px;
+      padding: 28px 32px;
+      margin-top: 48px;
+      flex-wrap: wrap;
+    }
+
+    .contact-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #7c5cfc, #4f46e5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.02em;
+      flex-shrink: 0;
+    }
+
+    .contact-info { flex: 1; min-width: 180px; }
+    .contact-info .contact-name { font-size: 1rem; font-weight: 600; color: #0f0f1a; margin-bottom: 2px; }
+    .contact-info .contact-role { font-size: 0.82rem; color: #7c5cfc; margin-bottom: 1px; }
+    .contact-info .contact-company { font-size: 0.8rem; color: #888; }
+
+    .contact-details { display: flex; flex-direction: column; gap: 4px; }
+    .contact-details a { font-size: 0.82rem; color: #3a3a4a; text-decoration: none; }
+    .contact-details a:hover { color: #7c5cfc; }
+    .contact-details .contact-web { color: #7c5cfc; font-weight: 500; }
+
+    footer { text-align: center; padding: 40px 0 8px; font-size: 0.73rem; color: #888; }
+
+    @media print {
+      body { background: #fff; }
+      .page-wrapper { padding: 0; }
+      .proposal-card { box-shadow: none; border: none; padding: 24px 32px; max-width: none; }
+      .solution-block, .variant, .info-card, .callout, .insight-box, .summary-box,
+      .challenge-block, .extra-option, .tl-step, .stat, .kpi, table, .contact-card { break-inside: avoid; }
+      .section-header, .sub-label { break-after: avoid; }
+    }
+
+    .scroll-hint { display: none; font-size: 0.78rem; color: #888; margin: 0 0 -8px; }
+
+    @media (max-width: 760px) {
+      .challenge-block p, .solution-block p, .why-block p, .lead-text,
+      .insight-box p, .callout p, .extra-option .eo-desc { text-align: left; }
+      .scroll-hint { display: block; }
+      .pricing-table-wrap tbody td:first-child { min-width: 150px; }
+      .scope-table-wrap { overflow-x: visible; }
+      .scope-table-wrap thead { display: none; }
+      .scope-table-wrap tr { display: block; padding: 14px 16px; border-bottom: 1px solid #f0f0f2; }
+      .scope-table-wrap tbody tr:last-child { border-bottom: none; }
+      .scope-table-wrap td { display: block; padding: 0; border: none; }
+      .scope-table-wrap td:first-child { margin-bottom: 4px; }
+      .scope-table-wrap td[data-label] + td[data-label] { margin-top: 8px; }
+      .scope-table-wrap td[data-label]::before {
+        content: attr(data-label);
+        display: block;
+        font-size: 0.64rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #7c5cfc;
+        font-weight: 600;
+      }
+      .proposal-card { padding: 32px 20px; }
+      .cover { padding: 24px 0 48px; }
+      .cover .client-company { font-size: 2.2rem; }
+      .summary-box { padding: 22px 20px; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .kpi-strip, .variants, .info-cards, .info-cards.three, .timeline { grid-template-columns: 1fr; }
+      .variants { gap: 24px; }
+      .variant .v-markets { min-height: 0; }
+      .funnel-row { flex-direction: column; }
+      .funnel-arrow { transform: rotate(90deg); }
+      .solution-block { padding: 20px; }
+      .scope-table-wrap td:first-child { white-space: normal; }
+      thead th, tbody td { padding-left: 14px; padding-right: 14px; }
+      .contact-card { flex-direction: column; align-items: flex-start; padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <div class="proposal-card">
+
+      <!-- COVER -->
+      <div class="cover">
+        <div class="forecom-logo">
+          <svg width="110" height="28" viewBox="0 0 110 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M23.7743 0.322449C21.8178 0.322449 20.2218 1.66106 19.7584 3.41156H18.1624C17.699 1.60958 16.103 0.322449 14.1465 0.322449C12.1901 0.322449 10.5941 1.66106 10.1307 3.41156H8.53465C8.07129 1.60958 6.47525 0.322449 4.51881 0.322449C2.25346 0.322449 0.399994 2.17591 0.399994 4.44126C0.399994 6.3977 1.73861 7.99374 3.48911 8.4571V10.0531C1.68712 10.5165 0.399994 12.1125 0.399994 14.069C0.399994 16.0254 1.73861 17.6215 3.48911 18.0848V19.6809C1.68712 20.1442 0.399994 21.7403 0.399994 23.6967C0.399994 25.9621 2.25346 27.8155 4.51881 27.8155C6.78416 27.8155 8.63762 25.9621 8.63762 23.6967C8.63762 21.7403 7.29901 20.1442 5.54851 19.6809V18.0848C6.9901 17.7244 8.17426 16.5403 8.53465 15.0987H10.1307C10.5941 16.9007 12.1901 18.1878 14.1465 18.1878C16.4119 18.1878 18.2654 16.3343 18.2654 14.069C18.2654 11.8036 16.4119 9.95017 14.1465 9.95017C12.1901 9.95017 10.5941 11.2888 10.1307 13.0393H8.53465C8.17426 11.5977 6.9901 10.4135 5.54851 10.0531V8.4571C6.9901 8.09671 8.17426 6.91255 8.53465 5.47096H10.1307C10.5941 7.27294 12.1901 8.56007 14.1465 8.56007C16.103 8.56007 17.699 7.22146 18.1624 5.47096H19.7584C20.2218 7.27294 21.8178 8.56007 23.7743 8.56007C26.0396 8.56007 27.8931 6.70661 27.8931 4.44126C27.8931 2.17591 26.0911 0.322449 23.7743 0.322449Z" fill="#7c5cfc"/>
+            <path d="M30.4661 24.5719H27.8918V13.1422H35.2542V15.562H30.4661V17.9818H33.9671V20.2986H30.5176V24.5719H30.4661Z" fill="#0f0f1a"/>
+            <path d="M36.6949 18.8571C36.6949 17.1066 37.2612 15.665 38.4454 14.5323C39.5781 13.4511 41.0197 12.8848 42.6672 12.8848C44.3147 12.8848 45.7048 13.4511 46.889 14.5323C48.0217 15.6135 48.588 17.0551 48.588 18.8056C48.588 20.5561 48.0217 21.9977 46.889 23.0789C45.7563 24.16 44.3662 24.7264 42.6672 24.7264C41.0197 24.7264 39.6296 24.16 38.4454 23.0789C37.3127 22.0492 36.6949 20.6076 36.6949 18.8571ZM40.3504 16.2828C39.6811 16.9006 39.3721 17.7244 39.3721 18.8571C39.3721 19.9897 39.6811 20.8135 40.3504 21.4313C41.0197 21.9977 41.7919 22.3066 42.6672 22.3066C43.5424 22.3066 44.3147 21.9977 44.984 21.4313C45.6533 20.865 45.9623 19.9897 45.9623 18.8571C45.9623 17.7244 45.6533 16.9006 44.984 16.2828C44.3147 15.665 43.5424 15.4076 42.6672 15.4076C41.7919 15.4076 41.0197 15.665 40.3504 16.2828Z" fill="#0f0f1a"/>
+            <path d="M56.2593 24.5717L54.1999 20.3499H53.2732V24.5717H50.7504V13.142H55.2811C56.3623 13.142 57.289 13.5024 57.9583 14.1717C58.6276 14.841 58.988 15.7163 58.988 16.746C58.988 17.5183 58.7821 18.1876 58.3702 18.7539C57.9583 19.3202 57.4435 19.7321 56.7227 19.9896L59.0395 24.6232H56.2593V24.5717ZM53.3247 18.1361H54.8177C55.3326 18.1361 55.7445 18.0331 56.0019 17.7757C56.2593 17.5183 56.4138 17.2094 56.4138 16.746C56.4138 16.3341 56.2593 15.9737 56.0019 15.7163C55.7445 15.4589 55.3326 15.3559 54.8177 15.3559H53.3247V18.1361Z" fill="#0f0f1a"/>
+            <path d="M68.566 24.5717H61.3066V13.142H68.5145V15.5618H63.8294V17.7242H68.0512V19.9381H63.8294V22.1004H68.5145V24.5717H68.566Z" fill="#0f0f1a"/>
+            <path d="M82.6206 18.8571C82.6206 17.1066 83.187 15.665 84.3711 14.5323C85.5038 13.4511 86.9454 12.8848 88.5929 12.8848C90.2404 12.8848 91.6305 13.4511 92.8147 14.5323C93.9474 15.6135 94.5137 17.0551 94.5137 18.8056C94.5137 20.5561 93.9474 21.9977 92.8147 23.0789C91.682 24.16 90.2919 24.7264 88.5929 24.7264C86.9454 24.7264 85.5553 24.16 84.3711 23.0789C83.187 22.0492 82.6206 20.6076 82.6206 18.8571ZM86.2246 16.2828C85.5553 16.9006 85.2464 17.7244 85.2464 18.8571C85.2464 19.9897 85.5553 20.8135 86.2246 21.4313C86.8939 21.9977 87.6662 22.3066 88.5414 22.3066C89.4167 22.3066 90.189 21.9977 90.8583 21.4313C91.5276 20.865 91.8365 19.9897 91.8365 18.8571C91.8365 17.7244 91.5276 16.9006 90.8583 16.2828C90.189 15.665 89.4167 15.4076 88.5414 15.4076C87.6662 15.4076 86.8939 15.665 86.2246 16.2828Z" fill="#0f0f1a"/>
+            <path d="M109.599 24.5719H107.127V17.0036L104.141 24.5719H102.082L99.0958 17.1066V24.5719H96.676V13.1422H99.971L103.112 20.865L106.098 13.1422H109.599V24.5719Z" fill="#0f0f1a"/>
+            <path d="M79.1202 20.6591C78.9657 21.0194 78.7083 21.3284 78.3994 21.5858C77.936 22.0492 77.2152 22.2551 76.34 22.2551C75.4132 22.2551 74.6409 21.9462 74.0231 21.3284C73.4053 20.7105 73.0449 19.8868 73.0449 18.8571C73.0449 17.7244 73.3538 16.9006 74.0231 16.2828C74.6924 15.665 75.4132 15.3561 76.2885 15.3561C76.7518 15.3561 77.1637 15.4076 77.5756 15.562C77.936 15.7165 78.2449 15.8709 78.4508 16.1284C78.6568 16.3343 78.8112 16.5917 78.9657 16.7977C78.9657 16.8492 79.0172 16.9006 79.0172 16.9521L81.0766 15.4076C80.8192 14.9957 80.5103 14.5838 80.0984 14.2234C79.6865 13.8115 79.1716 13.5026 78.5023 13.2452C77.833 12.9878 77.1122 12.8848 76.2885 12.8848C74.6409 12.8848 73.2508 13.4511 72.1182 14.5838C70.9855 15.7165 70.4192 17.1581 70.4192 18.8571C70.4192 20.6076 70.9855 22.0492 72.1182 23.1303C73.2508 24.2115 74.6409 24.7779 76.34 24.7779C77.1637 24.7779 77.936 24.6234 78.6053 24.366C79.2746 24.1086 79.8409 23.7482 80.2528 23.3363C80.6647 22.9244 80.9736 22.5125 81.231 22.0492L79.1202 20.6591Z" fill="#0f0f1a"/>
+          </svg>
+        </div>
+        <div class="proposal-badge">Návrh rozšíření spolupráce</div>
+        <div class="client-company">TON a.s.</div>
+        <div class="proposal-title">Nové kontakty pro obchodníky TON: automatické vyhledávání, nové trhy a LinkedIn</div>
+        <div class="meta">
+          <span>Pro: Martin Kratochvíl</span>
+          <span>28. října 2026</span>
+          <span>Připravil: FORECOM</span>
+        </div>
+      </div>
+
+      <!-- SUMMARY -->
+      <div class="summary-box">
+        <div class="sb-label">V kostce</div>
+        <ul>
+          <li>Dosavadní outreach ukázal, že kontakty, které odpoví, s obchodníky TON dál pracují. Úzkým hrdlem není konverze, ale přísun nových kontaktů.</li>
+          <li>Navrhujeme převzít vyhledávání kontaktů: architekty, interiérové designéry a prodejce na trzích, kde má TON obchodníky, dohledáme a ověříme sami.</li>
+          <li>Začneme tříměsíčním pilotem na 1, 3 nebo 4 trzích s 1 000 novými kontakty na trh. Cena se skládá ze <strong>základu 49 000 Kč a 29 500 Kč za každý trh</strong>.</li>
+          <li>Doporučujeme <strong>variantu B</strong> (Velká Británie, Francie, Skandinávie) za <strong>137 500 Kč</strong>, od které konzervativně očekáváme <span class="nw">30-60</span> nových zájemců. LinkedIn jako druhý kanál lze přidat k jakékoli variantě.</li>
+        </ul>
+      </div>
+
+      <!-- SECTION 1: SITUACE -->
+      <div class="section-header">
+        <div class="section-number">01</div>
+        <h2>Výchozí situace</h2>
+        <div class="h2-sub">CURRENT SITUATION</div>
+      </div>
+
+      <div class="sub-label first">Co ukázal dosavadní outreach</div>
+
+      <div class="stats-row">
+        <div class="stat"><div class="stat-num">~1 400</div><div class="stat-label">kontaktů prošlo celou <span class="nw">e-mailovou</span> sekvencí</div></div>
+        <div class="stat"><div class="stat-num"><span class="nw">4-5 %</span></div><div class="stat-label">z nich odpovědělo</div></div>
+        <div class="stat"><div class="stat-num">3</div><div class="stat-label">noví zákazníci</div></div>
+        <div class="stat"><div class="stat-num">11</div><div class="stat-label">příležitostí předaných prodejcům</div></div>
+      </div>
+      <p class="stats-caption">Dalších <span class="nw">60-70</span> kontaktů je v rozpracovaných fázích obchodního procesu. Zdroj: HubSpot TON, stav ke 29. září 2026.</p>
+
+      <div class="challenge-block">
+        <h3>Kampaň funguje, chybí jí nové kontakty</h3>
+        <p><span class="nw">E-mailový</span> outreach běží přes Smartlead napojený na Váš HubSpot. Úvodní databáze zhruba 2 000 historických kontaktů přinesla první zákazníky i příležitosti pro prodejce a ukázala důležitou věc: jakmile architekt, designér nebo prodejce odpoví, obchodníci TON s ním umí dál úspěšně pracovat. Po vyčerpání úvodní databáze ale kampaň přešla do měsíčního režimu, ve kterém se oslovují jen kontakty, které obchodníci stihnou ručně dohledat.</p>
+      </div>
+
+      <div class="challenge-block">
+        <h3>Ruční dohledávání narazilo na strop</h3>
+        <p>Zhruba deset obchodníků dodá každý měsíc kolem 20 kontaktů, dohromady přibližně 200 kontaktů měsíčně. Z takového objemu přicházejí jen jednotky odpovědí za měsíc, což je málo na to, aby obchodníci cítili pravidelný přísun nových konverzací. Dohledávání je pro ně navíc práce mimo hlavní náplň: při <span class="nw">5-10</span> minutách na kontakt jde odhadem o <span class="nw">15-30</span> hodin měsíčně, které by mohli věnovat rozhovorům se zájemci.</p>
+      </div>
+
+      <div class="challenge-block">
+        <h3>Trh stagnuje a TON potřebuje získat větší podíl</h3>
+        <p>TON prodává zhruba do 80 zemí a aktivní obchodníky má přibližně v deseti zemích nebo regionech. Na každém z těchto trhů jsou stovky až tisíce studií, která TON dosud neoslovil. Hodnotná jsou velká architektonická studia s pobočkami v několika zemích i samostatní architekti a designéři, kteří mohou TON zařazovat do všech svých projektů. Potenciál nových kontaktů je tak prakticky nevyčerpatelný, chybí jen systematický způsob, jak ho využít.</p>
+      </div>
+
+      <div class="challenge-block">
+        <h3>Cílem je odpověď, další kroky zvládnou obchodníci</h3>
+        <p>Úspěchem kampaně není okamžitá schůzka ani objednávka, ale odpověď, která otevře konverzaci. Odpovídá to obchodnímu modelu TON: architekti a designéři zařazují TON do specifikace projektů často s odstupem měsíců a spolupráce s prodejci se buduje dlouhodobě. Pro další fázi proto sledujeme počet nových zájemců na obchodníka. Realistickým cílem je alespoň jeden nový zájemce měsíčně pro každého obchodníka.</p>
+      </div>
+
+      <div class="challenge-block">
+        <h3>Rozšíření musí obhájit čísla z pilotu</h3>
+        <p>Další investici má smysl ověřit menším pilotem na vybraných trzích. Ten do tří měsíců ukáže, kolik nových zájemců kampaň přináší a kolik stojí jeden zájemce. Podle těchto čísel se rozhodnete, zda a jak rychle rozšířit outreach na další trhy.</p>
+      </div>
+
+      <hr class="divider">
+
+      <!-- SECTION 2: ŘEŠENÍ -->
+      <div class="section-header">
+        <div class="section-number">02</div>
+        <h2>Navrhované řešení</h2>
+        <div class="h2-sub">PROPOSED SOLUTION</div>
+      </div>
+
+      <p class="lead-text">Rozšíření stavíme na tom, co už funguje: na odesílací infrastruktuře ve Smartleadu, napojení na HubSpot a zkušenostech z dosavadních kampaní. Přidáváme to, co dnes chybí, tedy vlastní přísun nových kontaktů, nové trhy a volitelně druhý kanál.</p>
+
+      <div class="kpi-strip">
+        <div class="kpi"><div class="kpi-num"><span class="nw">1-4</span></div><div class="kpi-label">trhy v pilotu</div></div>
+        <div class="kpi"><div class="kpi-num"><span class="nw">1 000-4 000</span></div><div class="kpi-label">nových ověřených kontaktů</div></div>
+        <div class="kpi"><div class="kpi-num">1+</div><div class="kpi-label">nový zájemce měsíčně na obchodníka jako cíl</div></div>
+      </div>
+
+      <div class="solution-block">
+        <div class="service-tag">Nové kontakty</div>
+        <h3>Automatické vyhledávání architektů, designérů a prodejců</h3>
+        <p>Přísun kontaktů přestane záviset na tom, kolik jich obchodníci stihnou dohledat. Vyhledávání převezmeme a nastavíme ho jako opakovatelný postup, který jde kdykoli rozšířit na další trh.</p>
+        <ul>
+          <li>Pro každý trh zmapujeme zdroje kontaktů: profesní registry a asociace architektů a designérů, oborové portály s realizacemi, Google Maps, LinkedIn Sales Navigator a datové platformy.</li>
+          <li>Weby a portfolia studií projde AI a ponechá jen ta, která navrhují interiéry, tedy projekty, do kterých se nábytek TON hodí.</li>
+          <li>U každého studia nebo prodejce dohledáme správné osoby, například zakladatele, vedoucí architekty, interiérové designéry nebo nákupčí, a jejich <span class="nw">e-mailové</span> adresy před odesláním ověříme.</li>
+          <li>U velkých studií s pobočkami oslovíme více lidí napříč pobočkami, samostatné architekty a designéry oslovíme ve větším objemu.</li>
+          <li>Stávající zákazníky, prodejce a všechny kontakty, které už jsou v HubSpotu, automaticky vyřadíme, aby nikdo nebyl osloven dvakrát a kampaň nezasahovala do rozjednaných vztahů.</li>
+        </ul>
+      </div>
+
+      <div class="solution-block">
+        <div class="service-tag">Textace</div>
+        <h3>Revize dosavadních sekvencí a nové texty podle segmentu a trhu</h3>
+        <p>Data ze Smartleadu a HubSpotu ukazují, které segmenty, země a kroky sekvence přinesly odpovědi. Na nich postavíme nové texty a dál je budeme testovat.</p>
+        <ul>
+          <li>Samostatné sekvence pro architekty a designéry (inspirace, realizace, materiály a podklady pro specifikaci) a pro prodejce (sortiment, marže, podpora prodeje a dlouhodobá spolupráce).</li>
+          <li>Snadná výzva k odpovědi, například nabídka katalogu nebo podkladů k aktuálnímu projektu, protože cílem je otevřít konverzaci.</li>
+          <li>Reference z daného trhu a novinky z kolekce jako důvod ozvat se právě teď.</li>
+          <li>Lokalizace do angličtiny pro Velkou Británii, Skandinávii a USA a do francouzštiny pro Francii. Překlad připravíme my, rodilý mluvčí z týmu TON ho pouze zkontroluje.</li>
+          <li>Odesílání jménem obchodníka, který má daný trh na starosti, takže odpověď míří přímo k němu.</li>
+          <li>A/B testování předmětů, úvodních vět a výzev k akci. Nové texty využijeme i ve stávající kampani z kontaktů obchodníků.</li>
+        </ul>
+      </div>
+
+      <div class="solution-block">
+        <div class="service-tag">Nové trhy</div>
+        <h3>Pilot na trzích s aktivními obchodníky</h3>
+        <p>Začneme na trzích, kde má TON obchodníka, který zájemce převezme. Cenu odvozujeme od počtu kontaktů, ne od velikosti země. Každý trh v pilotu proto dostane stejný objem 1 000 kontaktů a výsledky mezi trhy půjde přímo porovnat.</p>
+        <ul>
+          <li>Varianta A: Velká Británie. Varianta B: Velká Británie, Francie a Skandinávie. Varianta C: navíc USA.</li>
+          <li>Skandinávskou zemi i odesílatele pro jednotlivé trhy upřesníme podle toho, kde má TON obchodníky.</li>
+          <li>Výběr kontaktů a texty nastavíme podle místních pravidel pro obchodní <span class="nw">e-maily</span>, která se mezi zeměmi liší. Například ve Velké Británii platí přísnější režim pro živnostníky a Dánsko vyžaduje předchozí souhlas i u firem, proto ve Skandinávii doporučujeme začít Švédskem nebo Norskem.</li>
+          <li><span class="nw">E-maily</span> odcházejí v místním čase a v pracovní dny daného trhu. V USA se zaměříme na metropole s nejvyšší koncentrací studií.</li>
+        </ul>
+      </div>
+
+      <div class="solution-block">
+        <div class="service-tag">Předání a reporting</div>
+        <h3>Zájemci rovnou u obchodníků, výsledky každých 14 dní</h3>
+        <p>Každý zájemce skončí u správného obchodníka a v HubSpotu bude přesně vidět, co kampaň přinesla.</p>
+        <ul>
+          <li>Odpovědi třídíme (zájem, později, bez zájmu, odhlášení) a zájemce předáváme obchodníkovi daného trhu nejpozději následující pracovní den.</li>
+          <li>Zájemci se propisují do HubSpotu se správným vlastníkem a zdrojem kampaně, takže výsledky půjde dohledat až k zakázce.</li>
+          <li>Každých 14 dní dostanete přehled oslovených kontaktů, míry odpovědí, zájemců podle trhu a obchodníka a doporučení dalších úprav.</li>
+          <li>Po třech měsících pilot vyhodnotíme včetně ceny za zájemce a doporučení, které trhy rozšířit.</li>
+        </ul>
+      </div>
+
+      <div class="solution-block">
+        <div class="service-tag optional">LinkedIn · volitelně</div>
+        <h3>Druhý kanál pro kontakty, které na <span class="nw">e-mail</span> neodpověděly</h3>
+        <p>Na LinkedInu kontakty zastihneme na jiném místě a v jiné formě. Nejrychleji přinese výsledky u kontaktů, které už TON znají z <span class="nw">e-mailů</span>.</p>
+        <ul>
+          <li>Nejdříve oslovíme zhruba 1 300 kontaktů, které prošly <span class="nw">e-mailovou</span> sekvencí bez odpovědi. Značku TON už znají, takže žádost o spojení od obchodníka působí přirozeně.</li>
+          <li>Poté nové kontakty z pilotu dostanou kombinovanou sekvenci <span class="nw">e-mailu</span> a LinkedInu.</li>
+          <li>Využijeme LinkedIn účty <span class="nw">3-5</span> obchodníků napojené do samostatného nástroje pro automatizaci LinkedInu.</li>
+          <li>Sekvenci tvoří žádost o spojení a <span class="nw">2-3</span> krátké zprávy s bezpečnými denními limity, aby účty obchodníků nebyly ohrožené.</li>
+          <li>Odpovědi chodí obchodníkovi přímo na LinkedIn a zároveň je zapíšeme do HubSpotu. Přijatá spojení navíc obchodníkům zůstanou v síti i po skončení kampaně.</li>
+        </ul>
+      </div>
+
+      <hr class="divider">
+
+      <!-- SECTION 3: VARIANTY A INVESTICE -->
+      <div class="section-header">
+        <div class="section-number">03</div>
+        <h2>Varianty a investice</h2>
+        <div class="h2-sub">SCOPE &amp; INVESTMENT</div>
+      </div>
+
+      <div class="sub-label first">Varianty pilotu na 3 měsíce</div>
+
+      <div class="variants">
+        <div class="variant">
+          <div class="v-label">Varianta A</div>
+          <div class="v-name">Ověření na jednom trhu</div>
+          <div class="v-markets">Velká Británie</div>
+          <div class="v-price">78 500 Kč</div>
+          <div class="v-price-note">za celý pilot<br>průměrně 26 200 Kč měsíčně</div>
+          <div class="v-rows">
+            <div class="v-row"><span>Trhy</span><span>1</span></div>
+            <div class="v-row"><span>Nové kontakty</span><span>1 000</span></div>
+            <div class="v-row"><span>Očekávaní zájemci</span><span><span class="nw">10-20</span></span></div>
+          </div>
+        </div>
+
+        <div class="variant recommended">
+          <div class="v-badge">Doporučujeme</div>
+          <div class="v-label">Varianta B</div>
+          <div class="v-name">Tři evropské trhy</div>
+          <div class="v-markets">Velká Británie · Francie · Skandinávie</div>
+          <div class="v-price">137 500 Kč</div>
+          <div class="v-price-note">za celý pilot<br>průměrně 45 800 Kč měsíčně</div>
+          <div class="v-rows">
+            <div class="v-row"><span>Trhy</span><span>3</span></div>
+            <div class="v-row"><span>Nové kontakty</span><span>3 000</span></div>
+            <div class="v-row"><span>Očekávaní zájemci</span><span><span class="nw">30-60</span></span></div>
+          </div>
+        </div>
+
+        <div class="variant">
+          <div class="v-label">Varianta C</div>
+          <div class="v-name">Evropa a USA</div>
+          <div class="v-markets">Velká Británie · Francie · Skandinávie · USA</div>
+          <div class="v-price">167 000 Kč</div>
+          <div class="v-price-note">za celý pilot<br>průměrně 55 700 Kč měsíčně</div>
+          <div class="v-rows">
+            <div class="v-row"><span>Trhy</span><span>4</span></div>
+            <div class="v-row"><span>Nové kontakty</span><span>4 000</span></div>
+            <div class="v-row"><span>Očekávaní zájemci</span><span><span class="nw">40-80</span></span></div>
+          </div>
+        </div>
+      </div>
+
+      <p class="lead-text">Na každém trhu očekáváme <span class="nw">3-7</span> nových zájemců měsíčně, tedy nad cílem jednoho zájemce na obchodníka. Varianty se liší tím, kolika obchodníkům pilot dodá nové kontakty a kolik dat získáte pro rozhodnutí o dalších trzích. Variantu B doporučujeme, protože při rozumné investici pokryje tři odlišné typy trhů: anglicky mluvící, frankofonní a severský. USA mají jinou dynamiku a delší obchodní cyklus, proto je vhodné je přidat až podle výsledků z Evropy.</p>
+
+      <div class="sub-label">Z čeho se cena skládá</div>
+
+      <p class="scroll-hint">Tabulku můžete posunout do strany.</p>
+
+      <div class="pricing-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th>A · 1 trh</th>
+              <th class="rec">B · 3 trhy</th>
+              <th>C · 4 trhy</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="group-row"><td colspan="4">Rozsah</td></tr>
+            <tr>
+              <td>Nové ověřené kontakty</td>
+              <td>1 000</td>
+              <td class="rec">3 000</td>
+              <td>4 000</td>
+            </tr>
+            <tr>
+              <td>Odhad práce týmu FORECOM</td>
+              <td>~50 h</td>
+              <td class="rec">~90 h</td>
+              <td>~110 h</td>
+            </tr>
+            <tr class="group-row"><td colspan="4">Investice</td></tr>
+            <tr>
+              <td>Úvodní nastavení (jednorázově)</td>
+              <td>35 000 Kč</td>
+              <td class="rec">55 000 Kč</td>
+              <td>65 000 Kč</td>
+            </tr>
+            <tr>
+              <td>Vyhledání a ověření kontaktů (12 Kč za kontakt)</td>
+              <td>12 000 Kč</td>
+              <td class="rec">36 000 Kč</td>
+              <td>48 000 Kč</td>
+            </tr>
+            <tr>
+              <td>Provoz kampaní (3 měsíce)</td>
+              <td>31 500 Kč</td>
+              <td class="rec">46 500 Kč</td>
+              <td>54 000 Kč</td>
+            </tr>
+            <tr class="total-row">
+              <td>Celkem za pilot</td>
+              <td>78 500 Kč</td>
+              <td class="rec">137 500 Kč</td>
+              <td>167 000 Kč</td>
+            </tr>
+            <tr>
+              <td>Pokračování po pilotu ve stejném tempu (měsíčně)</td>
+              <td>14 500 Kč</td>
+              <td class="rec">27 500 Kč</td>
+              <td>34 000 Kč</td>
+            </tr>
+            <tr class="group-row"><td colspan="4">Očekávaný výsledek</td></tr>
+            <tr>
+              <td>Odpovědi (<span class="nw">3-5 %</span> z oslovených)</td>
+              <td><span class="nw">30-50</span></td>
+              <td class="rec"><span class="nw">90-150</span></td>
+              <td><span class="nw">120-200</span></td>
+            </tr>
+            <tr>
+              <td>Zájemci (<span class="nw">1-2 %</span> z oslovených)</td>
+              <td><span class="nw">10-20</span></td>
+              <td class="rec"><span class="nw">30-60</span></td>
+              <td><span class="nw">40-80</span></td>
+            </tr>
+            <tr>
+              <td>Cena za zájemce</td>
+              <td><span class="nw">3 900-7 900 Kč</span></td>
+              <td class="rec"><span class="nw">2 300-4 600 Kč</span></td>
+              <td><span class="nw">2 100-4 200 Kč</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="table-note">Všechny ceny jsou bez DPH. Odhady odpovědí a zájemců vycházejí z dosavadní kampaně TON (<span class="nw">4-5 %</span> odpovědí) a pro nové, dosud neoslovené kontakty počítají konzervativněji.</p>
+
+      <div class="insight-box">
+        <div class="ib-title">Jak spočítat jakoukoli kombinaci trhů</div>
+        <p><strong>Základ 49 000 Kč</strong> (úvodní nastavení 25 000 Kč a provoz 8 000 Kč měsíčně) + <strong>29 500 Kč za každý trh s 1 000 kontakty</strong> (nastavení trhu 10 000 Kč, kontakty 12 000 Kč a provoz 2 500 Kč měsíčně). Každý další trh tedy přidá zhruba 30 000 Kč za první tři měsíce.</p>
+      </div>
+
+      <div class="sub-label">Co je v ceně všech variant</div>
+
+      <div class="scope-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Oblast</th>
+              <th>Popis</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Úvodní nastavení</td>
+              <td>Workshop s TON, rozbor dosavadních kampaní ve Smartleadu a HubSpotu, nové textace pro architekty, designéry a prodejce, napojení na HubSpot (přiřazení obchodníkům a zdroj kampaně) a šablona reportu.</td>
+            </tr>
+            <tr>
+              <td>Nastavení trhu</td>
+              <td>Mapování zdrojů kontaktů, testovací vzorek s kontrolou kvality, lokalizace textů a nastavení kampaní ve Smartleadu.</td>
+            </tr>
+            <tr>
+              <td>Vyhledání a ověření kontaktů</td>
+              <td>Dohledání studií a prodejců, AI kontrola relevance, dohledání osob, ověření <span class="nw">e-mailových</span> adres a vyřazení kontaktů, které už jsou v HubSpotu. Náklady na data jsou v ceně.</td>
+            </tr>
+            <tr>
+              <td>Provoz kampaní</td>
+              <td>Správa sekvencí a odesílání, hlídání doručitelnosti, třídění a předávání odpovědí, A/B testy, report každých 14 dní a závěrečné vyhodnocení pilotu.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sub-label">Volitelná rozšíření</div>
+
+      <div class="extra-option">
+        <div class="eo-title">LinkedIn jako druhý kanál</div>
+        <div class="eo-desc">Lze přidat k jakékoli variantě. Začneme zhruba 1 300 kontakty, které prošly <span class="nw">e-mailovou</span> sekvencí bez odpovědi, a postupně přidáme nové kontakty z pilotu.</div>
+        <div class="pricing-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Položka</th>
+                <th>Cena</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Nastavení: napojení <span class="nw">3-5</span> účtů obchodníků, texty pro LinkedIn, dohledání profilů a zápis do HubSpotu</td>
+                <td>15 000 Kč jednorázově</td>
+              </tr>
+              <tr>
+                <td>Provoz: správa kampaní, hlídání limitů, třídění odpovědí a reporting</td>
+                <td>7 500 Kč měsíčně</td>
+              </tr>
+              <tr class="total-row">
+                <td>Celkem za pilot (3 měsíce)</td>
+                <td>37 500 Kč</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="extra-note">Nástroj pro automatizaci LinkedInu (například Leadspicker) vyjde orientačně na <span class="nw">5 300-6 200 Kč</span> měsíčně podle počtu účtů a přeúčtujeme ho bez přirážky.</p>
+
+        <div class="funnel-row">
+          <div class="funnel-step"><div class="fs-num">~1 300</div><div class="fs-label">kontaktů bez odpovědi na <span class="nw">e-mail</span></div></div>
+          <div class="funnel-arrow">&#8250;</div>
+          <div class="funnel-step"><div class="fs-num">~850</div><div class="fs-label">dohledaných profilů</div></div>
+          <div class="funnel-arrow">&#8250;</div>
+          <div class="funnel-step"><div class="fs-num">~250</div><div class="fs-label">přijatých spojení</div></div>
+          <div class="funnel-arrow">&#8250;</div>
+          <div class="funnel-step"><div class="fs-num"><span class="nw">25-40</span></div><div class="fs-label">odpovědí</div></div>
+          <div class="funnel-arrow">&#8250;</div>
+          <div class="funnel-step final"><div class="fs-num"><span class="nw">10-20</span></div><div class="fs-label">zájemců</div></div>
+        </div>
+        <p class="funnel-caption">Odhad pro kontakty bez odpovědi: profil dohledáme zhruba u dvou třetin, spojení přijme asi 30 % a odpoví <span class="nw">10-15 %</span> z nich. U nových kontaktů z pilotu přidá LinkedIn druhý dotyk a další odpovědi navíc.</p>
+      </div>
+
+      <div class="extra-option">
+        <div class="eo-title">Personalizace podle portfolia studia</div>
+        <div class="eo-desc">AI projde web a realizace každého studia a napíše úvodní větu, která navazuje na jeho konkrétní projekty, například nedávno dokončený hotel nebo restauraci. Vyšší relevance zvyšuje šanci na odpověď, hlavně u architektů a designérů.</div>
+        <div class="pricing-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th>A · 1 trh</th>
+                <th>B · 3 trhy</th>
+                <th>C · 4 trhy</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Příplatek (5 Kč za kontakt)</td>
+                <td>5 000 Kč</td>
+                <td>15 000 Kč</td>
+                <td>20 000 Kč</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="sub-label">Nástroje a provozní náklady</div>
+
+      <div class="scope-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Nástroj</th>
+              <th>K čemu slouží</th>
+              <th>Náklady</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Smartlead</td>
+              <td data-label="K čemu slouží">Odesílání <span class="nw">e-mailů</span>, sekvence a rotace schránek.</td>
+              <td data-label="Náklady">Stávající licence. Při vyšším objemu může být potřeba vyšší tarif, orientačně do 100 USD měsíčně.</td>
+            </tr>
+            <tr>
+              <td>HubSpot</td>
+              <td data-label="K čemu slouží">Evidence zájemců a jejich předání obchodníkům.</td>
+              <td data-label="Náklady">Stávající licence TON.</td>
+            </tr>
+            <tr>
+              <td>Domény a schránky</td>
+              <td data-label="K čemu slouží">Odesílací infrastruktura, která chrání hlavní doménu TON.</td>
+              <td data-label="Náklady">Stávající. Pro varianty B a C počítáme orientačně se <span class="nw">3-6</span> schránkami navíc (150 Kč za schránku měsíčně, 500 Kč za doménu ročně).</td>
+            </tr>
+            <tr>
+              <td>Data a ověření</td>
+              <td data-label="K čemu slouží">Datové platformy, registry, ověřování <span class="nw">e-mailů</span> a AI kontrola relevance.</td>
+              <td data-label="Náklady">V ceně kontaktu.</td>
+            </tr>
+            <tr>
+              <td>LinkedIn (volitelně)</td>
+              <td data-label="K čemu slouží">Automatizace LinkedInu přes účty obchodníků.</td>
+              <td data-label="Náklady"><span class="nw">5 300-6 200 Kč</span> měsíčně.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Náklady na nástroje a infrastrukturu přeúčtováváme bez přirážky.</p>
+
+      <div class="sub-label">Co potřebujeme od TON</div>
+
+      <div class="scope-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Kdo</th>
+              <th>Co</th>
+              <th>Časová náročnost</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Koordinace za TON</td>
+              <td data-label="Co">Úvodní workshop, schválení textů a krátký call k reportu jednou za 14 dní.</td>
+              <td data-label="Časová náročnost">Zhruba 2 hodiny na začátku, pak 1 hodina měsíčně.</td>
+            </tr>
+            <tr>
+              <td>Obchodník trhu</td>
+              <td data-label="Co">Konzultace cílení a referencí, kontrola lokalizovaných textů (u Francie rodilý mluvčí).</td>
+              <td data-label="Časová náročnost"><span class="nw">1-2</span> hodiny na začátku.</td>
+            </tr>
+            <tr>
+              <td>Obchodník trhu</td>
+              <td data-label="Co">Rychlá reakce na zájemce, ideálně do 48 hodin.</td>
+              <td data-label="Časová náročnost">Podle počtu zájemců, což je cílem celé kampaně.</td>
+            </tr>
+            <tr>
+              <td>Obchodníci na LinkedInu</td>
+              <td data-label="Co">Napojení LinkedIn účtu a odpovídání na zprávy (jen při volbě LinkedInu).</td>
+              <td data-label="Časová náročnost">Asi 10 minut na účet, pak průběžně.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="insight-box">
+        <p>Obchodníci můžou dál přidávat kontakty, které osobně znají, protože ty mají nejvyšší šanci na odpověď. Povinnou měsíční kvótu ručně dohledaných kontaktů ale doporučujeme zrušit nebo snížit, o objem se postará automatické vyhledávání.</p>
+      </div>
+
+      <div class="sub-label">Podmínky</div>
+
+      <div class="info-cards">
+        <div class="info-card">
+          <div class="ic-label">Délka pilotu</div>
+          <div class="ic-value">3 měsíce</div>
+          <div class="ic-desc">Bez automatického prodloužení. Úvodní nastavení fakturujeme při spuštění, kontakty podle skutečně dodaného počtu a provoz měsíčně. Ceny jsou bez DPH.</div>
+        </div>
+
+        <div class="info-card">
+          <div class="ic-label">Stávající kampaň</div>
+          <div class="ic-value">Běží dál</div>
+          <div class="ic-desc">Kampaň z kontaktů obchodníků pokračuje v dosavadním režimu a využijeme v ní i nové texty.</div>
+        </div>
+
+        <div class="info-card">
+          <div class="ic-label">Vánoční svátky</div>
+          <div class="ic-value">Pilot o ně prodloužíme</div>
+          <div class="ic-desc">Při schválení do poloviny listopadu odejde první vlna ještě před svátky. Období zhruba od 21. prosince do 4. ledna vynecháme, protože architekti i prodejci jsou mimo kancelář.</div>
+        </div>
+
+        <div class="info-card">
+          <div class="ic-label">Výhled po pilotu</div>
+          <div class="ic-value">Všechny trhy</div>
+          <div class="ic-desc">Pokrytí všech zhruba deseti trhů s aktivními obchodníky tak, aby každý dostával alespoň jednoho zájemce měsíčně (asi <span class="nw">100-130</span> nových kontaktů na trh), by vyšlo orientačně na <strong><span class="nw">45 000-49 000 Kč</span> měsíčně</strong> a 10 000 Kč za nastavení každého nového trhu.</div>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- SECTION 4: MĚŘENÍ A REPORTING -->
+      <div class="section-header">
+        <div class="section-number">04</div>
+        <h2>Měření a reporting</h2>
+        <div class="h2-sub">MEASUREMENT &amp; REPORTING</div>
+      </div>
+
+      <p class="lead-text">Aby šel pilot férově vyhodnotit, dohodneme se předem, co přesně měříme.</p>
+
+      <div class="info-cards three">
+        <div class="info-card">
+          <div class="ic-label">Odpověď</div>
+          <div class="ic-desc">Jakákoli reakce člověka na <span class="nw">e-mail</span> nebo zprávu na LinkedInu. Nepočítáme automatické odpovědi a nedoručené zprávy. Dosavadní kampaň TON měla <span class="nw">4-5 %</span>, u nových kontaktů počítáme s <span class="nw">3-5 %</span>.</div>
+        </div>
+        <div class="info-card">
+          <div class="ic-label">Zájemce</div>
+          <div class="ic-desc">Odpověď, ve které kontakt projeví zájem pokračovat: chce katalog, podklady, nabídku nebo schůzku, případně řeší konkrétní projekt. Počítáme s <span class="nw">1-2 %</span> z oslovených.</div>
+        </div>
+        <div class="info-card">
+          <div class="ic-label">Cena za zájemce</div>
+          <div class="ic-desc">Celková investice do pilotu vydělená počtem zájemců. Hlavní číslo pro rozhodnutí o dalších trzích.</div>
+        </div>
+      </div>
+
+      <div class="sub-label">Jeden měsíc ve variantě B</div>
+
+      <div class="funnel-row">
+        <div class="funnel-step"><div class="fs-num">1 000</div><div class="fs-label">nových kontaktů</div></div>
+        <div class="funnel-arrow">&#8250;</div>
+        <div class="funnel-step"><div class="fs-num">~950</div><div class="fs-label">doručených <span class="nw">e-mailů</span></div></div>
+        <div class="funnel-arrow">&#8250;</div>
+        <div class="funnel-step"><div class="fs-num"><span class="nw">30-50</span></div><div class="fs-label">odpovědí</div></div>
+        <div class="funnel-arrow">&#8250;</div>
+        <div class="funnel-step"><div class="fs-num"><span class="nw">10-20</span></div><div class="fs-label">zájemců</div></div>
+        <div class="funnel-arrow">&#8250;</div>
+        <div class="funnel-step final"><div class="fs-num"><span class="nw">3-7</span></div><div class="fs-label">zájemců na každý trh</div></div>
+      </div>
+      <p class="funnel-caption">Cíl jednoho zájemce měsíčně na obchodníka tak varianta B i při konzervativním odhadu splní na všech třech pilotních trzích.</p>
+
+      <div class="sub-label">Reporting</div>
+
+      <div class="scope-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Kdy</th>
+              <th>Co</th>
+              <th>Forma</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Průběžně</td>
+              <td data-label="Co">Třídění odpovědí a předání zájemců obchodníkům.</td>
+              <td data-label="Forma">Nejpozději následující pracovní den, zápis v HubSpotu.</td>
+            </tr>
+            <tr>
+              <td>Každých 14 dní</td>
+              <td data-label="Co">Oslovené kontakty, míra odpovědí, zájemci podle trhu a obchodníka, výsledky A/B testů a doporučení.</td>
+              <td data-label="Forma">Krátký report a call na 30 minut.</td>
+            </tr>
+            <tr>
+              <td>Po 3 měsících</td>
+              <td data-label="Co">Vyhodnocení pilotu: cena za zájemce po trzích, co fungovalo a které trhy rozšířit.</td>
+              <td data-label="Forma">Prezentace a společná schůzka.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout">
+        <h3>Když čísla nebudou sedět</h3>
+        <p>Pokud po prvních 300 oslovených kontaktech na daném trhu klesne míra odpovědí pod 2 % nebo nepřijde žádný zájemce, do 48 hodin svoláme krátkou schůzku a do 7 dnů nasadíme upravené cílení nebo texty. Když se výsledek nezlepší ani potom, zbylé kontakty přesuneme na trh nebo segment, který funguje lépe. Kontakty fakturujeme podle skutečně dodaného počtu, takže nefunkční cílení zbytečně nečerpá rozpočet.</p>
+      </div>
+
+      <hr class="divider">
+
+      <!-- SECTION 5: PROČ FORECOM -->
+      <div class="section-header">
+        <div class="section-number">05</div>
+        <h2>Proč FORECOM</h2>
+        <div class="h2-sub">WHY FORECOM</div>
+      </div>
+
+      <div class="why-block">
+        <p>Outreach pro TON jsme navrhli a od roku 2025 ho provozujeme. Známe Váš produkt, segmenty i obchodníky, pracujeme přímo ve Vašem HubSpotu a odesílací infrastruktura je připravená. Rozšíření proto nepotřebuje dlouhý rozjezd a první nové kontakty můžeme oslovit do tří týdnů od schválení.</p>
+        <p>Vyhledávání kontaktů stavíme jako opakovatelný proces, ne jako jednorázový seznam. Kombinujeme datové platformy, veřejné zdroje a AI kontrolu relevance, takže stejný postup po pilotu přeneseme na další trhy bez nového vývoje.</p>
+        <p>S vícejazyčným outreachem na zahraniční trhy včetně Velké Británie a Francie máme zkušenosti z dalších projektů. Jako HubSpot Platinum Partner zajistíme, aby každý zájemce skončil ve Vašem HubSpotu u správného obchodníka.</p>
+      </div>
+
+      <div class="sub-label">Tým na straně FORECOM</div>
+
+      <div class="scope-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Role</th>
+              <th>Kdo</th>
+              <th>Na čem pracuje</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Projektový manažer</td>
+              <td data-label="Kdo">Vojtěch Matoušek</td>
+              <td data-label="Na čem pracuje">Koordinace s TON, reporting a řízení pilotu.</td>
+            </tr>
+            <tr>
+              <td>Outreach a data</td>
+              <td data-label="Kdo">Tomáš Vrbka</td>
+              <td data-label="Na čem pracuje">Cílení, vyhledávání kontaktů, nové texty a vyhodnocení.</td>
+            </tr>
+            <tr>
+              <td>Provoz kampaní</td>
+              <td data-label="Kdo">Jakub Jamný</td>
+              <td data-label="Na čem pracuje">Smartlead, HubSpot, doručitelnost a předávání odpovědí.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="ref-tags">
+        <span class="ref-tag">GoodData.com</span>
+        <span class="ref-tag">Safetica.com</span>
+        <span class="ref-tag">Imper group</span>
+        <span class="ref-tag">RE/MAX Czech</span>
+      </div>
+
+      <hr class="divider">
+
+      <!-- SECTION 6: DALŠÍ KROKY -->
+      <div class="section-header">
+        <div class="section-number">06</div>
+        <h2>Další kroky</h2>
+        <div class="h2-sub">NEXT STEPS</div>
+      </div>
+
+      <div class="timeline">
+        <div class="tl-step">
+          <div class="tl-when">Týden 1</div>
+          <div class="tl-what">Workshop, rozbor dosavadních dat, mapování trhů a zdrojů kontaktů.</div>
+        </div>
+        <div class="tl-step">
+          <div class="tl-when">Týden <span class="nw">2-3</span></div>
+          <div class="tl-what">Vyhledání a ověření první vlny kontaktů, nové texty a jejich kontrola v TON. Volitelně start LinkedInu.</div>
+        </div>
+        <div class="tl-step">
+          <div class="tl-when">Týden <span class="nw">3-4</span></div>
+          <div class="tl-what">Spuštění první vlny na všech pilotních trzích a předávání prvních zájemců.</div>
+        </div>
+        <div class="tl-step">
+          <div class="tl-when">Měsíc <span class="nw">2-3</span></div>
+          <div class="tl-what">Další vlny kontaktů, A/B testy, reporty každých 14 dní a závěrečné vyhodnocení.</div>
+        </div>
+      </div>
+
+      <ol class="steps">
+        <li>Vyberete variantu A, B nebo C a rozhodnete o LinkedInu a personalizaci.</li>
+        <li>Upřesníme trhy a odesílatele, tedy kterou skandinávskou zemi a kteří obchodníci zájemce převezmou.</li>
+        <li>Domluvíme 90minutový úvodní workshop s Vámi a obchodníky pilotních trhů.</li>
+        <li>Do tří týdnů od schválení spustíme první vlnu a první report pošleme po 14 dnech provozu.</li>
+      </ol>
+
+      <!-- CONTACT CARD -->
+      <div class="contact-card">
+        <div class="contact-avatar">TV</div>
+        <div class="contact-info">
+          <div class="contact-name">Tomáš Vrbka</div>
+          <div class="contact-role">Head of Sales Outreach</div>
+          <div class="contact-company">FORECOM - Growth Agency</div>
+        </div>
+        <div class="contact-details">
+          <a href="mailto:tomas.vrbka@forecom-solutions.com">tomas.vrbka@forecom-solutions.com</a>
+          <a href="tel:+420734584664">M: +420 734 584 664</a>
+          <a href="https://www.forecom-solutions.com" class="contact-web">www.forecom-solutions.com</a>
+        </div>
+      </div>
+
+      <!-- FOOTER -->
+      <footer>
+        Důvěrné &nbsp;&middot;&nbsp; FORECOM &nbsp;&middot;&nbsp; 28. října 2026
+      </footer>
+
+    </div>
+  </div>
+</body>
+</html>
